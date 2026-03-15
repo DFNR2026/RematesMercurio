@@ -1,0 +1,113 @@
+╔══════════════════════════════════════════════════════════════╗
+║   LÉEME ANTES DE INICIAR — Extractor El Mercurio Digital    ║
+╚══════════════════════════════════════════════════════════════╝
+
+Este sistema extrae avisos de remates judiciales (sección 1616)
+desde la edición digital de El Mercurio, consulta la Oficina
+Judicial Virtual (OJV), descarga mandamientos y genera un
+reporte Excel con montos de deuda.
+
+════════════════════════════════════════════════════════════════
+  PASO 1: INSTALAR PYTHON
+════════════════════════════════════════════════════════════════
+
+Descargar Python 3.10+ desde https://www.python.org/downloads/
+IMPORTANTE: Marcar "Add Python to PATH" durante la instalación.
+
+Verificar en CMD:
+  python --version
+
+════════════════════════════════════════════════════════════════
+  PASO 2: INSTALAR DEPENDENCIAS
+════════════════════════════════════════════════════════════════
+
+Abrir CMD en la carpeta del proyecto y ejecutar:
+
+  pip install pymupdf pandas openpyxl playwright numpy requests rapidfuzz anthropic python-docx
+
+Después instalar el navegador de Playwright:
+
+  playwright install chromium
+
+════════════════════════════════════════════════════════════════
+  PASO 3: CONFIGURAR CREDENCIALES
+════════════════════════════════════════════════════════════════
+
+1. Copiar "config_template.py" y renombrarlo a "config.py"
+2. Abrir "config.py" con un editor de texto
+3. Completar:
+   - ANTHROPIC_API_KEY: tu API key de https://console.anthropic.com/
+   - MERCURIO_USER: RUT sin puntos ni guión (ej: "12345678")
+   - MERCURIO_PASS: contraseña de El Mercurio Digital
+
+  ⚠ NUNCA subir config.py a GitHub — contiene claves privadas.
+    El .gitignore ya lo excluye automáticamente.
+
+════════════════════════════════════════════════════════════════
+  PASO 4: BASE DE DATOS DE TRIBUNALES
+════════════════════════════════════════════════════════════════
+
+El archivo "causas_ojv.xlsx" contiene la hoja REFERENCIA con los
+233 tribunales oficiales del país.
+
+1. Renombrar "causas_ojv_template.xlsx" a "causas_ojv.xlsx"
+   (el template viene con REFERENCIA completa y CAUSAS vacía)
+2. Sin este archivo, el sistema no puede mapear tribunales a
+   cortes de apelaciones.
+
+════════════════════════════════════════════════════════════════
+  CÓMO USAR
+════════════════════════════════════════════════════════════════
+
+Opción 1 — Doble click en "ejecutar_mercurio.bat"
+  Extrae la edición de hoy automáticamente.
+
+Opción 2 — Desde CMD con fecha específica:
+  python main.py --fecha 2026-03-08
+
+El sistema:
+  1. Abre El Mercurio Digital y navega a Clasificados (sección F)
+  2. Captura las páginas de la sección 1616 (Remates de propiedades)
+  3. Extrae avisos usando Claude API (texto del visor PDF)
+  4. Filtra por Región Metropolitana y deduplica
+  5. Consulta OJV y descarga mandamientos (~20 min)
+  6. Extrae montos de deuda de los PDFs
+  7. Genera reporte Excel en "Informe final\"
+
+════════════════════════════════════════════════════════════════
+  CREDENCIALES Y LOGINS
+════════════════════════════════════════════════════════════════
+
+  Anthropic API key        → config.py
+  El Mercurio Digital      → config.py (RUT + contraseña)
+  OJV (Poder Judicial)     → NO requiere login, es público
+
+════════════════════════════════════════════════════════════════
+  SOLUCIÓN DE PROBLEMAS
+════════════════════════════════════════════════════════════════
+
+  "python no se reconoce como comando"
+  → Reinstalar Python marcando "Add Python to PATH"
+
+  "No module named 'anthropic'"
+  → Ejecutar: pip install anthropic
+
+  "Playwright: browser not found"
+  → Ejecutar: playwright install chromium
+
+  "REFERENCIA cargada: 0 tribunales"
+  → Falta causas_ojv.xlsx o la hoja REFERENCIA está vacía
+
+  "Canvas.width=0 tras timeout"
+  → El visor PDF no cargó. Verificar conexión y sesión activa.
+
+════════════════════════════════════════════════════════════════
+  NOTAS
+════════════════════════════════════════════════════════════════
+
+- El sistema funciona en cualquier carpeta y disco (C:, D:, etc.)
+- Cada ejecución guarda un log detallado en logs\
+- El historial de causas procesadas se acumula en causas_ojv.xlsx
+  para no reprocesar ediciones anteriores
+- Costo estimado por ejecución: ~$1-2 USD en API de Claude
+  (usa texto en vez de Vision, mucho más barato)

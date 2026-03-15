@@ -1,0 +1,62 @@
+# Credenciales y configuración local
+config.py
+Scraper_Mercurio.json
+
+# Datos de trabajo (cambian cada ejecución)
+causas_ojv.xlsx
+causas_antes.json
+causas_despues.json
+tasacion_cache.db
+
+# Carpetas de datos (contenido excluido, .gitkeep preservado)
+Capturas/*
+!Capturas/.gitkeep
+Procesadas/*
+!Procesadas/.gitkeep
+Descargas/*
+!Descargas/.gitkeep
+Informe final/*
+!Informe final/.gitkeep
+logs/*
+!logs/.gitkeep
+Diarios/*
+!Diarios/.gitkeep
+Diarios test/
+htmls de PDJ/
+la API/
+
+# Reportes generados
+Reporte_*.xlsx
+TEST_*.docx
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Playwright
+.playwright_profile/
+playwright_profile/
+
+# IDE
+.vscode/
+.idea/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de referencia/debug
+A.html
+F.html
+paghd.html
+pagina_mercurio_HD.png
+sandbox_*.png
+
+# Backups
+backup_*/
+
+# Tessdata
+.tessdata/
