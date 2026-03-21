@@ -96,7 +96,7 @@ try:
     from modulo1_parser import parsear_diarios
 except ImportError:
     parsear_diarios = None
-from modulo1_mercurio     import extraer_mercurio
+from modulo1_mercurio     import extraer_mercurio, EdicionNoDisponible
 from modulo2_ojv          import procesar_causas_ojv
 from modulo3_extractor    import extraer_montos
 from modulo5_reporte      import generar_reporte, actualizar_historial
@@ -265,7 +265,11 @@ Ejemplos:
                 print(f"  [M1] Fecha edición digital: {args.fecha}")
                 print(f"  [M1] Log detallado: logs/mercurio_*.log")
                 t = time.time()
-                causas = extraer_mercurio(fecha=args.fecha)
+                try:
+                    causas = extraer_mercurio(fecha=args.fecha)
+                except EdicionNoDisponible:
+                    print(f"  [M1] Edición del {args.fecha} no disponible.")
+                    sys.exit(2)
                 _ok(1, f"{len(causas)} causas nuevas (Mercurio Digital)", time.time() - t)
             else:
                 if parsear_diarios is None:
@@ -353,6 +357,20 @@ Ejemplos:
         causas = extraer_montos(causas)
         monts = sum(1 for c in causas if c.get("monto_deuda_clp"))
         _ok(3, f"{monts}/{len(causas)} montos extraídos", time.time() - t)
+
+        # ── Filtro post-M3: monto máximo $300M ────────────────
+        _MONTO_MAX = 300_000_000
+        pre_filtro = len(causas)
+        causas = [
+            c for c in causas
+            if not c.get("monto_deuda_clp") or c["monto_deuda_clp"] <= _MONTO_MAX
+        ]
+        desc_monto = pre_filtro - len(causas)
+        if desc_monto:
+            print(f"  [M3] Filtro monto máximo: {pre_filtro} → {len(causas)} "
+                  f"(-{desc_monto} descartadas por deuda > $300M)")
+            log.info("Filtro monto máximo: %d → %d (-%d descartadas por deuda > $300M)",
+                     pre_filtro, len(causas), desc_monto)
 
         if args.hasta < 4:
             _resumen_final(causas, time.time() - t_total, ruta_reporte)

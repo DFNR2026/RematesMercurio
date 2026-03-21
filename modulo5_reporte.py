@@ -73,20 +73,42 @@ _ORDEN_CORTES_NORTE_SUR = [
 _IDX_CORTE = {corte: i for i, corte in enumerate(_ORDEN_CORTES_NORTE_SUR)}
 
 
+def _extraer_ordinal_tribunal(nombre: str) -> int:
+    """Extrae el número ordinal de un nombre de tribunal para ordenar."""
+    import re
+    m = re.search(r"(\d+)\s*[°ºª]", nombre)
+    if m:
+        return int(m.group(1))
+    m = re.search(r"^(\d+)\s+", nombre)
+    if m:
+        return int(m.group(1))
+    return 9999  # tribunales sin ordinal van al final
+
+
+# Prioridad de cortes para ordenamiento del reporte
+_ORDEN_CORTES_REPORTE = {
+    "C.A. de Santiago":   0,
+    "C.A. de San Miguel": 1,
+}
+
+
 def _ordenar_regiones(causas: list[dict]) -> list[dict]:
     """
-    Ordena causas por monto_deuda_clp ascendente (menor deuda primero).
-    Causas con deuda nula o 0 van al final, ordenadas por corte geográfica.
+    Ordena causas por:
+      1. Corte: C.A. de Santiago primero, luego C.A. de San Miguel, luego el resto
+      2. Tribunal: orden ascendente por ordinal numérico (1°, 2°, …)
     """
-    n = len(_ORDEN_CORTES_NORTE_SUR)
+    n_cortes_norte = len(_ORDEN_CORTES_NORTE_SUR)
 
     def key(c):
-        deuda = c.get("monto_deuda_clp") or 0
-        if deuda > 0:
-            return (0, deuda, 0)
-        # Sin deuda: al fondo, ordenadas geográficamente norte→sur
-        idx_corte = _IDX_CORTE.get(c.get("corte", ""), n)
-        return (1, 0, idx_corte)
+        corte = c.get("corte", "")
+        # Prioridad de corte: Santiago=0, San Miguel=1, regiones por geografía (offset +2)
+        idx_corte = _ORDEN_CORTES_REPORTE.get(corte)
+        if idx_corte is None:
+            idx_corte = _IDX_CORTE.get(corte, n_cortes_norte) + 2
+        tribunal = c.get("tribunal", "")
+        ordinal = _extraer_ordinal_tribunal(tribunal)
+        return (idx_corte, ordinal, tribunal)
 
     return sorted(causas, key=key)
 

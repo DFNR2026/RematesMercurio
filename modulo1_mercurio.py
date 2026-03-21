@@ -2,7 +2,7 @@
 modulo1_mercurio.py  —  Extractor El Mercurio Digital
 ======================================================
 Scraper de avisos de remates judiciales de propiedades (sección 1616) desde
-El Mercurio Digital, usando Playwright + Claude Vision API.
+El Mercurio Digital, usando Playwright + Claude Text API.
 
 CONTRATO DE DATOS  (interfaz con M2/M3/M5 — NO modificar)
 ----------------------------------------------------------
@@ -18,16 +18,18 @@ Versión: 1.0  (2026-03-09)
 from __future__ import annotations
 
 import asyncio
-import base64
 import json
 import logging
 import os
 import re
-import shutil
 import sys
 import time
 from dataclasses import dataclass, field
 from datetime import date, datetime
+
+
+class EdicionNoDisponible(Exception):
+    """La edición solicitada no está publicada en El Mercurio Digital."""
 from pathlib import Path
 from typing import Any
 
@@ -45,15 +47,13 @@ try:
         MERCURIO_USER,
         MERCURIO_PASS,
         MERCURIO_BASE_URL,
-        CAPTURAS_DIR,
-        PROCESADAS_DIR,
         CAUSAS_XLSX,          # ruta a causas_ojv.xlsx
     )
 except ImportError as exc:
     raise SystemExit(
         "ERROR: config.py no encontrado o le faltan constantes requeridas.\n"
         "Asegúrate de definir: ANTHROPIC_API_KEY, MERCURIO_USER, MERCURIO_PASS, "
-        "MERCURIO_BASE_URL, CAPTURAS_DIR, PROCESADAS_DIR, CAUSAS_XLSX\n"
+        "MERCURIO_BASE_URL, CAUSAS_XLSX\n"
         f"Detalle: {exc}"
     ) from exc
 
@@ -112,24 +112,28 @@ class _Stats:
     paginas_con_1616: int = 0
     paginas_descartadas: int = 0
     pagina_parada: str = ""
-    jpgs_capturados: int = 0
     avisos_vision: int = 0
     avisos_post_filtro: int = 0
     causas_nuevas: int = 0
+    seccion_utilizada: str = "F"
 
 
 def _log_resumen(stats: _Stats, *, dry_run: bool = False) -> None:
     """Imprime el bloque de resumen al final de la ejecución."""
     dr = " (dry run)" if dry_run else ""
 
+    sec_label = stats.seccion_utilizada
+    if sec_label == "B":
+        sec_label = "B (fallback)"
+
     log.info("=" * 60)
     log.info("  RESUMEN EXTRACCIÓN MERCURIO DIGITAL%s", dr)
     log.info("=" * 60)
+    log.info("  Sección utilizada       : %s", sec_label)
     log.info("  Páginas revisadas       : %d", stats.paginas_revisadas)
     log.info("  Descartadas (sin 1616)  : %d", stats.paginas_descartadas)
     log.info("  Conservadas (con 1616)  : %d", stats.paginas_con_1616)
     log.info("  Página de parada        : %s", stats.pagina_parada or "N/A")
-    log.info("  JPGs capturados         : %d", stats.jpgs_capturados)
     if dry_run:
         log.info("  Avisos Vision           : — (dry run)")
         log.info("  Post-filtro             : — (dry run)")
@@ -150,6 +154,7 @@ _CANVAS_HD_UMBRAL: int = 1800            # canvas.width > este valor → HD acti
 _SECCIONES_MENORES = {"1611", "1612", "1613", "1614", "1615"}
 _CORTES_RM = {"C.A. de Santiago", "C.A. de San Miguel"}
 _BANCOS_ESTADO = {"banco estado", "banco del estado"}
+_COMUNAS_EXCLUIDAS = {"estación central", "estacion central"}
 
 # ---------------------------------------------------------------------------
 # Prompt para Claude Vision API
@@ -526,6 +531,22 @@ async def _cerrar_modales(page: Page) -> None:
             pass
 
 
+async def _verificar_fecha_edicion(page: Page, fecha_pedida: date) -> bool:
+    """
+    Compara la variable JS fechaEdicion de la página con la fecha solicitada.
+    Retorna True si coinciden, False si no.
+    """
+    try:
+        fecha_real = await page.evaluate("fechaEdicion")  # "2026/03/15"
+    except Exception:
+        fecha_real = None
+    fecha_pedida_str = f"{fecha_pedida.year}/{fecha_pedida.month:02d}/{fecha_pedida.day:02d}"
+    log.info("Fecha solicitada: %s, fecha edición cargada: %s", fecha_pedida_str, fecha_real)
+    if fecha_real and fecha_real.strip() == fecha_pedida_str:
+        return True
+    return False
+
+
 async def _navegar_a_sección_f(page: Page, fecha: date) -> None:
     """Desde cuerpo A, navega a la sección F (Clasificados)."""
     log.info("Navegando a sección F (Clasificados)…")
@@ -549,15 +570,25 @@ async def _navegar_a_sección_f(page: Page, fecha: date) -> None:
     log.debug("Sección F cargada: %s", page.url)
 
 
-async def _obtener_ids_paginas_f(page: Page, fecha: date) -> list[str]:
+async def _navegar_directo_a_seccion(page: Page, fecha: date, seccion: str) -> None:
+    """Navega directamente a una sección por URL (sin usar botón del header)."""
+    url = f"{MERCURIO_BASE_URL}/{fecha.year}/{fecha.month:02d}/{fecha.day:02d}/{seccion}"
+    log.info("Navegando directo a sección %s: %s", seccion, url)
+    await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+    await page.wait_for_timeout(2000)
+    await _cerrar_modales(page)
+
+
+async def _obtener_ids_paginas(page: Page, seccion: str) -> list[str]:
     """
-    Extrae la lista ordenada de IDs de página de la sección F desde el DOM.
+    Extrae la lista ordenada de IDs de página de la sección indicada desde el DOM.
+    seccion: 'F' o 'B' (o cualquier letra de cuerpo).
     Retorna una lista de strings con los IDs en orden de página.
     """
     ids = await page.evaluate("""
-    () => {
-        // Buscar todos los enlaces con onclick="gotoPage('F', 'ID', NUM)"
-        const pattern = /gotoPage\\s*\\(\\s*'F'\\s*,\\s*'([^']+)'\\s*,\\s*(\\d+)\\s*\\)/;
+    (sec) => {
+        // Buscar todos los enlaces con onclick="gotoPage('SEC', 'ID', NUM)"
+        const pattern = new RegExp("gotoPage\\\\s*\\\\(\\\\s*'" + sec + "'\\\\s*,\\\\s*'([^']+)'\\\\s*,\\\\s*(\\\\d+)\\\\s*\\\\)");
         const seen = new Map();
         const allElems = document.querySelectorAll('[onclick*="gotoPage"]');
         for (const el of allElems) {
@@ -578,18 +609,18 @@ async def _obtener_ids_paginas_f(page: Page, fecha: date) -> list[str]:
                          .map(x => x.id);
         return arr;
     }
-    """)
-    log.debug("IDs de páginas F encontrados: %s", ids)
+    """, seccion)
+    log.debug("IDs de páginas %s encontrados: %s", seccion, ids)
     return ids or []
 
 
-async def _navegar_a_pagina(page: Page, fecha: date, page_id: str) -> None:
-    """Navega directamente al visor de una página específica del cuerpo F."""
+async def _navegar_a_pagina(page: Page, fecha: date, page_id: str, seccion: str = "F") -> None:
+    """Navega directamente al visor de una página específica del cuerpo indicado."""
     url = (
         f"{MERCURIO_BASE_URL}/{fecha.year}/{fecha.month:02d}/{fecha.day:02d}"
-        f"/F/{page_id}#zoom=page-width"
+        f"/{seccion}/{page_id}#zoom=page-width"
     )
-    log.debug("Navegando a página F/%s  →  %s", page_id, url)
+    log.debug("Navegando a página %s/%s  →  %s", seccion, page_id, url)
     await page.goto(url, wait_until="domcontentloaded", timeout=20_000)
     await page.wait_for_timeout(2000)
     await _cerrar_modales(page)
@@ -670,9 +701,8 @@ async def _activar_hd(page: Page) -> None:
     """
     Activa el modo HD del visor:
     1. Espera a que canvas base renderice (width > 0)
-    2. Toma screenshot de diagnóstico
-    3. Clickea botón HD
-    4. Si canvas sigue en 0 tras 5s, reintenta click
+    2. Clickea botón HD
+    3. Si canvas sigue en 0 tras 5s, reintenta click
     """
     # 1. Esperar canvas base
     log.debug("Esperando a que canvas base renderice (width > 0)…")
@@ -680,20 +710,12 @@ async def _activar_hd(page: Page) -> None:
     if not canvas_ok:
         log.warning("Canvas base no renderizó; intentando HD de todas formas.")
 
-    # 2. Screenshot de diagnóstico
-    diag_path = os.path.join(_LOGS_DIR, "pre_hd_click.png")
-    try:
-        await page.screenshot(path=diag_path)
-        log.info("Screenshot pre-HD guardado: %s", diag_path)
-    except Exception as e:
-        log.warning("No se pudo tomar screenshot pre-HD: %s", e)
-
-    # 3. Primer click HD
+    # 2. Primer click HD
     clicked = await _click_hd_btn(page)
     if not clicked:
         return
 
-    # 4. Verificar si canvas reacciona; si sigue en 0, reintentar
+    # 3. Verificar si canvas reacciona; si sigue en 0, reintentar
     await page.wait_for_timeout(5000)
     try:
         ancho = await page.evaluate("""
@@ -758,7 +780,7 @@ async def _esperar_canvas_hd(page: Page, timeout_ms: int = 20_000) -> bool:
         """)
         log.warning(
             "Timeout esperando HD (canvas.width=%d, umbral=%d). "
-            "Capturando en resolución disponible.",
+            "Continuando con resolución disponible.",
             ancho_final, _CANVAS_HD_UMBRAL,
         )
     except Exception:
@@ -766,93 +788,8 @@ async def _esperar_canvas_hd(page: Page, timeout_ms: int = 20_000) -> bool:
     return False
 
 
-async def _capturar_canvas(page: Page) -> bytes | None:
-    """
-    Captura el canvas del visor como JPEG (calidad 0.80).
-    Si el resultado base64 supera 5MB, redimensiona al 80% y reintenta.
-    Retorna bytes del JPG, o None si falla.
-    """
-    _MAX_B64 = 5 * 1024 * 1024  # 5 MB límite Vision API
-
-    try:
-        # Primer intento: calidad 0.80
-        data_url = await page.evaluate("""
-        () => {
-            const canvas = document.querySelector('canvas#page1') ||
-                           document.querySelector('#viewer canvas');
-            if (!canvas) return null;
-            return canvas.toDataURL('image/jpeg', 0.80);
-        }
-        """)
-        if not data_url or not data_url.startswith("data:image"):
-            return None
-
-        _, encoded = data_url.split(",", 1)
-        b64_size = len(encoded)
-        log.debug(
-            "Imagen base64: %d bytes (%.1f MB), límite 5MB",
-            b64_size, b64_size / 1024 / 1024,
-        )
-
-        if b64_size <= _MAX_B64:
-            return base64.b64decode(encoded)
-
-        # Fallback: redimensionar canvas al 80% y exportar
-        log.warning(
-            "Imagen supera 5MB (%.1f MB), redimensionando canvas al 80%%…",
-            b64_size / 1024 / 1024,
-        )
-        data_url = await page.evaluate("""
-        () => {
-            const canvas = document.querySelector('canvas#page1') ||
-                           document.querySelector('#viewer canvas');
-            if (!canvas) return null;
-            const scale = 0.80;
-            const w = Math.round(canvas.width * scale);
-            const h = Math.round(canvas.height * scale);
-            const tmp = document.createElement('canvas');
-            tmp.width = w;
-            tmp.height = h;
-            const ctx = tmp.getContext('2d');
-            ctx.drawImage(canvas, 0, 0, w, h);
-            return tmp.toDataURL('image/jpeg', 0.80);
-        }
-        """)
-        if not data_url or not data_url.startswith("data:image"):
-            return None
-        _, encoded = data_url.split(",", 1)
-        log.debug(
-            "Imagen redimensionada base64: %d bytes (%.1f MB)",
-            len(encoded), len(encoded) / 1024 / 1024,
-        )
-        return base64.b64decode(encoded)
-    except Exception as e:
-        log.warning("Error capturando canvas: %s", e)
-        return None
-
-
-def _guardar_captura(imagen_bytes: bytes, fecha: date, numero: int) -> Path:
-    """Guarda la imagen en Capturas/ con el nombre estándar."""
-    directorio = Path(CAPTURAS_DIR)
-    directorio.mkdir(parents=True, exist_ok=True)
-    nombre = f"mercurio_{fecha.isoformat()}_p{numero}.jpg"
-    ruta = directorio / nombre
-    ruta.write_bytes(imagen_bytes)
-    log.info("Imagen guardada: %s (%d KB)", ruta, len(imagen_bytes) // 1024)
-    return ruta
-
-
-def _mover_a_procesadas(ruta_captura: Path) -> None:
-    """Mueve una imagen de Capturas/ a Procesadas/."""
-    directorio = Path(PROCESADAS_DIR)
-    directorio.mkdir(parents=True, exist_ok=True)
-    destino = directorio / ruta_captura.name
-    shutil.move(str(ruta_captura), str(destino))
-    log.debug("Imagen movida a Procesadas/: %s", destino)
-
-
 # ===========================================================================
-# VISION API
+# TEXT API (Claude)
 # ===========================================================================
 
 def _enviar_texto_a_claude(page_id: str, texto: str, reintentos: int = 1) -> list[dict[str, Any]]:
@@ -877,7 +814,7 @@ def _enviar_texto_a_claude(page_id: str, texto: str, reintentos: int = 1) -> lis
             )
             response = client.messages.create(
                 model="claude-sonnet-4-6",
-                max_tokens=4096,
+                max_tokens=16384,
                 messages=[{
                     "role": "user",
                     "content": contenido,
@@ -999,7 +936,7 @@ def _filtrar_avisos(
     Loggea conteo antes/después por cada filtro.
     """
     total_entrada = len(avisos)
-    desc_rm = desc_banco = desc_anio = desc_hist = desc_dup = 0
+    desc_rm = desc_banco = desc_comuna = desc_anio = desc_hist = desc_dup = 0
 
     resultado = []
     for aviso in avisos:
@@ -1021,7 +958,14 @@ def _filtrar_avisos(
             log.debug("  Descartado (Banco Estado): ROL %s", rol)
             continue
 
-        # Filtro 3: Año >= 2018
+        # Filtro 3: Estación Central
+        comuna_lower = (aviso.get("comuna") or "").lower().strip()
+        if comuna_lower in _COMUNAS_EXCLUIDAS:
+            desc_comuna += 1
+            log.debug("  Descartado (Estación Central): ROL %s", rol)
+            continue
+
+        # Filtro 4: Año >= 2018  (renumerado)
         try:
             if int(año) < 2018:
                 desc_anio += 1
@@ -1032,13 +976,13 @@ def _filtrar_avisos(
             log.debug("  Año no parseable, descartando: %s", año)
             continue
 
-        # Filtro 4: Dedup contra historial CAUSAS
+        # Filtro 5: Dedup contra historial CAUSAS
         if key in historico:
             desc_hist += 1
             log.debug("  Descartado (ya en historial): ROL %s-%s", rol, año)
             continue
 
-        # Filtro 5: Dedup entre páginas de la misma ejecución
+        # Filtro 6: Dedup entre páginas de la misma ejecución
         if key in vistos_en_ejecucion:
             desc_dup += 1
             log.debug("  Descartado (duplicado en ejecución): ROL %s-%s", rol, año)
@@ -1048,19 +992,22 @@ def _filtrar_avisos(
         resultado.append(aviso)
 
     # Resumen de filtros
-    log.info("Filtro Solo RM        : %d → %d (-%d)",
+    log.info("Filtro Solo RM         : %d → %d (-%d)",
              total_entrada, total_entrada - desc_rm, desc_rm)
     post_rm = total_entrada - desc_rm
-    log.info("Filtro Banco Estado   : %d → %d (-%d)",
+    log.info("Filtro Banco Estado    : %d → %d (-%d)",
              post_rm, post_rm - desc_banco, desc_banco)
     post_banco = post_rm - desc_banco
-    log.info("Filtro Año >= 2018    : %d → %d (-%d)",
-             post_banco, post_banco - desc_anio, desc_anio)
-    post_anio = post_banco - desc_anio
+    log.info("Filtro Estación Central: %d → %d (-%d)",
+             post_banco, post_banco - desc_comuna, desc_comuna)
+    post_comuna = post_banco - desc_comuna
+    log.info("Filtro Año >= 2018     : %d → %d (-%d)",
+             post_comuna, post_comuna - desc_anio, desc_anio)
+    post_anio = post_comuna - desc_anio
     log.info("Filtro Historial CAUSAS: %d → %d (-%d)",
              post_anio, post_anio - desc_hist, desc_hist)
     post_hist = post_anio - desc_hist
-    log.info("Filtro Dup ejecución  : %d → %d (-%d)",
+    log.info("Filtro Dup ejecución   : %d → %d (-%d)",
              post_hist, post_hist - desc_dup, desc_dup)
     log.info("Resultado final filtrado: %d de %d avisos pasan", len(resultado), total_entrada)
 
@@ -1075,14 +1022,16 @@ async def _extraer_mercurio_async(
     fecha: date, *, dry_run: bool = False
 ) -> list[dict[str, Any]]:
     """
-    Núcleo async del extractor. Abre Playwright, navega el diario, captura
-    páginas 1616 y las envía a Vision API.
+    Núcleo async del extractor. Abre Playwright, navega el diario, lee el
+    textLayer de las páginas 1616 y las envía a Claude Text API.
 
     Si dry_run=True, ejecuta solo la navegación (login, sección F, detección de
-    páginas 1616 y captura de imágenes) pero NO envía nada a Vision API.
+    páginas 1616 y lectura del textLayer) pero NO envía nada a Claude API.
     """
     log_file = _setup_logging()
     st = _Stats()
+
+    seccion_activa = "F"  # por defecto; puede cambiar a "B" si F no tiene la fecha
 
     log.info("=== Inicio extracción El Mercurio Digital ===")
     log.info("Fecha edición: %s | dry_run: %s", fecha.isoformat(), dry_run)
@@ -1092,11 +1041,11 @@ async def _extraer_mercurio_async(
     log.info("Histórico CAUSAS cargado: %d entradas", len(historico))
     vistos_en_ejecucion: set[str] = set()
     todas_las_causas: list[dict[str, Any]] = []
-    capturas_realizadas: list[Path] = []
-    paginas_texto: list[tuple[str, str, Path | None]] = []  # [(page_id, texto_completo, ruta_jpg)]
+    paginas_texto: list[tuple[str, str]] = []  # [(page_id, texto_completo)]
 
     async with async_playwright() as pw:
-        profile_dir = str(Path(CAPTURAS_DIR).parent / "playwright_profile")
+        _base_dir = Path(os.path.dirname(os.path.abspath(__file__)))
+        profile_dir = str(_base_dir / "playwright_profile")
         log.info("Lanzando Chromium headless (perfil: %s)", profile_dir)
         context = await pw.chromium.launch_persistent_context(
             user_data_dir=profile_dir,
@@ -1132,36 +1081,66 @@ async def _extraer_mercurio_async(
             await _cerrar_modales(page)
 
             # ---------------------------------------------------------------
-            # Paso 3: Navegar a sección F
+            # Paso 3: Navegar a sección F (con fallback a B)
             # ---------------------------------------------------------------
             log.info("[Paso 3/6] Navegando de cuerpo A -> sección F (Clasificados)")
             await _navegar_a_sección_f(page, fecha)
             log.info("[Paso 3/6] Sección F cargada OK: %s", page.url)
 
+            # Verificar que la fecha de edición coincide con la solicitada
+            fecha_ok = await _verificar_fecha_edicion(page, fecha)
+            if not fecha_ok:
+                log.warning(
+                    "Sección F no actualizada (no coincide con %s). "
+                    "Intentando sección B (Economía y Negocios)…",
+                    fecha.isoformat(),
+                )
+                await _navegar_directo_a_seccion(page, fecha, "B")
+                fecha_ok_b = await _verificar_fecha_edicion(page, fecha)
+                if not fecha_ok_b:
+                    log.error(
+                        "Ni sección F ni B tienen la edición del %s. "
+                        "El diario probablemente no ha sido publicado aún.",
+                        fecha.isoformat(),
+                    )
+                    # Línea sin tilde para detección desde cronometro_mercurio.bat
+                    log.error(
+                        "Ni seccion F ni B no tienen la edicion del %s.",
+                        fecha.isoformat(),
+                    )
+                    _log_resumen(st, dry_run=dry_run)
+                    raise EdicionNoDisponible(fecha.isoformat())
+                seccion_activa = "B"
+                log.info("Sección B tiene la fecha correcta. Continuando con sección B.")
+            else:
+                log.info("Sección F tiene la fecha correcta.")
+
+            st.seccion_utilizada = seccion_activa
+
             # ---------------------------------------------------------------
             # Paso 4: Obtener lista de IDs de páginas
             # ---------------------------------------------------------------
-            log.info("[Paso 4/6] Obteniendo mapa de páginas de sección F")
-            ids_paginas = await _obtener_ids_paginas_f(page, fecha)
+            log.info("[Paso 4/6] Obteniendo mapa de páginas de sección %s", seccion_activa)
+            ids_paginas = await _obtener_ids_paginas(page, seccion_activa)
             if len(ids_paginas) < 2:
                 log.error(
-                    "[Paso 4/6] Insuficientes IDs de páginas F (encontrados: %d). "
+                    "[Paso 4/6] Insuficientes IDs de páginas %s (encontrados: %d). "
                     "Posible error de carga o edición no disponible. Abortando.",
-                    len(ids_paginas),
+                    seccion_activa, len(ids_paginas),
                 )
                 _log_resumen(st, dry_run=dry_run)
                 return []
 
-            log.info("[Paso 4/6] Páginas F encontradas: %d — inicio en penúltima (índice %d)",
-                     len(ids_paginas), len(ids_paginas) - 2)
+            log.info("[Paso 4/6] Páginas %s encontradas: %d — inicio en penúltima (índice %d)",
+                     seccion_activa, len(ids_paginas), len(ids_paginas) - 2)
             indice_inicio = len(ids_paginas) - 2
 
             # ---------------------------------------------------------------
             # Paso 5: Navegar a penúltima página y activar HD (una sola vez)
             # ---------------------------------------------------------------
             penultima_id = ids_paginas[indice_inicio]
-            log.info("[Paso 5/6] Navegando a penúltima página %s para activar HD", penultima_id)
-            await _navegar_a_pagina(page, fecha, penultima_id)
+            log.info("[Paso 5/6] Navegando a penúltima página %s/%s para activar HD", seccion_activa, penultima_id)
+            await _navegar_a_pagina(page, fecha, penultima_id, seccion_activa)
 
             log.info("Activando modo HD (una sola vez para toda la sesión)…")
             await _activar_hd(page)
@@ -1176,7 +1155,6 @@ async def _extraer_mercurio_async(
             # Paso 6: Loop retroceder desde penúltima (tope 15 páginas)
             # ---------------------------------------------------------------
             log.info("[Paso 6/6] Iniciando recorrido hacia atrás (máx %d páginas)", _MAX_PAGINAS)
-            numero_captura = 1
             indice_actual = indice_inicio
 
             while st.paginas_revisadas < _MAX_PAGINAS and indice_actual >= 0:
@@ -1190,20 +1168,14 @@ async def _extraer_mercurio_async(
                 # Navegar (salvo la primera iteración, ya estamos en penúltima)
                 if indice_actual != indice_inicio:
                     try:
-                        await _navegar_a_pagina(page, fecha, page_id)
+                        await _navegar_a_pagina(page, fecha, page_id, seccion_activa)
                     except Exception as e:
                         log.warning("Error navegando a página %s: %s — saltando", page_id, e)
                         indice_actual -= 1
                         continue
 
-                # Buffer de 2s antes de capturar (HD ya está activo)
+                # Buffer de 2s para que el textLayer HD se estabilice
                 await page.wait_for_timeout(2000)
-
-                # Capturar canvas como JPG
-                imagen_bytes = await _capturar_canvas(page)
-                ruta_captura_tmp: Path | None = None
-                if imagen_bytes:
-                    ruta_captura_tmp = _guardar_captura(imagen_bytes, fecha, numero_captura)
 
                 # Leer textLayer completo
                 texto_layer = await _leer_texto_layer(page)
@@ -1221,15 +1193,11 @@ async def _extraer_mercurio_async(
 
                 # Decisión
                 if not contiene_1616:
-                    # No contiene 1616 → borrar JPG, retroceder, continuar
                     log.info(
                         "Pág %s: contiene 1616=No, sección menor=N/A → acción: descartar",
                         page_id,
                     )
                     st.paginas_descartadas += 1
-                    if ruta_captura_tmp and ruta_captura_tmp.exists():
-                        ruta_captura_tmp.unlink()
-                        log.debug("JPG descartado: %s", ruta_captura_tmp.name)
                 elif contiene_1616 and not tiene_menor:
                     # Contiene 1616 sin sección menor → conservar, continuar
                     log.info(
@@ -1237,16 +1205,7 @@ async def _extraer_mercurio_async(
                         page_id,
                     )
                     st.paginas_con_1616 += 1
-                    if ruta_captura_tmp:
-                        capturas_realizadas.append(ruta_captura_tmp)
-                        st.jpgs_capturados += 1
-                        log.info(
-                            "Captura #%d guardada: %s (%d KB)",
-                            numero_captura, ruta_captura_tmp.name,
-                            len(imagen_bytes) // 1024 if imagen_bytes else 0,
-                        )
-                        numero_captura += 1
-                    paginas_texto.append((page_id, texto_layer, ruta_captura_tmp))
+                    paginas_texto.append((page_id, texto_layer))
                 else:
                     # Contiene 1616 Y sección menor → conservar y PARAR
                     log.info(
@@ -1255,16 +1214,7 @@ async def _extraer_mercurio_async(
                     )
                     st.paginas_con_1616 += 1
                     st.pagina_parada = page_id
-                    if ruta_captura_tmp:
-                        capturas_realizadas.append(ruta_captura_tmp)
-                        st.jpgs_capturados += 1
-                        log.info(
-                            "Captura #%d guardada: %s (%d KB)",
-                            numero_captura, ruta_captura_tmp.name,
-                            len(imagen_bytes) // 1024 if imagen_bytes else 0,
-                        )
-                        numero_captura += 1
-                    paginas_texto.append((page_id, texto_layer, ruta_captura_tmp))
+                    paginas_texto.append((page_id, texto_layer))
                     break  # PARAR
 
                 indice_actual -= 1
@@ -1275,7 +1225,7 @@ async def _extraer_mercurio_async(
             elif st.paginas_revisadas >= _MAX_PAGINAS:
                 log.warning("Tope de seguridad alcanzado: %d páginas revisadas", _MAX_PAGINAS)
             elif indice_actual < 0:
-                log.warning("Se llegó al inicio de la sección F sin encontrar inicio de 1616")
+                log.warning("Se llegó al inicio de la sección %s sin encontrar inicio de 1616", seccion_activa)
 
         except Exception as e:
             log.error("Error crítico durante la navegación: %s", e, exc_info=True)
@@ -1284,15 +1234,12 @@ async def _extraer_mercurio_async(
             log.info("Navegador cerrado")
 
     # -----------------------------------------------------------------------
-    # Paso 7 & 8: Procesar capturas con Vision API (saltar si dry_run)
+    # Paso 7 & 8: Enviar texto a Claude API y filtrar (saltar si dry_run)
     # -----------------------------------------------------------------------
     if dry_run:
         log.info("[Paso 7/8] OMITIDO (dry run) — Claude API no invocada")
         log.info("[Paso 8/8] OMITIDO (dry run) — Filtrado y dedup no aplicados")
-        log.info(
-            "DRY RUN completado: %d capturas guardadas en %s",
-            len(capturas_realizadas), CAPTURAS_DIR,
-        )
+        log.info("DRY RUN completado: %d páginas con textLayer recolectado", len(paginas_texto))
         _log_resumen(st, dry_run=True)
         return []
 
@@ -1300,7 +1247,7 @@ async def _extraer_mercurio_async(
 
     avisos_normalizados_total: list[dict[str, Any]] = []
 
-    for i, (page_id, texto, ruta_jpg) in enumerate(paginas_texto, 1):
+    for i, (page_id, texto) in enumerate(paginas_texto, 1):
         log.info("Procesando página %d/%d: %s", i, len(paginas_texto), page_id)
         avisos_raw = _enviar_texto_a_claude(page_id, texto)
         st.avisos_vision += len(avisos_raw)
@@ -1313,11 +1260,6 @@ async def _extraer_mercurio_async(
             aviso_normalizado = _normalizar_aviso(raw)
             if aviso_normalizado is not None:
                 avisos_normalizados_total.append(aviso_normalizado)
-
-        # Mover JPG a Procesadas/ (respaldo)
-        if ruta_jpg and ruta_jpg.exists():
-            _mover_a_procesadas(ruta_jpg)
-            log.info("Imagen movida a Procesadas/: %s", ruta_jpg.name)
 
     log.info("[Paso 8/8] Aplicando filtros a %d avisos normalizados", len(avisos_normalizados_total))
     todas_las_causas = _filtrar_avisos(avisos_normalizados_total, historico, vistos_en_ejecucion)
@@ -1350,7 +1292,7 @@ def extraer_mercurio(
         - date object
         - str en formato "YYYY-MM-DD"
     dry_run : bool
-        Si True, ejecuta solo navegación y captura (sin Vision API).
+        Si True, ejecuta solo navegación y lectura de textLayer (sin Claude API).
 
     Retorna
     -------
@@ -1388,7 +1330,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Solo navegación y captura de imágenes (sin llamar a Vision API).",
+        help="Solo navegación y lectura de textLayer (sin llamar a Claude API).",
     )
     args = parser.parse_args()
 
