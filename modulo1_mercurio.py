@@ -1197,7 +1197,7 @@ async def _extraer_mercurio_async(
             # ---------------------------------------------------------------
             log.info("[Paso 4/6] Obteniendo mapa de páginas de sección %s", seccion_activa)
             ids_paginas = await _obtener_ids_paginas(page, seccion_activa)
-            if len(ids_paginas) < 2:
+            if len(ids_paginas) < 1:
                 log.error(
                     "[Paso 4/6] Insuficientes IDs de páginas %s (encontrados: %d). "
                     "Posible error de carga o edición no disponible. Abortando.",
@@ -1206,16 +1206,16 @@ async def _extraer_mercurio_async(
                 _log_resumen(st, dry_run=dry_run)
                 return []
 
-            log.info("[Paso 4/6] Páginas %s encontradas: %d — inicio en penúltima (índice %d)",
-                     seccion_activa, len(ids_paginas), len(ids_paginas) - 2)
-            indice_inicio = len(ids_paginas) - 2
+            log.info("[Paso 4/6] Páginas %s encontradas: %d — inicio en última (índice %d)",
+                     seccion_activa, len(ids_paginas), len(ids_paginas) - 1)
+            indice_inicio = len(ids_paginas) - 1
 
             # ---------------------------------------------------------------
-            # Paso 5: Navegar a penúltima página y activar HD (una sola vez)
+            # Paso 5: Navegar a última página y activar HD (una sola vez)
             # ---------------------------------------------------------------
-            penultima_id = ids_paginas[indice_inicio]
-            log.info("[Paso 5/6] Navegando a penúltima página %s/%s para activar HD", seccion_activa, penultima_id)
-            await _navegar_a_pagina(page, fecha, penultima_id, seccion_activa)
+            ultima_id = ids_paginas[indice_inicio]
+            log.info("[Paso 5/6] Navegando a última página %s/%s para activar HD", seccion_activa, ultima_id)
+            await _navegar_a_pagina(page, fecha, ultima_id, seccion_activa)
 
             log.info("Activando modo HD (una sola vez para toda la sesión)…")
             await _activar_hd(page)
@@ -1227,7 +1227,7 @@ async def _extraer_mercurio_async(
             await page.wait_for_timeout(2000)  # buffer post-renderizado
 
             # ---------------------------------------------------------------
-            # Paso 6: Loop retroceder desde penúltima (tope 15 páginas)
+            # Paso 6: Loop retroceder desde última (tope 15 páginas)
             # ---------------------------------------------------------------
             log.info("[Paso 6/6] Iniciando recorrido hacia atrás (máx %d páginas)", _MAX_PAGINAS)
             indice_actual = indice_inicio
@@ -1240,7 +1240,7 @@ async def _extraer_mercurio_async(
                     page_id, indice_actual + 1, len(ids_paginas), st.paginas_revisadas,
                 )
 
-                # Navegar (salvo la primera iteración, ya estamos en penúltima)
+                # Navegar (salvo la primera iteración, ya estamos en última)
                 if indice_actual != indice_inicio:
                     try:
                         await _navegar_a_pagina(page, fecha, page_id, seccion_activa)
