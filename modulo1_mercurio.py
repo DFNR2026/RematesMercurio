@@ -124,7 +124,9 @@ def _log_resumen(stats: _Stats, *, dry_run: bool = False) -> None:
 
     sec_label = stats.seccion_utilizada
     if sec_label == "B":
-        sec_label = "B (fallback)"
+        sec_label = "B (fallback L-V)"
+    elif sec_label == "D":
+        sec_label = "D (clasificados fin de semana)"
 
     log.info("=" * 60)
     log.info("  RESUMEN EXTRACCIÓN MERCURIO DIGITAL%s", dr)
@@ -495,23 +497,33 @@ async def _hacer_login(page: Page) -> None:
 async def _cerrar_modales(page: Page) -> None:
     """
     Cierra modales que puedan aparecer al navegar por la edición.
-    Para #modal_mer_promoLS y #modal_mer_selectHome, hace click fuera del modal
-    (en el overlay) como en la secuencia grabada del Scraper_Mercurio.json.
+    Usa primero un cierre genérico vía jQuery (cubre modales futuros),
+    luego cierra los conocidos por ID como fallback.
     """
-    # Escape ×2 primero (cierra modales genéricos)
+    # --- Cierre genérico: ocultar TODOS los modales Bootstrap visibles ---
+    try:
+        await page.evaluate("""() => {
+            if (typeof $ !== 'undefined') {
+                $('.modal.in, .modal.show').modal('hide');
+            }
+        }""")
+        await page.wait_for_timeout(500)
+    except Exception:
+        pass
+
+    # Escape ×2 (cierra modales genéricos que jQuery no alcance)
     await page.keyboard.press("Escape")
     await page.wait_for_timeout(300)
     await page.keyboard.press("Escape")
     await page.wait_for_timeout(300)
 
-    # Modales específicos de El Mercurio — click fuera (en overlay)
-    for modal_id in ["#modal_mer_promoLS", "#modal_mer_selectHome"]:
+    # Modales específicos de El Mercurio — click fuera (en overlay) como fallback
+    for modal_id in ["#modal_mer_promoLS", "#modal_mer_promoINV", "#modal_mer_selectHome"]:
         try:
             modal = page.locator(modal_id)
             if await modal.is_visible(timeout=2000):
                 box = await modal.bounding_box()
                 if box:
-                    # Click en la esquina derecha del overlay
                     await page.mouse.click(box["x"] + box["width"] - 10, box["y"] + 10)
                     log.debug("Cerrado modal %s (click fuera)", modal_id)
                 else:
@@ -520,7 +532,7 @@ async def _cerrar_modales(page: Page) -> None:
         except Exception:
             pass
 
-    # Fallback: cerrar cualquier modal Bootstrap restante
+    # Fallback: cerrar cualquier modal Bootstrap restante vía botón .close
     for selector in [".modal.in .close", ".modal.show .close"]:
         try:
             elem = page.locator(selector).first
@@ -547,27 +559,39 @@ async def _verificar_fecha_edicion(page: Page, fecha_pedida: date) -> bool:
     return False
 
 
-async def _navegar_a_sección_f(page: Page, fecha: date) -> None:
-    """Desde cuerpo A, navega a la sección F (Clasificados)."""
+async def _navegar_a_sección_f(page: Page, fecha: date) -> bool:
+    """
+    Desde cuerpo A, intenta navegar a la sección F (Clasificados).
+    Retorna True si la navegación fue exitosa, False si falló (modal bloqueante, etc.).
+    """
     log.info("Navegando a sección F (Clasificados)…")
+
+    # Cerrar modales ANTES de intentar click (previene bloqueo por promoINV, etc.)
+    await _cerrar_modales(page)
+    await page.wait_for_timeout(500)
 
     # Hacer clic en botón CLASIFICADOS del header
     clasificados_btn = page.locator("#uctHeader_ctl02_rptBodyPart_ctl07_aBody")
     try:
         await clasificados_btn.wait_for(state="visible", timeout=15_000)
     except Exception:
-        # Fallback: buscar por texto
         clasificados_btn = page.locator("text=CLASIFICADOS")
 
-    async with page.expect_navigation(
-        url=lambda u: "/F" in u or "/f" in u,
-        timeout=15_000,
-    ):
-        await clasificados_btn.click()
+    try:
+        async with page.expect_navigation(
+            url=lambda u: "/F" in u or "/f" in u,
+            timeout=15_000,
+        ):
+            await clasificados_btn.click(timeout=15_000)
 
-    await page.wait_for_timeout(1500)
-    await _cerrar_modales(page)
-    log.debug("Sección F cargada: %s", page.url)
+        await page.wait_for_timeout(1500)
+        await _cerrar_modales(page)
+        log.debug("Sección F cargada: %s", page.url)
+        return True
+
+    except Exception as e:
+        log.warning("No se pudo navegar a sección F vía botón Clasificados: %s", e)
+        return False
 
 
 async def _navegar_directo_a_seccion(page: Page, fecha: date, seccion: str) -> None:
@@ -582,7 +606,7 @@ async def _navegar_directo_a_seccion(page: Page, fecha: date, seccion: str) -> N
 async def _obtener_ids_paginas(page: Page, seccion: str) -> list[str]:
     """
     Extrae la lista ordenada de IDs de página de la sección indicada desde el DOM.
-    seccion: 'F' o 'B' (o cualquier letra de cuerpo).
+    seccion: 'F', 'B' o 'D' (o cualquier letra de cuerpo).
     Retorna una lista de strings con los IDs en orden de página.
     """
     ids = await page.evaluate("""
@@ -1031,7 +1055,7 @@ async def _extraer_mercurio_async(
     log_file = _setup_logging()
     st = _Stats()
 
-    seccion_activa = "F"  # por defecto; puede cambiar a "B" si F no tiene la fecha
+    seccion_activa = "F"  # por defecto; puede cambiar a "B" (L-V) o "D" (fin de semana)
 
     log.info("=== Inicio extracción El Mercurio Digital ===")
     log.info("Fecha edición: %s | dry_run: %s", fecha.isoformat(), dry_run)
@@ -1081,39 +1105,90 @@ async def _extraer_mercurio_async(
             await _cerrar_modales(page)
 
             # ---------------------------------------------------------------
-            # Paso 3: Navegar a sección F (con fallback a B)
+            # Paso 3: Navegar a sección de clasificados
+            #   - Intenta F vía botón (funciona L-V y domingos si F está actualizada)
+            #   - Si F falla o tiene fecha stale:
+            #       Sábado → sección D (Clasificados separados de B los sábados)
+            #       L-V    → sección B (Clasificados al final de Economía y Negocios)
+            #       Domingo→ sección D primero, luego B como último fallback
             # ---------------------------------------------------------------
-            log.info("[Paso 3/6] Navegando de cuerpo A -> sección F (Clasificados)")
-            await _navegar_a_sección_f(page, fecha)
-            log.info("[Paso 3/6] Sección F cargada OK: %s", page.url)
+            es_sabado = fecha.weekday() == 5   # 5 = sábado
+            es_domingo = fecha.weekday() == 6  # 6 = domingo
+            es_finde = es_sabado or es_domingo
 
-            # Verificar que la fecha de edición coincide con la solicitada
-            fecha_ok = await _verificar_fecha_edicion(page, fecha)
-            if not fecha_ok:
-                log.warning(
-                    "Sección F no actualizada (no coincide con %s). "
-                    "Intentando sección B (Economía y Negocios)…",
-                    fecha.isoformat(),
-                )
-                await _navegar_directo_a_seccion(page, fecha, "B")
-                fecha_ok_b = await _verificar_fecha_edicion(page, fecha)
-                if not fecha_ok_b:
-                    log.error(
-                        "Ni sección F ni B tienen la edición del %s. "
-                        "El diario probablemente no ha sido publicado aún.",
+            log.info(
+                "[Paso 3/6] Navegando a clasificados (día=%s, finde=%s)",
+                fecha.strftime("%A"), es_finde,
+            )
+
+            # --- Intento 1: Sección F vía botón Clasificados del header ---
+            f_ok = await _navegar_a_sección_f(page, fecha)
+            if f_ok:
+                fecha_ok_f = await _verificar_fecha_edicion(page, fecha)
+                if fecha_ok_f:
+                    log.info("Sección F tiene la fecha correcta.")
+                    seccion_activa = "F"
+                else:
+                    log.warning(
+                        "Sección F no actualizada (no coincide con %s).",
                         fecha.isoformat(),
                     )
-                    # Línea sin tilde para detección desde cronometro_mercurio.bat
-                    log.error(
-                        "Ni seccion F ni B no tienen la edicion del %s.",
-                        fecha.isoformat(),
-                    )
-                    _log_resumen(st, dry_run=dry_run)
-                    raise EdicionNoDisponible(fecha.isoformat())
-                seccion_activa = "B"
-                log.info("Sección B tiene la fecha correcta. Continuando con sección B.")
+                    f_ok = False
             else:
-                log.info("Sección F tiene la fecha correcta.")
+                log.warning("Click a Clasificados falló. Intentando fallback…")
+
+            # --- Fallback: si F no funcionó ---
+            if not f_ok:
+                if es_finde:
+                    # Fines de semana: clasificados están en sección D
+                    log.info("Fin de semana detectado → intentando sección D (Clasificados)")
+                    await _navegar_directo_a_seccion(page, fecha, "D")
+                    fecha_ok_d = await _verificar_fecha_edicion(page, fecha)
+                    if fecha_ok_d:
+                        seccion_activa = "D"
+                        log.info("Sección D tiene la fecha correcta. Continuando con sección D.")
+                    else:
+                        # Último intento: sección B
+                        log.warning(
+                            "Sección D no tiene fecha %s. Intentando sección B…",
+                            fecha.isoformat(),
+                        )
+                        await _navegar_directo_a_seccion(page, fecha, "B")
+                        fecha_ok_b = await _verificar_fecha_edicion(page, fecha)
+                        if fecha_ok_b:
+                            seccion_activa = "B"
+                            log.info("Sección B tiene la fecha correcta. Continuando con sección B.")
+                        else:
+                            log.error(
+                                "Ni sección F, D ni B tienen la edición del %s. "
+                                "El diario probablemente no ha sido publicado aún.",
+                                fecha.isoformat(),
+                            )
+                            log.error(
+                                "Ni seccion F ni D ni B tienen la edicion del %s.",
+                                fecha.isoformat(),
+                            )
+                            _log_resumen(st, dry_run=dry_run)
+                            raise EdicionNoDisponible(fecha.isoformat())
+                else:
+                    # Días de semana (L-V): clasificados al final de sección B
+                    log.info("Día de semana → intentando sección B (Economía y Negocios)")
+                    await _navegar_directo_a_seccion(page, fecha, "B")
+                    fecha_ok_b = await _verificar_fecha_edicion(page, fecha)
+                    if not fecha_ok_b:
+                        log.error(
+                            "Ni sección F ni B tienen la edición del %s. "
+                            "El diario probablemente no ha sido publicado aún.",
+                            fecha.isoformat(),
+                        )
+                        log.error(
+                            "Ni seccion F ni B no tienen la edicion del %s.",
+                            fecha.isoformat(),
+                        )
+                        _log_resumen(st, dry_run=dry_run)
+                        raise EdicionNoDisponible(fecha.isoformat())
+                    seccion_activa = "B"
+                    log.info("Sección B tiene la fecha correcta. Continuando con sección B.")
 
             st.seccion_utilizada = seccion_activa
 
@@ -1226,6 +1301,58 @@ async def _extraer_mercurio_async(
                 log.warning("Tope de seguridad alcanzado: %d páginas revisadas", _MAX_PAGINAS)
             elif indice_actual < 0:
                 log.warning("Se llegó al inicio de la sección %s sin encontrar inicio de 1616", seccion_activa)
+
+            # ---------------------------------------------------------------
+            # Paso 6b: Revisar cachito de 1616 en últimas 3 páginas de B
+            # Siempre que la sección primaria NO sea B, puede haber avisos
+            # 1616 sueltos al final de la sección B (Economía y Negocios).
+            # HD persiste en la sesión, no necesita reactivarse.
+            # ---------------------------------------------------------------
+            if seccion_activa != "B":
+                log.info("[Paso 6b] Revisando últimas páginas de sección B por avisos 1616 adicionales")
+                try:
+                    await _navegar_directo_a_seccion(page, fecha, "B")
+                    ids_b = await _obtener_ids_paginas(page, "B")
+                    if ids_b:
+                        n_revisar = min(3, len(ids_b))
+                        ultimas_b = ids_b[-n_revisar:]
+                        log.info(
+                            "Revisando %d últimas páginas de B: %s",
+                            n_revisar, ultimas_b,
+                        )
+                        for page_id_b in reversed(ultimas_b):
+                            try:
+                                await _navegar_a_pagina(page, fecha, page_id_b, "B")
+                                await page.wait_for_timeout(2000)
+                                texto_b = await _leer_texto_layer(page)
+                                secciones_b = _detectar_secciones(texto_b)
+                                st.paginas_revisadas += 1
+
+                                if "1616" in secciones_b:
+                                    log.info(
+                                        "Pág B/%s: contiene 1616 → conservar (cachito B)",
+                                        page_id_b,
+                                    )
+                                    paginas_texto.append((page_id_b, texto_b))
+                                    st.paginas_con_1616 += 1
+                                else:
+                                    log.debug(
+                                        "Pág B/%s: sin 1616 → descartar",
+                                        page_id_b,
+                                    )
+                                    st.paginas_descartadas += 1
+                            except Exception as e:
+                                log.warning(
+                                    "Error revisando pág B/%s: %s — saltando",
+                                    page_id_b, e,
+                                )
+                    else:
+                        log.warning("No se encontraron páginas en sección B")
+                except Exception as e:
+                    log.warning(
+                        "Error accediendo a sección B para cachito: %s — continuando sin cachito",
+                        e,
+                    )
 
         except Exception as e:
             log.error("Error crítico durante la navegación: %s", e, exc_info=True)
