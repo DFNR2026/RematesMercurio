@@ -1,5 +1,5 @@
 # Prompt Maestro: Extractor El Mercurio Digital (M1)
-# Versión 2.2 — 2026-03-21
+# Versión 2.3 — 2026-03-23
 
 ---
 
@@ -133,6 +133,32 @@ Si seccion_activa != "B":
 
 HD persiste en la sesión, no necesita reactivarse para el cachito B.
 
+### Paso 6c: Redirección a otra sección (cachito C u otra)
+
+La última página con contenido 1616 (en B o cualquier sección) puede contener un recuadro de redirección en el textLayer:
+
+```
+MÁS AVISOS ECONÓMICOS
+CLASIFICADOS EN PÁG. C 8
+```
+
+Esto indica que El Mercurio continuó los avisos 1616 en otra sección (típicamente C — Nacional).
+
+```
+1. Buscar en TODAS las páginas conservadas el patrón regex:
+   r"MÁS\s+AVISOS\s+ECON[OÓ]MICOS\s*CLASIFICADOS\s+EN\s+PÁG\.?\s*([A-Z])\s+(\d+)"
+2. Si match → extraer sección destino (ej: "C") y número de página (ej: 8)
+3. Navegar directo a la sección destino vía URL
+4. Obtener mapa de páginas de esa sección
+5. Ir a la página indicada (por número, 1-based)
+6. LOOP HACIA ADELANTE (pág N, N+1, N+2...):
+   - Si contiene "1616" → conservar texto, avanzar
+   - Si NO contiene "1616" → PARAR
+7. El dedup de Paso 8 elimina duplicados entre secciones
+```
+
+HD persiste en la sesión. Si la navegación falla → warning, continúa sin cachito extra. El recuadro NO aparece en la última página absoluta de B (que puede ser editorial), sino en la última página con contenido de clasificados.
+
 ### Paso 7: Enviar texto a Claude Text API
 
 Para cada página conservada, enviar el **texto del textLayer** a Sonnet 4.6:
@@ -220,6 +246,7 @@ Responde ÚNICAMENTE con un JSON array válido. Sin texto explicativo, sin markd
 | Verificación fecha D | — | Fallback a B, luego EdicionNoDisponible |
 | Verificación fecha B | — | raise EdicionNoDisponible → sys.exit(2) |
 | Cachito B (Paso 6b) | — | Warning, continúa sin cachito |
+| Redirección a otra sección (Paso 6c) | — | Warning, continúa sin cachito extra |
 | Navegación entre páginas | 10s | Saltar página, continuar |
 | Renderizado HD (canvas.width > 1800) | 20s | Retry click |
 | Buffer post-renderizado | 2s | Fijo |
@@ -233,7 +260,7 @@ Login falla → abort total. Una página falla → se salta, se procesan las dem
 ## COSTOS API ESTIMADOS
 
 - **Claude Text API (Sonnet 4.6):** ~$0.01-0.02 por página de texto (~40-78K caracteres)
-- **~2-5 páginas diarias:** ~$0.05-0.10 por ejecución (fines de semana pueden ser 5-7 con cachito B)
+- **~2-5 páginas diarias:** ~$0.05-0.10 por ejecución (fines de semana pueden ser 5-7 con cachito B; redirección a C puede agregar 1-2 páginas más)
 - **Costo mensual estimado:** ~$2-3 USD (ejecución diaria L-S)
 - Historial CAUSAS evita reprocesar días anteriores
 
@@ -275,6 +302,7 @@ Cada ejecución genera `logs/mercurio_YYYY-MM-DD_HHMMSS.log` con:
 - Decisiones por página (conservar/descartar/parar)
 - Sección utilizada (F, D fin de semana, o B fallback L-V)
 - Cachito B: páginas revisadas y conservadas en Paso 6b
+- Redirección: sección destino, página indicada, páginas conservadas en Paso 6c
 - Resumen final: páginas revisadas, conservadas, descartadas, avisos, post-filtro, nuevos
 
 ---
@@ -308,9 +336,11 @@ Cada ejecución genera `logs/mercurio_YYYY-MM-DD_HHMMSS.log` con:
 - Cierre genérico modales: `$('.modal.in, .modal.show').modal('hide')` (jQuery Bootstrap)
 - Clasificados: `#uctHeader_ctl02_rptBodyPart_ctl07_aBody`
 - Economía y Negocios: `#uctHeader_ctl02_rptBodyPart_ctl01_aBody`
-- Navegación páginas: `onclick gotoPage('F','ID',N)` o `gotoPage('B','ID',N)` o `gotoPage('D','ID',N)`
-- URL pattern: `/YYYY/MM/DD/{F|B|D}/PAGE_ID#zoom=page-width`
+- Navegación páginas: `onclick gotoPage('F','ID',N)` o `gotoPage('B','ID',N)` o `gotoPage('D','ID',N)` o `gotoPage('C','ID',N)`
+- URL pattern: `/YYYY/MM/DD/{F|B|D|C}/PAGE_ID#zoom=page-width`
+- Sección C (Nacional): `#TdBody3 > a` o `text=NACIONAL`. Accesible por header y URL directa
 - Sección D: no aparece en menú header, accesible solo por URL directa (fines de semana)
+- Redirección clasificados: textLayer con `MÁS AVISOS ECONÓMICOS` + `CLASIFICADOS EN PÁG. {X} {N}` (dos nodos div consecutivos)
 
 ---
 
@@ -323,3 +353,4 @@ Cada ejecución genera `logs/mercurio_YYYY-MM-DD_HHMMSS.log` con:
 | 2.0 | 2026-03-14 | Reemplazo Vision → textLayer + Text API, nueva lógica de recorrido por secciones crecientes, fallback corte por nombre, HD una sola vez, rutas 100% independientes en D:\Mercurio\, hoja RESUMEN al final del Excel |
 | 2.1 | 2026-03-16 | Fallback sección F → B cuando F no actualizada, max_tokens 16384, captura JPG eliminada (textLayer es suficiente), filtros Estación Central y deuda > $300M, ordenamiento Excel por tribunal, cronometro_mercurio.bat con reintentos, EdicionNoDisponible + sys.exit(2), portabilidad con BASE_DIR relativo |
 | 2.2 | 2026-03-21 | Sección D para fines de semana (sábado→D, domingo→D/F), cachito 1616 en últimas 3 páginas de B, modal `#modal_mer_promoINV` + cierre genérico jQuery de modales Bootstrap, `_navegar_a_sección_f()` retorna bool (no crashea), navegación F tolerante a fallos con fallback encadenado F→D→B, recorrido inicia en última página (no penúltima) para no perder avisos |
+| 2.3 | 2026-03-23 | Redirección a otra sección (Paso 6c): detecta recuadro "MÁS AVISOS ECONÓMICOS CLASIFICADOS EN PÁG. X N" en textLayer de páginas conservadas, navega a sección indicada (típicamente C — Nacional) y lee hacia adelante mientras haya 1616. Búsqueda en todas las páginas conservadas (no solo última absoluta de B). Regex `_REDIRECT_PATTERN` + función `_detectar_redireccion()` |

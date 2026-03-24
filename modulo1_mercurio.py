@@ -158,6 +158,13 @@ _CORTES_RM = {"C.A. de Santiago", "C.A. de San Miguel"}
 _BANCOS_ESTADO = {"banco estado", "banco del estado"}
 _COMUNAS_EXCLUIDAS = {"estación central", "estacion central"}
 
+# Patrón para detectar recuadro de redirección a otra sección
+# Ejemplo: "MÁS AVISOS ECONÓMICOS CLASIFICADOS EN PÁG. C 8"
+_REDIRECT_PATTERN = re.compile(
+    r"MÁS\s+AVISOS\s+ECON[OÓ]MICOS\s*CLASIFICADOS\s+EN\s+PÁG\.?\s*([A-Z])\s+(\d+)",
+    re.IGNORECASE,
+)
+
 # ---------------------------------------------------------------------------
 # Prompt para Claude Vision API
 # ---------------------------------------------------------------------------
@@ -677,6 +684,21 @@ def _detectar_secciones(texto: str) -> list[str]:
     """Detecta las secciones numéricas presentes en el textLayer."""
     buscar = ["1611", "1612", "1613", "1614", "1615", "1616"]
     return [s for s in buscar if s in texto]
+
+
+def _detectar_redireccion(texto: str) -> tuple[str, int] | None:
+    """
+    Busca en el textLayer un recuadro de redirección a otra sección.
+    Ej: "MÁS AVISOS ECONÓMICOS CLASIFICADOS EN PÁG. C 8"
+    Retorna (seccion, pagina) o None si no se encuentra.
+    """
+    m = _REDIRECT_PATTERN.search(texto)
+    if m:
+        seccion = m.group(1).upper()
+        pagina = int(m.group(2))
+        log.info("Redirección detectada: más avisos en sección %s, página %d", seccion, pagina)
+        return (seccion, pagina)
+    return None
 
 
 async def _esperar_canvas_base(page: Page, timeout_ms: int = 15_000) -> bool:
@@ -1353,6 +1375,100 @@ async def _extraer_mercurio_async(
                         "Error accediendo a sección B para cachito: %s — continuando sin cachito",
                         e,
                     )
+
+            # ---------------------------------------------------------------
+            # Paso 6c: Redirección a otra sección desde B
+            # Alguna página conservada puede contener un recuadro:
+            #   "MÁS AVISOS ECONÓMICOS CLASIFICADOS EN PÁG. C 8"
+            # Buscamos en TODAS las páginas conservadas (el recuadro suele
+            # estar en la última página con 1616, no en la última absoluta
+            # de B que puede ser contenido editorial).
+            # Si existe, navegar a esa sección/página y leer hacia adelante
+            # mientras haya contenido 1616.
+            # HD persiste en la sesión, no necesita reactivarse.
+            # ---------------------------------------------------------------
+            redir = None
+            for _pid, _txt in paginas_texto:
+                redir = _detectar_redireccion(_txt)
+                if redir:
+                    log.info(
+                        "[Paso 6c] Redirección encontrada en página %s", _pid,
+                    )
+                    break
+
+            if redir:
+                seccion_redir, pagina_redir = redir
+                log.info(
+                    "[Paso 6c] Redirección detectada → sección %s, página %d",
+                    seccion_redir, pagina_redir,
+                )
+                try:
+                    await _navegar_directo_a_seccion(page, fecha, seccion_redir)
+                    ids_redir = await _obtener_ids_paginas(page, seccion_redir)
+                    if ids_redir:
+                        log.info(
+                            "Sección %s tiene %d páginas: %s",
+                            seccion_redir, len(ids_redir), ids_redir,
+                        )
+                        # pagina_redir es número de página (1-based),
+                        # ids_redir es lista ordenada por número
+                        idx_inicio = pagina_redir - 1  # 0-based
+                        if idx_inicio < 0 or idx_inicio >= len(ids_redir):
+                            log.warning(
+                                "Página %d fuera de rango en sección %s (%d páginas). "
+                                "Intentando desde la última.",
+                                pagina_redir, seccion_redir, len(ids_redir),
+                            )
+                            idx_inicio = len(ids_redir) - 1
+
+                        # Leer HACIA ADELANTE desde la página indicada
+                        idx_redir = idx_inicio
+                        while idx_redir < len(ids_redir):
+                            page_id_r = ids_redir[idx_redir]
+                            try:
+                                await _navegar_a_pagina(
+                                    page, fecha, page_id_r, seccion_redir,
+                                )
+                                await page.wait_for_timeout(2000)
+                                texto_r = await _leer_texto_layer(page)
+                                secciones_r = _detectar_secciones(texto_r)
+                                st.paginas_revisadas += 1
+
+                                if "1616" in secciones_r:
+                                    log.info(
+                                        "Pág %s/%s (pág %d): contiene 1616 → conservar (cachito %s)",
+                                        seccion_redir, page_id_r,
+                                        idx_redir + 1, seccion_redir,
+                                    )
+                                    paginas_texto.append((page_id_r, texto_r))
+                                    st.paginas_con_1616 += 1
+                                    idx_redir += 1
+                                else:
+                                    log.info(
+                                        "Pág %s/%s (pág %d): sin 1616 → parar lectura %s",
+                                        seccion_redir, page_id_r,
+                                        idx_redir + 1, seccion_redir,
+                                    )
+                                    st.paginas_descartadas += 1
+                                    break
+                            except Exception as e:
+                                log.warning(
+                                    "Error leyendo pág %s/%s: %s — saltando",
+                                    seccion_redir, page_id_r, e,
+                                )
+                                idx_redir += 1
+                    else:
+                        log.warning(
+                            "No se encontraron páginas en sección %s",
+                            seccion_redir,
+                        )
+                except Exception as e:
+                    log.warning(
+                        "Error accediendo a sección %s para cachito: %s — continuando",
+                        seccion_redir, e,
+                    )
+            else:
+                log.debug("[Paso 6c] Sin redirección detectada en páginas conservadas")
 
         except Exception as e:
             log.error("Error crítico durante la navegación: %s", e, exc_info=True)
