@@ -19,7 +19,7 @@ from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.utils import get_column_letter
 
-from config import CAUSAS_XLSX, BASE_DIR, REPORTES_DIR, SHEET_CAUSAS
+from config import CAUSAS_XLSX, BASE_DIR, REPORTES_DIR, SHEET_CAUSAS, MODELO_EXTRACCION, DEEPSEEK_PRECIO_INPUT_USD_POR_1M, DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [M5] %(message)s")
 log = logging.getLogger(__name__)
@@ -31,16 +31,13 @@ log = logging.getLogger(__name__)
 
 def _clasificar(causa: dict) -> str:
     """
-    Clasifica cada causa según el estado de extracción de deuda:
-      - CON DEUDA EXTRAÍDA : M3 encontró el monto en el PDF
-      - SIN PDF            : M2 no descargó documento (OJV fallo, proc. no aplicable, etc.)
-      - SIN MONTO EN PDF   : M2 descargó PDF pero M3 no pudo extraer el monto
+    Clasifica cada causa según validación OJV:
+      - Validadas en OJV : demandado poblado por OJV y sin motivo de fallo
+      - Sin coincidencia OJV : el resto (fallo OJV o demandado vacío)
     """
-    if causa.get("monto_deuda_clp"):
-        return "CON DEUDA EXTRAÍDA"
-    if not causa.get("descargado"):
-        return "SIN PDF"
-    return "SIN MONTO EN PDF"
+    if bool(causa.get("demandado")) and not causa.get("motivo_fallo"):
+        return "Validadas en OJV"
+    return "Sin coincidencia OJV"
 
 
 def _enriquecer_clasificacion(causas: list[dict]) -> list[dict]:
@@ -159,7 +156,8 @@ _COLUMNAS = [
     ("Dirección",       "direccion",          36,  None),
     ("Comuna",          "comuna",             16,  None),
     ("Tipo Proc.",      "tipo_procedimiento", 13,  None),
-    ("Deuda (CLP)",     "monto_deuda_clp",    17,  '#,##0'),
+    ("Fs.",             "fojas",               8,  None),
+    ("CBR Motivo",      "cbr_motivo",         22,  None),
     ("Fechas Public.",  "fechas_publicacion", 18,  None),
     ("Fecha Remate",    "fecha_remate",       14,  None),
     ("Motivo Fallo",    "motivo_fallo",       32,  None),
@@ -170,11 +168,12 @@ _COLUMNAS = [
 # Escritura de hoja de datos
 # ─────────────────────────────────────────────────────────────────
 
-def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str) -> None:
+def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None) -> None:
     """
     Crea una hoja con la lista de causas ordenadas, headers y formato condicional.
     """
     ws = wb.create_sheet(nombre)
+    excluidos = excluidos or []
 
     # ── Fila de encabezados ──
     for col_idx, (header, _, ancho, _fmt) in enumerate(_COLUMNAS, 1):
@@ -197,9 +196,7 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str)
 
             if valor is None:
                 valor = ""
-            # Monto monetario: 0 o None → celda en blanco
-            elif campo == "monto_deuda_clp" and not valor:
-                valor = ""
+            # (monto_deuda_clp removido — M3 descolgado)
             # Corte: eliminar prefijo "C.A. de " para ahorrar espacio
             elif campo == "corte" and isinstance(valor, str) and valor.startswith("C.A. de "):
                 valor = valor[8:]
@@ -223,15 +220,59 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str)
     # ── Auto-filtro ──
     ws.auto_filter.ref = f"A1:{get_column_letter(len(_COLUMNAS))}{max_row}"
 
+    # ── Tabla de transparencia CBR ──
+    if max_row > 1:
+        inicio_excl = max_row + 3  # 2 filas en blanco después de la tabla principal
+    else:
+        inicio_excl = 4
+
+    # Título
+    cell_tit = ws.cell(row=inicio_excl, column=1, value="PROPIEDADES NUEVAS EXCLUIDAS (dominio >= 2020)")
+    cell_tit.font = Font(bold=True, color="FFFFFF", size=11)
+    cell_tit.fill = PatternFill("solid", fgColor="8B0000")  # rojo oscuro
+    ws.merge_cells(start_row=inicio_excl, start_column=1, end_row=inicio_excl, end_column=4)
+    ws.row_dimensions[inicio_excl].height = 20
+
+    # Headers
+    headers_cbr = ["Tribunal", "ROL", "Año", "Año Dominio"]
+    for ci, h in enumerate(headers_cbr, 1):
+        cell = ws.cell(row=inicio_excl + 1, column=ci, value=h)
+        cell.font = Font(bold=True, color="FFFFFF", size=10)
+        cell.fill = PatternFill("solid", fgColor="1F4E79")
+        cell.alignment = _ALIGN_CENTER
+        cell.border = _BORDER_THIN
+
+    ws.row_dimensions[inicio_excl + 1].height = 18
+
+    # Filas de datos
+    if excluidos:
+        for fi, exc in enumerate(excluidos):
+            r_ex = inicio_excl + 2 + fi
+            ws.cell(row=r_ex, column=1, value=exc.get("tribunal", "") or "")
+            ws.cell(row=r_ex, column=2, value=exc.get("rol", "") or "")
+            ws.cell(row=r_ex, column=3, value=exc.get("año", "") or "")
+            ws.cell(row=r_ex, column=4, value=exc.get("cbr_anio", "") or "")
+            for ci in range(1, 5):
+                ws.cell(row=r_ex, column=ci).font = _FONT_BODY
+                ws.cell(row=r_ex, column=ci).border = _BORDER_THIN
+            ws.row_dimensions[r_ex].height = 16
+    else:
+        r_ex = inicio_excl + 2
+        cell = ws.cell(row=r_ex, column=1, value="Sin exclusiones por CBR en esta edición")
+        cell.font = _FONT_BODY
+        ws.merge_cells(start_row=r_ex, start_column=1, end_row=r_ex, end_column=4)
+        ws.row_dimensions[r_ex].height = 16
+
 
 # ─────────────────────────────────────────────────────────────────
 # Hoja Resumen
 # ─────────────────────────────────────────────────────────────────
 
-def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict]) -> None:
+def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: dict | None = None) -> None:
     """Crea la pestaña Resumen con estadísticas de la ejecución."""
     ws = wb.create_sheet("Resumen")
     ws.sheet_properties.tabColor = "1F4E79"
+    metricas = metricas or {}
 
     # Anchos de columna
     ws.column_dimensions["A"].width = 32
@@ -243,15 +284,10 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict]) -> None:
     # Contadores
     total = len(causas)
 
-    por_clas = {k: 0 for k in ("CON DEUDA EXTRAÍDA", "SIN PDF", "SIN MONTO EN PDF")}
+    por_clas = {"Validadas en OJV": 0, "Sin coincidencia OJV": 0}
     for c in causas:
-        k = c.get("_clasificacion", "SIN PDF")
+        k = c.get("_clasificacion", "Sin coincidencia OJV")
         por_clas[k] = por_clas.get(k, 0) + 1
-
-    desc   = sum(1 for c in causas if c.get("descargado"))
-    mand   = sum(1 for c in causas if c.get("tipo_documento") == "mandamiento")
-    bases  = sum(1 for c in causas if c.get("tipo_documento") == "bases_remate")
-    sin_d  = sum(1 for c in causas if not c.get("descargado"))
 
     # ── Helpers de escritura ──
     def titulo(row, texto):
@@ -293,12 +329,11 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict]) -> None:
     r += 1; fila(r, "Total causas procesadas",   total)
 
     r += 1; espacio(r)
-    r += 1; titulo(r, "DESGLOSE POR ESTADO DE DEUDA")
+    r += 1; titulo(r, "VALIDACIÓN OJV")
 
     _filas_clas = [
-        ("CON DEUDA EXTRAÍDA", "PDF descargado y monto encontrado",      _FILL_CON_DEUDA, _FONT_WHITE),
-        ("SIN PDF",            "no descargado / OJV fallo / proc. N/A",  _FILL_SIN_PDF,   _FONT_DARK),
-        ("SIN MONTO EN PDF",   "PDF descargado pero monto no extraído",  _FILL_SIN_MONTO, _FONT_WHITE),
+        ("Validadas en OJV",      "demandado poblado y sin fallo OJV",  _FILL_CON_DEUDA, _FONT_WHITE),
+        ("Sin coincidencia OJV",  "fallo OJV o demandado vacío",        _FILL_SIN_PDF,   _FONT_DARK),
     ]
     for clas, nota, fill, font in _filas_clas:
         r += 1
@@ -307,11 +342,19 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict]) -> None:
             ws.cell(row=r, column=col).font = font
 
     r += 1; espacio(r)
-    r += 1; titulo(r, "DOCUMENTOS DESCARGADOS (OJV)")
-    r += 1; fila(r, "  Mandamientos (ejecutivo)",          mand)
-    r += 1; fila(r, "  Bases de Remate (ley de bancos)",   bases)
-    r += 1; fila(r, "  No descargados",                    sin_d)
-    r += 1; fila(r, "  Total descargados",                 desc)
+    r += 1; titulo(r, "MÉTRICAS DE EXTRACCIÓN")
+    tokens_in = metricas.get("tokens_input", 0)
+    tokens_out = metricas.get("tokens_output", 0)
+    tokens_total = tokens_in + tokens_out
+    r += 1; fila(r, "  Tokens entrada", f"{tokens_in:,}")
+    r += 1; fila(r, "  Tokens salida",  f"{tokens_out:,}")
+    r += 1; fila(r, "  Tokens total",   f"{tokens_total:,}")
+    if MODELO_EXTRACCION == "deepseek":
+        costo = (tokens_in / 1e6) * DEEPSEEK_PRECIO_INPUT_USD_POR_1M \
+              + (tokens_out / 1e6) * DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
+        r += 1; fila(r, "  Costo estimado", f"USD {costo:.4f}")
+    else:
+        r += 1; fila(r, "  Costo estimado", f"no calculado (motor={MODELO_EXTRACCION})")
 
 
 
@@ -378,7 +421,7 @@ def actualizar_historial(causas: list[dict]) -> None:
 # FUNCIÓN PÚBLICA 2: generar_reporte
 # ─────────────────────────────────────────────────────────────────
 
-def generar_reporte(causas: list[dict]) -> str:
+def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     """
     Genera el reporte semanal Reporte_YYYY-MM-DD.xlsx con:
       - Pestaña "Regiones" (todas las causas, ordenadas geográficamente por ratio)
@@ -390,6 +433,7 @@ def generar_reporte(causas: list[dict]) -> str:
     Returns:
         Ruta del archivo generado.
     """
+    metricas = metricas or {}
     log.info(f"Generando reporte — {len(causas)} causa(s)")
 
     # Usar nombre completo del demandado (OJV Litigantes) si está disponible
@@ -409,8 +453,8 @@ def generar_reporte(causas: list[dict]) -> str:
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # quitar hoja vacía por defecto
 
-    _escribir_hoja_datos(wb, regiones, "Regiones")
-    _escribir_hoja_resumen(wb, causas)
+    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []))
+    _escribir_hoja_resumen(wb, causas, metricas=metricas)
 
     # Resumen queda al final (la hoja de detalle es la primera pestaña visible)
     # Resumen ya se creó después de Regiones, así que ya está al final.

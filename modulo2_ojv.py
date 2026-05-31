@@ -38,9 +38,6 @@ from ojv_remates import (
     abrir_detalle,
     seleccionar_cuaderno,
     filas_del_modal,
-    descargar_pdf_de_fila,
-    buscar_mandamiento,
-    buscar_bases_remate,
 )
 
 from config import DESCARGAS_DIR, CAUSAS_IGNORADAS
@@ -332,27 +329,10 @@ def _procesar_una_causa(page, context, causa: dict) -> dict:
         _cerrar_modal(page)
         return causa
 
-    nombre_pdf = os.path.join(DESCARGAS_DIR, f"{etiqueta}_MANDAMIENTO.pdf")
-    ok = False
-
-    if es_ley_bancos:
-        log.info(f"  [BASES DE REMATE]")
-        ok = buscar_bases_remate(page, context, etiqueta)
-        causa["tipo_documento"] = "bases_remate"
-        nombre_pdf = os.path.join(DESCARGAS_DIR, f"{etiqueta}_BASES_REMATE.pdf")
-    else:
-        log.info(f"  [MANDAMIENTO]")
-        ok = buscar_mandamiento(page, context, etiqueta)
-        causa["tipo_documento"] = "mandamiento"
-        nombre_pdf = os.path.join(DESCARGAS_DIR, f"{etiqueta}_MANDAMIENTO.pdf")
-
-    if ok and os.path.exists(nombre_pdf):
-        causa["descargado"] = True
-        causa["ruta_pdf"] = nombre_pdf
-        log.info(f"  ✓ Descargado: {os.path.basename(nombre_pdf)}")
-    else:
-        causa["motivo_fallo"] = "OJV: descarga fallida"
-        log.warning(f"  ✗ No descargado: {etiqueta}")
+    # ── Descarga de mandamiento/bases ELIMINADA (deuda fuera del negocio) ──
+    # _seleccionar_cuaderno_dinamico se mantiene arriba por seguridad de
+    # navegación; ya no se descarga ningún PDF.
+    # (tipo_documento, descargado, ruta_pdf conservan sus defaults "")
 
     _cerrar_modal(page)
     return causa

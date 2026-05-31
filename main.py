@@ -98,7 +98,7 @@ except ImportError:
     parsear_diarios = None
 from modulo1_mercurio     import extraer_mercurio, EdicionNoDisponible
 from modulo2_ojv          import procesar_causas_ojv
-from modulo3_extractor    import extraer_montos
+# from modulo3_extractor    import extraer_montos  # M3 descolgado
 from modulo5_reporte      import generar_reporte, actualizar_historial
 
 
@@ -124,33 +124,54 @@ def _ok(modulo: int, msg: str, tiempo_s: float) -> None:
 def _resumen_final(causas: list[dict], elapsed_s: float, ruta_reporte: str) -> None:
     """Imprime el resumen ejecutivo al terminar el pipeline."""
     total = len(causas)
-    desc  = sum(1 for c in causas if c.get("descargado"))
-    monts = sum(1 for c in causas if c.get("monto_deuda_clp"))
-    por_clas = {}
-    for c in causas:
-        k = c.get("_clasificacion", "SIN PDF")
-        por_clas[k] = por_clas.get(k, 0) + 1
+
+    # Clasificación OJV (mismo criterio que _clasificar en M5)
+    validadas = sum(1 for c in causas
+                    if bool(c.get("demandado")) and not c.get("motivo_fallo"))
+    sin_coincidencia = total - validadas
+
+    # Métricas de extracción
+    try:
+        from modulo1_mercurio import obtener_metricas
+        met = obtener_metricas()
+    except Exception:
+        met = {}
+    tokens_in = met.get("tokens_input", 0)
+    tokens_out = met.get("tokens_output", 0)
+    tokens_total = tokens_in + tokens_out
+
+    # Costo estimado
+    try:
+        from config import MODELO_EXTRACCION, DEEPSEEK_PRECIO_INPUT_USD_POR_1M, DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
+    except ImportError:
+        MODELO_EXTRACCION = "desconocido"
+    if MODELO_EXTRACCION == "deepseek":
+        try:
+            costo = (tokens_in / 1e6) * DEEPSEEK_PRECIO_INPUT_USD_POR_1M + (tokens_out / 1e6) * DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
+            costo_str = f"USD {costo:.4f}"
+        except Exception:
+            costo_str = "no calculado"
+    else:
+        costo_str = f"no calculado (motor={MODELO_EXTRACCION})"
 
     _sep("RESUMEN EJECUTIVO")
     mins, segs = divmod(int(elapsed_s), 60)
     print(f"  Tiempo total           : {mins}m {segs}s")
-    print(f"  Causas procesadas      : {total}")
-    print(f"  Documentos descargados : {desc}")
-    print(f"  Montos extraídos       : {monts}")
+    print(f"  Total causas procesadas: {total}")
     print()
-    print("  ESTADO DE DEUDA            N")
-    print("  " + "-" * 30)
-    for clas in ("CON DEUDA EXTRAÍDA", "SIN PDF", "SIN MONTO EN PDF"):
-        n = por_clas.get(clas, 0)
-        barra = "#" * n
-        print(f"  {clas:<22} {n:>3}  {barra}")
+    print("  VALIDACIÓN OJV")
+    print(f"    Validadas en OJV     : {validadas}  (demandado poblado, sin fallo)")
+    print(f"    Sin coincidencia OJV : {sin_coincidencia}  (fallo OJV o demandado vacío)")
+    print()
+    print("  MÉTRICAS DE EXTRACCIÓN")
+    print(f"    Tokens entrada       : {tokens_in:,}")
+    print(f"    Tokens salida        : {tokens_out:,}")
+    print(f"    Tokens total         : {tokens_total:,}")
+    print(f"    Costo estimado       : {costo_str}")
     print()
     if ruta_reporte:
         print(f"  Reporte: {ruta_reporte}")
-    _sep()
-
-
-# ─────────────────────────────────────────────────────────────────
+    _sep()# ─────────────────────────────────────────────────────────────────
 # Causas demo (para pruebas sin M1/M2)
 # ─────────────────────────────────────────────────────────────────
 
@@ -271,6 +292,8 @@ Ejemplos:
                     print(f"  [M1] Edición del {args.fecha} no disponible.")
                     sys.exit(2)
                 _ok(1, f"{len(causas)} causas nuevas (Mercurio Digital)", time.time() - t)
+                from modulo1_mercurio import obtener_metricas
+                metricas = obtener_metricas()
             else:
                 if parsear_diarios is None:
                     log.error("modulo1_parser no disponible. Usa --fecha para extraer desde El Mercurio Digital.")
@@ -351,26 +374,26 @@ Ejemplos:
             _resumen_final(causas, time.time() - t_total, ruta_reporte)
             return
 
-        # ── Módulo 3: Extracción de montos ─────────────────────
-        _sep("MÓDULO 3 — Extracción de montos de deuda")
-        t = time.time()
-        causas = extraer_montos(causas)
-        monts = sum(1 for c in causas if c.get("monto_deuda_clp"))
-        _ok(3, f"{monts}/{len(causas)} montos extraídos", time.time() - t)
+        # ── Módulo 3: DESCOLGADO (sin extracción de montos) ─────
+        # _sep("MÓDULO 3 — Extracción de montos de deuda")
+        # t = time.time()
+        # causas = extraer_montos(causas)
+        # monts = sum(1 for c in causas if c.get("monto_deuda_clp"))
+        # _ok(3, f"{monts}/{len(causas)} montos extraídos", time.time() - t)
 
-        # ── Filtro post-M3: monto máximo $300M ────────────────
-        _MONTO_MAX = 300_000_000
-        pre_filtro = len(causas)
-        causas = [
-            c for c in causas
-            if not c.get("monto_deuda_clp") or c["monto_deuda_clp"] <= _MONTO_MAX
-        ]
-        desc_monto = pre_filtro - len(causas)
-        if desc_monto:
-            print(f"  [M3] Filtro monto máximo: {pre_filtro} → {len(causas)} "
-                  f"(-{desc_monto} descartadas por deuda > $300M)")
-            log.info("Filtro monto máximo: %d → %d (-%d descartadas por deuda > $300M)",
-                     pre_filtro, len(causas), desc_monto)
+        # ── Filtro post-M3: ELIMINADO (M3 descolgado) ──────────────────
+        # _MONTO_MAX = 300_000_000
+        # pre_filtro = len(causas)
+        # causas = [
+        #     c for c in causas
+        #     if not c.get("monto_deuda_clp") or c["monto_deuda_clp"] <= _MONTO_MAX
+        # ]
+        # desc_monto = pre_filtro - len(causas)
+        # if desc_monto:
+        #     print(f"  [M3] Filtro monto máximo: {pre_filtro} → {len(causas)} "
+        #           f"(-{desc_monto} descartadas por deuda > $300M)")
+        #     log.info("Filtro monto máximo: %d → %d (-%d descartadas por deuda > $300M)",
+        #              pre_filtro, len(causas), desc_monto)
 
         if args.hasta < 4:
             _resumen_final(causas, time.time() - t_total, ruta_reporte)
@@ -380,7 +403,7 @@ Ejemplos:
         _sep("MÓDULO 5 — Reporte y actualización de historial")
         t = time.time()
         actualizar_historial(causas)
-        ruta_reporte = generar_reporte(causas)
+        ruta_reporte = generar_reporte(causas, metricas=metricas)
         _ok(5, f"Reporte generado: {ruta_reporte}", time.time() - t)
 
     except KeyboardInterrupt:
@@ -389,7 +412,7 @@ Ejemplos:
         if causas:
             print(f"  {len(causas)} causas en memoria — generando reporte parcial...")
             try:
-                ruta_reporte = generar_reporte(causas)
+                ruta_reporte = generar_reporte(causas, metricas=metricas)
                 print(f"  Reporte parcial: {ruta_reporte}")
             except Exception as e:
                 print(f"  Error al generar reporte parcial: {e}")

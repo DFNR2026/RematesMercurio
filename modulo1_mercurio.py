@@ -24,6 +24,7 @@ import os
 import re
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date, datetime
 
@@ -38,12 +39,22 @@ import openpyxl
 from playwright.async_api import Page, async_playwright
 from rapidfuzz import fuzz
 
+from filtro_cbr import _CBR_ANIO_CORTE
+
+# Tarifas DeepSeek para cálculo de costos
+from config import (
+    DEEPSEEK_PRECIO_INPUT_USD_POR_1M,
+    DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M,
+)
+
 # ---------------------------------------------------------------------------
 # Importar config (credenciales / rutas / constantes)
 # ---------------------------------------------------------------------------
 try:
     from config import (
         ANTHROPIC_API_KEY,
+        DEEPSEEK_API_KEY,
+        MODELO_EXTRACCION,
         MERCURIO_USER,
         MERCURIO_PASS,
         MERCURIO_BASE_URL,
@@ -116,6 +127,9 @@ class _Stats:
     avisos_post_filtro: int = 0
     causas_nuevas: int = 0
     seccion_utilizada: str = "F"
+    tokens_input: int = 0
+    tokens_output: int = 0
+    excluidos_cbr: list = field(default_factory=list)  # [{tribunal, rol, año, cbr_anio}]
 
 
 def _log_resumen(stats: _Stats, *, dry_run: bool = False) -> None:
@@ -144,6 +158,14 @@ def _log_resumen(stats: _Stats, *, dry_run: bool = False) -> None:
         log.info("  Avisos Vision           : %d", stats.avisos_vision)
         log.info("  Post-filtro             : %d", stats.avisos_post_filtro)
         log.info("  Nuevos (no dup)         : %d", stats.causas_nuevas)
+    log.info("  Tokens entrada          : %d", stats.tokens_input)
+    log.info("  Tokens salida           : %d", stats.tokens_output)
+    if MODELO_EXTRACCION == "deepseek":
+        costo = (stats.tokens_input / 1e6) * DEEPSEEK_PRECIO_INPUT_USD_POR_1M \
+              + (stats.tokens_output / 1e6) * DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
+        log.info("  Costo estimado          : USD %.4f (motor=deepseek)", costo)
+    else:
+        log.info("  Costo no calculado (motor=%s)", MODELO_EXTRACCION)
     log.info("=" * 60)
 
 
@@ -157,6 +179,10 @@ _SECCIONES_MENORES = {"1611", "1612", "1613", "1614", "1615"}
 _CORTES_RM = {"C.A. de Santiago", "C.A. de San Miguel"}
 _BANCOS_ESTADO = {"banco estado", "banco del estado"}
 _COMUNAS_EXCLUIDAS = {"estación central", "estacion central"}
+
+MAX_WORKERS = 3  # nº de páginas procesadas en paralelo contra la API
+# Puede subirse para medir el techo del tier. Si aparecen truncamientos
+# o errores 429, bajarlo.
 
 # Patrón para detectar recuadro de redirección a otra sección
 # Ejemplo: "MÁS AVISOS ECONÓMICOS CLASIFICADOS EN PÁG. C 8"
@@ -182,7 +208,8 @@ Extrae TODOS los avisos de remates de propiedades. Para cada aviso, devuelve:
 - "direccion": dirección completa del inmueble rematado
 - "comuna": comuna donde se ubica el inmueble
 - "fecha_remate": fecha del remate si aparece (formato DD/MM/YYYY)
-
+- "año_inscripcion_dominio": año en que el dominio fue inscrito en el Conservador de Bienes Raíces (formato "YYYY"). Búscalo cerca de frases como "inscrito a fojas", "Registro de Propiedad", "Conservador", "año". Si no aparece, null.
+- "fojas": el número de fojas de la inscripción del dominio (ej: "1234" o "1234 vta."). Suele aparecer como "fojas 1234", "a Fs. 1234", "inscrito a fojas 1234 N°...". Si no aparece, null.
 REGLAS:
 1. NO inventar datos. Si un campo no es identificable en el texto, devolver null.
 2. El ROL siempre aparece como "Rol C-XXXXX-YYYY" o "Rol: C-XXXXX-YYYY" o "rol C-XXXXX-YYYY". El número es XXXXX y el año es YYYY.
@@ -216,6 +243,141 @@ def _limpiar_tribunal(nombre: str | None) -> str | None:
     # (No alterar ordinales: 1°, 2°, etc.)
     texto = re.sub(r"\s{2,}", " ", texto)
     return texto
+
+
+# ── Normalizador de ordinal de tribunal ──
+def _normalizar_ordinal_tribunal(nombre: str | None) -> str | None:
+    """
+    Normaliza el ordinal escrito de un nombre de tribunal a formato "N°".
+    Ej: "Primer Juzgado Civil de Santiago" → "1° Juzgado Civil de Santiago".
+    Si ya es numérico o no tiene ordinal reconocible, deja intacto.
+    """
+    if not nombre:
+        return nombre
+
+    # Si ya tiene formato numérico con °, no tocar
+    if re.search(r'\b\d+\s*[°º]', nombre):
+        return nombre
+
+    # Diccionario plano 1-30: clave → reemplazo "N°"
+    # Incluye todas las variantes de género, apócope, con/sin tilde.
+    ORDINALES_MAP = {
+        # ── 30 ──
+        "trigésimo": "30°", "trigesimo": "30°",
+        "trigésima": "30°", "trigesima": "30°",
+        # ── 29 ──
+        "vigésimo noveno":  "29°", "vigesimo noveno":  "29°",
+        "vigésima novena":  "29°", "vigesima novena":  "29°",
+        # ── 28 ──
+        "vigésimo octavo":  "28°", "vigesimo octavo":  "28°",
+        "vigésima octava":  "28°", "vigesima octava":  "28°",
+        # ── 27 ──
+        "vigésimo séptimo": "27°", "vigesimo septimo": "27°",
+        "vigésima séptima": "27°", "vigesima septima": "27°",
+        # ── 26 ──
+        "vigésimo sexto":   "26°", "vigesimo sexto":   "26°",
+        "vigésima sexta":   "26°", "vigesima sexta":   "26°",
+        # ── 25 ──
+        "vigésimo quinto":  "25°", "vigesimo quinto":  "25°",
+        "vigésima quinta":  "25°", "vigesima quinta":  "25°",
+        # ── 24 ──
+        "vigésimo cuarto":  "24°", "vigesimo cuarto":  "24°",
+        "vigésima cuarta":  "24°", "vigesima cuarta":  "24°",
+        # ── 23 ──
+        "vigésimo tercero": "23°", "vigesimo tercero": "23°",
+        "vigésimo tercer":  "23°", "vigesimo tercer":  "23°",
+        "vigésima tercera": "23°", "vigesima tercera": "23°",
+        # ── 22 ──
+        "vigésimo segundo": "22°", "vigesimo segundo": "22°",
+        "vigésima segunda": "22°", "vigesima segunda": "22°",
+        # ── 21 ──
+        "vigésimo primero": "21°", "vigesimo primero": "21°",
+        "vigésimo primer":  "21°", "vigesimo primer":  "21°",
+        "vigésima primera": "21°", "vigesima primera": "21°",
+        # ── 20 ──
+        "vigésimo": "20°", "vigesimo": "20°",
+        "vigésima": "20°", "vigesima": "20°",
+        # ── 19 ──
+        "décimo noveno":    "19°", "decimo noveno":    "19°",
+        "décima novena":    "19°", "decima novena":    "19°",
+        "decimonoveno":     "19°", "decimonovena":     "19°",
+        # ── 18 ──
+        "décimo octavo":    "18°", "decimo octavo":    "18°",
+        "décima octava":    "18°", "decima octava":    "18°",
+        "decimoctavo":      "18°", "decimoctava":      "18°",
+        # ── 17 ──
+        "décimo séptimo":   "17°", "decimo septimo":   "17°",
+        "décima séptima":   "17°", "decima septima":   "17°",
+        "decimoséptimo":    "17°", "decimoseptimo":    "17°",
+        "decimoséptima":    "17°", "decimoseptima":    "17°",
+        # ── 16 ──
+        "décimo sexto":     "16°", "decimo sexto":     "16°",
+        "décima sexta":     "16°", "decima sexta":     "16°",
+        "decimosexto":      "16°", "decimosexta":      "16°",
+        # ── 15 ──
+        "décimo quinto":    "15°", "decimo quinto":    "15°",
+        "décima quinta":    "15°", "decima quinta":    "15°",
+        "decimoquinto":     "15°", "decimoquinta":     "15°",
+        # ── 14 ──
+        "décimo cuarto":    "14°", "decimo cuarto":    "14°",
+        "décima cuarta":    "14°", "decima cuarta":    "14°",
+        "decimocuarto":     "14°", "decimocuarta":     "14°",
+        # ── 13 ──
+        "décimo tercero":   "13°", "decimo tercero":   "13°",
+        "décimo tercer":    "13°", "decimo tercer":    "13°",
+        "décima tercera":   "13°", "decima tercera":   "13°",
+        "decimotercero":    "13°", "decimotercer":     "13°",
+        "decimotercera":    "13°",
+        # ── 12 ──
+        "décimo segundo":   "12°", "decimo segundo":   "12°",
+        "décima segunda":   "12°", "decima segunda":   "12°",
+        "duodécimo":        "12°", "duodecimo":        "12°",
+        "duodécima":        "12°", "duodecima":        "12°",
+        "decimosegundo":    "12°", "decimosegunda":    "12°",
+        # ── 11 ──
+        "décimo primero":   "11°", "decimo primero":   "11°",
+        "décimo primer":    "11°", "decimo primer":    "11°",
+        "décima primera":   "11°", "decima primera":   "11°",
+        "undécimo":         "11°", "undecimo":         "11°",
+        "undécima":         "11°", "undecima":         "11°",
+        "decimoprimero":    "11°", "decimoprimer":     "11°",
+        "decimoprimera":    "11°",
+        # ── 10 ──
+        "décimo": "10°", "decimo": "10°",
+        "décima": "10°", "decima": "10°",
+        # ── 9 ──
+        "noveno": "9°", "novena": "9°",
+        # ── 8 ──
+        "octavo": "8°", "octava": "8°",
+        # ── 7 ──
+        "séptimo": "7°", "septimo": "7°",
+        "séptima": "7°", "septima": "7°",
+        # ── 6 ──
+        "sexto": "6°", "sexta": "6°",
+        # ── 5 ──
+        "quinto": "5°", "quinta": "5°",
+        # ── 4 ──
+        "cuarto": "4°", "cuarta": "4°",
+        # ── 3 ──
+        "tercero": "3°", "tercer": "3°",
+        "tercera": "3°",
+        # ── 2 ──
+        "segundo": "2°", "segunda": "2°",
+        # ── 1 ──
+        "primero": "1°", "primer": "1°",
+        "primera": "1°",
+    }
+
+    # Recorrer de mayor a menor longitud de clave para evitar colisiones de
+    # subcadenas (ej: "décimo tercer" debe procesarse antes que "tercer").
+    resultado = nombre
+    for escrito in sorted(ORDINALES_MAP.keys(), key=len, reverse=True):
+        patron = r'\b' + re.escape(escrito) + r'\b'
+        resultado, n = re.subn(patron, ORDINALES_MAP[escrito], resultado, flags=re.IGNORECASE)
+        if n > 0:
+            break
+
+    return resultado
 
 
 def _extraer_ordinal(texto: str) -> int | None:
@@ -838,15 +1000,17 @@ async def _esperar_canvas_hd(page: Page, timeout_ms: int = 20_000) -> bool:
 # TEXT API (Claude)
 # ===========================================================================
 
-def _enviar_texto_a_claude(page_id: str, texto: str, reintentos: int = 1) -> list[dict[str, Any]]:
+def _enviar_texto_a_claude(page_id: str, texto: str, reintentos: int = 2) -> tuple[list[dict[str, Any]], dict[str, int]]:
     """
-    Envía texto del textLayer a Claude Text API (Sonnet) y retorna avisos extraídos.
-    Reintenta una vez en caso de fallo. Retorna [] si no se puede parsear.
+    Envía texto del textLayer a la API de extracción (Sonnet o DeepSeek).
+    Retorna (avisos, usage_dict) donde usage_dict = {"in": prompt_tokens, "out": completion_tokens}.
+    Reintenta hasta 2 veces en caso de fallo (3 intentos totales).
+    En fallo total retorna ([], {"in":0,"out":0}).
     """
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    log.info("Motor de extracción: %s", MODELO_EXTRACCION)
 
     log.info(
-        "Enviando texto pág %s a Claude API (%d caracteres)",
+        "Enviando texto pág %s a la API (%d caracteres)",
         page_id, len(texto),
     )
 
@@ -855,30 +1019,63 @@ def _enviar_texto_a_claude(page_id: str, texto: str, reintentos: int = 1) -> lis
     for intento in range(reintentos + 1):
         try:
             log.info(
-                "Claude API pág %s (intento %d/%d)",
-                page_id, intento + 1, reintentos + 1,
+                "API pág %s (intento %d/%d, motor=%s)",
+                page_id, intento + 1, reintentos + 1, MODELO_EXTRACCION,
             )
-            response = client.messages.create(
-                model="claude-sonnet-4-6",
-                max_tokens=16384,
-                messages=[{
-                    "role": "user",
-                    "content": contenido,
-                }],
-            )
-            texto_respuesta = "".join(
-                bloque.text for bloque in response.content if hasattr(bloque, "text")
-            )
-            log.debug("Respuesta Claude (primeros 200 chars): %s", texto_respuesta[:200])
-            return _parsear_json_vision(texto_respuesta)
+
+            if MODELO_EXTRACCION == "deepseek":
+                # ── Rama DeepSeek V4-Flash (OpenAI SDK) ──
+                from openai import OpenAI
+
+                client = OpenAI(
+                    api_key=DEEPSEEK_API_KEY,
+                    base_url="https://api.deepseek.com",
+                    timeout=120.0,
+                )
+                response = client.chat.completions.create(
+                    model="deepseek-v4-flash",
+                    max_tokens=16384,
+                    messages=[{"role": "user", "content": contenido}],
+                )
+                texto_respuesta = response.choices[0].message.content or ""
+                usage = {"in": 0, "out": 0}
+                if response.usage:
+                    usage["in"] = response.usage.prompt_tokens or 0
+                    usage["out"] = response.usage.completion_tokens or 0
+            else:
+                # ── Rama Sonnet (Anthropic SDK, actual) ──
+                client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY, timeout=120.0)
+                response = client.messages.create(
+                    model="claude-sonnet-4-6",
+                    max_tokens=16384,
+                    messages=[{
+                        "role": "user",
+                        "content": contenido,
+                    }],
+                )
+                texto_respuesta = "".join(
+                    bloque.text for bloque in response.content if hasattr(bloque, "text")
+                )
+                usage = {"in": response.usage.input_tokens or 0,
+                        "out": response.usage.output_tokens or 0}
+
+            log.debug("Respuesta API (primeros 200 chars): %s", texto_respuesta[:200])
+            avisos = _parsear_json_vision(texto_respuesta)
+            if not avisos and texto_respuesta.strip() not in ("[]", "[ ]"):
+                raise ValueError(
+                    f"Respuesta vacía o JSON truncado/inválido "
+                    f"({len(texto_respuesta)} chars crudos)"
+                )
+            return (avisos, usage)
 
         except Exception as e:
-            log.warning("Error en Claude API (intento %d): %s", intento + 1, e)
+            log.warning("Fallo en API/parseo pág %s (intento %d/%d): %s",
+                        page_id, intento + 1, reintentos + 1, e)
             if intento < reintentos:
                 time.sleep(5)
 
-    log.error("Claude API falló tras %d intentos para pág %s", reintentos + 1, page_id)
-    return []
+    log.error("API falló tras %d intentos para pág %s (motor=%s)", reintentos + 1, page_id, MODELO_EXTRACCION)
+    return ([], {"in": 0, "out": 0})
 
 
 def _parsear_json_vision(texto: str) -> list[dict[str, Any]]:
@@ -911,6 +1108,31 @@ def _parsear_json_vision(texto: str) -> list[dict[str, Any]]:
 # ===========================================================================
 # POST-PROCESAMIENTO
 # ===========================================================================
+
+_CBR_ANIO_MIN = 1900
+_CBR_ANIO_MAX = 2027
+
+def _evaluar_cbr_por_anio(anio_raw) -> dict:
+    """
+    Decide CBR a partir del año de inscripción del dominio que devolvió la IA.
+    No usa regex sobre texto; opera sobre el año ya extraído.
+    """
+    if anio_raw is None or str(anio_raw).strip() == "":
+        return {"decision": "REVISAR", "cbr_anio": None,
+                "cbr_flag_revision": True, "cbr_motivo": "Año CBR no detectado"}
+    m = re.search(r"\b(\d{4})\b", str(anio_raw))
+    if not m:
+        return {"decision": "REVISAR", "cbr_anio": None,
+                "cbr_flag_revision": True, "cbr_motivo": "Año CBR no detectado"}
+    anio = int(m.group(1))
+    if not (_CBR_ANIO_MIN <= anio <= _CBR_ANIO_MAX):
+        return {"decision": "REVISAR", "cbr_anio": None,
+                "cbr_flag_revision": True, "cbr_motivo": "Año CBR fuera de rango"}
+    if anio >= _CBR_ANIO_CORTE:
+        return {"decision": "EXCLUIR", "cbr_anio": anio,
+                "cbr_flag_revision": False, "cbr_motivo": ""}
+    return {"decision": "MANTENER", "cbr_anio": anio,
+            "cbr_flag_revision": False, "cbr_motivo": ""}
 
 def _normalizar_aviso(raw: dict[str, Any]) -> dict[str, Any] | None:
     """
@@ -954,6 +1176,7 @@ def _normalizar_aviso(raw: dict[str, Any]) -> dict[str, Any] | None:
 
     # Limpiar nombre de tribunal
     tribunal_limpio = _limpiar_tribunal(str(tribunal_raw).strip() if tribunal_raw else None)
+    tribunal_limpio = _normalizar_ordinal_tribunal(tribunal_limpio)
 
     # Mapear tribunal → corte
     corte = buscar_corte(tribunal_limpio) if tribunal_limpio else None
@@ -967,6 +1190,8 @@ def _normalizar_aviso(raw: dict[str, Any]) -> dict[str, Any] | None:
         "demandado": demandado or "",
         "direccion": direccion,
         "comuna": comuna,
+        "año_inscripcion_dominio": raw.get("año_inscripcion_dominio"),
+        "fojas": raw.get("fojas"),
         "region_rm": True,
     }
 
@@ -1486,22 +1711,54 @@ async def _extraer_mercurio_async(
         _log_resumen(st, dry_run=True)
         return []
 
-    log.info("[Paso 7/8] Procesando %d páginas con Claude Text API", len(paginas_texto))
+    # ── FASE A: llamadas API en paralelo ──
+    def _procesar_pagina(idx, page_id, texto):
+        """Solo la llamada API. Aísla el fallo de esta página."""
+        try:
+            avisos_raw, usage = _enviar_texto_a_claude(page_id, texto)
+        except Exception as e:
+            log.error("Página %s falló tras reintentos: %s", page_id, e)
+            avisos_raw = []
+            usage = {"in": 0, "out": 0}
+        return idx, page_id, avisos_raw, usage
 
+    resultados = [None] * len(paginas_texto)
+    log.info("[Paso 7/8] Procesando %d páginas con %d workers concurrentes",
+             len(paginas_texto), MAX_WORKERS)
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futuros = [
+            executor.submit(_procesar_pagina, idx, page_id, texto)
+            for idx, (page_id, texto) in enumerate(paginas_texto)
+        ]
+        for fut in futuros:
+            idx, page_id, avisos_raw, usage = fut.result()
+            resultados[idx] = (page_id, avisos_raw, usage)
+            st.tokens_input += usage["in"]
+            st.tokens_output += usage["out"]
+
+    # ── FASE B: post-proceso secuencial en orden original ──
     avisos_normalizados_total: list[dict[str, Any]] = []
-
-    for i, (page_id, texto) in enumerate(paginas_texto, 1):
-        log.info("Procesando página %d/%d: %s", i, len(paginas_texto), page_id)
-        avisos_raw = _enviar_texto_a_claude(page_id, texto)
+    for i, (page_id, avisos_raw, _usage) in enumerate(resultados):
+        log.info("Post-procesando página %d/%d: %s (%d avisos raw)",
+                 i + 1, len(resultados), page_id, len(avisos_raw))
         st.avisos_vision += len(avisos_raw)
-        log.info(
-            "Claude retornó %d avisos para pág %s",
-            len(avisos_raw), page_id,
-        )
-
         for raw in avisos_raw:
             aviso_normalizado = _normalizar_aviso(raw)
             if aviso_normalizado is not None:
+                cbr = _evaluar_cbr_por_anio(aviso_normalizado.get("año_inscripcion_dominio"))
+                if cbr["decision"] == "EXCLUIR":
+                    log.info("Aviso ROL %s descartado por CBR: dominio %s >= 2020",
+                             aviso_normalizado.get("rol"), cbr["cbr_anio"])
+                    st.excluidos_cbr.append({
+                        "tribunal": aviso_normalizado.get("tribunal"),
+                        "rol": aviso_normalizado.get("rol"),
+                        "año": aviso_normalizado.get("año"),
+                        "cbr_anio": cbr["cbr_anio"],
+                    })
+                    continue
+                aviso_normalizado["cbr_anio"] = cbr["cbr_anio"]
+                aviso_normalizado["cbr_flag_revision"] = cbr["cbr_flag_revision"]
+                aviso_normalizado["cbr_motivo"] = cbr["cbr_motivo"]
                 avisos_normalizados_total.append(aviso_normalizado)
 
     log.info("[Paso 8/8] Aplicando filtros a %d avisos normalizados", len(avisos_normalizados_total))
@@ -1511,7 +1768,32 @@ async def _extraer_mercurio_async(
 
     log.info("=== Extracción completada: %d causas nuevas ===", len(todas_las_causas))
     _log_resumen(st)
+
+    # Poblar métricas accesibles desde el exterior (canal lateral para M5)
+    global _ultimas_metricas
+    # Deduplicar excluidos CBR por ROL (primera aparición)
+    _vistos = set()
+    _exc_unicos = []
+    for e in st.excluidos_cbr:
+        if e["rol"] not in _vistos:
+            _vistos.add(e["rol"])
+            _exc_unicos.append(e)
+    _ultimas_metricas = {
+        "tokens_input": st.tokens_input,
+        "tokens_output": st.tokens_output,
+        "excluidos_cbr": _exc_unicos,
+    }
+
     return todas_las_causas
+
+
+# Canal lateral de métricas para M5 (no toca la firma de extraer_mercurio)
+_ultimas_metricas: dict[str, Any] = {}
+
+
+def obtener_metricas():
+    """Retorna dict con tokens_input, tokens_output, excluidos_cbr de la última ejecución."""
+    return _ultimas_metricas
 
 
 # ===========================================================================
