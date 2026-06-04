@@ -156,6 +156,7 @@ _COLUMNAS = [
     ("Dirección",       "direccion",          36,  None),
     ("Comuna",          "comuna",             16,  None),
     ("Tipo Proc.",      "tipo_procedimiento", 13,  None),
+    ("Deuda (CLP)",     "monto_deuda_clp",    17,  '#,##0'),
     ("Fs.",             "fojas",               8,  None),
     ("CBR Motivo",      "cbr_motivo",         22,  None),
     ("Fechas Public.",  "fechas_publicacion", 18,  None),
@@ -168,12 +169,13 @@ _COLUMNAS = [
 # Escritura de hoja de datos
 # ─────────────────────────────────────────────────────────────────
 
-def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None) -> None:
+def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None, descartados: list | None = None) -> None:
     """
     Crea una hoja con la lista de causas ordenadas, headers y formato condicional.
     """
     ws = wb.create_sheet(nombre)
     excluidos = excluidos or []
+    descartados = descartados or []
 
     # ── Fila de encabezados ──
     for col_idx, (header, _, ancho, _fmt) in enumerate(_COLUMNAS, 1):
@@ -196,18 +198,28 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
 
             if valor is None:
                 valor = ""
-            # (monto_deuda_clp removido — M3 descolgado)
+            # Celda amarilla para monto no verificado
+            if campo == "monto_deuda_clp" and not valor:
+                motivo = causa.get("motivo_fallo", "")
+                if motivo and ("descarga" in motivo.lower() or "pdf" in motivo.lower()):
+                    valor = motivo
+                else:
+                    valor = "Monto no verificado"
             # Corte: eliminar prefijo "C.A. de " para ahorrar espacio
             elif campo == "corte" and isinstance(valor, str) and valor.startswith("C.A. de "):
                 valor = valor[8:]
 
             cell = ws.cell(row=row_idx, column=col_idx, value=valor)
-            cell.fill      = fill
+            if campo == "monto_deuda_clp" and isinstance(valor, str) and not valor.replace(".","").replace(",","").isdigit():
+                cell.fill = PatternFill("solid", fgColor="FFFF00")  # amarillo
+                cell.alignment = _ALIGN_LEFT
+            else:
+                cell.fill = fill
+                cell.alignment = _ALIGN_RIGHT if fmt_num else _ALIGN_LEFT
             cell.font      = _FONT_BODY
-            cell.alignment = _ALIGN_RIGHT if fmt_num else _ALIGN_LEFT
             cell.border    = _BORDER_THIN
 
-            if fmt_num and valor != "":
+            if fmt_num and valor != "" and not (campo == "monto_deuda_clp" and isinstance(valor, str)):
                 cell.number_format = fmt_num
 
         ws.row_dimensions[row_idx].height = 16
@@ -262,6 +274,52 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
         cell.font = _FONT_BODY
         ws.merge_cells(start_row=r_ex, start_column=1, end_row=r_ex, end_column=4)
         ws.row_dimensions[r_ex].height = 16
+
+    # ── Tabla de causas descartadas por parámetros ──
+    if excluidos:
+        ultima_fila_cbr = inicio_excl + 2 + len(excluidos)
+    else:
+        ultima_fila_cbr = inicio_excl + 2
+    inicio_desc = ultima_fila_cbr + 3  # 2 filas en blanco después de la tabla CBR
+
+    cell_tit2 = ws.cell(row=inicio_desc, column=1, value="CAUSAS DESCARTADAS POR PARÁMETROS")
+    cell_tit2.font = Font(bold=True, color="FFFFFF", size=11)
+    cell_tit2.fill = PatternFill("solid", fgColor="8B0000")
+    ws.merge_cells(start_row=inicio_desc, start_column=1, end_row=inicio_desc, end_column=5)
+    ws.row_dimensions[inicio_desc].height = 20
+
+    headers_desc = ["Tribunal", "ROL", "Año", "Motivo", "Monto (CLP)"]
+    for ci, h in enumerate(headers_desc, 1):
+        cell = ws.cell(row=inicio_desc + 1, column=ci, value=h)
+        cell.font = Font(bold=True, color="FFFFFF", size=10)
+        cell.fill = PatternFill("solid", fgColor="1F4E79")
+        cell.alignment = _ALIGN_CENTER
+        cell.border = _BORDER_THIN
+    ws.row_dimensions[inicio_desc + 1].height = 18
+
+    if descartados:
+        for fi, d in enumerate(descartados):
+            r_d = inicio_desc + 2 + fi
+            ws.cell(row=r_d, column=1, value=d.get("tribunal", "") or "")
+            ws.cell(row=r_d, column=2, value=d.get("rol", "") or "")
+            ws.cell(row=r_d, column=3, value=d.get("año", "") or "")
+            ws.cell(row=r_d, column=4, value=d.get("motivo", "") or "")
+            monto_val = d.get("monto")
+            if monto_val:
+                cell_m = ws.cell(row=r_d, column=5, value=monto_val)
+                cell_m.number_format = '#,##0'
+            else:
+                cell_m = ws.cell(row=r_d, column=5, value="")
+            for ci in range(1, 6):
+                ws.cell(row=r_d, column=ci).font = _FONT_BODY
+                ws.cell(row=r_d, column=ci).border = _BORDER_THIN
+            ws.row_dimensions[r_d].height = 16
+    else:
+        r_d = inicio_desc + 2
+        cell = ws.cell(row=r_d, column=1, value="Sin causas descartadas por parámetros en esta edición")
+        cell.font = _FONT_BODY
+        ws.merge_cells(start_row=r_d, start_column=1, end_row=r_d, end_column=5)
+        ws.row_dimensions[r_d].height = 16
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -453,7 +511,7 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # quitar hoja vacía por defecto
 
-    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []))
+    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []))
     _escribir_hoja_resumen(wb, causas, metricas=metricas)
 
     # Resumen queda al final (la hoja de detalle es la primera pestaña visible)

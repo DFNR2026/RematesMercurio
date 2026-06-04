@@ -8,6 +8,16 @@ echo.
 
 cd /d "%~dp0"
 
+REM --- Activar entorno virtual local si existe ---
+if exist ".venv\Scripts\activate.bat" (
+    call ".venv\Scripts\activate.bat"
+) else (
+    echo [AVISO] No se encontro .venv en esta carpeta. Usando Python global.
+    echo         Si falta alguna libreria, crea el entorno con:
+    echo             python -m venv .venv ^&^& .venv\Scripts\activate.bat ^&^& pip install -r requirements.txt
+    echo.
+)
+
 REM Si se pasa una fecha como argumento, usarla. Si no, usar hoy.
 if "%~1"=="" (
     REM Obtener fecha de hoy en formato YYYY-MM-DD via Python

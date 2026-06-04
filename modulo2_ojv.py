@@ -38,6 +38,9 @@ from ojv_remates import (
     abrir_detalle,
     seleccionar_cuaderno,
     filas_del_modal,
+    descargar_pdf_de_fila,
+    buscar_mandamiento,
+    buscar_bases_remate,
 )
 
 from config import DESCARGAS_DIR, CAUSAS_IGNORADAS
@@ -317,6 +320,12 @@ def _procesar_una_causa(page, context, causa: dict) -> dict:
         tipo_proc = "desposeimiento"
         cuaderno_objetivo = "Apremio"   # "Apremio de desposeimiento" contiene "Apremio"
     else:
+        # Descartar "Ejecutivo Mínima Cuantía" antes de asignar tipo_proc
+        if "mínima cuantía" in modal_texto or "minima cuantia" in modal_texto:
+            log.warning(f"  {etiqueta}: Procedimiento descartado: Ejecutivo Mínima Cuantía")
+            causa["motivo_fallo"] = "Procedimiento descartado: Ejecutivo Mínima Cuantía"
+            _cerrar_modal(page)
+            return causa
         tipo_proc = "ejecutivo"
         cuaderno_objetivo = "Apremio"
     causa["tipo_procedimiento"] = tipo_proc
@@ -329,10 +338,27 @@ def _procesar_una_causa(page, context, causa: dict) -> dict:
         _cerrar_modal(page)
         return causa
 
-    # ── Descarga de mandamiento/bases ELIMINADA (deuda fuera del negocio) ──
-    # _seleccionar_cuaderno_dinamico se mantiene arriba por seguridad de
-    # navegación; ya no se descarga ningún PDF.
-    # (tipo_documento, descargado, ruta_pdf conservan sus defaults "")
+    nombre_pdf = os.path.join(DESCARGAS_DIR, f"{etiqueta}_MANDAMIENTO.pdf")
+    ok = False
+
+    if es_ley_bancos:
+        log.info("  [BASES DE REMATE]")
+        ok = buscar_bases_remate(page, context, etiqueta)
+        causa["tipo_documento"] = "bases_remate"
+        nombre_pdf = os.path.join(DESCARGAS_DIR, f"{etiqueta}_BASES_REMATE.pdf")
+    else:
+        log.info("  [MANDAMIENTO]")
+        ok = buscar_mandamiento(page, context, etiqueta)
+        causa["tipo_documento"] = "mandamiento"
+        nombre_pdf = os.path.join(DESCARGAS_DIR, f"{etiqueta}_MANDAMIENTO.pdf")
+
+    if ok and os.path.exists(nombre_pdf):
+        causa["descargado"] = True
+        causa["ruta_pdf"] = nombre_pdf
+        log.info("  Descargado: %s", os.path.basename(nombre_pdf))
+    else:
+        causa["motivo_fallo"] = "OJV: descarga fallida"
+        log.warning("  No descargado: %s", etiqueta)
 
     _cerrar_modal(page)
     return causa

@@ -130,6 +130,7 @@ class _Stats:
     tokens_input: int = 0
     tokens_output: int = 0
     excluidos_cbr: list = field(default_factory=list)  # [{tribunal, rol, año, cbr_anio}]
+    descartados: list = field(default_factory=list)    # [{rol, año, tribunal, motivo, monto}]
 
 
 def _log_resumen(stats: _Stats, *, dry_run: bool = False) -> None:
@@ -1200,6 +1201,7 @@ def _filtrar_avisos(
     avisos: list[dict[str, Any]],
     historico: set[str],
     vistos_en_ejecucion: set[str],
+    st=None,
 ) -> list[dict[str, Any]]:
     """
     Aplica todos los filtros del negocio a la lista de avisos normalizados.
@@ -1220,6 +1222,8 @@ def _filtrar_avisos(
         if corte not in _CORTES_RM:
             desc_rm += 1
             log.debug("  Descartado (no RM): ROL %s, corte='%s'", rol, corte)
+            if st is not None:
+                st.descartados.append({"rol": rol, "año": año, "tribunal": aviso.get("tribunal"), "motivo": "Solo RM", "monto": None})
             continue
 
         # Filtro 2: Banco Estado
@@ -1227,6 +1231,8 @@ def _filtrar_avisos(
         if any(b in demandante_lower for b in _BANCOS_ESTADO):
             desc_banco += 1
             log.debug("  Descartado (Banco Estado): ROL %s", rol)
+            if st is not None:
+                st.descartados.append({"rol": rol, "año": año, "tribunal": aviso.get("tribunal"), "motivo": "Banco Estado", "monto": None})
             continue
 
         # Filtro 3: Estación Central
@@ -1234,6 +1240,8 @@ def _filtrar_avisos(
         if comuna_lower in _COMUNAS_EXCLUIDAS:
             desc_comuna += 1
             log.debug("  Descartado (Estación Central): ROL %s", rol)
+            if st is not None:
+                st.descartados.append({"rol": rol, "año": año, "tribunal": aviso.get("tribunal"), "motivo": "Estación Central", "monto": None})
             continue
 
         # Filtro 4: Año >= 2018  (renumerado)
@@ -1241,6 +1249,8 @@ def _filtrar_avisos(
             if int(año) < 2018:
                 desc_anio += 1
                 log.debug("  Descartado (pre-2018): ROL %s, año %s", rol, año)
+                if st is not None:
+                    st.descartados.append({"rol": rol, "año": año, "tribunal": aviso.get("tribunal"), "motivo": "Pre-2018", "monto": None})
                 continue
         except ValueError:
             desc_anio += 1
@@ -1762,7 +1772,7 @@ async def _extraer_mercurio_async(
                 avisos_normalizados_total.append(aviso_normalizado)
 
     log.info("[Paso 8/8] Aplicando filtros a %d avisos normalizados", len(avisos_normalizados_total))
-    todas_las_causas = _filtrar_avisos(avisos_normalizados_total, historico, vistos_en_ejecucion)
+    todas_las_causas = _filtrar_avisos(avisos_normalizados_total, historico, vistos_en_ejecucion, st=st)
     st.avisos_post_filtro = len(todas_las_causas)
     st.causas_nuevas = len(todas_las_causas)
 
@@ -1778,10 +1788,18 @@ async def _extraer_mercurio_async(
         if e["rol"] not in _vistos:
             _vistos.add(e["rol"])
             _exc_unicos.append(e)
+    # Deduplicar descartados por ROL
+    _des_vistos = set()
+    _des_unicos = []
+    for d in st.descartados:
+        if d["rol"] not in _des_vistos:
+            _des_vistos.add(d["rol"])
+            _des_unicos.append(d)
     _ultimas_metricas = {
         "tokens_input": st.tokens_input,
         "tokens_output": st.tokens_output,
         "excluidos_cbr": _exc_unicos,
+        "descartados": _des_unicos,
     }
 
     return todas_las_causas

@@ -58,5 +58,9 @@ sandbox_*.png
 # Backups
 backup_*/
 
+# Binarios/ejecutables locales
+python
+python.exe
+
 # Tessdata
 .tessdata/

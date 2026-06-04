@@ -186,6 +186,14 @@ def navegar_a_consulta(page):
             page.wait_for_load_state("domcontentloaded", timeout=15000)
         except Exception:
             pass
+    # Cerrar pop-up/aviso semanal del PJUD antes de cualquier interacción
+    # (tolerante: si no hay pop-up, Escape no causa error ni interrumpe el flujo)
+    try:
+        time.sleep(0.8)
+        page.keyboard.press("Escape")
+    except Exception:
+        pass
+
     try:
         if "home/index.php" in page.url:
             cerrar_modal_aviso(page)

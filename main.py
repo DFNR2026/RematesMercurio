@@ -98,7 +98,7 @@ except ImportError:
     parsear_diarios = None
 from modulo1_mercurio     import extraer_mercurio, EdicionNoDisponible
 from modulo2_ojv          import procesar_causas_ojv
-# from modulo3_extractor    import extraer_montos  # M3 descolgado
+from modulo3_extractor    import extraer_montos
 from modulo5_reporte      import generar_reporte, actualizar_historial
 
 
@@ -171,9 +171,12 @@ def _resumen_final(causas: list[dict], elapsed_s: float, ruta_reporte: str) -> N
     print()
     if ruta_reporte:
         print(f"  Reporte: {ruta_reporte}")
-    _sep()# ─────────────────────────────────────────────────────────────────
-# Causas demo (para pruebas sin M1/M2)
+    _sep()
+
+
 # ─────────────────────────────────────────────────────────────────
+# Causas demo (para pruebas sin M1/M2)
+# ────────────────────────────────────────────────────────────────
 
 def _causas_demo() -> list[dict]:
     """Genera 25 causas sintéticas para probar M3→M5 sin correr M1/M2."""
@@ -266,6 +269,7 @@ Ejemplos:
     t_total = time.time()
     ruta_reporte = ""
     causas: list[dict] = []
+    metricas = {}
 
     _sep("SISTEMA DE ANÁLISIS DE REMATES JUDICIALES")
     print(f"  Log: {_LOG_FILE}")
@@ -374,26 +378,35 @@ Ejemplos:
             _resumen_final(causas, time.time() - t_total, ruta_reporte)
             return
 
-        # ── Módulo 3: DESCOLGADO (sin extracción de montos) ─────
-        # _sep("MÓDULO 3 — Extracción de montos de deuda")
-        # t = time.time()
-        # causas = extraer_montos(causas)
-        # monts = sum(1 for c in causas if c.get("monto_deuda_clp"))
-        # _ok(3, f"{monts}/{len(causas)} montos extraídos", time.time() - t)
+        # ── Módulo 3: Extracción de montos ─────────────────────
+        _sep("MÓDULO 3 — Extracción de montos de deuda")
+        t = time.time()
+        causas = extraer_montos(causas)
+        monts = sum(1 for c in causas if c.get("monto_deuda_clp"))
+        _ok(3, f"{monts}/{len(causas)} montos extraídos", time.time() - t)
 
-        # ── Filtro post-M3: ELIMINADO (M3 descolgado) ──────────────────
-        # _MONTO_MAX = 300_000_000
-        # pre_filtro = len(causas)
-        # causas = [
-        #     c for c in causas
-        #     if not c.get("monto_deuda_clp") or c["monto_deuda_clp"] <= _MONTO_MAX
-        # ]
-        # desc_monto = pre_filtro - len(causas)
-        # if desc_monto:
-        #     print(f"  [M3] Filtro monto máximo: {pre_filtro} → {len(causas)} "
-        #           f"(-{desc_monto} descartadas por deuda > $300M)")
-        #     log.info("Filtro monto máximo: %d → %d (-%d descartadas por deuda > $300M)",
-        #              pre_filtro, len(causas), desc_monto)
+        # ── Filtro post-M3: monto máximo $300M ────────────────
+        _MONTO_MAX = 300_000_000
+        pre_filtro = len(causas)
+        _descartados_monto = []
+        _causas_ok = []
+        for c in causas:
+            m = c.get("monto_deuda_clp")
+            if m and m > _MONTO_MAX:
+                _descartados_monto.append({
+                    "rol": c.get("rol"), "año": c.get("año"),
+                    "tribunal": c.get("tribunal"),
+                    "motivo": "Deuda > $300M", "monto": m,
+                })
+            else:
+                _causas_ok.append(c)
+        causas = _causas_ok
+        desc_monto = len(_descartados_monto)
+        if desc_monto:
+            print(f"  [M3] Filtro monto máximo: {pre_filtro} → {len(causas)} "
+                  f"(-{desc_monto} descartadas por deuda > $300M)")
+            log.info("Filtro monto máximo: %d → %d (-%d descartadas por deuda > $300M)",
+                     pre_filtro, len(causas), desc_monto)
 
         if args.hasta < 4:
             _resumen_final(causas, time.time() - t_total, ruta_reporte)
@@ -403,6 +416,10 @@ Ejemplos:
         _sep("MÓDULO 5 — Reporte y actualización de historial")
         t = time.time()
         actualizar_historial(causas)
+
+        # Fusionar descartados de monto (>$300M) con los descartados de M1
+        metricas["descartados"] = metricas.get("descartados", []) + _descartados_monto
+
         ruta_reporte = generar_reporte(causas, metricas=metricas)
         _ok(5, f"Reporte generado: {ruta_reporte}", time.time() - t)
 
