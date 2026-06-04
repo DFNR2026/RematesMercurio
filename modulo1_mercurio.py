@@ -997,6 +997,40 @@ async def _esperar_canvas_hd(page: Page, timeout_ms: int = 20_000) -> bool:
     return False
 
 
+# ---------------------------------------------------------------------------
+# Troceo de páginas grandes (mitigación truncamiento DeepSeek)
+# ---------------------------------------------------------------------------
+
+def _trocear_pagina(texto: str, solape: int = 2000) -> list[str]:
+    """Divide texto grande en 2 mitades con solape para no partir avisos a la mitad.
+
+    - Si len(texto) <= 45000: devuelve [texto] (una sola pieza).
+    - Si es mayor: busca el separador de párrafo más cercano al punto medio
+      (primero "\\n\\n", luego "\\n", luego " "), corta ahí, y devuelve dos
+      chunks con 'solape' caracteres de superposición. Así un aviso partido
+      en el borde aparece íntegro en al menos uno de los dos chunks.
+    """
+    UMBRAL = 45_000
+    if len(texto) <= UMBRAL:
+        return [texto]
+
+    medio = len(texto) // 2
+    # Ventana de búsqueda: ±3000 chars alrededor del medio
+    ventana_inicio = max(0, medio - 3_000)
+    ventana_fin = min(len(texto), medio + 3_000)
+
+    for sep in ("\n\n", "\n", " "):
+        pos = texto.rfind(sep, ventana_inicio, ventana_fin)
+        if pos != -1:
+            corte = pos + len(sep)
+            break
+    else:
+        corte = medio
+
+    inicio_b = max(0, corte - solape)
+    return [texto[:corte], texto[inicio_b:]]
+
+
 # ===========================================================================
 # TEXT API (Claude)
 # ===========================================================================
@@ -1031,21 +1065,24 @@ def _enviar_texto_a_claude(page_id: str, texto: str, reintentos: int = 2) -> tup
                 client = OpenAI(
                     api_key=DEEPSEEK_API_KEY,
                     base_url="https://api.deepseek.com",
-                    timeout=120.0,
+                    timeout=60.0,
                 )
                 response = client.chat.completions.create(
                     model="deepseek-v4-flash",
                     max_tokens=16384,
                     messages=[{"role": "user", "content": contenido}],
                 )
-                texto_respuesta = response.choices[0].message.content or ""
+                raw = response.choices[0].message.content
+                if not raw or not raw.strip():
+                    raise ValueError("API devolvió respuesta vacía (posible cuelgue de pasarela)")
+                texto_respuesta = raw
                 usage = {"in": 0, "out": 0}
                 if response.usage:
                     usage["in"] = response.usage.prompt_tokens or 0
                     usage["out"] = response.usage.completion_tokens or 0
             else:
                 # ── Rama Sonnet (Anthropic SDK, actual) ──
-                client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY, timeout=120.0)
+                client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY, timeout=60.0)
                 response = client.messages.create(
                     model="claude-sonnet-4-6",
                     max_tokens=16384,
@@ -1723,14 +1760,26 @@ async def _extraer_mercurio_async(
 
     # ── FASE A: llamadas API en paralelo ──
     def _procesar_pagina(idx, page_id, texto):
-        """Solo la llamada API. Aísla el fallo de esta página."""
-        try:
-            avisos_raw, usage = _enviar_texto_a_claude(page_id, texto)
-        except Exception as e:
-            log.error("Página %s falló tras reintentos: %s", page_id, e)
-            avisos_raw = []
-            usage = {"in": 0, "out": 0}
-        return idx, page_id, avisos_raw, usage
+        """Trocea la página si es grande y envía cada chunk a la API secuencialmente.
+        Acumula avisos y tokens de todos los chunks. El dedup por ROL-año en
+        _filtrar_avisos (Filtro 6) colapsa los duplicados del solape."""
+        chunks = _trocear_pagina(texto)
+        all_avisos = []
+        total_usage = {"in": 0, "out": 0}
+
+        for ci, chunk in enumerate(chunks):
+            chunk_label = f"{page_id}.{ci}" if len(chunks) > 1 else page_id
+            try:
+                avisos_raw, usage = _enviar_texto_a_claude(chunk_label, chunk)
+            except Exception as e:
+                log.error("Chunk %s falló tras reintentos: %s", chunk_label, e)
+                avisos_raw = []
+                usage = {"in": 0, "out": 0}
+            all_avisos.extend(avisos_raw)
+            total_usage["in"] += usage["in"]
+            total_usage["out"] += usage["out"]
+
+        return idx, page_id, all_avisos, total_usage
 
     resultados = [None] * len(paginas_texto)
     log.info("[Paso 7/8] Procesando %d páginas con %d workers concurrentes",
