@@ -1,0 +1,81 @@
+============================================================
+  INSTALACION DEL ENTORNO (.venv) - EL MERCURIO DIGITAL
+  Guia manual paso a paso - probada y funcionando
+============================================================
+
+IMPORTANTE antes de empezar:
+- Tener Python instalado (con "Add Python to PATH" marcado).
+- Tener conexion a internet.
+- NO hacer clic dentro de la ventana de CMD mientras trabaja.
+  Si el texto se congela, presionar ESC o ENTER para destrabar
+  (es el "modo seleccion" de Windows, no esta colgado).
+- Reemplazar "E:\Mercurio" por la ruta real de la carpeta del
+  proyecto si fuera distinta.
+
+------------------------------------------------------------
+PASO 1 - Abrir CMD e ir a la carpeta del proyecto
+------------------------------------------------------------
+Abrir CMD (tecla Windows -> escribir "cmd" -> Enter) y pegar:
+
+cd /d E:\Mercurio
+
+------------------------------------------------------------
+PASO 2 - Crear el entorno virtual limpio
+------------------------------------------------------------
+Pegar este bloque COMPLETO de una vez (clic derecho = pegar).
+Se ejecuta solo, linea por linea:
+
+rmdir /s /q .venv
+python -m venv .venv
+call .venv\Scripts\activate.bat
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m playwright install chromium
+
+NOTAS:
+- El "rmdir" borra cualquier .venv viejo. Si no existe, dira
+  "no se encuentra el archivo" - es inofensivo, sigue.
+- Tras "activate.bat" el prompt debe cambiar a:  (.venv) E:\Mercurio>
+  Si NO aparece el (.venv), algo fallo: no sigas, revisa.
+- "python -m venv .venv" puede tardar 1-3 minutos sin mostrar nada.
+  Es normal, NO esta colgado. Dale tiempo.
+- Clave: SIEMPRE usar "python -m pip" (no "pip" suelto). El
+  "python -m pip" instala en el .venv; "pip" suelto se va al
+  Python global y rompe todo. Por eso el bloque ya lo usa.
+
+------------------------------------------------------------
+PASO 3 - Verificar que todo quedo en el .venv
+------------------------------------------------------------
+Con el (.venv) visible en el prompt, pegar esta linea SOLA
+(es corta para que no se parta al pegar):
+
+.venv\Scripts\python.exe -c "import main"
+
+RESULTADO ESPERADO:
+- Si vuelve el prompt limpio SIN error -> TODO OK. Listo.
+  (import main carga todo el pipeline; si algo faltara, fallaria aqui).
+- Si dice "ModuleNotFoundError: No module named 'X'" -> falta
+  la libreria X. Instalarla con:  python -m pip install X
+  y volver a correr la verificacion.
+
+------------------------------------------------------------
+PASO 4 - Falta antes de la primera corrida
+------------------------------------------------------------
+1. Copiar el archivo  causas_ojv.xlsx  (el historial de causas
+   ya procesadas) a la carpeta E:\Mercurio.
+2. Abrir  config.py  y pegar las credenciales reales:
+      ANTHROPIC_API_KEY
+      DEEPSEEK_API_KEY
+      MERCURIO_USER
+      MERCURIO_PASS
+
+------------------------------------------------------------
+PASO 5 - Ejecutar el pipeline
+------------------------------------------------------------
+Doble clic a  ejecutar_mercurio.bat
+  (o con fecha:  ejecutar_mercurio.bat 2026-06-04 )
+
+============================================================
+  Si algo falla en cualquier paso, el error queda VISIBLE en
+  la ventana (no se cierra solo). Copiar el mensaje exacto.
+============================================================
