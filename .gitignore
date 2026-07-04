@@ -30,6 +30,8 @@ Reporte_*.xlsx
 TEST_*.docx
 
 # Python
+python
+python.exe
 __pycache__/
 *.pyc
 .pytest_cache/
