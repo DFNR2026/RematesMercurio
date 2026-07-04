@@ -5,9 +5,8 @@ Encadena los 5 módulos en secuencia e imprime un resumen de cada etapa.
 
 Uso:
     python main.py              # pipeline completo (M1 → M5)
-    python main.py --demo       # 25 causas sintéticas (omite M1 y M2)
-    python main.py --sin-ojv    # omite M2 (usa PDFs ya descargados en Descargas/)
-    python main.py --hasta 3    # detiene el pipeline después del Módulo N
+    python main.py --demo       # 25 causas sintéticas (omite M1)
+    python main.py --hasta 1    # detiene el pipeline después de M1
     python main.py --silencio   # suprime logs de módulos (solo muestra resúmenes)
 
 # ===========================================================================
@@ -22,8 +21,6 @@ Uso:
 #
 # Si no se limpia entre pruebas:
 #   - M1 marcará las causas como "ya en historial" y devolverá 0 causas nuevas
-#   - Los PDFs en Descargas/ pueden contener mandamientos de causas incorrectas
-#     (bug de "primera fila" corregido en ojv_remates.py v10.1)
 # ===========================================================================
 """
 
@@ -97,8 +94,6 @@ try:
 except ImportError:
     parsear_diarios = None
 from modulo1_mercurio     import extraer_mercurio, EdicionNoDisponible
-from modulo2_ojv          import procesar_causas_ojv
-from modulo3_extractor    import extraer_montos
 from modulo5_reporte      import generar_reporte, actualizar_historial
 
 
@@ -124,11 +119,6 @@ def _ok(modulo: int, msg: str, tiempo_s: float) -> None:
 def _resumen_final(causas: list[dict], elapsed_s: float, ruta_reporte: str) -> None:
     """Imprime el resumen ejecutivo al terminar el pipeline."""
     total = len(causas)
-
-    # Clasificación OJV (mismo criterio que _clasificar en M5)
-    validadas = sum(1 for c in causas
-                    if bool(c.get("demandado")) and not c.get("motivo_fallo"))
-    sin_coincidencia = total - validadas
 
     # Métricas de extracción
     try:
@@ -159,10 +149,6 @@ def _resumen_final(causas: list[dict], elapsed_s: float, ruta_reporte: str) -> N
     print(f"  Tiempo total           : {mins}m {segs}s")
     print(f"  Total causas procesadas: {total}")
     print()
-    print("  VALIDACIÓN OJV")
-    print(f"    Validadas en OJV     : {validadas}  (demandado poblado, sin fallo)")
-    print(f"    Sin coincidencia OJV : {sin_coincidencia}  (fallo OJV o demandado vacío)")
-    print()
     print("  MÉTRICAS DE EXTRACCIÓN")
     print(f"    Tokens entrada       : {tokens_in:,}")
     print(f"    Tokens salida        : {tokens_out:,}")
@@ -175,13 +161,12 @@ def _resumen_final(causas: list[dict], elapsed_s: float, ruta_reporte: str) -> N
 
 
 # ─────────────────────────────────────────────────────────────────
-# Causas demo (para pruebas sin M1/M2)
+# Causas demo (para pruebas sin M1)
 # ────────────────────────────────────────────────────────────────
 
 def _causas_demo() -> list[dict]:
-    """Genera 25 causas sintéticas para probar M3→M5 sin correr M1/M2."""
-    import random, os
-    from config import DESCARGAS_DIR
+    """Genera 25 causas sintéticas para probar el tramo post-M1 (→ M5) sin red ni API."""
+    import random
     random.seed(42)
 
     comunas_rm  = ["Maipú", "La Florida", "Santiago", "Puente Alto", "San Bernardo",
@@ -193,33 +178,19 @@ def _causas_demo() -> list[dict]:
     causas = []
     for i in range(1, 26):
         es_rm   = i <= 15
-        proc    = "ejecutivo" if random.random() > 0.2 else "ley_bancos"
-        tipo_doc = "mandamiento" if proc == "ejecutivo" else "bases_remate"
-        desc    = random.random() > 0.15
-        deuda   = random.randint(15_000_000, 120_000_000) if desc else 0
         comuna  = random.choice(comunas_rm if es_rm else comunas_reg)
 
-        # Simular ruta_pdf (el archivo no existe, pero M3 lo manejará)
-        etq     = f"C-{30000 + i}-{random.randint(2015, 2023)}"
-        sufijo  = "MANDAMIENTO" if proc == "ejecutivo" else "BASES_REMATE"
-        ruta    = os.path.join(DESCARGAS_DIR, f"{etq}_{sufijo}.pdf")
-
         causas.append({
-            "rol":                str(30000 + i),
-            "año":                str(random.randint(2015, 2023)),
-            "corte":              "C.A. de Santiago" if es_rm
-                                  else f"C.A. de {random.choice(comunas_reg)}",
-            "tribunal":           f"{i}° Juzgado Civil de {'Santiago' if es_rm else comuna}",
-            "demandante":         random.choice(bancos),
-            "direccion":          f"Calle Demo {i * 100}",
-            "comuna":             comuna,
-            "region_rm":          es_rm,
-            "tipo_procedimiento": proc,
-            "tipo_documento":     tipo_doc if desc else "",
-            "descargado":         desc,
-            "ruta_pdf":           ruta if desc else "",
-            "monto_deuda_clp":    deuda,
-            "monto_original":     f"${deuda:,}" if deuda else "",
+            "rol":         str(30000 + i),
+            "año":         str(random.randint(2015, 2023)),
+            "corte":       "C.A. de Santiago" if es_rm
+                           else f"C.A. de {random.choice(comunas_reg)}",
+            "tribunal":    f"{i}° Juzgado Civil de {'Santiago' if es_rm else comuna}",
+            "demandante":  random.choice(bancos),
+            "demandado":   f"Deudor Demo {i}",
+            "direccion":   f"Calle Demo {i * 100}",
+            "comuna":      comuna,
+            "region_rm":   es_rm,
         })
     return causas
 
@@ -234,21 +205,19 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Ejemplos:
-  python main.py                        # pipeline completo
-  python main.py --demo                 # prueba con datos sintéticos (sin M1/M2)
-  python main.py --sin-ojv              # omite M2 (usa PDFs ya descargados)
-  python main.py --hasta 3              # detiene tras Módulo 3
+  python main.py                        # pipeline completo (M1 → M5)
+  python main.py --demo                 # prueba con datos sintéticos (sin M1)
+  python main.py --hasta 1              # detiene tras M1 (sin reporte)
   python main.py --silencio             # solo resúmenes, sin logs de módulos
   python main.py --limpiar-historial    # M1 ignora historial CAUSAS (testing)
   python main.py --diarios "Diarios test"  # carpeta alternativa de PDFs
         """,
     )
     parser.add_argument("--demo",     action="store_true",
-                        help="Usar 25 causas sintéticas (omite M1 y M2)")
-    parser.add_argument("--sin-ojv",  action="store_true",
-                        help="Omitir M2 (usar PDFs ya descargados en Descargas/)")
+                        help="Usar 25 causas sintéticas (omite M1)")
     parser.add_argument("--hasta",    type=int, default=5, metavar="N",
-                        help="Detener el pipeline después del Módulo N (1-5)")
+                        help="Detener el pipeline después del Módulo N "
+                             "(1-4: solo M1; 5: pipeline completo M1 → M5)")
     parser.add_argument("--silencio", action="store_true",
                         help="Suprimir logs de módulos (mostrar solo resúmenes)")
     parser.add_argument("--limpiar-historial", action="store_true",
@@ -275,11 +244,11 @@ Ejemplos:
     print(f"  Log: {_LOG_FILE}")
 
     try:
-        # ── Modo demo: saltar M1 y M2 ──────────────────────────
+        # ── Modo demo: saltar M1 ───────────────────────────────
         if args.demo:
             causas = _causas_demo()
             print(f"  [DEMO] {len(causas)} causas sintéticas generadas")
-            modulo_inicio = 3
+            modulo_inicio = 5
         else:
             modulo_inicio = 1
 
@@ -317,7 +286,6 @@ Ejemplos:
             if not causas:
                 print()
                 print("  Sin causas nuevas. Verificar PDFs en Diarios/")
-                print("  Si los PDFs ya están procesados, usa --desde con M2.")
                 return
 
             # Mover PDFs procesados a Diarios_Procesados/
@@ -335,80 +303,8 @@ Ejemplos:
                 if pdfs_movidos:
                     print(f"  [M1] {pdfs_movidos} PDF(s) movidos a Diarios_Procesados/")
 
-        # ── Módulo 2: OJV + Descarga ────────────────────────────
-        if modulo_inicio <= 2 <= args.hasta and not args.sin_ojv:
-            _sep("MÓDULO 2 — Consulta OJV y descarga de documentos")
-            t = time.time()
-            causas = procesar_causas_ojv(causas)
-            desc = sum(1 for c in causas if c.get("descargado"))
-            _ok(2, f"{desc}/{len(causas)} documentos descargados", time.time() - t)
-        elif args.sin_ojv:
-            print("  [M2] Omitido (--sin-ojv). Usando PDFs existentes en Descargas/")
-            from config import DESCARGAS_DIR
-
-            # Indexar PDFs disponibles en Descargas/ por nombre de archivo
-            _pdfs_disponibles = {
-                f: os.path.join(DESCARGAS_DIR, f)
-                for f in os.listdir(DESCARGAS_DIR)
-                if f.lower().endswith(".pdf")
-            }
-
-            encontrados = 0
-            for c in causas:
-                etq = f"C-{c['rol']}-{c['año']}"
-                c.setdefault("tipo_procedimiento", "")
-                # Buscar mandamiento o bases de remate para esta causa
-                for sufijo, tipo_doc in [("_MANDAMIENTO.pdf",  "mandamiento"),
-                                         ("_BASES_REMATE.pdf", "bases_remate")]:
-                    nombre = f"{etq}{sufijo}"
-                    if nombre in _pdfs_disponibles:
-                        c["descargado"]   = True
-                        c["ruta_pdf"]     = _pdfs_disponibles[nombre]
-                        c["tipo_documento"] = tipo_doc
-                        encontrados += 1
-                        break
-                else:
-                    c.setdefault("descargado",     False)
-                    c.setdefault("ruta_pdf",       "")
-                    c.setdefault("tipo_documento", "")
-
-            print(f"  [M2] {encontrados}/{len(causas)} PDFs detectados en Descargas/")
-
-        if args.hasta < 3:
-            _resumen_final(causas, time.time() - t_total, ruta_reporte)
-            return
-
-        # ── Módulo 3: Extracción de montos ─────────────────────
-        _sep("MÓDULO 3 — Extracción de montos de deuda")
-        t = time.time()
-        causas = extraer_montos(causas)
-        monts = sum(1 for c in causas if c.get("monto_deuda_clp"))
-        _ok(3, f"{monts}/{len(causas)} montos extraídos", time.time() - t)
-
-        # ── Filtro post-M3: monto máximo $300M ────────────────
-        _MONTO_MAX = 300_000_000
-        pre_filtro = len(causas)
-        _descartados_monto = []
-        _causas_ok = []
-        for c in causas:
-            m = c.get("monto_deuda_clp")
-            if m and m > _MONTO_MAX:
-                _descartados_monto.append({
-                    "rol": c.get("rol"), "año": c.get("año"),
-                    "tribunal": c.get("tribunal"),
-                    "motivo": "Deuda > $300M", "monto": m,
-                })
-            else:
-                _causas_ok.append(c)
-        causas = _causas_ok
-        desc_monto = len(_descartados_monto)
-        if desc_monto:
-            print(f"  [M3] Filtro monto máximo: {pre_filtro} → {len(causas)} "
-                  f"(-{desc_monto} descartadas por deuda > $300M)")
-            log.info("Filtro monto máximo: %d → %d (-%d descartadas por deuda > $300M)",
-                     pre_filtro, len(causas), desc_monto)
-
-        if args.hasta < 4:
+        # ── Checkpoint --hasta: 1-4 detienen tras M1 ────────────
+        if args.hasta < 5:
             _resumen_final(causas, time.time() - t_total, ruta_reporte)
             return
 
@@ -416,10 +312,6 @@ Ejemplos:
         _sep("MÓDULO 5 — Reporte y actualización de historial")
         t = time.time()
         actualizar_historial(causas)
-
-        # Fusionar descartados de monto (>$300M) con los descartados de M1
-        metricas["descartados"] = metricas.get("descartados", []) + _descartados_monto
-
         ruta_reporte = generar_reporte(causas, metricas=metricas)
         _ok(5, f"Reporte generado: {ruta_reporte}", time.time() - t)
 

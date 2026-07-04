@@ -5,7 +5,7 @@ Expone dos funciones públicas:
   actualizar_historial(causas) → APPEND a hoja CAUSAS de causas_ojv.xlsx
   generar_reporte(causas)      → crea Reporte_YYYY-MM-DD.xlsx
 
-Input:  lista de causas con todos los campos de M1-M4
+Input:  lista de causas con los campos del contrato M1 (incluye datos CBR)
 Output 1: causas_ojv.xlsx (hoja CAUSAS actualizada — historial deduplicación)
 Output 2: Reporte_YYYY-MM-DD.xlsx con 3 pestañas y formato condicional
 """
@@ -23,28 +23,6 @@ from config import CAUSAS_XLSX, BASE_DIR, REPORTES_DIR, SHEET_CAUSAS, MODELO_EXT
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [M5] %(message)s")
 log = logging.getLogger(__name__)
-
-
-# ─────────────────────────────────────────────────────────────────
-# Clasificación (sin tasación — Módulo 4 abandonado)
-# ─────────────────────────────────────────────────────────────────
-
-def _clasificar(causa: dict) -> str:
-    """
-    Clasifica cada causa según validación OJV:
-      - Validadas en OJV : demandado poblado por OJV y sin motivo de fallo
-      - Sin coincidencia OJV : el resto (fallo OJV o demandado vacío)
-    """
-    if bool(causa.get("demandado")) and not causa.get("motivo_fallo"):
-        return "Validadas en OJV"
-    return "Sin coincidencia OJV"
-
-
-def _enriquecer_clasificacion(causas: list[dict]) -> list[dict]:
-    """Agrega _clasificacion a cada causa (campo temporal de trabajo)."""
-    for c in causas:
-        c["_clasificacion"] = _clasificar(c)
-    return causas
 
 
 # Orden geográfico norte a sur de las Cortes de Apelaciones de regiones.
@@ -131,15 +109,6 @@ _BORDER_THIN  = Border(
     right= Side(style="thin", color="CCCCCC"),
 )
 
-# Colores de clasificación (fondo)
-_FILL_CON_DEUDA    = PatternFill("solid", fgColor="00B050")   # verde
-_FILL_SIN_PDF      = PatternFill("solid", fgColor="FFC000")   # amarillo/ámbar
-_FILL_SIN_MONTO    = PatternFill("solid", fgColor="FF0000")   # rojo
-
-# Fuente para clasificaciones
-_FONT_WHITE = Font(bold=True, color="FFFFFF", size=10)
-_FONT_DARK  = Font(bold=True, color="333333", size=10)
-
 
 # ─────────────────────────────────────────────────────────────────
 # Estructura de columnas
@@ -155,13 +124,10 @@ _COLUMNAS = [
     ("Demandado",       "demandado",          26,  None),
     ("Dirección",       "direccion",          36,  None),
     ("Comuna",          "comuna",             16,  None),
-    ("Tipo Proc.",      "tipo_procedimiento", 13,  None),
-    ("Deuda (CLP)",     "monto_deuda_clp",    17,  '#,##0'),
     ("Fs.",             "fojas",               8,  None),
     ("CBR Motivo",      "cbr_motivo",         22,  None),
     ("Fechas Public.",  "fechas_publicacion", 18,  None),
     ("Fecha Remate",    "fecha_remate",       14,  None),
-    ("Motivo Fallo",    "motivo_fallo",       32,  None),
 ]
 
 
@@ -198,28 +164,17 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
 
             if valor is None:
                 valor = ""
-            # Celda amarilla para monto no verificado
-            if campo == "monto_deuda_clp" and not valor:
-                motivo = causa.get("motivo_fallo", "")
-                if motivo and ("descarga" in motivo.lower() or "pdf" in motivo.lower()):
-                    valor = motivo
-                else:
-                    valor = "Monto no verificado"
             # Corte: eliminar prefijo "C.A. de " para ahorrar espacio
-            elif campo == "corte" and isinstance(valor, str) and valor.startswith("C.A. de "):
+            if campo == "corte" and isinstance(valor, str) and valor.startswith("C.A. de "):
                 valor = valor[8:]
 
             cell = ws.cell(row=row_idx, column=col_idx, value=valor)
-            if campo == "monto_deuda_clp" and isinstance(valor, str) and not valor.replace(".","").replace(",","").isdigit():
-                cell.fill = PatternFill("solid", fgColor="FFFF00")  # amarillo
-                cell.alignment = _ALIGN_LEFT
-            else:
-                cell.fill = fill
-                cell.alignment = _ALIGN_RIGHT if fmt_num else _ALIGN_LEFT
+            cell.fill      = fill
+            cell.alignment = _ALIGN_RIGHT if fmt_num else _ALIGN_LEFT
             cell.font      = _FONT_BODY
             cell.border    = _BORDER_THIN
 
-            if fmt_num and valor != "" and not (campo == "monto_deuda_clp" and isinstance(valor, str)):
+            if fmt_num and valor != "":
                 cell.number_format = fmt_num
 
         ws.row_dimensions[row_idx].height = 16
@@ -342,11 +297,6 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
     # Contadores
     total = len(causas)
 
-    por_clas = {"Validadas en OJV": 0, "Sin coincidencia OJV": 0}
-    for c in causas:
-        k = c.get("_clasificacion", "Sin coincidencia OJV")
-        por_clas[k] = por_clas.get(k, 0) + 1
-
     # ── Helpers de escritura ──
     def titulo(row, texto):
         cell = ws.cell(row=row, column=1, value=texto)
@@ -385,19 +335,6 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
     r += 1; espacio(r)
     r += 1; titulo(r, "TOTALES")
     r += 1; fila(r, "Total causas procesadas",   total)
-
-    r += 1; espacio(r)
-    r += 1; titulo(r, "VALIDACIÓN OJV")
-
-    _filas_clas = [
-        ("Validadas en OJV",      "demandado poblado y sin fallo OJV",  _FILL_CON_DEUDA, _FONT_WHITE),
-        ("Sin coincidencia OJV",  "fallo OJV o demandado vacío",        _FILL_SIN_PDF,   _FONT_DARK),
-    ]
-    for clas, nota, fill, font in _filas_clas:
-        r += 1
-        fila(r, f"  {clas}", por_clas.get(clas, 0), nota, fill=fill)
-        for col in (1, 2, 3):
-            ws.cell(row=r, column=col).font = font
 
     r += 1; espacio(r)
     r += 1; titulo(r, "MÉTRICAS DE EXTRACCIÓN")
@@ -494,15 +431,7 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     metricas = metricas or {}
     log.info(f"Generando reporte — {len(causas)} causa(s)")
 
-    # Usar nombre completo del demandado (OJV Litigantes) si está disponible
-    for c in causas:
-        if c.get("demandado_nombre"):
-            c["demandado"] = c["demandado_nombre"]
-
-    # Clasificar por estado de deuda
-    _enriquecer_clasificacion(causas)
-
-    # Ordenar por corte geográfica norte→sur y luego por ratio
+    # Ordenar por corte (Santiago, San Miguel, regiones) y ordinal de tribunal
     regiones = _ordenar_regiones(causas)
 
     log.info(f"  Regiones: {len(regiones)}")
@@ -540,18 +469,6 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
 
     log.info(f"Reporte guardado: {ruta}")
 
-    # Resumen a consola
-    por_clas = {}
-    for c in causas:
-        k = c.get("_clasificacion", "SIN PDF")
-        por_clas[k] = por_clas.get(k, 0) + 1
-
-    log.info("=" * 55)
-    log.info(f"Reporte: {os.path.basename(ruta)}")
-    for clas in ("CON DEUDA EXTRAÍDA", "SIN PDF", "SIN MONTO EN PDF"):
-        log.info(f"  {clas:<20}: {por_clas.get(clas, 0)}")
-    log.info("=" * 55)
-
     return ruta
 
 
@@ -567,48 +484,22 @@ if __name__ == "__main__":
         import random
         random.seed(42)
 
-        comunas_r  = ["Valparaíso", "Concepción", "Temuco", "La Serena", "Iquique"]
-        tipos_proc = ["ejecutivo", "ley_bancos"]
-        tipos_doc  = {"ejecutivo": "mandamiento", "ley_bancos": "bases_remate"}
+        comunas_r = ["Valparaíso", "Concepción", "Temuco", "La Serena", "Iquique"]
 
         causas_demo = []
         for i in range(1, 26):
-            proc  = random.choice(tipos_proc)
-            deuda = random.randint(20_000_000, 150_000_000)
-            desc  = random.random() > 0.2
-
             causas_demo.append({
-                "rol":                str(30000 + i),
-                "año":                str(random.randint(2015, 2023)),
-                "corte":              f"C.A. de {random.choice(comunas_r)}",
-                "tribunal":           f"{i}° Juzgado Civil de Concepción",
-                "demandante":         random.choice(["Banco BCI", "Banco Itaú Chile", "Banco Santander"]),
-                "direccion":          f"Calle Demo {i * 100}",
-                "comuna":             random.choice(comunas_r),
-                "region_rm":          False,
-                "tipo_procedimiento": proc,
-                "tipo_documento":     tipos_doc[proc] if desc else "",
-                "descargado":         desc,
-                "ruta_pdf":           "",
-                "monto_deuda_clp":    deuda if desc else 0,
-                "monto_original":     f"${deuda:,}" if desc else "",
+                "rol":         str(30000 + i),
+                "año":         str(random.randint(2015, 2023)),
+                "corte":       f"C.A. de {random.choice(comunas_r)}",
+                "tribunal":    f"{i}° Juzgado Civil de Concepción",
+                "demandante":  random.choice(["Banco BCI", "Banco Itaú Chile", "Banco Santander"]),
+                "demandado":   f"Deudor Demo {i}",
+                "direccion":   f"Calle Demo {i * 100}",
+                "comuna":      random.choice(comunas_r),
+                "region_rm":   False,
             })
 
         print(f"Generando reporte demo con {len(causas_demo)} causas...")
         ruta = generar_reporte(causas_demo)
         print(f"Reporte creado: {ruta}")
-
-    else:
-        # Pipeline completo M1 → M5
-        from modulo1_parser    import parsear_diarios
-        from modulo2_ojv       import procesar_causas_ojv
-        from modulo3_extractor import extraer_montos
-
-        print("Pipeline completo M1 → M5")
-        causas = parsear_diarios()
-        causas = procesar_causas_ojv(causas)
-        causas = extraer_montos(causas)
-
-        actualizar_historial(causas)
-        ruta = generar_reporte(causas)
-        print(f"Reporte: {ruta}")

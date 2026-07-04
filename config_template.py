@@ -36,15 +36,6 @@ DEMANDANTES_EXCLUIDOS = ["banco estado", "banco del estado", "banco del estado d
 # === REGIÓN METROPOLITANA ===
 CORTES_RM = {"C.A. de Santiago", "C.A. de San Miguel"}
 
-# === CAUSAS IGNORADAS (blacklist manual) ===
-# Causas que existen en OJV pero no pueden procesarse (cuadernos restringidos, etc.)
-CAUSAS_IGNORADAS = [
-    "C-1838-2024",  # Cuadernos restringidos en OJV (timeout dropdown)
-]
-
-# === OJV ===
-OJV_URL = "https://oficinajudicialvirtual.pjud.cl"
-
 # === EL MERCURIO DIGITAL ===
 MERCURIO_USER     = ""   # <-- RUT sin puntos ni guión
 MERCURIO_PASS     = ""   # <-- Contraseña El Mercurio Digital
