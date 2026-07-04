@@ -152,11 +152,11 @@ def _log_resumen(stats: _Stats, *, dry_run: bool = False) -> None:
     log.info("  Conservadas (con 1616)  : %d", stats.paginas_con_1616)
     log.info("  Página de parada        : %s", stats.pagina_parada or "N/A")
     if dry_run:
-        log.info("  Avisos Vision           : — (dry run)")
+        log.info("  Avisos extraídos        : — (dry run)")
         log.info("  Post-filtro             : — (dry run)")
         log.info("  Nuevos (no dup)         : — (dry run)")
     else:
-        log.info("  Avisos Vision           : %d", stats.avisos_vision)
+        log.info("  Avisos extraídos        : %d", stats.avisos_vision)
         log.info("  Post-filtro             : %d", stats.avisos_post_filtro)
         log.info("  Nuevos (no dup)         : %d", stats.causas_nuevas)
     log.info("  Tokens entrada          : %d", stats.tokens_input)
