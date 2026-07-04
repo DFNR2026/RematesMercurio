@@ -68,10 +68,20 @@ class _TeeWriter:
         self._log = log_file_handle
 
     def write(self, text):
-        self._orig.write(text)
+        # El log (UTF-8) va primero y siempre: un fallo de consola no debe impedir el registro.
+        try:
+            self._log.write(text)
+            self._log.flush()
+        except Exception:
+            pass
+        # La consola puede usar un codec limitado (p. ej. cp1252 en salida redirigida).
+        # Si el texto no es codificable, se degrada con reemplazo en vez de crashear.
+        try:
+            self._orig.write(text)
+        except UnicodeEncodeError:
+            enc = getattr(self._orig, "encoding", None) or "ascii"
+            self._orig.write(text.encode(enc, errors="replace").decode(enc))
         self._orig.flush()
-        self._log.write(text)
-        self._log.flush()
 
     def flush(self):
         self._orig.flush()
@@ -205,7 +215,7 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Ejemplos:
-  python main.py                        # pipeline completo (M1 → M5)
+  python main.py                        # pipeline completo (M1 -> M5)
   python main.py --demo                 # prueba con datos sintéticos (sin M1)
   python main.py --hasta 1              # detiene tras M1 (sin reporte)
   python main.py --silencio             # solo resúmenes, sin logs de módulos
@@ -217,7 +227,7 @@ Ejemplos:
                         help="Usar 25 causas sintéticas (omite M1)")
     parser.add_argument("--hasta",    type=int, default=5, metavar="N",
                         help="Detener el pipeline después del Módulo N "
-                             "(1-4: solo M1; 5: pipeline completo M1 → M5)")
+                             "(1-4: solo M1; 5: pipeline completo M1 -> M5)")
     parser.add_argument("--silencio", action="store_true",
                         help="Suprimir logs de módulos (mostrar solo resúmenes)")
     parser.add_argument("--limpiar-historial", action="store_true",
