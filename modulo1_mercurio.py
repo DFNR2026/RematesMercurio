@@ -475,10 +475,28 @@ def _cargar_referencia_tribunales() -> list[dict[str, str]]:
     return resultado
 
 
+def _clave_causa(rol, anio, tribunal) -> str:
+    """Llave de dedup: rol-año|tribunal canónico. Si no hay tribunal,
+    degrada a rol-año (comportamiento legado, con registro en log)."""
+    base = f"{str(rol).strip()}-{str(anio).strip()}" if anio else str(rol).strip()
+    t = (tribunal or "").strip()
+    if not t:
+        log.debug("Llave de dedup sin tribunal (degradada a rol-año): %s", base)
+        return base
+    # Mismo orden del post-proceso de avisos: limpiar → normalizar ordinal
+    t = _limpiar_tribunal(t) or ""
+    t = _normalizar_ordinal_tribunal(t) or ""
+    t = " ".join(t.split()).lower()          # colapsar espacios + minúsculas
+    if not t:
+        log.debug("Llave de dedup sin tribunal (degradada a rol-año): %s", base)
+        return base
+    return f"{base}|{t}"
+
+
 def _cargar_causas_historico() -> set[str]:
     """
     Lee la hoja CAUSAS de causas_ojv.xlsx.
-    Retorna set de ROLes ya procesados (formato "ROL-AÑO").
+    Retorna set de llaves ya procesadas (formato "ROL-AÑO|tribunal").
     """
     try:
         wb = openpyxl.load_workbook(CAUSAS_XLSX, read_only=True, data_only=True)
@@ -497,12 +515,14 @@ def _cargar_causas_historico() -> set[str]:
         return set()
 
     header = [str(c).lower().strip() if c else "" for c in rows[0]]
-    col_rol = col_anio = None
+    col_rol = col_anio = col_trib = None
     for i, h in enumerate(header):
         if "rol" in h and col_rol is None:
             col_rol = i
         if ("año" in h or "anio" in h or "year" in h) and col_anio is None:
             col_anio = i
+        if "tribunal" in h and col_trib is None:
+            col_trib = i
 
     if col_rol is None:
         col_rol = 0
@@ -513,9 +533,9 @@ def _cargar_causas_historico() -> set[str]:
     for fila in rows[1:]:
         rol = fila[col_rol] if len(fila) > col_rol else None
         anio = fila[col_anio] if len(fila) > col_anio else None
+        tribunal = fila[col_trib] if col_trib is not None and len(fila) > col_trib else None
         if rol:
-            key = f"{str(rol).strip()}-{str(anio).strip()}" if anio else str(rol).strip()
-            historico.add(key)
+            historico.add(_clave_causa(rol, anio, tribunal))
 
     log.debug("Histórico CAUSAS: %d entradas", len(historico))
     return historico
@@ -1252,7 +1272,7 @@ def _filtrar_avisos(
     for aviso in avisos:
         rol = aviso["rol"]
         año = aviso["año"]
-        key = f"{rol}-{año}"
+        key = _clave_causa(rol, año, aviso.get("tribunal"))
 
         # Filtro 1: Solo RM
         corte = aviso.get("corte", "")
@@ -1297,13 +1317,13 @@ def _filtrar_avisos(
         # Filtro 5: Dedup contra historial CAUSAS
         if key in historico:
             desc_hist += 1
-            log.debug("  Descartado (ya en historial): ROL %s-%s", rol, año)
+            log.debug("  Descartado (ya en historial): ROL %s-%s — %s", rol, año, aviso.get("tribunal"))
             continue
 
         # Filtro 6: Dedup entre páginas de la misma ejecución
         if key in vistos_en_ejecucion:
             desc_dup += 1
-            log.debug("  Descartado (duplicado en ejecución): ROL %s-%s", rol, año)
+            log.debug("  Descartado (duplicado en ejecución): ROL %s-%s — %s", rol, año, aviso.get("tribunal"))
             continue
 
         vistos_en_ejecucion.add(key)

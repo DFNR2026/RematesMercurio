@@ -20,6 +20,7 @@ from openpyxl.formatting.rule import FormulaRule
 from openpyxl.utils import get_column_letter
 
 from config import CAUSAS_XLSX, BASE_DIR, REPORTES_DIR, SHEET_CAUSAS, MODELO_EXTRACCION, DEEPSEEK_PRECIO_INPUT_USD_POR_1M, DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
+from modulo1_mercurio import _clave_causa
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [M5] %(message)s")
 log = logging.getLogger(__name__)
@@ -363,7 +364,7 @@ def actualizar_historial(causas: list[dict]) -> None:
     en la hoja CAUSAS de causas_ojv.xlsx.
 
     Solo hace APPEND — nunca borra filas existentes.
-    Evita duplicar ROLes que ya estén en el historial.
+    Evita duplicar causas ya presentes (llave rol-año|tribunal).
 
     Args:
         causas: lista de dicts (output del pipeline completo)
@@ -382,19 +383,19 @@ def actualizar_historial(causas: list[dict]) -> None:
         if ws.cell(1, 5).value != "FECHA_PROCESADO":
             ws.cell(1, 5).value = "FECHA_PROCESADO"
 
-    # Leer ROLes ya existentes para evitar duplicados
-    roles_existentes: set[tuple] = set()
+    # Leer llaves ya existentes para evitar duplicados
+    roles_existentes: set[str] = set()
     for row in ws.iter_rows(min_row=2, values_only=True):
         if row[0] and row[1]:
-            roles_existentes.add((str(row[0]).strip(), str(row[1]).strip()))
+            roles_existentes.add(_clave_causa(row[0], row[1], row[3] if len(row) > 3 else None))
 
     fecha_hoy = datetime.date.today().isoformat()
     agregados = 0
 
     for c in causas:
-        clave = (str(c.get("rol", "")).strip(), str(c.get("año", "")).strip())
-        if not clave[0]:
+        if not str(c.get("rol", "")).strip():
             continue
+        clave = _clave_causa(c.get("rol", ""), c.get("año", ""), c.get("tribunal"))
         if clave in roles_existentes:
             continue
 
