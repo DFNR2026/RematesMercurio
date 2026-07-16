@@ -1,9 +1,11 @@
 # Prompt Maestro: Extractor El Mercurio Digital (RM)
-# Versión 3.0 — 2026-07-03
+# Versión 3.1 — 2026-07-05
 
-> **Reemplaza íntegramente** a `PROMPT_MAESTRO_MERCURIO_v2_0.md` (última versión interna: 2.3, 2026-03-23), eliminado del repositorio junto con la publicación de este documento.
+> **Reemplaza íntegramente** a `PROMPT_MAESTRO_MERCURIO_v3_0.md` (2026-07-03), eliminado del repositorio junto con la publicación de este documento. Linaje: v2.x → v3.0 (cirugía PJUD) → **v3.1**.
 >
 > Cambios mayores acumulados desde la 2.3: migración del motor de extracción a **DeepSeek V4-Flash** (ciclo mayo 2026), **filtro de dominio vigente (CBR)**, **paralelización de M1**, y **eliminación completa de la capa PJUD/OJV** (julio 2026).
+>
+> Novedades de la v3.1: **llave de deduplicación con tribunal** (`_clave_causa`, commit `2fabb84`), **despliegue completado en `E:\Mercurio`** (2026-07-04/05, pipeline productivo en la PC del abogado), cronómetro declarado **fuera de uso**, y documentación de la **varianza del extractor** y del comportamiento del sitio en fines de semana.
 >
 > **Principio rector de este documento:** ante cualquier discrepancia entre lo aquí descrito y el código en disco, **el árbitro es el código**. Este maestro se audita contra `main.py`, `modulo1_mercurio.py` y `modulo5_reporte.py`, no al revés.
 
@@ -55,9 +57,9 @@ D:\Mercurio\
 ├── limpiar_cache.py           ← limpieza de caché y descargas
 ├── requirements.txt           ← playwright, anthropic, openai, openpyxl, rapidfuzz
 ├── ejecutar_mercurio.bat      ← ejecución manual (doble click = hoy)
-├── cronometro_mercurio.bat    ← ejecución programada 5am con reintentos
+├── cronometro_mercurio.bat    ← FUERA DE USO desde 2026-07-04 (inerte; pendiente retiro)
 ├── instalar_mercurio.bat      ← instalación de entorno
-├── logs\                      ← un .log por ejecución (UTF-8)
+├── logs\                      ← dos .log por ejecución: M1 + orquestador (UTF-8)
 ├── Descargas\                 ← HISTÓRICA: PDFs de la era OJV (la gestiona limpiar_cache.py)
 ├── Informe final\             ← reportes Excel finales
 ├── El_backend_proyecto_RM_PJUD.md
@@ -66,7 +68,7 @@ D:\Mercurio\
 
 - **Todas las rutas centralizadas en `config.py` con `BASE_DIR` relativo.** Proyecto 100% independiente de `D:\Remates\` y portable.
 - **GitHub:** `https://github.com/DFNR2026/RematesMercurio`.
-- **Espejo operativo:** `E:\Mercurio` (PC del abogado, corre el cron de las 5am). Su `config.py` está gitignored y **se edita a mano** en cada cambio de constantes: no viaja por git.
+- **Espejo operativo:** `E:\Mercurio` (PC del abogado; **él dispara `ejecutar_mercurio.bat` a mano** — no hay tarea programada). **Desplegado con el pipeline M1→M5 el 2026-07-04 y actualizado al fix de dedup (`2fabb84`) el 2026-07-05.** Su `config.py` está gitignored y **se edita a mano** en cada cambio de constantes: no viaja por git.
 
 **`causas_ojv.xlsx` — advertencia de nombre:** pese al nombre, es insumo de **M1**, no de la extinta capa OJV. Hoja **REFERENCIA** (233 tribunales, para el fuzzy de cortes) + hoja **CAUSAS** (historial para deduplicación). NO borrar, NO renombrar, NO modificar la hoja REFERENCIA.
 
@@ -80,6 +82,7 @@ D:\Mercurio\
 - **Paralelización:** `ThreadPoolExecutor` con 3 workers. Las páginas grandes se dividen en fragmentos (`pagina.0`, `pagina.1`, …) enviados en paralelo.
 - **Métricas:** `st.tokens_input` / `st.tokens_output` acumulan el `usage` de cada llamada; el canal lateral `obtener_metricas()` las lleva a M5 (hoja Resumen) sin cambiar la firma de `extraer_mercurio`.
 - **Costo:** ~USD 0.01–0.02 por corrida (referencia real 2026-07-03: USD 0.0123, 58K tokens). Mensual estimado: < USD 0.5.
+- **Varianza conocida (2026-07-04):** el código NO fija `temperature`, así que la extracción es **no determinista** sobre entrada idéntica — probado con la edición del 04/07: 41.729 tokens de entrada exactos en tres corridas → 38/43/40 avisos crudos, con diferencias en avisos borde (roles difíciles). Mitigante natural: los avisos de remate republican varios días. **Pendiente prioritario: fijar `temperature≈0`.**
 
 ---
 
@@ -134,9 +137,11 @@ Si esta estructura cambia, M5 se rompe.
 3. Si F falla o la fecha no coincide:
    - **Fin de semana:** URL directa a sección **D** → verificar fecha → si falla, **B** como último recurso.
    - **Día hábil (L-V):** URL directa a sección **B** (Economía y Negocios) → verificar fecha.
-4. Ninguna sección con la fecha → `raise EdicionNoDisponible` → `sys.exit(2)` (el cronometro reintenta).
+4. Ninguna sección con la fecha → `raise EdicionNoDisponible` → `sys.exit(2)` (exit code hoy **sin consumidor activo**: el cronómetro está fuera de uso).
 
 **¿Por qué D?** Los fines de semana los clasificados salen en una sección D independiente, accesible solo por URL directa; F queda stale. **¿Por qué B?** De lunes a viernes, cuando F no se actualiza, los clasificados aparecen al final de B.
+
+**Comportamiento real del sitio por día (verificado 2026-07-04/05):** F solo se publica fresca los **domingos** (el resto de la semana queda congelada mostrando el domingo anterior). Los **sábados**, el propio botón Clasificados **redirige a /D**, por lo que la espera de F vence a los ~15 s — **ese timeout es NORMAL, no un error** — y la cadena cae a D por la rama de click fallido. Los **domingos** F tiene la fecha correcta y se usa directamente.
 
 ### Paso 4: Mapa de páginas
 Extraer los page IDs de la sección activa. El recorrido inicia en la **última** página.
@@ -181,7 +186,7 @@ El texto de cada página/fragmento conservado se envía al motor configurado (ve
 6. **Filtro Banco Estado:** descartar "Banco Estado" / "Banco del Estado".
 7. **Filtro Estación Central:** descartar comuna "Estación Central".
 8. **Filtro año:** descartar año de ROL < 2018 o no parseable.
-9. **Dedup historial** (hoja CAUSAS) + **dedup ejecución** (entre páginas).
+9. **Dedup historial** (hoja CAUSAS) + **dedup ejecución** (entre páginas). Desde `2fabb84` ambos usan la llave `rol-año|tribunal normalizado` vía `_clave_causa()` (ver sección **LLAVE DE DEDUPLICACIÓN**).
 10. `region_rm = True`.
 
 > **El filtro de deuda > $300M ya no existe** (dependía de M3, eliminado).
@@ -209,6 +214,20 @@ En el Excel, la **tabla de transparencia** "PROPIEDADES NUEVAS EXCLUIDAS (domini
 
 ---
 
+## LLAVE DE DEDUPLICACIÓN (rol-año-tribunal) — commit `2fabb84`
+
+**El bug que motivó esto (2026-07-04, día 1 del despliegue):** la llave de dedup era `f"{rol}-{año}"` e ignoraba el tribunal. Los roles chilenos son **correlativos POR tribunal** (~30 juzgados civiles solo en Santiago), así que la colisión rol-año entre tribunales es estructural, no una rareza. Caso real: la causa `7030-2024` del **6° Juzgado Civil de Santiago** (Metlife) fue descartada en silencio porque el historial del abogado contenía otra `7030-2024` del **29° Juzgado** (procesada el 2026-05-16). Detectada por la memoria del abogado + auditoría de Diego. Las pérdidas anteriores al fix no son reconstruibles: la llave defectuosa impedía que la segunda causa entrara, así que el historial nunca registró a sus propias víctimas.
+
+**El fix (una historia, un commit, dos ubicaciones):**
+- `_clave_causa(rol, anio, tribunal)` en `modulo1_mercurio.py` — **única fuente de verdad**. Formato `rol-año|tribunal`, con el tribunal pasado por `_limpiar_tribunal` → `_normalizar_ordinal_tribunal` → colapso de espacios → minúsculas ("Sexto" y "6°" colapsan a la misma llave). Sin tribunal → degrada a `rol-año` (legado) con registro en log.
+- **M1 (lectura):** `_cargar_causas_historico()` lee también la columna TRIBUNAL del historial y construye las llaves nuevas; los dos filtros de dedup usan `_clave_causa`.
+- **M5 (escritura):** `actualizar_historial()` **importa** `_clave_causa` desde M1 y dedupea la escritura con la misma llave. Que ambos lados compartan la función hace **imposible ignorar** una actualización parcial de archivos: un estado mixto revienta con ImportError inmediato (verificado en producción el 2026-07-05).
+- Los logs de dedup incluyen ahora el tribunal (`ya en historial: ROL X-Y — tribunal`): la próxima colisión será visible a simple vista.
+
+**Trade-off asumido:** si el extractor escribe un tribunal con una variación no cubierta por el normalizador, una causa vieja puede reaparecer como duplicado **visible** en el Excel — preferible mil veces a una pérdida **invisible** (mismo principio que la salvaguarda CBR).
+
+---
+
 ## REPORTE EXCEL (modulo5_reporte.py)
 
 Estructura verificada (2026-07-03):
@@ -216,7 +235,8 @@ Estructura verificada (2026-07-03):
 - **Hoja de causas** (primera): columnas `ROL, Año, Corte, Tribunal, Demandante, Demandado, Dirección, Comuna, Fs., CBR Motivo, Fechas Public., Fecha Remate`. Ordenada por corte (Santiago primero, San Miguel segundo) y luego tribunal ascendente.
 - Debajo de la tabla principal: **"PROPIEDADES NUEVAS EXCLUIDAS (dominio >= 2020)"** y **"CAUSAS DESCARTADAS POR PARÁMETROS"** (esta última la alimenta M1: Solo RM, Banco Estado, Estación Central, Pre-2018; su columna Monto queda vacía por diseño — cabo cosmético conocido).
 - **Hoja Resumen (AL FINAL):** totales + MÉTRICAS DE EXTRACCIÓN (tokens entrada/salida, costo USD si el motor es deepseek).
-- `actualizar_historial()` hace APPEND de las causas nuevas a la hoja CAUSAS.
+- `actualizar_historial()` hace APPEND de las causas nuevas a la hoja CAUSAS, con dedup de escritura por `_clave_causa` importada de M1 (desde `2fabb84`).
+- **Días de 0 causas nuevas:** `main.py` retorna ANTES de M5 → **no se genera Excel ni se toca el historial** (comportamiento de diseño, no falla). Cabo conocido: el mensaje de consola de ese caso ("Sin causas nuevas. Verificar PDFs en Diarios/") es herencia del parser de PDFs y confunde en modo Mercurio.
 
 Ya NO existen: columnas de deuda/monto, Tipo Proc., Motivo Fallo, sección "VALIDACIÓN OJV", ni el tablero de consola "CON DEUDA / SIN PDF / SIN MONTO".
 
@@ -236,7 +256,7 @@ Ya NO existen: columnas de deuda/monto, Tipo Proc., Motivo Fallo, sección "VALI
 | API por página/fragmento | 120s | 3 intentos; JSON truncado → ValueError → reintento; `[]` legítimo NO reintenta |
 | Respuesta no es JSON válido | — | Log del raw, skip fragmento |
 
-Una página falla → se salta y se procesan las demás. Edición no disponible → exit code 2 para que el cronometro reintente.
+Una página falla → se salta y se procesan las demás. Edición no disponible → exit code 2 (hoy **sin consumidor activo**: el cronómetro está fuera de uso; se conserva por si vuelve una ejecución programada).
 
 ---
 
@@ -247,8 +267,8 @@ Una página falla → se salta y se procesan las demás. Edición no disponible 
 ejecutar_mercurio.bat
 ejecutar_mercurio.bat 2026-07-03
 
-# Programada: espera hasta las 5am, ejecuta, reintenta cada 30 min si no hay edición (máx 6, vía exit code 2)
-cronometro_mercurio.bat
+# FUERA DE USO desde 2026-07-04 — la rutina real del abogado es doble click en ejecutar_mercurio.bat
+# cronometro_mercurio.bat   (inerte; pendiente su retiro del repo)
 
 # Solo M1, sin API ni costo (~30s): navegación de prueba
 python modulo1_mercurio.py --fecha 2026-07-03 --dry-run
@@ -265,9 +285,9 @@ python main.py --demo
 
 ## LOGGING
 
-Cada ejecución genera `logs/mercurio_YYYY-MM-DD_HHMMSS.log` (UTF-8) con salida dual CMD + archivo, formato `[HH:MM:SS] NIVEL — mensaje`. Registra: textLayer (300 chars) y secciones detectadas por página, decisión por página (conservar/descartar/parar), sección utilizada (F/D/B), cachitos 6b/6c, avisos raw por página, mapeo tribunal→corte con score, descartes CBR y por filtro (uno a uno), tabla de filtros con conteos (X → Y), y resumen final con tokens y costo.
+Cada ejecución genera DOS logs (UTF-8): `logs/mercurio_YYYY-MM-DD_HHMMSS.log` (detalle de M1, salida dual CMD + archivo, formato `[HH:MM:SS] NIVEL — mensaje`) y `logs/ejecucion_YYYYMMDD_HHMMSS.log` (salida del orquestador `main.py` vía `_TeeWriter`). Registra: textLayer (300 chars) y secciones detectadas por página, decisión por página (conservar/descartar/parar), sección utilizada (F/D/B), cachitos 6b/6c, avisos raw por página, mapeo tribunal→corte con score, descartes CBR y por filtro (uno a uno), tabla de filtros con conteos (X → Y), y resumen final con tokens y costo.
 
-> Cabo cosmético conocido: el resumen aún imprime la etiqueta "Avisos Vision" (herencia de la v1.0); son avisos de la API de texto.
+> Cabos cosméticos conocidos: el resumen ya dice "Avisos extraídos" (corregido en `0445f4c`); persiste UNA etiqueta "respuesta Vision" en el WARNING de JSON inválido (herencia v1.0, pendiente).
 
 ---
 
@@ -283,6 +303,7 @@ Cada ejecución genera `logs/mercurio_YYYY-MM-DD_HHMMSS.log` (UTF-8) con salida 
 - `region_rm = True` siempre.
 - **Filtros de negocio vigentes:** solo RM, no-BancoEstado, no-EstaciónCentral, año ROL ≥ 2018, dominio CBR < 2020. (El filtro de deuda > $300M **ya no existe**.)
 - Salvaguarda CBR: extracción fallida → REVISAR, nunca EXCLUIR en silencio.
+- **Llave de dedup SIEMPRE `rol-año|tribunal` vía `_clave_causa()`** (M1 la define, M5 la importa). PROHIBIDO volver a la llave rol-año a secas: colisión real documentada (`7030-2024` en 6° y 29° JC de Santiago). Commit `2fabb84`.
 - No reintroducir `texto_dominio` en el prompt de extracción.
 - No recortar el payload de página por "1616".
 
@@ -323,6 +344,7 @@ Resumen operativo (la versión completa vive en las instrucciones del proyecto d
 | `ADDENDUM_MERCURIO_2026-06-12.md` | Reglas de método (git vía agentes, validación numérica, auditoría verbatim) + cierre de mentoría a Regiones. |
 | `El_backend_proyecto_RM_PJUD.md` | Motor OJV documentado verbatim antes de su eliminación (commit `53d757c`). Base de replicación si el WAF cambia. |
 | `AVISO_WAF_PJUD_para_otros_proyectos.md` | Firma técnica del WAF F5/Shape y cómo detectar el bloqueo. Aplica también a Regiones. |
+| `MD_Vivos\` (carpeta, no trackeada) | Residencia de los documentos vivos NO versionados por git: bitácoras de sesión, recuadro de instrucciones del Project y prompt de apertura. Fuente de verdad mantenida directamente por Claude vía Filesystem MCP (creada 2026-07-05). Pendiente: agregarla al `.gitignore` junto a `MD_Cline/`. |
 
 ---
 
@@ -338,7 +360,8 @@ Resumen operativo (la versión completa vive en las instrucciones del proyecto d
 | 2.3 | 2026-03-23 | Redirección a otra sección (Paso 6c) con `_REDIRECT_PATTERN` |
 | (2.4)* | 2026-05-31 | *Aplicada al código sin actualizar este documento* — motor DeepSeek V4-Flash, filtro CBR (`_evaluar_cbr_por_anio`, campos `fojas` y `año_inscripcion_dominio`), paralelización 3 workers, resiliencia de red, normalización ordinal, métricas tokens/costo. Detalle en `CIERRE_CICLO_MERCURIO_2026-05.md`. |
 | **3.0** | **2026-07-03** | **Eliminación completa de la capa PJUD/OJV** (WAF F5/Shape 24/7): borrados M2/M3/ojv_remates, sin filtro deuda >$300M, `--sin-ojv` eliminado, `--hasta` 1..4 = solo M1, M5 sin columnas OJV/deuda. Commits `53d757c` + `8edd5ee`. Este documento reemplaza al maestro v2.x. |
+| **3.1** | **2026-07-05** | **Llave de dedup con tribunal** (`_clave_causa`: M1 lectura + M5 escritura; commit `2fabb84`) tras colisión silenciosa real en producción. **Despliegue en `E:\Mercurio` completado** (04-05/07): pipeline M1→M5 productivo en la PC del abogado (incidentes documentados: renombrado "(1)" de Windows y actualización parcial). Cronómetro fuera de uso. Documentadas: varianza DeepSeek (temperature sin fijar), F fresca solo domingos, redirect sabatino a /D, comportamiento en días de 0 nuevas. |
 
 ---
 
-*— Fin del Prompt Maestro v3.0 —*
+*— Fin del Prompt Maestro v3.1 —*
