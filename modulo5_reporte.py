@@ -126,9 +126,6 @@ _COLUMNAS = [
     ("Dirección",       "direccion",          36,  None),
     ("Comuna",          "comuna",             16,  None),
     ("Fs.",             "fojas",               8,  None),
-    ("CBR Motivo",      "cbr_motivo",         22,  None),
-    ("Fechas Public.",  "fechas_publicacion", 18,  None),
-    ("Fecha Remate",    "fecha_remate",       14,  None),
 ]
 
 

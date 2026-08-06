@@ -208,7 +208,6 @@ Extrae TODOS los avisos de remates de propiedades. Para cada aviso, devuelve:
 - "demandado": nombre del demandado/ejecutado
 - "direccion": dirección completa del inmueble rematado
 - "comuna": comuna donde se ubica el inmueble
-- "fecha_remate": fecha del remate si aparece (formato DD/MM/YYYY)
 - "año_inscripcion_dominio": año en que el dominio fue inscrito en el Conservador de Bienes Raíces (formato "YYYY"). Búscalo cerca de frases como "inscrito a fojas", "Registro de Propiedad", "Conservador", "año". Si no aparece, null.
 - "fojas": el número de fojas de la inscripción del dominio (ej: "1234" o "1234 vta."). Suele aparecer como "fojas 1234", "a Fs. 1234", "inscrito a fojas 1234 N°...". Si no aparece, null.
 REGLAS:
