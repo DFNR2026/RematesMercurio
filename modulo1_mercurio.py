@@ -1091,6 +1091,7 @@ def _enviar_texto_a_claude(page_id: str, texto: str, reintentos: int = 2) -> tup
                     model="deepseek-v4-flash",
                     max_tokens=16384,
                     messages=[{"role": "user", "content": contenido}],
+                    extra_body={"thinking": {"type": "disabled"}},
                 )
                 raw = response.choices[0].message.content
                 if not raw or not raw.strip():
