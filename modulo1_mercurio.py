@@ -864,9 +864,17 @@ async def _leer_texto_layer(page: Page, max_wait_ms: int = 10_000) -> str:
 
 
 def _detectar_secciones(texto: str) -> list[str]:
-    """Detecta las secciones numéricas presentes en el textLayer."""
+    """Detecta las secciones numéricas presentes en el textLayer.
+
+    El código de sección se imprime como cornisa, solo en su propia línea.
+    Se exige coincidencia de línea completa para no confundirlo con dígitos
+    embebidos en un ROL: "1613" aparece dentro de "Rol C-11613-2024" y
+    provocaba una parada prematura del recorrido, perdiendo páginas enteras
+    de avisos 1616 (caso real: edición 2026-08-06, causa C-14838-2024 del
+    4° Juzgado Civil de Santiago, nunca leída).
+    """
     buscar = ["1611", "1612", "1613", "1614", "1615", "1616"]
-    return [s for s in buscar if s in texto]
+    return [s for s in buscar if re.search(rf"^{s}$", texto, re.MULTILINE)]
 
 
 def _detectar_redireccion(texto: str) -> tuple[str, int] | None:
