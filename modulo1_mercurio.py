@@ -24,6 +24,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import date, datetime
@@ -862,6 +863,87 @@ async def _leer_texto_layer(page: Page, max_wait_ms: int = 10_000) -> str:
     return ""
 
 
+# ---------------------------------------------------------------------------
+# Clasificación de comunas de la Región Metropolitana
+# ---------------------------------------------------------------------------
+
+# Las 52 comunas de la RM, agrupadas por provincia.
+_COMUNAS_RM = [
+    # Provincia de Santiago (32)
+    "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central",
+    "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja",
+    "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo",
+    "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda",
+    "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal",
+    "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón",
+    "Santiago", "Vitacura",
+    # Provincia de Chacabuco (3)
+    "Colina", "Lampa", "Tiltil",
+    # Provincia de Cordillera (3)
+    "Puente Alto", "Pirque", "San José de Maipo",
+    # Provincia de Maipo (4)
+    "San Bernardo", "Buin", "Calera de Tango", "Paine",
+    # Provincia de Melipilla (5)
+    "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro",
+    # Provincia de Talagante (5)
+    "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor",
+]
+
+# Umbral de coincidencia difusa. Alto a propósito: a 80 se confunden pares
+# como "San Rafael" (Maule) con "San Ramón" (RM).
+_UMBRAL_COMUNA = 88
+
+
+def _normalizar_comuna(texto: str) -> str:
+    """Minúsculas, sin tildes, sin espacios sobrantes."""
+    if not texto:
+        return ""
+    t = unicodedata.normalize("NFD", str(texto))
+    t = "".join(c for c in t if unicodedata.category(c) != "Mn")
+    return " ".join(t.lower().split())
+
+
+_COMUNAS_RM_NORM = {_normalizar_comuna(c): c for c in _COMUNAS_RM}
+
+
+def _evaluar_comuna_rm(comuna: str | None) -> tuple[bool, str]:
+    """Decide si la propiedad está en la Región Metropolitana.
+
+    Retorna (es_rm, observacion). La observación se muestra en el Excel y
+    explica por qué una causa dudosa se mantuvo en la tabla principal.
+
+    Salvaguarda: si la comuna no viene en el aviso, la causa NO se descarta.
+    Perder una causa buena es peor que mostrar una de más.
+    """
+    if not comuna or not str(comuna).strip():
+        return (True, "Sin comuna en el aviso — se mantiene para revisión manual")
+
+    original = str(comuna).strip()
+    norm = _normalizar_comuna(original)
+
+    # Coincidencia exacta
+    if norm in _COMUNAS_RM_NORM:
+        return (True, "")
+
+    # Campo con varias comunas separadas por coma o barra
+    if "," in original or "/" in original:
+        partes = [p.strip() for p in original.replace("/", ",").split(",") if p.strip()]
+        for p in partes:
+            if _normalizar_comuna(p) in _COMUNAS_RM_NORM:
+                return (True, f"Comuna múltiple '{original}': contiene '{p}', de la RM — se mantiene")
+
+    # Coincidencia difusa contra las 52
+    mejor, mejor_score = None, 0
+    for cn, cd in _COMUNAS_RM_NORM.items():
+        score = fuzz.ratio(norm, cn)
+        if score > mejor_score:
+            mejor, mejor_score = cd, score
+    if mejor_score >= _UMBRAL_COMUNA:
+        return (True, f"Comuna '{original}' asimilada a '{mejor}' (coincidencia {mejor_score:.0f}%)")
+
+    return (False, "")
+
+
 def _detectar_secciones(texto: str) -> list[str]:
     """Detecta las secciones numéricas presentes en el textLayer.
 
@@ -1259,6 +1341,7 @@ def _normalizar_aviso(raw: dict[str, Any]) -> dict[str, Any] | None:
         "año_inscripcion_dominio": raw.get("año_inscripcion_dominio"),
         "fojas": raw.get("fojas"),
         "region_rm": True,
+        "observaciones": "",
     }
 
 
@@ -1275,6 +1358,7 @@ def _filtrar_avisos(
     """
     total_entrada = len(avisos)
     desc_rm = desc_banco = desc_comuna = desc_anio = desc_hist = desc_dup = 0
+    desc_comuna_rm = 0
 
     resultado = []
     for aviso in avisos:
@@ -1308,6 +1392,24 @@ def _filtrar_avisos(
             if st is not None:
                 st.descartados.append({"rol": rol, "año": año, "tribunal": aviso.get("tribunal"), "motivo": "Estación Central", "monto": None})
             continue
+
+        # Filtro 3b: la propiedad debe estar en la Región Metropolitana.
+        # Salvaguarda: si la comuna no viene o es dudosa, _evaluar_comuna_rm
+        # devuelve True y la causa se mantiene con una observación.
+        es_rm_comuna, obs_comuna = _evaluar_comuna_rm(aviso.get("comuna"))
+        if not es_rm_comuna:
+            desc_comuna_rm += 1
+            log.debug("  Descartado (comuna fuera de RM): ROL %s, comuna='%s'",
+                      rol, aviso.get("comuna"))
+            if st is not None:
+                st.descartados.append({
+                    "rol": rol, "año": año, "tribunal": aviso.get("tribunal"),
+                    "motivo": f"Propiedad fuera de RM: {aviso.get('comuna') or 's/i'}",
+                    "monto": None,
+                })
+            continue
+        if obs_comuna:
+            aviso["observaciones"] = obs_comuna
 
         # Filtro 4: Año >= 2018  (renumerado)
         try:
@@ -1347,9 +1449,12 @@ def _filtrar_avisos(
     log.info("Filtro Estación Central: %d → %d (-%d)",
              post_banco, post_banco - desc_comuna, desc_comuna)
     post_comuna = post_banco - desc_comuna
+    log.info("Filtro Comuna RM       : %d → %d (-%d)",
+             post_comuna, post_comuna - desc_comuna_rm, desc_comuna_rm)
+    post_comuna_rm = post_comuna - desc_comuna_rm
     log.info("Filtro Año >= 2018     : %d → %d (-%d)",
-             post_comuna, post_comuna - desc_anio, desc_anio)
-    post_anio = post_comuna - desc_anio
+             post_comuna_rm, post_comuna_rm - desc_anio, desc_anio)
+    post_anio = post_comuna_rm - desc_anio
     log.info("Filtro Historial CAUSAS: %d → %d (-%d)",
              post_anio, post_anio - desc_hist, desc_hist)
     post_hist = post_anio - desc_hist

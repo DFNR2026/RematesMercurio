@@ -126,6 +126,7 @@ _COLUMNAS = [
     ("Dirección",       "direccion",          36,  None),
     ("Comuna",          "comuna",             16,  None),
     ("Fs.",             "fojas",               8,  None),
+    ("Observaciones",   "observaciones",      45,  None),
 ]
 
 
