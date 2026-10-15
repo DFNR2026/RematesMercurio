@@ -62,3 +62,6 @@ backup_*/
 
 # Tessdata
 .tessdata/
+# Archivo de limpieza y reportes de agentes (no van al repositorio)
+_archivo_*/
+MD_Cline/
