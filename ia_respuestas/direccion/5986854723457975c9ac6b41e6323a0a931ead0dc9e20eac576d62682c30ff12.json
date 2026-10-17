@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa Teresa de Los Andes",
+     "numero": "9322",
+     "unidad": "departamento 101",
+     "comuna": "Vitacura",
+     "frase_direccion": "con acceso por Avenida Santa Teresa de Los Andes 9322, Vitacura",
+     "frase_unidad": "departamento 101 del primer piso",
+     "frase_comuna": "con acceso por Avenida Santa Teresa de Los Andes 9322, Vitacura"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa Teresa de Los Andes",
+     "numero": "9322",
+     "unidad": "departamento 101",
+     "comuna": "Vitacura",
+     "frase_direccion": "con acceso por Avenida Santa Teresa de Los Andes 9322, Vitacura",
+     "frase_unidad": "departamento 101 del primer piso",
+     "frase_comuna": "con acceso por Avenida Santa Teresa de Los Andes 9322, Vitacura"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 552,
+   "salida": 174,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 552,
+   "salida": 174,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

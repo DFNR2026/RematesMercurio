@@ -1,0 +1,59 @@
+Banco 2026-10-14. Modelo claude-haiku-5-5, instrucciones vv-2. acierto 53, no_leido 4. Tokens entrada 101492, salida 17764, caché leída 289393, caché escrita 2561. Costo de las llamadas guardadas 0.0222 dólares.
+
+  1 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-05 14:00  | anotado verde 2026-10-15 -> 2026-11-05 14:00
+  2 no_leido     programa rojo     dia_anterior None -> None  | anotado verde 2026-10-15 -> 2026-11-04 14:00 | Las dos lecturas de la IA no coinciden.
+  3 acierto      programa verde    dias_habiles_antes 2026-11-11 08:00 -> 2026-11-11 14:00  | anotado verde 2026-11-11 08:00 -> 2026-11-11 14:00
+  4 acierto      programa ambar    horas_antes 2026-10-15 -> 2026-10-30 14:00 [3] | anotado ambar 2026-10-15 -> 2026-10-30 14:00
+  5 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-02 14:00  | anotado verde 2026-10-15 -> 2026-11-02 14:00
+  6 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-02 14:00  | anotado verde 2026-10-15 -> 2026-11-02 14:00
+  7 acierto      programa verde    dias_habiles_antes 2026-11-02 12:00 -> 2026-11-02 14:00  | anotado verde 2026-11-02 12:00 -> 2026-11-02 14:00
+  8 acierto      programa verde    dias_habiles_antes 2026-10-28 12:00 -> 2026-10-28 14:00  | anotado verde 2026-10-28 12:00 -> 2026-10-28 14:00
+  9 acierto      programa rojo     dias_habiles_antes None -> None  | anotado rojo None -> None | El aviso da dos plazos u horarios distintos para la entrega.
+ 10 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-10 13:00  | anotado verde 2026-10-15 -> 2026-11-10 13:00
+ 11 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-03 13:00  | anotado verde 2026-10-15 -> 2026-11-03 13:00
+ 12 acierto      programa verde    horas_antes 2026-10-15 -> 2026-11-09 13:00  | anotado verde 2026-10-15 -> 2026-11-09 13:00
+ 13 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-15 -> 2026-11-16 13:00 | La frase de la regla no está en el aviso.
+ 14 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-02 13:00  | anotado verde 2026-10-15 -> 2026-11-02 13:00
+ 15 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-02 14:00  | anotado verde 2026-10-15 -> 2026-11-02 14:00
+ 16 acierto      programa verde    dias_habiles_antes 2026-10-28 08:30 -> 2026-10-28 12:30  | anotado verde 2026-10-28 08:30 -> 2026-10-28 12:30
+ 17 acierto      programa verde    dias_habiles_antes 2026-11-10 08:30 -> 2026-11-10 12:30  | anotado verde 2026-11-10 08:30 -> 2026-11-10 12:30
+ 18 acierto      programa verde    dia_anterior_sabado_a_viernes 2026-11-10 12:00 -> 2026-11-10 14:00  | anotado verde 2026-11-10 12:00 -> 2026-11-10 14:00
+ 19 acierto      programa ambar    dia_anterior_sabado_a_viernes 2026-11-06 12:00 -> 2026-11-06 14:00 [2] | anotado ambar 2026-11-06 12:00 -> 2026-11-06 14:00
+ 20 acierto      programa verde    dia_anterior_sabado_a_viernes 2026-10-29 12:00 -> 2026-10-29 14:00  | anotado verde 2026-10-29 12:00 -> 2026-10-29 14:00
+ 21 acierto      programa ambar    dia_anterior_sabado_a_habil 2026-11-13 12:00 -> 2026-11-13 14:00 [2] | anotado ambar 2026-11-13 12:00 -> 2026-11-13 14:00
+ 22 acierto      programa ambar    dia_anterior_sabado_a_habil 2026-11-06 12:00 -> 2026-11-06 14:00 [2] | anotado ambar 2026-11-06 12:00 -> 2026-11-06 14:00
+ 23 acierto      programa ambar    dia_anterior_sabado_a_habil 2026-11-06 12:00 -> 2026-11-06 14:00 [2] | anotado ambar 2026-11-06 12:00 -> 2026-11-06 14:00
+ 24 acierto      programa verde    dias_habiles_antes 2026-11-06 09:00 -> 2026-11-06 14:00  | anotado verde 2026-11-06 09:00 -> 2026-11-06 14:00
+ 25 acierto      programa verde    dia_anterior 2026-10-26 08:30 -> 2026-10-26 09:30  | anotado verde 2026-10-26 08:30 -> 2026-10-26 09:30
+ 26 acierto      programa verde    dia_anterior 2026-11-03 08:30 -> 2026-11-03 09:30  | anotado verde 2026-11-03 08:30 -> 2026-11-03 09:30
+ 27 acierto      programa rojo     en_el_remate None -> None  | anotado sin_dato None -> None | La frase no dice que el vale vista se entregue en el remate (solo cuándo se califica).
+ 28 acierto      programa rojo     en_el_remate None -> None  | anotado sin_dato None -> None | La frase no dice que el vale vista se entregue en el remate (solo cuándo se califica).
+ 29 acierto      programa verde    en_el_remate 2026-11-04 13:00 -> 2026-11-04 13:00  | anotado verde 2026-11-04 13:00 -> 2026-11-04 13:00
+ 30 acierto      programa verde    dia_anterior 2026-10-19 09:00 -> 2026-10-19 13:00  | anotado verde 2026-10-19 09:00 -> 2026-10-19 13:00
+ 31 acierto      programa verde    dia_anterior 2026-11-25 09:00 -> 2026-11-25 13:00  | anotado verde 2026-11-25 09:00 -> 2026-11-25 13:00
+ 32 acierto      programa verde    dia_anterior 2026-10-28 09:00 -> 2026-10-28 13:00  | anotado verde 2026-10-28 09:00 -> 2026-10-28 13:00
+ 33 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 34 no_leido     programa rojo     dia_anterior_sabado_a_viernes None -> None  | anotado verde 2026-10-23 12:00 -> 2026-10-23 13:00 | La frase no trae las palabras propias de la regla dia_anterior_sabado_a_viernes.
+ 35 acierto      programa verde    dia_anterior 2026-10-28 11:00 -> 2026-10-28 12:00  | anotado verde 2026-10-28 11:00 -> 2026-10-28 12:00
+ 36 acierto      programa verde    dia_anterior 2026-11-04 11:00 -> 2026-11-04 12:00  | anotado verde 2026-11-04 11:00 -> 2026-11-04 12:00
+ 37 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-15 -> 2026-11-09 13:00 | La frase no trae las palabras propias de la regla dias_habiles_antes.
+ 38 acierto      programa verde    dia_anterior 2026-10-15 -> 2026-11-02 13:00  | anotado verde 2026-10-15 -> 2026-11-02 13:00
+ 39 acierto      programa verde    dia_anterior 2026-10-15 -> 2026-11-02 13:00  | anotado verde 2026-10-15 -> 2026-11-02 13:00
+ 40 acierto      programa ambar    dias_habiles_antes 2026-10-15 -> 2026-11-11 [4] | anotado ambar 2026-10-15 -> 2026-11-11
+ 41 acierto      programa ambar    dias_habiles_antes 2026-10-15 -> 2026-11-04 [4] | anotado ambar 2026-10-15 -> 2026-11-04
+ 42 acierto      programa ambar    dias_habiles_antes 2026-10-15 -> 2026-11-02 [4] | anotado ambar 2026-10-15 -> 2026-11-02
+ 43 acierto      programa ambar    martes_o_jueves_anterior 2026-10-29 10:00 -> 2026-10-29 12:00 [5] | anotado ambar 2026-10-29 10:00 -> 2026-10-29 12:00
+ 44 acierto      programa verde    dia_anterior 2026-10-28 10:00 -> 2026-10-28 12:00  | anotado verde 2026-10-28 10:00 -> 2026-10-28 12:00
+ 45 acierto      programa verde    dia_anterior 2026-11-04 09:00 -> 2026-11-04 12:00  | anotado verde 2026-11-04 09:00 -> 2026-11-04 12:00
+ 46 acierto      programa ambar    dia_anterior 2026-10-30 09:00 -> 2026-10-30 12:00 [2] | anotado ambar 2026-10-30 09:00 -> 2026-10-30 12:00
+ 47 acierto      programa verde    dia_anterior 2026-11-10 09:00 -> 2026-11-10 12:00  | anotado verde 2026-11-10 09:00 -> 2026-11-10 12:00
+ 48 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-10-28 12:00  | anotado verde 2026-10-15 -> 2026-10-28 12:00
+ 49 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-10-30 12:00  | anotado verde 2026-10-15 -> 2026-10-30 12:00
+ 50 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 51 acierto      programa verde    horas_antes 2026-10-15 -> 2026-10-26 13:00  | anotado verde 2026-10-15 -> 2026-10-26 13:00
+ 52 acierto      programa verde    horas_antes 2026-10-15 -> 2026-11-04 12:30  | anotado verde 2026-10-15 -> 2026-11-04 12:30
+ 53 acierto      programa verde    horas_antes 2026-10-15 -> 2026-11-02 12:30  | anotado verde 2026-10-15 -> 2026-11-02 12:30
+ 54 acierto      programa verde    horas_antes 2026-10-15 -> 2026-11-23 13:30  | anotado verde 2026-10-15 -> 2026-11-23 13:30
+ 56 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-04  | anotado verde 2026-10-15 -> 2026-11-04
+ 59 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 61 acierto      programa rojo     en_el_remate None -> None  | anotado sin_dato None -> None | La frase no trae las palabras propias de la regla en_el_remate.; La frase no dice que el vale vista se entregue en el remate (solo cuándo se califica).

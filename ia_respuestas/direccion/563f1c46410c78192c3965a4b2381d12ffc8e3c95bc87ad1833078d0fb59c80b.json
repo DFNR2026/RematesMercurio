@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Nataniel Cox",
+     "numero": "223",
+     "unidad": "departamento 2007",
+     "comuna": "Santiago",
+     "frase_direccion": "ubicado en calle Nataniel Cox N° 223",
+     "frase_unidad": "departamento N° 2007 del vigésimo piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Nataniel Cox",
+     "numero": "223",
+     "unidad": "departamento 2007",
+     "comuna": "Santiago",
+     "frase_direccion": "ubicado en calle Nataniel Cox N° 223",
+     "frase_unidad": "departamento N° 2007 del vigésimo piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1247,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1247,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

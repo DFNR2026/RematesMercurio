@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Paseo Pie Andino",
+     "numero": "02639",
+     "unidad": "casa 67",
+     "comuna": "Puente Alto",
+     "frase_direccion": "con acceso por Avenida Paseo Pie Andino N° 02639 casa 67",
+     "frase_unidad": "la Unidad o casa signada con el N° 67",
+     "frase_comuna": "propiedad ubicada en la comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Paseo Pie Andino",
+     "numero": "02639",
+     "unidad": "casa 67",
+     "comuna": "Puente Alto",
+     "frase_direccion": "con acceso por Avenida Paseo Pie Andino N° 02639 casa 67",
+     "frase_unidad": "Unidad o casa signada con el N° 67",
+     "frase_comuna": "propiedad ubicada en la comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 916,
+   "salida": 163,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 916,
+   "salida": 162,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

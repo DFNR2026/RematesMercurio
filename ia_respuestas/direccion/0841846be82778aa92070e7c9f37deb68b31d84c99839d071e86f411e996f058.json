@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Bernardo O’Higgins",
+     "numero": "4050",
+     "unidad": "oficina 1316",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso principal por Avenida Bernardo O’Higgins Número cuatro mil cincuenta",
+     "frase_unidad": "la oficina número mil trescientos dieciséis",
+     "frase_comuna": "Comuna de Estación Central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Bernardo O’Higgins",
+     "numero": "4050",
+     "unidad": "oficina 1316",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso principal por Avenida Bernardo O’Higgins Número cuatro mil cincuenta",
+     "frase_unidad": "la oficina número mil trescientos dieciséis",
+     "frase_comuna": "Comuna de Estación Central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 870,
+   "salida": 161,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 870,
+   "salida": 161,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

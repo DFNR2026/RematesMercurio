@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Vargas Buston",
+     "numero": "976",
+     "unidad": "departamento 407",
+     "comuna": "San Miguel",
+     "frase_direccion": "con acceso por calle Vargas Buston número novecientos setenta y seis",
+     "frase_unidad": "El departamento número cuatrocientos siete del cuarto piso",
+     "frase_comuna": "comuna de San Miguel"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Vargas Buston",
+     "numero": "976",
+     "unidad": "departamento 407",
+     "comuna": "San Miguel",
+     "frase_direccion": "con acceso por calle Vargas Buston número novecientos setenta y seis",
+     "frase_unidad": "El departamento número cuatrocientos siete del cuarto piso",
+     "frase_comuna": "comuna de San Miguel"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 986,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 986,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

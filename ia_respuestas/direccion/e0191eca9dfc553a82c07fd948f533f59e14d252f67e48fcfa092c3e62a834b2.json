@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": null,
+     "frase_direccion": "el inmueble inscrito a Fojas 41 Número 64 del Registro de Propiedad del Conservador de Bienes Raíces de San Bernardo, correspondiente al año 2009 que corresponde al sitio número 5 de la manzana 1, del plano de loteo del predio denominado ”El Manzano”",
+     "frase_unidad": null,
+     "frase_comuna": null
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": null,
+     "frase_direccion": "el inmueble inscrito a Fojas 41 Número 64 del Registro de Propiedad del Conservador de Bienes Raíces de San Bernardo, correspondiente al año 2009 que corresponde al sitio número 5 de la manzana 1, del plano de loteo del predio denominado ”El Manzano”",
+     "frase_unidad": null,
+     "frase_comuna": null
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 795,
+   "salida": 186,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 795,
+   "salida": 186,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

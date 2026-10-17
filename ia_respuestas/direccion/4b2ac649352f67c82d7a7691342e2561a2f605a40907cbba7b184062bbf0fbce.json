@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle interior Canal Baker",
+     "numero": "47-59",
+     "unidad": "unidad 47-59",
+     "comuna": "Maipú",
+     "frase_direccion": "ubicada en la calle interior Canal Baker número 47-59 del denominado ’Condominio Barrio Patagonia’",
+     "frase_unidad": "la unidad número 47-59",
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle interior Canal Baker",
+     "numero": "47-59",
+     "unidad": "unidad número 47-59",
+     "comuna": "Maipú",
+     "frase_direccion": "ubicada en la calle interior Canal Baker número 47-59",
+     "frase_unidad": "la unidad número 47-59",
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1086,
+   "salida": 155,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1086,
+   "salida": 135,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

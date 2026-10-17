@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Lampa",
+     "frase_direccion": "sitio número quince de la Manzana seis de la Población ’Batuco II’, Comuna de Lampa",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Lampa"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Lampa",
+     "frase_direccion": "sitio número quince de la Manzana seis de la Población ’Batuco II’, Comuna de Lampa, Región Metropolitana",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Lampa"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 605,
+   "salida": 128,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 605,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

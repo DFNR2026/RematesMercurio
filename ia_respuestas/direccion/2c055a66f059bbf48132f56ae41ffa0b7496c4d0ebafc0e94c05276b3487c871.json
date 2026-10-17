@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Mozart",
+     "numero": "371",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "frase_direccion": "calle Mozart Número Trescientos Setenta y Uno",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Peñaflor"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Mozart",
+     "numero": "371",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "frase_direccion": "calle Mozart Número Trescientos Setenta y Uno",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Peñaflor"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 930,
+   "salida": 120,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 930,
+   "salida": 120,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

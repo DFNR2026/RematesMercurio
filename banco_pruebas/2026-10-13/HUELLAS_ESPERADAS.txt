@@ -1,0 +1,4 @@
+Huellas SHA-256 de los textos de la edición 2026-10-13, copiados el 2026-10-15 desde capturas/2026-10-13 (lectura en vivo validada el 2026-10-14). Códigos de página B-20261013-008, B-20261013-009 y 8A4MD0L7.
+mercurio_2026-10-13_B8.txt  caracteres 91231  bytes 93265  sha256 35286cdc283ec0e9188dd815901c16f32af5bf9cab80be47f8fbe9b6f33a53e5
+mercurio_2026-10-13_B9.txt  caracteres 89313  bytes 91556  sha256 0c160c0fe60e2b91405900756efc02fb637e0a96bb5a9ca774f2795ea0b9d0ac
+mercurio_2026-10-13_B10.txt  caracteres 50140  bytes 51346  sha256 d81c271c734660d81c6382f3703402d0a11b90067d39f53605049eb035242e90

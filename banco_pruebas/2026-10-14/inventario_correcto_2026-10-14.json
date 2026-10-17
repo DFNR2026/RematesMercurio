@@ -1,0 +1,440 @@
+{
+ "edicion": "2026-10-14",
+ "paginas": [
+  "B-20261014-011",
+  "C L64MFDBT (pagina 8)"
+ ],
+ "avisos": [
+  {
+   "n": 1,
+   "rol": "21629-2024",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 2,
+   "rol": "14116-2025",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 3,
+   "rol": "8715-2025",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 4,
+   "rol": "2238-2020",
+   "tribunal": "1° Juzgado Civil de San Miguel",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 5,
+   "rol": "5974-2023",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 6,
+   "rol": "2462-2022",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": "rol impreso sin guion C-24622022"
+  },
+  {
+   "n": 7,
+   "rol": "15733-2022",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": "aviso sin palabra REMATE al inicio"
+  },
+  {
+   "n": 8,
+   "rol": "23610-2019",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 9,
+   "rol": "12731-2025",
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 10,
+   "rol": "4948-2025",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 11,
+   "rol": "22376-2024",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 12,
+   "rol": "12567-2006",
+   "tribunal": "4° Juzgado Civil de San Miguel",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 13,
+   "rol": "1515-2008",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 14,
+   "rol": "15650-2022",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": "aviso sin palabra REMATE al inicio"
+  },
+  {
+   "n": 15,
+   "rol": "15383-2025",
+   "tribunal": "5° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 16,
+   "rol": "13937-2025",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 17,
+   "rol": "936-2026",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": "rol impreso con errata CC-936-2026"
+  },
+  {
+   "n": 18,
+   "rol": "13112-2023",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 19,
+   "rol": "7013-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "pagina": "B11",
+   "nota": ""
+  },
+  {
+   "n": 20,
+   "rol": "5849-2026",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "pagina": "B11 y C8",
+   "nota": "aviso partido entre B11 y C8, su rol esta en C8"
+  },
+  {
+   "n": 21,
+   "rol": "13633-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 22,
+   "rol": "15590-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 23,
+   "rol": "16109-2023",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "aviso sin palabra REMATE al inicio"
+  },
+  {
+   "n": 24,
+   "rol": "10151-2025",
+   "tribunal": "8° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 25,
+   "rol": "6416-2025",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 26,
+   "rol": "15341-2025",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 27,
+   "rol": "19896-2024",
+   "tribunal": "10° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 28,
+   "rol": "5107-2022",
+   "tribunal": "10° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 29,
+   "rol": "4343-2025",
+   "tribunal": "11° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol repetido al inicio y al final"
+  },
+  {
+   "n": 30,
+   "rol": "20712-2024",
+   "tribunal": "12° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 31,
+   "rol": "3277-2026",
+   "tribunal": "12° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 32,
+   "rol": "13700-2022",
+   "tribunal": "12° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "tribunal escrito DECIMO SEGUNDO"
+  },
+  {
+   "n": 33,
+   "rol": "22041-2024",
+   "tribunal": "14° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 34,
+   "rol": "2078-2024",
+   "tribunal": "15° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 35,
+   "rol": "14328-2025",
+   "tribunal": "16° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol sin prefijo C"
+  },
+  {
+   "n": 36,
+   "rol": "618-2025",
+   "tribunal": "16° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "tribunal escrito DECIMO SEXTO"
+  },
+  {
+   "n": 37,
+   "rol": "6622-2021",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 38,
+   "rol": "8527-2024",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 39,
+   "rol": "8694-2024",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol sin la palabra Rol"
+  },
+  {
+   "n": 40,
+   "rol": "6285-2025",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 41,
+   "rol": "21592-2024",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol sin la palabra Rol, tribunal escrito VIGESIMO"
+  },
+  {
+   "n": 42,
+   "rol": "14133-2024",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 43,
+   "rol": "26559-2019",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 44,
+   "rol": "5252-2024",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "inicio con ordinal compuesto VIGESIMO SEXTO pegado al aviso anterior"
+  },
+  {
+   "n": 45,
+   "rol": "18207-2017",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 46,
+   "rol": "9314-2025",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 47,
+   "rol": "6443-2024",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 48,
+   "rol": "28690-2019",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol impreso sin guion C-286902019"
+  },
+  {
+   "n": 49,
+   "rol": "468-2025",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 50,
+   "rol": "21725-2024",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 51,
+   "rol": "5802-2023",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 52,
+   "rol": "17079-2024",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "tribunal escrito TRIGESIMO"
+  },
+  {
+   "n": 53,
+   "rol": "12384-2023",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 54,
+   "rol": "3613-2024",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "pagina": "C8",
+   "nota": "tribunal escrito TRIGESIMO"
+  },
+  {
+   "n": 55,
+   "rol": null,
+   "tribunal": "Juez partidor Gloria Canales Medina",
+   "pagina": "C8",
+   "nota": "particion Castro Herrera, sin rol, inmueble en Valparaiso"
+  },
+  {
+   "n": 56,
+   "rol": "770-2014",
+   "tribunal": "Juzgado de Cobranza Laboral y Previsional de Concepcion",
+   "pagina": "C8",
+   "nota": "sin la palabra Rol"
+  },
+  {
+   "n": 57,
+   "rol": null,
+   "tribunal": "Juez partidor Benjamín Uriarte Molina",
+   "pagina": "C8",
+   "nota": "remate en Villarrica, sin rol. AGREGADO el 2026-10-15. El inventario original lo había dejado pegado al aviso de Cobranza de Concepción. Lo detectó el cortador y se confirmó leyendo el texto. Empieza al pie de una columna de C8 y sigue arriba en la columna siguiente de la misma página (capturas de Diego del 2026-10-15, y el cortador lo ubica solo en C8)"
+  },
+  {
+   "n": 58,
+   "rol": null,
+   "tribunal": "Juez partidor Alex Díaz Loayza",
+   "pagina": "C8",
+   "nota": "TERCER LLAMADO, partición Distribuidora de Combustibles Chena con Galleguillos, parcela en Calera de Tango, sin rol. AGREGADO el 2026-10-15. Iba pegado al aviso de Villarrica. Diego confirmó en el diario que está impreso aparte, con línea divisoria y título propio"
+  },
+  {
+   "n": 59,
+   "rol": "1962-2023",
+   "tribunal": "Juzgado de Letras de Colina",
+   "pagina": "C8",
+   "nota": ""
+  },
+  {
+   "n": 60,
+   "rol": null,
+   "tribunal": "Juez partidor Cristián Lescot Jerez",
+   "pagina": "C8",
+   "nota": "departamento en Maipú, remate vía vendaya.cl y presencial, sin rol. AGREGADO el 2026-10-15. Iba pegado al aviso de Colina"
+  },
+  {
+   "n": 61,
+   "rol": "3908-2025",
+   "tribunal": "Juzgado de Cobranza Laboral y Previsional de Santiago",
+   "pagina": "C8",
+   "nota": "es un RIT, no un Rol"
+  }
+ ],
+ "correcciones": [
+  "2026-10-15. Se agrega el aviso 59 (juez partidor Benjamín Uriarte Molina, Villarrica, sin rol). Antes el inventario tenía 58 avisos. El error fue del inventario manual, no del programa.",
+  "2026-10-15 (tarde). Son 61 avisos, no 59. Se agregan el n 58 (juez partidor Alex Díaz Loayza, Calera de Tango) y el n 60 (juez partidor Cristián Lescot Jerez, Maipú). Ambos iban pegados al aviso anterior, tanto en el inventario manual como en el cortador. Diego confirmó en el diario que están impresos aparte. Colina pasa de n 58 a n 59 y Cobranza de Santiago de n 59 a n 61. En banco_nivel2 siguen como 57a, 57b, 58a y 58b hasta que se arregle el cortador."
+ ]
+}

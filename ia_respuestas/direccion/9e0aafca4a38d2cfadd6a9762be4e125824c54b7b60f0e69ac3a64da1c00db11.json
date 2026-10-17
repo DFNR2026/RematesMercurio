@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Carvajal",
+     "numero": "0344-0358",
+     "unidad": "departamento 1501",
+     "comuna": "La Cisterna",
+     "frase_direccion": "ubicado en calle Carvajal N° 0344-0358",
+     "frase_unidad": "el departamento N° 1501",
+     "frase_comuna": "comuna de La Cisterna"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Carvajal",
+     "numero": "0344-0358",
+     "unidad": "departamento 1501",
+     "comuna": "La Cisterna",
+     "frase_direccion": "ubicado en calle Carvajal N° 0344-0358",
+     "frase_unidad": "el departamento N° 1501",
+     "frase_comuna": "comuna de La Cisterna"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 765,
+   "salida": 135,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 765,
+   "salida": 135,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Huelén",
+     "numero": "7117",
+     "unidad": null,
+     "comuna": "Renca",
+     "frase_direccion": "inmueble ubicado calle Huelén número siete mil ciento diecisiete",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Renca"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Huelén",
+     "numero": "7117",
+     "unidad": null,
+     "comuna": "Renca",
+     "frase_direccion": "inmueble ubicado calle Huelén número siete mil ciento diecisiete",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Renca"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 705,
+   "salida": 119,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 705,
+   "salida": 119,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

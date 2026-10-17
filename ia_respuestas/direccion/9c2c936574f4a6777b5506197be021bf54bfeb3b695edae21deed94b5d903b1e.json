@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje La Quebrada",
+     "numero": "4338",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "Pasaje La Quebrada N° 4338",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje La Quebrada",
+     "numero": "4338",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "Pasaje La Quebrada N° 4338",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 705,
+   "salida": 119,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 705,
+   "salida": 119,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

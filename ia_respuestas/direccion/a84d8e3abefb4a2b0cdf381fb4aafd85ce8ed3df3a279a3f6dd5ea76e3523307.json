@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Colombia",
+     "numero": "1458",
+     "unidad": "Departamento N° 105",
+     "comuna": "La Serena",
+     "frase_direccion": "con acceso común por Calle Colombia N° 1458, comuna de La Serena",
+     "frase_unidad": "Departamento N° 105, 1° piso, Edificio o Torre C, del 'Condominio Mistral Oriente III'",
+     "frase_comuna": "comuna de La Serena"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Colombia",
+     "numero": "1458",
+     "unidad": "Departamento N° 105",
+     "comuna": "La Serena",
+     "frase_direccion": "con acceso común por Calle Colombia N° 1458, comuna de La Serena",
+     "frase_unidad": "Departamento N° 105, 1° piso, Edificio o Torre C",
+     "frase_comuna": "comuna de La Serena"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 989,
+   "salida": 170,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 989,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

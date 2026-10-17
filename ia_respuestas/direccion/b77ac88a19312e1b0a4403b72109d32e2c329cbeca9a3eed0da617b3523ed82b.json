@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Irarrázaval",
+     "numero": "3785",
+     "unidad": "departamento 2016",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "con acceso por Avenida Irarrázaval 3785, comuna de Ñuñoa",
+     "frase_unidad": "el departamento 2016 del piso 20",
+     "frase_comuna": "comuna de Ñuñoa"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Irarrázaval",
+     "numero": "3785",
+     "unidad": "departamento 2016",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "con acceso por Avenida Irarrázaval 3785, comuna de Ñuñoa",
+     "frase_unidad": "el departamento 2016 del piso 20",
+     "frase_comuna": "comuna de Ñuñoa"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1461,
+   "salida": 153,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1461,
+   "salida": 153,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

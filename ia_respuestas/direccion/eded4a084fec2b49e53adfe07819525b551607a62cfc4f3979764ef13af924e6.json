@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Macul",
+     "numero": "4747",
+     "unidad": "departamento 68",
+     "comuna": "Macul",
+     "frase_direccion": "con ingreso principal por Avenida Macul N° 4747, comuna de Macul",
+     "frase_unidad": "el departamento N° 68 del sexto piso",
+     "frase_comuna": "comuna de Macul"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Macul",
+     "numero": "4747",
+     "unidad": "departamento 68",
+     "comuna": "Macul",
+     "frase_direccion": "con ingreso principal por Avenida Macul N° 4747, comuna de Macul",
+     "frase_unidad": "el departamento N° 68 del sexto piso",
+     "frase_comuna": "comuna de Macul"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1311,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1311,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

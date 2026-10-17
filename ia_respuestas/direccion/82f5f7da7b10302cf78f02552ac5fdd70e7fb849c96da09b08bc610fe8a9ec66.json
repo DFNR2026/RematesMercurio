@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Filomena Bonell González",
+     "numero": "393",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "calle Filomena Bonell González N° 393",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Buin"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Filomena Bonell González",
+     "numero": "393",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "calle Filomena Bonell González N° 393",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Buin"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1375,
+   "salida": 112,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1375,
+   "salida": 112,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

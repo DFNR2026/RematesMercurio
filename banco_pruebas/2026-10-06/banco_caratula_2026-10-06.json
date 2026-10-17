@@ -1,0 +1,265 @@
+{
+ "edicion": "2026-10-06",
+ "anotado_por": "Claude (Opus 5.5), 17 de Octubre de 2026, ANTES de escribir el código de la carátula",
+ "uso": "VALIDACIÓN de la parte 3.7c. Se corre una sola vez con el código congelado.",
+ "reglas": {
+  "objetivo": "Carátula de la causa para mostrarla en la ficha (decisión de Diego del 17 de Octubre, basta la carátula, no se separa en demandante y demandado). La lee el código, sin IA.",
+  "valor": "El texto de la carátula tal como lo imprime el aviso, sin las comillas.",
+  "comparacion": "Sin tildes ni mayúsculas, sin puntuación, y sin las palabras 'con' ni '/' entre las partes.",
+  "sin_dato": "null si el aviso no trae carátula.",
+  "variantes": "Si el aviso la imprime dos veces sin diferencias relevantes (S.A., Ltda o Limitada) cuenta como una (decisión de Diego). Dos carátulas distintas de verdad son duda de lectura."
+ },
+ "avisos": [
+  {
+   "n": 1,
+   "caratula": "Banco de Crédito e Inversiones/ Bahamondes"
+  },
+  {
+   "n": 2,
+   "caratula": "Banco de Crédito e Inversiones/ Gallardo Olivares"
+  },
+  {
+   "n": 3,
+   "caratula": "Banco Security/ Soto"
+  },
+  {
+   "n": 4,
+   "caratula": "Renta Nacional Compañía de Seguros de Vida S.A. con Contreras"
+  },
+  {
+   "n": 5,
+   "caratula": "Banco Estado de Chile con Claudia Francisca Acevedo Torres"
+  },
+  {
+   "n": 6,
+   "caratula": "Mendéz/ Méndez"
+  },
+  {
+   "n": 8,
+   "caratula": "Scotiabank Chile con Figueroa Espinoza, Ulises Nicolas"
+  },
+  {
+   "n": 9,
+   "caratula": "Banco de Crédito e Inversiones con González Díaz, Roberto Patricio"
+  },
+  {
+   "n": 12,
+   "caratula": "Scotiabank Chile S.A/ Parra"
+  },
+  {
+   "n": 13,
+   "caratula": "Banco de Chile / Hormazábal"
+  },
+  {
+   "n": 14,
+   "caratula": "Banco Itaú Chile/ Lagos"
+  },
+  {
+   "n": 22,
+   "caratula": "Banco Estado con Castro Quiroz"
+  },
+  {
+   "n": 23,
+   "caratula": "Banco Estado con Figueroa Reyes"
+  },
+  {
+   "n": 24,
+   "caratula": "Banco de Crédito e Inversiones con Nicholls"
+  },
+  {
+   "n": 25,
+   "caratula": "Banco Santander-Chile con Muñoz"
+  },
+  {
+   "n": 26,
+   "caratula": "Compañía de Seguros Vida Consorcio Nacional de Seguros S.A. con Arque"
+  },
+  {
+   "n": 28,
+   "caratula": "Banco Santander - Chile Con Valdés Arépulos"
+  },
+  {
+   "n": 29,
+   "caratula": "Bice con Menendez-Azcarraga"
+  },
+  {
+   "n": 30,
+   "caratula": "Banco Estado con Huilitraro Calfucan"
+  },
+  {
+   "n": 31,
+   "caratula": "Banco Santander Chile S.A/Peinado Rondón, Elinor Del Valle y Otra"
+  },
+  {
+   "n": 35,
+   "caratula": "Fondo de Inversión Deuda Hipotecaria con Subsidio Habitacional con Aguilar"
+  },
+  {
+   "n": 36,
+   "caratula": "Banco Santander Chile con Hernández"
+  },
+  {
+   "n": 45,
+   "caratula": "Banco Internacional con Ce Inmobiliaria III S.A."
+  },
+  {
+   "n": 47,
+   "caratula": "Scotiabank Chile con Lastra"
+  },
+  {
+   "n": 49,
+   "caratula": "Scotiabank Chile con Fuentealba"
+  },
+  {
+   "n": 51,
+   "caratula": "Scotiabank Chile/González"
+  },
+  {
+   "n": 55,
+   "caratula": null,
+   "nota": "El aviso no trae carátula."
+  },
+  {
+   "n": 56,
+   "caratula": "Servicios Financieros Sumar / Urrutia"
+  },
+  {
+   "n": 58,
+   "caratula": "Banco Estado con Gonzalez Navarro"
+  },
+  {
+   "n": 59,
+   "caratula": "Banco Santander Chile con Celis"
+  },
+  {
+   "n": 61,
+   "caratula": "Scotiabank Chile/Parada"
+  },
+  {
+   "n": 63,
+   "caratula": "Banco de Crédito e Inversiones con Flores"
+  },
+  {
+   "n": 65,
+   "caratula": "Tanner Servicios Financieros S.A./Investment Advisors Inntegral SpA"
+  },
+  {
+   "n": 66,
+   "caratula": "Fondo de Inversión Activa Deuda Hipotecaria con Subsidio Habitacional II/ Castillo"
+  },
+  {
+   "n": 68,
+   "caratula": "Banco de Chile con Comercial Tapia y Cía. Ltda",
+   "nota": "La imprime dos veces, con Ltda y con Limitada. Es la misma (decisión de Diego)."
+  },
+  {
+   "n": 69,
+   "caratula": "Banco Estado con Medina Duarte"
+  },
+  {
+   "n": 70,
+   "caratula": "Banco de Crédito e Inversiones con Miranda Castro"
+  },
+  {
+   "n": 72,
+   "caratula": "Soto con Inversiones Harissa Limitada"
+  },
+  {
+   "n": 75,
+   "caratula": "Banco Santander-Chile con Gatica",
+   "nota": "Al final del aviso viene pegado un aviso de posesión efectiva con la carátula 'Charad/ Charad'. Si el programa lo marca como duda de lectura, cuenta como no leído (aceptable)."
+  },
+  {
+   "n": 78,
+   "caratula": "Scotiabank Chile S.A./Garcia"
+  },
+  {
+   "n": 79,
+   "caratula": "Banco del Estado de Chile con Francisco Gabriel Villalobos Villagra"
+  },
+  {
+   "n": 80,
+   "caratula": "Itau-Corpbanca S.A./ Sociedad"
+  },
+  {
+   "n": 82,
+   "caratula": "Banco de Crédito e Inversiones/ Díaz"
+  },
+  {
+   "n": 83,
+   "caratula": "Banco del Estado de Chile con Barría"
+  },
+  {
+   "n": 85,
+   "caratula": "Banco Estado con Flores González"
+  },
+  {
+   "n": 86,
+   "caratula": "Urra / Empresa de Construcción ConstrupartnerS SpA"
+  },
+  {
+   "n": 87,
+   "caratula": "Banco Estado con Palma Lagos"
+  },
+  {
+   "n": 88,
+   "caratula": "Banco Estado con Moya Miranda"
+  },
+  {
+   "n": 89,
+   "caratula": "Compañía de Seguros de Vida Consorcio Nacional de Seguros S.A. con Zuñiga"
+  },
+  {
+   "n": 90,
+   "caratula": "Banco Falabella/ Olmedo"
+  },
+  {
+   "n": 91,
+   "caratula": "Banco Estado con Guzmán Guerra"
+  },
+  {
+   "n": 92,
+   "caratula": "Cooperativa de Ahorro y Crédito Coopeuch/ Carilao"
+  },
+  {
+   "n": 93,
+   "caratula": "Banco Santander-Chile con Torrejón Velásquez Lily"
+  },
+  {
+   "n": 94,
+   "caratula": "Banco de Chile/ Chacón"
+  },
+  {
+   "n": 95,
+   "caratula": "Itaú Corpbanca/ Azabache"
+  },
+  {
+   "n": 97,
+   "caratula": "Agrícola, Forestal y Ganadera San José de Colliguay Limitada/ Empresa Eléctrica Blanco SpA."
+  },
+  {
+   "n": 98,
+   "caratula": "Banco de Chile/ Aguirre"
+  },
+  {
+   "n": 102,
+   "caratula": "Banco de Crédito e Inversiones con Guevara"
+  },
+  {
+   "n": 103,
+   "caratula": "Banco Estado con Rojas Barrera"
+  },
+  {
+   "n": 104,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 105,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 107,
+   "no_se_mide": "partición (se descarta)"
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+Banco de dirección 2026-10-06. Modelo claude-haiku-5-5, instrucciones dir-2. Por remate. EQUIVOCADO 1, acierto 59, no_leido 2. Tokens entrada 122510, salida 17301, caché leída 281784, caché escrita 0. Costo de las llamadas guardadas 0.0237 dólares.
+
+  1 acierto        programa calle Las Acacias 02927, comuna San Bernardo | anotado calle Las Acacias 02927, comuna San Bernardo
+  2 acierto        programa calle Alicahue 18453, casa 10-C, comuna San Bernardo | anotado calle Alicahue 18453, casa 10-C, comuna San Bernardo
+  3 no_leido       programa rojo | anotado Avenida El Canal 21500, casa 71, comuna Pudahuel | Las dos lecturas de la IA no coinciden.
+  4 acierto        programa Avenida Santa Ana 079, departamento 307, comuna La Granja | anotado Avenida Santa Ana 079, departamento 307, comuna La Granja
+  5 acierto        programa calle el bosque 091, comuna Buin | anotado calle el bosque 091, comuna Buin
+  6 EQUIVOCADO     programa inmueble ubicado en Los Sanhuezas N.° 9, Sitio 6, Aldea Los Sanhueza, comuna de Tomé, comuna Tomé | anotado Los Sanhuezas 9, comuna Tomé
+  8 acierto        programa pasaje lanceros del rey 5946, comuna estación central | anotado pasaje lanceros del rey 5946, comuna estación central
+  9 acierto        programa el Lote 30-24, resultante de la subdivisión de la Parcela número Treinta, resultante de la subdivisión del Lote Dos en que se dividió el Bien Común General Cerro del Proyecto de Parcelación Culiprán e, comuna Melipilla | anotado un terreno sin calle, comuna Melipilla
+ 12 acierto        programa calle Pablo Urzúa 1481, departamento 601-A, comuna Independencia | anotado calle Pablo Urzúa 1481, departamento 601-A, comuna Independencia
+ 13 acierto        programa el sitio número treinta y nueve de la manzana tres, del conjunto habitacional ‘La Abadía De San Pablo II’, segundo sector, comuna de Pudahuel, Región Metropolitana, comuna Pudahuel | anotado un terreno sin calle, comuna Pudahuel
+ 14 acierto        programa calle Jardín Oriente 0181, casa 9, comuna Til Til | anotado calle Jardín Oriente 0181, casa 9, comuna Til Til
+ 22 acierto        programa calle Ciprés de la Cordillera 8768, comuna La Florida | anotado calle Ciprés de la Cordillera 8768, comuna La Florida
+ 23 acierto        programa Pasaje San Camilo 10906, comuna La Pintana | anotado Pasaje San Camilo 10906, comuna La Pintana
+ 24 acierto        programa Pasaje Asturcón 1588, comuna Huechuraba | anotado Pasaje Asturcón 1588, comuna Huechuraba
+ 25 acierto        programa calle Filomena Bonell González 393, comuna Buin | anotado calle Filomena Bonell González 393, comuna Buin
+ 26 acierto        programa Avenida Costanera del Río 213, departamento 228, comuna La Serena | anotado Avenida Costanera del Río 213, departamento 228, comuna La Serena
+ 28 acierto        programa pasaje Chonchi 247, comuna San Joaquín | anotado pasaje Chonchi 247, comuna San Joaquín
+ 29 acierto        programa calle Portugal 910, departamento 606, comuna Santiago | anotado calle Portugal 910, departamento 606, comuna Santiago
+ 30 acierto        programa calle San Francisco 15321, comuna San Bernardo | anotado calle San Francisco 15321, comuna San Bernardo
+ 31 acierto        programa calle Los Olmos 3031, departamento 1110, comuna Macul | anotado calle Los Olmos 3031, departamento 1110, comuna Macul
+ 35 acierto        programa calle Cardenal Raúl Silva 1636, comuna Buin | anotado calle Cardenal Raúl Silva 1636, comuna Buin
+ 36 acierto        programa pasaje la reconquista 2355, comuna Maipú | anotado pasaje la reconquista 2355, comuna Maipú
+ 45 acierto        programa calle Maipú 636, casa 1, comuna Santiago / calle Maipú 636, casa 3, comuna Santiago / calle Maipú 636, casa 5, comuna Santiago / calle Maipú 636, estacionamiento 6, comuna Santiago | anotado calle Maipú 636, casa 1, comuna Santiago / calle Maipú 636, casa 3, comuna Santiago / calle Maipú 636, casa 5, comuna Santiago / calle Maipú 636, estacionamiento 6, comuna Santiago
+ 47 acierto        programa La Capilla 1415, vivienda 1415-23, comuna Huechuraba | anotado La Capilla 1415, vivienda 1415-23, comuna Huechuraba
+ 49 acierto        programa calle Gerónimo de Alderete 1944, Departamento N° 1303, comuna La Florida | anotado calle Gerónimo de Alderete 1944, departamento 1303, comuna La Florida
+ 51 acierto        programa calle Ejército 381, departamento 303, comuna Puerto Montt | anotado calle Ejército 381, departamento 303, comuna Puerto Montt
+ 55 acierto        programa Avenida Mauque 0525, departamento 248, comuna Rancagua | anotado Avenida Mauque 0525, departamento 248, comuna Rancagua
+ 56 acierto        programa Avenida Presidente Ibáñez 1004, comuna linares | anotado Avenida Presidente Ibáñez 1004, comuna linares
+ 58 acierto        programa Pasaje Estación Casma 3257, comuna Puente Alto | anotado Pasaje Estación Casma 3257, comuna Puente Alto
+ 59 acierto        programa calle Eleuterio Ramírez 1491, departamento 1104, comuna Santiago | anotado calle Eleuterio Ramírez 1491, departamento 1104, comuna Santiago
+ 61 acierto        programa Avenida Vicuña Mackenna Poniente 6130, departamento 913, comuna La Florida | anotado Avenida Vicuña Mackenna Poniente 6130, departamento 913, comuna La Florida
+ 63 acierto        programa Avenida Vicuña Mackenna 4927, departamento 2605, comuna San Joaquín | anotado Avenida Vicuña Mackenna 4927, departamento 2605, comuna San Joaquín
+ 65 no_leido       programa rojo | anotado un terreno sin calle, departamento D102, comuna Puerto Varas | La IA no encontró la dirección, pero el aviso parece darla (ubicado en la ciudad y comuna de Puerto Varas, Provincia de Llanquihue, Región d).
+ 66 acierto        programa Calle Palqui Sur 587 | anotado Calle Palqui Sur 587
+ 68 acierto        programa Diagonal Teniente Cruz 555, departamento 101, comuna Pudahuel | anotado calle Diagonal Teniente Cruz 555, departamento 101, comuna Pudahuel
+ 69 acierto        programa calle Sergio Valdovinos 1410, departamento 107-B, comuna Quinta Normal | anotado calle Sergio Valdovinos 1410, departamento 107-B, comuna Quinta Normal
+ 70 acierto        programa Pasaje Bretón 7860, comuna Huechuraba | anotado Pasaje Bretón 7860, comuna Huechuraba
+ 72 acierto        programa Avenida El Bosque 1234, departamento 902, comuna Providencia | anotado Avenida El Bosque 1234, departamento 902, comuna Providencia
+ 75 acierto        programa Avenida Padre Alberto Hurtado 0131, departamento 403, comuna Estación Central | anotado Avenida Padre Alberto Hurtado 0131, departamento 403, comuna Estación Central
+ 78 acierto        programa calle Carvajal 0344-0358, departamento 1501, comuna La Cisterna | anotado calle Carvajal 0344-0358, departamento 1501, comuna La Cisterna
+ 79 acierto        programa Avenida Ecuador 4698, departamento 2002, comuna Estación Central | anotado Avenida Ecuador 4698, departamento 2002, comuna Estación Central
+ 80 acierto        programa calle Ahumada 312, oficina 213, comuna Santiago | anotado calle Ahumada 312, oficina 213, comuna Santiago
+ 82 acierto        programa calle Alcalde Julio Arangua Nuñez Sur 304, comuna Peñaflor | anotado calle Alcalde Julio Arangua Nuñez Sur 304, comuna Peñaflor
+ 83 acierto        programa Avenida Eleodoro Yáñez 2566, departamento N° 41, comuna providencia | anotado Avenida Eleodoro Yáñez 2566, departamento 41, comuna providencia
+ 85 acierto        programa pasaje Cerdeña 1324, comuna Maipú | anotado pasaje Cerdeña 1324, comuna Maipú
+ 86 acierto        programa Pasaje Brahms 10516, comuna La Florida | anotado Pasaje Brahms 10516, comuna La Florida
+ 87 acierto        programa Avenida General San Martín 3275, departamento 217, comuna Maipú | anotado Avenida General San Martín 3275, departamento 217, comuna Maipú
+ 88 acierto        programa Pasaje Pintor Mauricio Rugendas 2743, comuna Cerrillos | anotado Pasaje Pintor Mauricio Rugendas 2743, comuna Cerrillos
+ 89 acierto        programa Pasaje Mangostino 3029, comuna Rancagua | anotado Pasaje Mangostino 3029, comuna Rancagua
+ 90 acierto        programa el sitio y casa Parcela número 4 del Loteo Los Tilos | anotado un terreno sin calle
+ 91 acierto        programa Avenida Las Naciones 2251, casa 18, comuna Maipú | anotado Avenida Las Naciones 2251, casa 18, comuna Maipú
+ 92 acierto        programa calle Santa Amalia 0161, departamento 311, comuna La Florida | anotado calle Santa Amalia 0161, departamento 311, comuna La Florida
+ 93 acierto        programa Pasaje Volcán Isluga 3695, comuna Puente Alto | anotado Pasaje Volcán Isluga 3695, comuna Puente Alto
+ 94 acierto        programa calle Padre Alberto de Agostini O.S. 1698, comuna Padre Hurtado | anotado calle Padre Alberto de Agostini O.S. 1698, comuna Padre Hurtado
+ 95 acierto        programa calle Carretera Panamericana Presidente Roosevelt 670, departamento 12, comuna Santiago | anotado calle Carretera Panamericana Presidente Roosevelt 670, departamento 12, comuna Santiago
+ 97 acierto        programa el inmueble que corresponde al Lote A-Uno del plano de subdivisión del resto del lote A del Fundo Los Chenques, ubicado en la comuna de Santa Bárbara, comuna Santa Bárbara | anotado un terreno sin calle, comuna Santa Bárbara
+ 98 acierto        programa Pasaje Los Vientos 149, comuna Til Til | anotado Pasaje Los Vientos 149, comuna Til Til
+102 acierto        programa calle Uno 6590 y 6594, departamento 807, comuna La Cisterna | anotado calle Uno 6590/6594, departamento 807, comuna La Cisterna
+103 acierto        programa calle Apóstol Bartolomé 4090, comuna Puente Alto | anotado calle Apóstol Bartolomé 4090, comuna Puente Alto
+

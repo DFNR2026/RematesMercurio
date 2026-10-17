@@ -1,0 +1,112 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 4,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 1",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "la casa N° 1 cuyo Rol de avalúo fiscal es el 00235-00100",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 3",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "la casa N° 3 cuyo Rol de avalúo fiscal es el 00235-00102",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 5",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "la casa N° 5 cuyo Rol de avalúo fiscal es el 00235-00104",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "estacionamiento 6",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "el Estacionamiento N° 6",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 1",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "la casa N° 1 cuyo Rol de avalúo fiscal es el 00235-00100",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 3",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "la casa N° 3 cuyo Rol de avalúo fiscal es el 00235-00102",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 5",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "la casa N° 5 cuyo Rol de avalúo fiscal es el 00235-00104",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "estacionamiento 6",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Maipú N° 636, comuna de Santiago",
+     "frase_unidad": "el Estacionamiento N° 6",
+     "frase_comuna": "con acceso por calle Maipú N° 636, comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1422,
+   "salida": 616,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1422,
+   "salida": 616,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

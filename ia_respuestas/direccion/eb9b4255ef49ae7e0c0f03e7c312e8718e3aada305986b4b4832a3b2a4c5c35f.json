@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje El Bollen",
+     "numero": "917",
+     "unidad": null,
+     "comuna": "Colina",
+     "frase_direccion": "propiedad ubicada en Pasaje El Bollen Número novecientos diecisiete",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Colina"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje El Bollen",
+     "numero": "917",
+     "unidad": null,
+     "comuna": "Colina",
+     "frase_direccion": "propiedad ubicada en Pasaje El Bollen Número novecientos diecisiete",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Colina"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 798,
+   "salida": 125,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 798,
+   "salida": 125,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,3 @@
+Huellas SHA-256 de las páginas de la edición 2026-10-14 copiadas el 2026-10-17 desde capturas/2026-10-14 (con navegacion.json) para la parte 4 (republicaciones entre las 7 ediciones). Comprobadas contra la huella que guardó el lector.
+B11_B-20261014-011.txt  sha256 9861d3d46fc8d700991cf3d3acba14bd8feb519021cfbb89c5340715a96ff51a  igual al lector
+C08_L64MFDBT.txt  sha256 54ec1104ebd489abc9402b63feddc0a6187002e4d834c43085c507dd807cff45  igual al lector

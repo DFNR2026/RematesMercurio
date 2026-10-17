@@ -1,0 +1,2983 @@
+{
+ "edicion": "2026-10-14",
+ "estado": "61 remates anotados por Claude el 2026-10-15. Diego revisó a mano los avisos 1 al 19 (salvo 4 y 9) sin encontrar errores de lectura. Montos y porcentajes comprobados por código contra su cita.",
+ "fuente_texto": "avisos cortados por motor.cortador con orden por posición. El número n coincide con inventario_correcto_2026-10-14.json",
+ "reglas": {
+  "dia_habil": "PROVISORIO. Lunes a viernes que no sean feriado (db/feriados_2026.csv). El art. 59 del Código de Procedimiento Civil dice que son hábiles los días no feriados, lo que incluiría el sábado. En la práctica los avisos de esta edición tratan el día hábil anterior a un lunes como el viernes (aviso 9). Pendiente de confirmar con un abogado.",
+  "horas_antes": "Decisión de Diego 2026-10-15 (corrige la anterior de días hábiles). Se restan las horas exactas de reloj desde la fecha y hora del remate. Si el tope cae en fin de semana o feriado, se adelanta al último horario hábil anterior. Se aplica igual a 72 y a 24 horas.",
+  "vv_desde_estimado": "Decisión de Diego 2026-10-15. Si el aviso solo dice hasta cuándo, vv_desde es el día siguiente a la edición.",
+  "direccion": "Decisión de Diego 2026-10-15. Se anota la dirección del inmueble para identificar el remate (causa + fecha y hora + inmueble).",
+  "minimo": "monto en la moneda del aviso. costas_clp aparte cuando el mínimo suma costas. 'lista' cuando un aviso trae varios remates con mínimos distintos.",
+  "modalidad": "Valores zoom, presencial, mixta, sin_dato y en_linea (Google Meet u otra plataforma que no es Zoom). en_linea NO existe todavía en db/esquema.sql.",
+  "remates_pegados": "Resuelto el 2026-10-15 (tarde). El cortador ya separa los 61 avisos. Los que eran 57a, 57b, 58a, 58b y 59 son ahora 57, 58, 59, 60 y 61 (campo n_anterior)."
+ },
+ "avisos": [
+  {
+   "n": 1,
+   "rol": "21629-2024",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-06",
+    "cita": "se rematará dia 6 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:15",
+    "cita": "a las 13:15 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "cuya subasta se llevará de manera presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 17364913,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para iniciar las posturas será la suma de $ 17.364.913"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "garantía suficiente al menos por el 10% del precio mínimo a través de vale vista"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-05 14:00",
+    "vv_estado": "calculado",
+    "cita": "deberá ser entregado hasta las 14:00 horas del día hábil anterior a la subasta"
+   },
+   "direccion": {
+    "valor": "calle Santiago Bueras n° 3951, comuna de Peñaflor",
+    "cita": "inmueble ubicado en calle Santiago Bueras n° 3951"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 2,
+   "rol": "14116-2025",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "se rematará día 5 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "cuya subasta se llevará de manera presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 355.969402,
+    "moneda": "UF",
+    "costas_clp": 638400,
+    "cita": "El mínimo para iniciar las posturas será la cantidad de 355,969402 unidades de fomento avaluadas en pesos al día de la subasta más la suma de $ 638.400.-por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "garantía suficiente al menos por el 10% del precio mínimo a través de vale vista"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-04 14:00",
+    "vv_estado": "calculado",
+    "cita": "deberá ser entregado hasta las 14:00 horas del día hábil anterior a la subasta"
+   },
+   "direccion": {
+    "valor": "calle La Viña N° 1544, comuna de Puente Alto",
+    "cita": "inmueble ubicado en calle La Viña N° 1544, de la comuna de Puente Alto"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 3,
+   "rol": "8715-2025",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-12",
+    "cita": "el día 12 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "de forma presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "lista": [
+     {
+      "monto": 42402396,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "Mínimo para las posturas de la oficina N° 602 será la suma de $ 42.402.396",
+      "inmueble": "oficina 602"
+     },
+     {
+      "monto": 66522157,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "el mínimo para la postura de la oficina N° 603 será la suma de $ 66.522.157",
+      "inmueble": "oficina 603"
+     }
+    ]
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "garantía suficiente al menos por el 10% del precio mínimo a través de vale vista"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-11-11 08:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-11 14:00",
+    "vv_estado": "calculado",
+    "cita": "deberá ser entregado el día hábil anterior a la subasta entre las 08:00 y las 14: 00 horas"
+   },
+   "direccion": {
+    "valor": "Avenida Pajaritos N° 3195, oficinas 602 y 603, comuna de Maipú",
+    "cita": "con acceso general por Avenida Pajaritos N° 3195, comuna de Maipú"
+   },
+   "dudas": [
+    "Un solo aviso con DOS remates (oficinas 602 y 603, se rematan por separado), cada uno con su mínimo. Para la agenda son dos remates."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 4,
+   "rol": "2238-2020",
+   "tribunal": "1° Juzgado Civil de San Miguel",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "rematará el día 3 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "14:30",
+    "cita": "3 de noviembre de 2026, 14:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante videoconferencia a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 5653,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "Mínimo para posturas 5.653.- Unidades de Fomento"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "Deberán constituir garantía suficiente 10% del mínimo, mediante vale vista"
+   },
+   "vale_vista": {
+    "regla": "horas_antes",
+    "horas": 72,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-10-30 14:00",
+    "vv_estado": "revisar",
+    "cita": "éste deberá acompañarse materialmente en la secretaría del tribunal, con 72 horas de antelación al día y hora de realización del remate",
+    "calculo": "reloj"
+   },
+   "direccion": {
+    "valor": "calle Álvarez de Toledo 861, comuna de San Miguel",
+    "cita": "la propiedad ubicada en calle Álvarez de Toledo número ochocientos sesenta y uno"
+   },
+   "dudas": [
+    "72 horas de reloj antes del martes 3 a las 14:30 da el sábado 31 a las 14:30 (fin de semana y feriado). Se adelanta al viernes 30. La hora 14:00 es supuesta porque el aviso no da horario de Secretaría.",
+    "Exige coordinar antes por correo a jc1_sanmiguel_remates@pjud.cl."
+   ]
+  },
+  {
+   "n": 5,
+   "rol": "5974-2023",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "el 3 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "REMATE PRESENCIAL"
+   },
+   "minimo": {
+    "monto": 17326066,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Monto mínimo para subastar $ 17.326.066"
+   },
+   "garantia": {
+    "porcentaje": null,
+    "base": null,
+    "monto": null,
+    "moneda": null,
+    "cita": "consignar garantía suficiente conforme al mínimo fijado para el remate mediante vale vista"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02 14:00",
+    "vv_estado": "calculado",
+    "cita": "deberá ser entregado hasta las 14 horas del día hábil anterior"
+   },
+   "direccion": {
+    "valor": "El Maitén N° 28, comuna de Til Til",
+    "cita": "El Maitén N° 28, que corresponde al sitio 3 de la manzana L"
+   },
+   "dudas": [
+    "La garantía no dice porcentaje, solo 'conforme al mínimo fijado'. Hay que verlo en las bases."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 6,
+   "rol": "2462-2022",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "se rematará el día 03 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:15",
+    "cita": "a las 13:15 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "El remate se efectuara en dependencias del tribunal en la fecha indicada"
+   },
+   "minimo": {
+    "monto": 81566356,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para la subasta $ 81.566.356"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "garantía suficiente al menos por el 10% del precio mínimo a través de vale vista"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02 14:00",
+    "vv_estado": "calculado",
+    "cita": "deberá ser entregado hasta las 14:00 horas del día hábil anterior a la subasta"
+   },
+   "direccion": {
+    "valor": "Avenida Vicuña Mackenna Oriente 7320, depto 1504, comuna de La Florida",
+    "cita": "con acceso por Avenida Vicuña Mackenna Oriente número 7320, Comuna de La Florida"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 7,
+   "rol": "15733-2022",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "subastará 3 noviembre 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "3 noviembre 2026, 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "videoconferencia plataforma zoom"
+   },
+   "minimo": {
+    "monto": 15036296,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 15.036.296"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir garantía por 10% mínimo, mediante vale vista"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-11-02 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-02 14:00",
+    "vv_estado": "calculado",
+    "cita": "deberán presentarlo en dependencias de tribunal día hábil anterior a remate, entre 12:00 y 14:00 horas"
+   },
+   "direccion": {
+    "valor": "Pasaje Rio Rapel N° 13362, comuna El Bosque",
+    "cita": "inmueble Pasaje Rio Rapel N° 13362"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 8,
+   "rol": "23610-2019",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "remate 29 octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematara mediante video conferencia en plataforma zoom"
+   },
+   "minimo": {
+    "monto": 69330769,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 69.330.769"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir la garantía equivalente al 10% del mínimo fijado, mediante vale vista"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-28 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-28 14:00",
+    "vv_estado": "calculado",
+    "cita": "el día hábil anterior a la fecha fijada para el remate, entre las 12:00 y 14:00 horas"
+   },
+   "direccion": {
+    "valor": "calle Laura Rodig N° 9225, comuna de La Florida",
+    "cita": "propiedad ubicada en calle Laura Rodig N° 9225"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 9,
+   "rol": "12731-2025",
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-09",
+    "cita": "el día lunes 09 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:40",
+    "cita": "a las 13:40 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará por videoconferencia, mediante plataforma zoom"
+   },
+   "minimo": {
+    "monto": 112557662,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 112.557.662"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo, mediante vale vista"
+   },
+   "vale_vista": {
+    "regla": "fecha_dicha_en_aviso",
+    "vv_desde": "2026-11-06 11:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-06 12:00",
+    "vv_estado": "revisar",
+    "cita": "deberán comparecer al Tribunal el día hábil anterior al día de la subasta, esto es, el viernes anterior, de 11 a 14 hrs.",
+    "citas_extra": [
+     "hasta las 12 hrs. del día hábil anterior a la fecha fijada para el remate"
+    ]
+   },
+   "direccion": {
+    "valor": "Avenida Central N° 1725, vivienda 77, comuna de Puente Alto",
+    "cita": "ubicado en Avenida Central N° 1725"
+   },
+   "dudas": [
+    "El aviso se contradice. Dice hasta las 12 hrs y también de 11 a 14 hrs. Dejé la ventana más segura, de 11 a 12.",
+    "Evidencia para día hábil. El propio aviso dice que el día hábil anterior a un lunes es el viernes."
+   ]
+  },
+  {
+   "n": 10,
+   "rol": "4948-2025",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-11",
+    "cita": "Se rematará el 11 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "14:10",
+    "cita": "a las 14:10 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "Subasta se realizará por videoconferencia, mediante plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 16099.874872,
+    "moneda": "UF",
+    "costas_clp": 193700,
+    "cita": "Mínimo subasta será 16.099,874872 Unidades de Fomento en su equivalente en pesos al díadel remate, más $193.700.- por costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "vale vista a la orden del Tribunal por 10% mínimo subasta"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-10 13:00",
+    "vv_estado": "calculado",
+    "cita": "deberá serentregado materialmente en el tribunal hasta las 13:00 horas del día hábil anterior a subasta"
+   },
+   "direccion": {
+    "valor": "Avenida Santa Clara 301, oficina 7801 y estacionamientos, Huechuraba",
+    "cita": "ubicado enAvenida Santa Clara 301, Ciudad Empresarial, Huechuraba"
+   },
+   "dudas": [
+    "Una oficina con varios estacionamientos y bodegas, se rematan en un solo acto. Es un solo remate.",
+    "Además pide correo con copia del vale vista hasta las 14:00 del día hábil anterior."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 11,
+   "rol": "22376-2024",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "el 4 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 hrs"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se realizará por videoconferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 1359.61352,
+    "moneda": "UF",
+    "costas_clp": 423373,
+    "cita": "Mínimo para iniciar posturas 1359,61352 Unidades de Fomento en su equivalente en moneda nacional al día de la subasta, más la suma de $ 423.373.-, por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por un monto equivalente al 10% del precio mínimo"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-03 13:00",
+    "vv_estado": "calculado",
+    "cita": "hasta las 13:00 horas del día hábil inmediatamente anterior a la fecha fijada para el remate"
+   },
+   "direccion": {
+    "valor": "calle 20 Norte número 1715, depto 403, Talca",
+    "cita": "ubicado en calle 20 Norte número 1715, de la comuna y provincia de Talca"
+   },
+   "dudas": [
+    "Inmueble en Talca. Quedará fuera de filtro (no es RM), pero se anota igual."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 12,
+   "rol": "12567-2006",
+   "tribunal": "4° Juzgado Civil de San Miguel",
+   "fecha_remate": {
+    "valor": "2026-11-12",
+    "cita": "el día 12 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas a través del siguiente link"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se realizará por modalidad de videoconferencia, mediante el uso de plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 64921645,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $ 64.921.645"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "deberán constituir la garantía equivalente al 10% del mínimo fijado para la subasta"
+   },
+   "vale_vista": {
+    "regla": "horas_antes",
+    "horas": 72,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-09 13:00",
+    "vv_estado": "calculado",
+    "cita": "La entrega de la garantía debe ser efectuada con 72 horas de antelación a la fecha del remate",
+    "citas_extra": [
+     "se efectuará presencialmente en Secretaria del Tribunal, en horario de 09:00 a 14:00 horas"
+    ],
+    "calculo": "reloj"
+   },
+   "direccion": {
+    "valor": "Avenida Américo Vespucio N° 0337, comuna de La Granja",
+    "cita": "propiedad ubicada en Avenida Américo Vespucio N° 0337"
+   },
+   "dudas": [
+    "Dice presencialmente, pero se refiere a la entrega del vale vista en Secretaría, no al remate. El remate es por Zoom.",
+    "72 horas de reloj antes del jueves 12 a las 13:00 da el lunes 9 a las 13:00, dentro del horario de Secretaría (09:00 a 14:00).",
+    "Además del vale vista permite garantía por cupón de pago enviado por correo."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": null,
+    "comentario": "me comenta el abogado que no es normal, es un error del secretario o quien haya redactado eso. Recordar que estos avisos lo hacen señores en los tribunales que son humanos y comenten errores."
+   }
+  },
+  {
+   "n": 13,
+   "rol": "1515-2008",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-17",
+    "cita": "remata el día 17 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas por video conferencia"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se realizar por videoconferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 1909.047884,
+    "moneda": "UF",
+    "costas_clp": 129800,
+    "cita": "Mínimo para las posturas subasta será la cantidad de 1909,047884 Unidades de Fomento, avaluadas en pesos al día de la subasta, más la suma de $ 129.800. por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por un monto equivalente al 10% del precio mínimo"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-16 13:00",
+    "vv_estado": "calculado",
+    "cita": "hasta las 13:00 horas del día hábil inmediatamente anterior a la fecha fijada para el remate"
+   },
+   "direccion": {
+    "valor": "calle Santa Inés Oriente N° 2118, comuna de San Bernardo",
+    "cita": "propiedad ubicada en calle Santa Inés Oriente N° 2118, de la comuna de San Bernardo"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 14,
+   "rol": "15650-2022",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "el día 03 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "14:10",
+    "cita": "a las 14:10 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará mediante plataforma electrónica Zoom"
+   },
+   "minimo": {
+    "monto": 2824,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas será la suma de UF 2.824.-"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por un monto equivalente al 10% del precio mínimo"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02 13:00",
+    "vv_estado": "calculado",
+    "cita": "hasta las 13:00 horas del día hábil inmediatamente anterior a la fecha fijada para el remate"
+   },
+   "direccion": {
+    "valor": "Pasaje Los Universitarios 2116, comuna de Maipú",
+    "cita": "la propiedad ubicada en Pasaje Los Universitarios dos mil ciento dieciséis"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 15,
+   "rol": "15383-2025",
+   "tribunal": "5° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "el día 3 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:20",
+    "cita": "a las 13:20 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "remata por video conferencia el día 3 de noviembre de 2026"
+   },
+   "minimo": {
+    "monto": 56920759,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $ 56.920.759"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "deberán rendir caución del 10%, mediante vale a la vista endosable"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02 14:00",
+    "vv_estado": "calculado",
+    "cita": "el que deberá ser presentado materialmente el día hábil inmediatamente anterior al día del remate hasta las 14.00 horas"
+   },
+   "direccion": {
+    "valor": "Avenida Américo Vespucio N° 1414, comuna de Maipú",
+    "cita": "inmueble ubicado en Avenida Américo Vespucio N° 1414"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   }
+  },
+  {
+   "n": 16,
+   "rol": "13937-2025",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "rematará próximo 29 octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "29 octubre 2026 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "sin_dato",
+    "cita": null
+   },
+   "minimo": {
+    "monto": 81673514,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 81.673.514"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "deberán rendir caución del 10%"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-28 08:30",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-28 12:30",
+    "vv_estado": "calculado",
+    "cita": "deberá efectuarse forma presencial ante Sra. Secretaria Tribunal día hábil anterior a fecha fijada para remate, entre 08:30 y 12:30 hrs."
+   },
+   "direccion": {
+    "valor": "calle Agustinas 1888, depto 302 D, comuna de Santiago",
+    "cita": "acceso por calle Agustinas número mil ochocientos ochenta y ocho, Comuna de Santiago"
+   },
+   "dudas": [
+    "No dice Zoom ni presencial. Habla de conectarse a la audiencia y de elementos tecnológicos, lo que sugiere remate en línea, pero no lo afirma."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": null,
+    "comentario": "error humano no especificar bien, se asume que será por zoom por pedir \"tecnologia\" pero honestamente la modalidad está al debe."
+   }
+  },
+  {
+   "n": 17,
+   "rol": "936-2026",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-11",
+    "cita": "Se rematará el 11 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas, mediante videoconferencia"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante videoconferencia, a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 398.322141,
+    "moneda": "UF",
+    "costas_clp": 1189800,
+    "cita": "Mínimo para las posturas es 398,322141 UF, más la suma de $ 1.189.800 pesos por costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "garantía suficiente equivalente al 10% del mínimo fijado para el remate"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-11-10 08:30",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-10 12:30",
+    "vv_estado": "calculado",
+    "cita": "el día hábil anterior a la fecha fijada para el remate, entre las 08:30 y las 12:30 hrs."
+   },
+   "direccion": {
+    "valor": "Pasaje Río La Ligua N° 9555, comuna de Pudahuel",
+    "cita": "inmueble de Pasaje Río La Ligua N° 9555"
+   },
+   "dudas": [
+    "Contradicción. Dice garantía del 10% del mínimo y después vale vista 'por la suma de dinero equivalente al mínimo'.",
+    "Rol impreso con errata CC-936-2026."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": null,
+    "comentario": "Si, es una Contradicción flagrante, Manda la regla general del Código de Procedimiento Civil (art. 494 del CPC) y las bases: es el 10% del mínimo, no el 100% (el mínimo total son casi 400 UF más costas, lo que sería un disparate pedir por adelantado solo como postura). Quien redactó el extracto omitió por descuido las palabras \"al 10% de\" al describir el punto 1. No obstante, al decir en ambas frases \"de acuerdo a las bases...\", lo mandatorio y jurídicamente vinculante es lo que dice la resolución aprobatoria de las bases en el expediente judicial.. recordemos que estas cosas son redactadas por viejitos en el tribunal, pueden haber errores y contracicciones."
+   }
+  },
+  {
+   "n": 18,
+   "rol": "13112-2023",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-11",
+    "cita": "el 11 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:45",
+    "cita": "13:45 hrs."
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La audiencia se llevará a cabo mediante plataforma zoom"
+   },
+   "minimo": {
+    "monto": 5056.536936,
+    "moneda": "UF",
+    "costas_clp": 403000,
+    "cita": "El mínimo para la subasta será la suma de UF 5.056,536936.- equivalente en pesos al día de la subasta, más suma de $ 403.000.- por concepto costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución que no podrá ser inferior al 10% del mínimo fijado para remate"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior_sabado_a_viernes",
+    "vv_desde": "2026-11-10 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-10 14:00",
+    "vv_estado": "calculado",
+    "cita": "El vale vista deberá ser presentado en la secretaría del tribunal el día anterior al fijado para la subasta, entre las 12:00 y 14:00 horas",
+    "citas_extra": [
+     "el que si recayere en día sábado deberá ser presentado el día viernes anterior"
+    ]
+   },
+   "direccion": {
+    "valor": "calle Piedemonte N° 18551, Unidad 112, comuna de San Bernardo",
+    "cita": "ubicada calle Piedemonte N° 18551"
+   },
+   "dudas": [],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   },
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 18.minimo.cita",
+     "antes": "El mínimo para la subasta será la suma de UF 5.056,536936.equivalente en pesos al día de la subasta, más suma de $ 403.000.- por concepto costas",
+     "despues": "El mínimo para la subasta será la suma de UF 5.056,536936.- equivalente en pesos al día de la subasta, más suma de $ 403.000.- por concepto costas",
+     "motivo": "Cita escrita sobre el texto del cortador anterior, que borraba el guion al final de un renglón aunque no fuera palabra cortada (el '.-' de los montos se pegaba a la palabra siguiente). Corregida el 2026-10-16 con el texto del cortador nuevo. Bitácora del 16."
+    }
+   ]
+  },
+  {
+   "n": 19,
+   "rol": "7013-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-09",
+    "cita": "remata día 9 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:15",
+    "cita": "a las 15:15 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se efectuará por video conferencia a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 240.702479,
+    "moneda": "UF",
+    "costas_clp": 155000,
+    "cita": "Mínimo para las posturas subasta asciende a 240,702479 Unidades de Fomento, avaluados en pesos a la fecha de la subasta, más la suma de $ 155.000.- por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución que no podrá ser inferior al 10% del mínimo fijado para el remate"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior_sabado_a_viernes",
+    "vv_desde": "2026-11-06 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-06 14:00",
+    "vv_estado": "revisar",
+    "cita": "El vale vista deberá ser presentado en la secretaría del tribunal el día anterior al fijado para la subasta, entre las 12:00 y 14:00 horas",
+    "citas_extra": [
+     "el que si recayere en día sábado deberá ser presentado el día viernes anterior"
+    ]
+   },
+   "direccion": {
+    "valor": "Pasaje Ríos de Chile 2942, comuna de Maipú",
+    "cita": "propiedad ubicada en Pasaje Ríos de Chile Número dos mil novecientos cuarenta y dos"
+   },
+   "dudas": [
+    "El remate es lunes y el día anterior es domingo. El aviso solo prevé el sábado (pasa al viernes). Estimé viernes 6, pero el aviso no lo dice."
+   ],
+   "revision_diego": {
+    "fecha": "2026-10-15",
+    "ok": "sí",
+    "comentario": null
+   },
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 19.minimo.cita",
+     "antes": "Mínimo para las posturas subasta asciende a 240,702479 Unidades de Fomento, avaluados en pesos a la fecha de la subasta, más la suma de $ 155.000.por concepto de costas",
+     "despues": "Mínimo para las posturas subasta asciende a 240,702479 Unidades de Fomento, avaluados en pesos a la fecha de la subasta, más la suma de $ 155.000.- por concepto de costas",
+     "motivo": "Cita escrita sobre el texto del cortador anterior, que borraba el guion al final de un renglón aunque no fuera palabra cortada (el '.-' de los montos se pegaba a la palabra siguiente). Corregida el 2026-10-16 con el texto del cortador nuevo. Bitácora del 16."
+    }
+   ]
+  },
+  {
+   "n": 20,
+   "rol": "5849-2026",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-30",
+    "cita": "remata día 30 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:15",
+    "cita": "a las 11:15 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se efectuará por video conferencia a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 66144755,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta asciende a la suma de $ 66.144.755"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución que no podrá ser inferior al 10% del mínimo fijado para el remate"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior_sabado_a_viernes",
+    "vv_desde": "2026-10-29 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-29 14:00",
+    "vv_estado": "calculado",
+    "cita": "El vale vista deberá ser presentado en la secretaría del tribunal el día anterior al fijado para la subasta, entre las 12:00 y 14:00 horas",
+    "citas_extra": [
+     "el que si recayere en día sábado deberá ser presentado el día viernes anterior"
+    ]
+   },
+   "direccion": {
+    "valor": "Avenida Paseo Pie Andino N° 02639 casa 67, comuna de Puente Alto",
+    "cita": "con acceso por Avenida Paseo Pie Andino N° 02639 casa 67"
+   },
+   "dudas": []
+  },
+  {
+   "n": 21,
+   "rol": "13633-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-16",
+    "cita": "se rematará el 16 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:15",
+    "cita": "a las 15:15 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se realizará por modalidad de videoconferencia, mediante el uso de plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 1906543,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas remate es la suma de $ 1.906.543"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del precio mínimo"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior_sabado_a_habil",
+    "vv_desde": "2026-11-13 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-13 14:00",
+    "vv_estado": "revisar",
+    "cita": "deberán asistir a las dependencias del Tribunal el día anterior fijado para la subasta, y si recayere en día sábado deberá ser presentado el día hábil anterior, entre las 12:00 y las 14:00 horas"
+   },
+   "direccion": {
+    "valor": "Lote Dos, Hijuela Segunda, Antiguo Fundo Cuesta Vieja, comuna de Curacaví",
+    "cita": "ubicado en la comuna de Curacaví, Región Metropolitana"
+   },
+   "dudas": [
+    "El remate es lunes y el día anterior es domingo. El aviso solo prevé el sábado (pasa al día hábil anterior). Estimé viernes, pero el aviso no lo dice.",
+    "Mínimo de solo $ 1.906.543 para un lote. Puede ser real o errata del diario."
+   ]
+  },
+  {
+   "n": 22,
+   "rol": "15590-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-09",
+    "cita": "el 9 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "12:30 hrs."
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La audiencia se llevará a cabo mediante plataforma zoom"
+   },
+   "minimo": {
+    "monto": 515.656405,
+    "moneda": "UF",
+    "costas_clp": 483500,
+    "cita": "Mínimo para la subasta será suma de UF 515,656405.- equivalente en pesos al día de la subasta, más la suma de $ 483.500.- por costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución que no podrá ser inferior al 10% del mínimo fijado para remate"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior_sabado_a_habil",
+    "vv_desde": "2026-11-06 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-06 14:00",
+    "vv_estado": "revisar",
+    "cita": "El vale vista deberá ser presentado en la secretaría del tribunal el día anterior al fijado para la subasta, entre las 12:00 y 14:00 horas",
+    "citas_extra": [
+     "el que si recayere en día sábado deberá ser presentado el día hábil anterior"
+    ]
+   },
+   "direccion": {
+    "valor": "Pasaje Cerro Puntiagudo N° 9525, comuna de Pudahuel",
+    "cita": "la propiedad ubicada en Pasaje Cerro Puntiagudo N° 9525"
+   },
+   "dudas": [
+    "El remate es lunes y el día anterior es domingo. El aviso solo prevé el sábado (pasa al día hábil anterior). Estimé viernes, pero el aviso no lo dice."
+   ]
+  },
+  {
+   "n": 23,
+   "rol": "16109-2023",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-09",
+    "cita": "el día 09 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará por video-conferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 91085012,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas será la suma de $ 91.085.012"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución que no podrá ser inferior al 10% del mínimo fijado para el remate"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior_sabado_a_habil",
+    "vv_desde": "2026-11-06 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-06 14:00",
+    "vv_estado": "revisar",
+    "cita": "El vale vista deberá ser presentado en la secretaría del tribunal el día anterior al fijado para la subasta, entre las 12:00 y 14:00 horas",
+    "citas_extra": [
+     "el que si recayere en día sábado deberá ser presentado el día hábil anterior"
+    ]
+   },
+   "direccion": {
+    "valor": "calle Cuarta Avenida 1447, depto 705, comuna de San Miguel",
+    "cita": "con acceso común por calle Cuarta Avenida número mil cuatrocientos cuarenta y siete, comuna de San Miguel"
+   },
+   "dudas": [
+    "El remate es lunes y el día anterior es domingo. El aviso solo prevé el sábado (pasa al día hábil anterior). Estimé viernes, pero el aviso no lo dice."
+   ]
+  },
+  {
+   "n": 24,
+   "rol": "10151-2025",
+   "tribunal": "8° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-09",
+    "cita": "remata el día 9 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "a las 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "en dependencias del Tribunal, propiedad consistente"
+   },
+   "minimo": {
+    "monto": 31184373,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $ 31.184.373"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-11-06 09:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-06 14:00",
+    "vv_estado": "calculado",
+    "cita": "La recepción de los vales vista de garantía se hará únicamente el día hábil anterior a la fecha de la subasta, desde las 09:00 hasta las 14:00 horas, día viernes en caso de que el día fijado para la subasta sea un lunes"
+   },
+   "direccion": {
+    "valor": "Pasaje Ocho 55, comuna de Buin",
+    "cita": "vivienda ubicada en Pasaje ocho número cincuenta y cinco"
+   },
+   "dudas": [
+    "Evidencia para día hábil. El aviso dice que si el remate es lunes, el vale vista va el viernes."
+   ]
+  },
+  {
+   "n": 25,
+   "rol": "6416-2025",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "Se rematará el 27 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 hrs."
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "Subasta se realizará por videoconferencia (Zoom)"
+   },
+   "minimo": {
+    "monto": 663,
+    "moneda": "UF",
+    "costas_clp": 591800,
+    "cita": "Mínimo subasta será 663 Unidades de Fomento en equivalente pesos día remate más $ 591.800.- por costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "vale vista orden Tribunal por 10% mínimo subasta"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-26 08:30",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-26 09:30",
+    "vv_estado": "calculado",
+    "cita": "el día anterior a subasta entre 08:30 y 09:30 horas"
+   },
+   "direccion": {
+    "valor": "General Gana 1063, depto 2302-B, comuna de Santiago",
+    "cita": "con acceso por General Gana 1063, Santiago"
+   },
+   "dudas": []
+  },
+  {
+   "n": 26,
+   "rol": "15341-2025",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "se rematará el día 4 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante plataforma Zoom se rematará"
+   },
+   "minimo": {
+    "monto": 87546135,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas: $ 87.546.135"
+   },
+   "garantia": {
+    "porcentaje": null,
+    "base": null,
+    "monto": null,
+    "moneda": null,
+    "cita": "deberá entregar materialmente el vale vista respectivo"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-11-03 08:30",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-03 09:30",
+    "vv_estado": "calculado",
+    "cita": "el día inmediatamente anterior a la subasta entre las 8:30 y las 9:30 horas"
+   },
+   "direccion": {
+    "valor": "Calle Pedrales N° 01867, comuna de Puente Alto",
+    "cita": "Calle Pedrales N° 01867"
+   },
+   "dudas": [
+    "La garantía no dice porcentaje. Hay que verlo en las bases."
+   ]
+  },
+  {
+   "n": 27,
+   "rol": "19896-2024",
+   "tribunal": "10° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "el día 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "de manera presencial en las dependencias físicas del tribunal"
+   },
+   "minimo": {
+    "monto": 38000000,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para la subasta asciende a $ 38.000.000"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del precio mínimo fijado para la subasta"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega. Solo que los vales vista se califican al hacerse el llamado al remate."
+   },
+   "direccion": {
+    "valor": "calle Apóstol Santiago 32, depto 2017, comuna de Estación Central",
+    "cita": "con acceso principal por calle Apóstol Santiago número 32"
+   },
+   "dudas": [
+    "Vale vista sin fecha de entrega. Probablemente se lleva al remate mismo, pero el aviso no lo dice.",
+    "Estación Central. Quedará fuera de filtro."
+   ]
+  },
+  {
+   "n": 28,
+   "rol": "5107-2022",
+   "tribunal": "10° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "se rematará el día 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "sin_dato",
+    "cita": null
+   },
+   "minimo": {
+    "monto": 112020168,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para la subasta $ 112.020.168"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del precio mínimo fijado para la subasta"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega. Solo que los vales vista se califican al hacerse el llamado al remate."
+   },
+   "direccion": {
+    "valor": "Avenida Transversal Uno 939, comuna de Pudahuel",
+    "cita": "la propiedad ubicada en Avenida Transversal Uno número novecientos treinta y nueve"
+   },
+   "dudas": [
+    "No dice la modalidad. Solo nombra la dirección del tribunal. El aviso 27, del mismo tribunal y la misma hora, es presencial.",
+    "Vale vista sin fecha de entrega."
+   ]
+  },
+  {
+   "n": 29,
+   "rol": "4343-2025",
+   "tribunal": "11° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "4 noviembre 2026, 13:00 horas"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "4 noviembre 2026, 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "Remate presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 99979411,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "mínimo posturas $ 99.979.411"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por 10% del mínimo fijado"
+   },
+   "vale_vista": {
+    "regla": "en_el_remate",
+    "vv_desde": "2026-11-04 13:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-04 13:00",
+    "vv_estado": "calculado",
+    "cita": "al momento de efectuarse el llamado a remate"
+   },
+   "direccion": {
+    "valor": "calle Valle La Reserva N° 588, comuna de Isla de Maipo",
+    "cita": "ubicado en calle Valle La Reserva N° 588, comuna de Isla de Maipo"
+   },
+   "dudas": [
+    "El vale vista se presenta en el mismo remate, no antes."
+   ]
+  },
+  {
+   "n": 30,
+   "rol": "20712-2024",
+   "tribunal": "12° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-20",
+    "cita": "en primer llamado con fecha 20 de Octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:45",
+    "cita": "a las 13:45 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se ha dispuesto rematar en modalidad videoconferencia"
+   },
+   "minimo": {
+    "lista": [
+     {
+      "monto": 97961075,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "Mínimo para el Lote 1 es la suma de $ 97.961.075",
+      "inmueble": "Lote 1, casa 1 y estacionamiento 1"
+     },
+     {
+      "monto": 99245353,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "Mínimo para el Lote 2 es la suma de $ 99.245.353",
+      "inmueble": "Lote 2, casa 3 y estacionamiento 3"
+     },
+     {
+      "monto": 99245353,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "Mínimo para el Lote 3 es la suma de $ 99.245.353",
+      "inmueble": "Lote 3, casa 5 y estacionamiento 5"
+     },
+     {
+      "monto": 8623009,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "cuyo mínimo para la subasta será $ 8.623.009",
+      "inmueble": "Lote 4, estacionamiento 6"
+     }
+    ]
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "deberán constituir garantía del 10% de cada Lote en que deseen participar"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-19 09:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-19 13:00",
+    "vv_estado": "calculado",
+    "cita": "deberá entregar el vale vista materialmente en el Tribunal, entre las 9 y las 13 horas del día anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "calle Maipú N° 636, Condominio Casas de Santo Domingo, comuna de Santiago",
+    "cita": "con acceso por calle Maipú N° 636, comuna de Santiago"
+   },
+   "dudas": [
+    "Un aviso con CUATRO remates (lotes 1 a 4). Para la agenda son cuatro filas.",
+    "Dice primer llamado. Podría haber un segundo llamado en otra fecha.",
+    "Antes de entregar el vale vista hay que ser aceptado como postor en la OJV."
+   ]
+  },
+  {
+   "n": 31,
+   "rol": "3277-2026",
+   "tribunal": "12° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-26",
+    "cita": "remata el día 26 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:15",
+    "cita": "a las 13:15 horas la cual se efectuará mediante videoconferencia"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "la subasta se realizará por videoconferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 82211007,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subastaserálasumade$82.211.007"
+   },
+   "garantia": {
+    "porcentaje": null,
+    "base": null,
+    "monto": null,
+    "moneda": null,
+    "cita": "mediante un vale vista endosable a nombre del tribunal y por el monto que se señala en las Bases del Remate"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-11-25 09:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-25 13:00",
+    "vv_estado": "calculado",
+    "cita": "deberá entregar el vale vista materialmente en el Tribunal, entre las 9:00 y las 13:00 horas del día anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "Avenida Macul N° 4747, depto 68, comuna de Macul",
+    "cita": "con ingreso principal por Avenida Macul N° 4747, comuna de Macul"
+   },
+   "dudas": [
+    "La garantía no dice porcentaje, remite a las bases.",
+    "Antes de entregar el vale vista hay que ser aceptado como postor en la OJV."
+   ]
+  },
+  {
+   "n": 32,
+   "rol": "13700-2022",
+   "tribunal": "12° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "Santiago 29 de Octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "13:45",
+    "cita": "29 de Octubre 2026, 13:45 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará por videoconferencia plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 37047817,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 37.047.817"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "deberá rendir garantía por 10%"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-28 09:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-28 13:00",
+    "vv_estado": "calculado",
+    "cita": "deberá entregar vale vista materialmente en el Tribunal, entre 9:00 y 13:00 horas del día anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "calle Abtao 24, depto 1109, comuna de Estación Central",
+    "cita": "acceso por calle Abtao 24, Comuna Estación Central"
+   },
+   "dudas": [
+    "Estación Central. Quedará fuera de filtro."
+   ]
+  },
+  {
+   "n": 33,
+   "rol": "22041-2024",
+   "tribunal": "14° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "se rematará el día 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:30",
+    "cita": "a las 11.30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "la participación en la subasta requiere la presencia física en el tribunal en la fecha y hora indicadas"
+   },
+   "minimo": {
+    "monto": 106204681,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo Subasta $ 106.204.681"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "Interesados rendir caución suficiente, equivalente al 10% del mínimo total establecido"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo ni dónde se entrega el vale vista."
+   },
+   "direccion": {
+    "valor": "calle Los Alerces 3330, depto 306-A, comuna de Ñuñoa",
+    "cita": "ubicado en calle Los Alerces número tres mil trescientos treinta, Comuna de Ñuñoa"
+   },
+   "dudas": [
+    "Vale vista sin fecha de entrega. Hay que verlo en las bases."
+   ]
+  },
+  {
+   "n": 34,
+   "rol": "2078-2024",
+   "tribunal": "15° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "el 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:15",
+    "cita": "a las 13:15 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante videoconferencia en la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 258037269,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para comenzar posturas corresponder á a $ 258.037.269"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "garantía suficiente por el 10% del mínimo para presentar postura"
+   },
+   "vale_vista": {
+    "regla": "viernes_anterior",
+    "vv_desde": "2026-10-23 12:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-23 13:00",
+    "vv_estado": "calculado",
+    "cita": "compareciendo al Tribunal el día viernes anterior a la fecha de la subasta, de 12:00 a 13:00 horas",
+    "citas_extra": [
+     "Dicha información solo será recibida hasta el día anterior a aquel en que corresponda hacer entrega material del documento en el tribunal"
+    ]
+   },
+   "direccion": {
+    "valor": "Parcela N° 21, Parcelación El Cuadro de Sorrento, comuna de Talagante",
+    "cita": "Proyecto de Parcelación El Cuadro de Sorrento, ubicado en la comuna de Talagante"
+   },
+   "dudas": [
+    "El remate es jueves 29 y el vale vista va el viernes 23, seis días antes.",
+    "Hay que avisar por correo a jcsantiago15@pjud.cl a más tardar el jueves 22."
+   ]
+  },
+  {
+   "n": 35,
+   "rol": "14328-2025",
+   "tribunal": "16° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "rematará el día 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:40",
+    "cita": "a las 11:40 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "vía plataforma de video conferencia Zoom"
+   },
+   "minimo": {
+    "monto": 140909449,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para posturas $ 140.909.449"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución por la suma equivalente al 10% del mínimo fijado para la subasta"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-28 11:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-28 12:00",
+    "vv_estado": "calculado",
+    "cita": "el día precedente a la fecha fijada para la realización de la subasta, entre las 11:00 y 12:00 horas"
+   },
+   "direccion": {
+    "valor": "Parcela 112, Resto del Fundo Monterrey, comuna de Curacaví",
+    "cita": "Resto del Fundo Monterrey, antes La Carcoma, ubicado en la comuna de Curacaví"
+   },
+   "dudas": []
+  },
+  {
+   "n": 36,
+   "rol": "618-2025",
+   "tribunal": "16° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "Se rematará 05 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:40",
+    "cita": "a las 11:40 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "Se utilizará la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 2735.6956,
+    "moneda": "UF",
+    "costas_clp": 557200,
+    "cita": "la suma equivalente al día del remate a 2.735,6956 unidades de fomento, más la suma de $ 557.200.- por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución que no podrá ser inferior al 10% del mínimo fijado para el remate"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-11-04 11:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-04 12:00",
+    "vv_estado": "calculado",
+    "cita": "el día precedente la fecha fijada para la realización de la subasta, entre las 11:00 y 12:00 horas"
+   },
+   "direccion": {
+    "valor": "calle Alcalde Pedro Alarcón 777, depto 310, comuna de San Miguel",
+    "cita": "con acceso principal por calle Alcalde Pedro Alarcón número setecientos setenta y siete, comuna de San Miguel"
+   },
+   "dudas": []
+  },
+  {
+   "n": 37,
+   "rol": "6622-2021",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-10",
+    "cita": "remata por video conferencia el día 10 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:30",
+    "cita": "a las 11:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 78538497,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $ 78.538. 497"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el monto equivalente a un 10% del mínimo para la subasta"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-09 13:00",
+    "vv_estado": "calculado",
+    "cita": "a más tardar a las 13 horas del día anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "calle Jenequeo N° 5765, comuna de Quinta Normal",
+    "cita": "propiedad ubicada en calle Jenequeo N° 5765"
+   },
+   "dudas": [
+    "Además del vale vista físico pide postular en el módulo Remates de la OJV y subir un escrito."
+   ]
+  },
+  {
+   "n": 38,
+   "rol": "8527-2024",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "el día martes 3 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:30",
+    "cita": "a las 11:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 2123.7905,
+    "moneda": "UF",
+    "costas_clp": 673300,
+    "cita": "El mínimo de la subasta será la cantidad de 2123,7905 Unidades de Fomento",
+    "cita_costas": "más $ 173.300 por concepto de costas procesales y $ 500.000 por concepto de costas personales"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "Garantía equivalente al 10% del mínimo"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02 13:00",
+    "vv_estado": "calculado",
+    "cita": "deberá ser acompañado a la carpeta electrónica o de manera presencial a más tardar a las 13 horas del día anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "Avenida Bernardo O'Higgins 4050, oficina 1316, comuna de Estación Central",
+    "cita": "con acceso principal por Avenida Bernardo O’Higgins Número cuatro mil cincuenta"
+   },
+   "dudas": [
+    "Costas en dos partes, $ 173.300 procesales y $ 500.000 personales. Sumé $ 673.300.",
+    "El vale vista puede subirse a la carpeta electrónica o entregarse en persona.",
+    "Estación Central. Quedará fuera de filtro."
+   ]
+  },
+  {
+   "n": 39,
+   "rol": "8694-2024",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "el día 3 de noviembre del año 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "El remate se realizará por videoconferencia, mediante plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 88470457,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo: $ 88.470.457"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "tomado a la orden del Tribunal por el 10% del mínimo para iniciar las posturas"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02 13:00",
+    "vv_estado": "calculado",
+    "cita": "deberá entregar el vale vista materialmente en el Tribunal, a más tardar a las 13:00 horas del día anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "Avenida Las Perdices N° 3462, depto 302, comuna de Puente Alto",
+    "cita": "que tiene su acceso principal por Avenida Las Perdices N° 3462"
+   },
+   "dudas": [
+    "Antes de entregar el vale vista hay que ser aceptado como postor en la OJV."
+   ]
+  },
+  {
+   "n": 40,
+   "rol": "6285-2025",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-12",
+    "cita": "Se rematará el 12 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:00",
+    "cita": "a las 11:00, inmueble"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se realizará por videoconferencia mediante plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 89877393,
+    "moneda": "CLP",
+    "costas_clp": 1556348,
+    "cita": "Mínimo subasta será la suma de $ 89.877.393.-, más $ 1.556.348.- por costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% mínimo subasta"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-11",
+    "vv_estado": "revisar",
+    "cita": "entregado materialmente al tribunal en horario de atención de público al menos un día hábil anterior a subasta"
+   },
+   "direccion": {
+    "valor": "Camino al Volcán N° 29016, Melocotón, comuna de San José de Maipo",
+    "cita": "Camino al Volcán N° 29016, de la localidad de Melocotón"
+   },
+   "dudas": [
+    "No da hora límite, solo 'horario de atención de público'. Dejé la fecha sin hora."
+   ]
+  },
+  {
+   "n": 41,
+   "rol": "21592-2024",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "el 05 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "10:00",
+    "cita": "a las 10:00 hrs."
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "Subasta se realizará por videoconferencia a través de plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 32115748,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para la subasta será la cantidad de $ 32.115.748"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-04",
+    "vv_estado": "revisar",
+    "cita": "Dicho Vale Vista debe ser acompañado materialmente al Tribunal en horario de atención de público al menos un día hábil anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "Pasaje Jose Salum Arcuch 768, comuna de Peñaflor",
+    "cita": "la propiedad ubicada en Pasaje Jose Salum Arcuch número 768"
+   },
+   "dudas": [
+    "No da hora límite, solo 'horario de atención de público'. Dejé la fecha sin hora."
+   ]
+  },
+  {
+   "n": 42,
+   "rol": "14133-2024",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "el día 03 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:00",
+    "cita": "a las 11:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará mediante plataforma electrónica Zoom"
+   },
+   "minimo": {
+    "monto": 30000000,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas será la suma de $ 30.000.000"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02",
+    "vv_estado": "revisar",
+    "cita": "Dicho Vale Vista debe ser acompañado materialmente al Tribunal en horario de atención de público al menos un día hábil anterior a la realización de la subasta"
+   },
+   "direccion": {
+    "valor": "Avenida Lo Ovalle 0926, depto A 309, comuna de La Cisterna",
+    "cita": "con acceso por Avenida Lo Ovalle cero novecientos veintiséis, Comuna de La Cisterna"
+   },
+   "dudas": [
+    "No da hora límite, solo 'horario de atención de público'. Dejé la fecha sin hora."
+   ]
+  },
+  {
+   "n": 43,
+   "rol": "26559-2019",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "se rematará el día 3 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "de manera presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 5119.97,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "Mínimo subasta será la suma de 5119,97 Unidades de Fomento"
+   },
+   "garantia": {
+    "porcentaje": 20,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "vale vista endosable a la orden del tribunal equivalente al 20% del precio mínimo"
+   },
+   "vale_vista": {
+    "regla": "martes_o_jueves_anterior",
+    "vv_desde": "2026-10-29 10:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-29 12:00",
+    "vv_estado": "revisar",
+    "cita": "deberán asistir a las dependencias del Tribunal los días martes y jueves, anterior a la realización de la subasta, según correspondiere, entre las 10:00 y las 12:00 horas"
+   },
+   "direccion": {
+    "valor": "calle Emilia Téllez 4849, depto 59, comuna de Ñuñoa",
+    "cita": "ubicado en calle Emilia Téllez número 4849, comuna de Ñuñoa"
+   },
+   "dudas": [
+    "Garantía del 20%, no del 10%.",
+    "La entrega es solo martes o jueves. Para un remate de martes 3 tomé el jueves 29 anterior. Podría ser también el martes 27."
+   ]
+  },
+  {
+   "n": 44,
+   "rol": "5252-2024",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "se rematará próximo 29 octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "15:30",
+    "cita": "a las 15:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "Remate se realizará en forma presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 82138420,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 82.138.420"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "vale vista endosable correspondiente al 10% del mínimo fijado para la subasta"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-28 10:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-28 12:00",
+    "vv_estado": "calculado",
+    "cita": "postores deberán comparecer al Tribunal el día anterior al de la subasta, de 10:00 a 12:00 horas"
+   },
+   "direccion": {
+    "valor": "Avenida Macul 3700, depto 810-B, comuna de Macul",
+    "cita": "con acceso principal por Avenida Macul número 3.700, comuna de Macul"
+   },
+   "dudas": []
+  },
+  {
+   "n": 45,
+   "rol": "18207-2017",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "se rematará día 5 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas a través de la plataforma digital zoom"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "la subasta se realizará por videoconferencia, mediante la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 404.618121,
+    "moneda": "UF",
+    "costas_clp": 315600,
+    "cita": "El mínimo para las posturas será la suma de 404,618121 unidades de fomento, avaluados en pesos a la fecha de la subasta, más la suma de $ 315.600.- por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-11-04 09:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-04 12:00",
+    "vv_estado": "calculado",
+    "cita": "Dicho vale vista deberá acompañarse materialmente a las dependencias del tribunal el día anterior a la fecha fijada para el remate de 9:00 a 12:00 horas"
+   },
+   "direccion": {
+    "valor": "calle Asunción N° 2659, comuna de Maipú",
+    "cita": "inmueble ubicado en calle Asunción N° 2659"
+   },
+   "dudas": []
+  },
+  {
+   "n": 46,
+   "rol": "9314-2025",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-02",
+    "cita": "Rematará el día 2 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:10",
+    "cita": "a las 13:10 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "por videoconferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 21060753,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo Postura $ 21.060.753"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-10-30 09:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-10-30 12:00",
+    "vv_estado": "revisar",
+    "cita": "Dicho vale vista deberá acompañarse materialmente a las dependencias del Tribunal el día anterior a la fecha fijada para el remate de 9:00 a 12:00 horas"
+   },
+   "direccion": {
+    "valor": "sitio 5, manzana 1, loteo El Manzano (CBR San Bernardo, sin calle ni comuna en el aviso)",
+    "cita": "sitio número 5 de la manzana 1, del plano de loteo del predio denominado ”El Manzano”"
+   },
+   "dudas": [
+    "El remate es lunes 2 y el día anterior es domingo 1 (además feriado). El aviso no dice qué hacer. Estimé viernes 30.",
+    "El aviso no da calle ni comuna. Solo el loteo y el Conservador de San Bernardo."
+   ]
+  },
+  {
+   "n": 47,
+   "rol": "6443-2024",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-11",
+    "cita": "el 11 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "REMATE POR VIDEO-CONFERENcia mediante plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 45621451,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Monto mínimo para subastar $ 45.621.451"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "consignar garantía equivalente al 10% del mínimo fijado para el remate mediante vale vista"
+   },
+   "vale_vista": {
+    "regla": "dia_anterior",
+    "vv_desde": "2026-11-10 09:00",
+    "vv_desde_origen": "texto",
+    "vv_hasta": "2026-11-10 12:00",
+    "vv_estado": "calculado",
+    "cita": "entregar materialmente en dependencias del tribunal el día anterior a la subasta entre las 9 y 12"
+   },
+   "direccion": {
+    "valor": "calle Álvarez de Toledo 924, depto 1306, comuna de San Miguel",
+    "cita": "con acceso por calle Álvarez de Toledo 924"
+   },
+   "dudas": []
+  },
+  {
+   "n": 48,
+   "rol": "28690-2019",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "remata por video-conferencia el día 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:30",
+    "cita": "a las 15:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se realizará mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 55981779,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $ 55.981.779"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "tasacion",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del valor de tasación aprobado"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-10-28 12:00",
+    "vv_estado": "calculado",
+    "cita": "documento que se deberá presentar materialmente en la Secretaría del Tribunal hasta las 12:00 hrs. del día hábil anterior a la subasta",
+    "citas_extra": [
+     "y si dicho día fuera sábado, hasta las 12:00 hrs. del viernes anterior a la subasta"
+    ]
+   },
+   "direccion": {
+    "valor": "Avenida Presidente Balmaceda N° 2914, depto 2104, comuna de Santiago",
+    "cita": "ubicado en Avenida Presidente Balmaceda N° 2914, comuna de Santiago"
+   },
+   "dudas": [
+    "Garantía del 10% de la TASACIÓN, no del mínimo. El monto no se puede calcular con el aviso.",
+    "Si se suspende, se hace el día hábil siguiente a las 10:30."
+   ]
+  },
+  {
+   "n": 49,
+   "rol": "468-2025",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-02",
+    "cita": "se rematará el día 2 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:15",
+    "cita": "a las 15:15 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante videoconferencia, vía plataforma zoom"
+   },
+   "minimo": {
+    "monto": 45884311,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo $ 45.884.311"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "tasacion",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del valor de tasación aprobado"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 1,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-10-30 12:00",
+    "vv_estado": "calculado",
+    "cita": "documento que se deberá presentar materialmente en la Secretaría del Tribunal hasta las 12:00 hrs. del día hábil anterior a la subasta",
+    "citas_extra": [
+     "y si dicho día fuera sábado, hasta las 12:00 hrs. del viernes anterior a la subasta"
+    ]
+   },
+   "direccion": {
+    "valor": "Avenida Brasil N° 875, depto 1020, comuna de Santiago",
+    "cita": "ubicado en Avenida Brasil N° 875, Comuna de Santiago"
+   },
+   "dudas": [
+    "Garantía del 10% de la TASACIÓN, no del mínimo.",
+    "Remate lunes 2. El sábado 31 y el domingo 1 son feriados, así que el día hábil anterior es el viernes 30 en cualquier interpretación."
+   ]
+  },
+  {
+   "n": 50,
+   "rol": "21725-2024",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-12",
+    "cita": "Se rematará el 12 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a las 12:30 hrs."
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "Subasta se realizará por videoconferencia (Zoom)"
+   },
+   "minimo": {
+    "monto": 814,
+    "moneda": "UF",
+    "costas_clp": 478900,
+    "cita": "Mínimo subasta será 814 Unidades de Fomento en su equivalente en pesos al día del remate más $ 478.900.- por costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% mínimo subasta"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega el vale vista."
+   },
+   "direccion": {
+    "valor": "calle Camino Nuevo 2065, depto C-2302, Chillán",
+    "cita": "con acceso general por calle Camino Nuevo 2065, Chillán"
+   },
+   "dudas": [
+    "Chillán. Quedará fuera de filtro."
+   ],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 50.minimo.cita",
+     "antes": "Mínimo subasta será 814 Unidades de Fomento en su equivalente en pesos al día del remate más $ 478.900.por costas",
+     "despues": "Mínimo subasta será 814 Unidades de Fomento en su equivalente en pesos al día del remate más $ 478.900.- por costas",
+     "motivo": "Cita escrita sobre el texto del cortador anterior, que borraba el guion al final de un renglón aunque no fuera palabra cortada (el '.-' de los montos se pegaba a la palabra siguiente). Corregida el 2026-10-16 con el texto del cortador nuevo. Bitácora del 16."
+    }
+   ]
+  },
+  {
+   "n": 51,
+   "rol": "5802-2023",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "el 27 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante videoconferencia en la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 72319812,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para comenzar posturas corresponder á a $ 72.319.812"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el monto que corresponda al 10% del mínimo para presentar posturas"
+   },
+   "vale_vista": {
+    "regla": "horas_antes",
+    "horas": 24,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-10-26 13:00",
+    "vv_estado": "calculado",
+    "cita": "todo con al menos veinticuatro horas de anticipación a la fecha fijada para el remate",
+    "calculo": "reloj"
+   },
+   "direccion": {
+    "valor": "calle Merced 22, depto 402, comuna de Santiago",
+    "cita": "del edificio de calle Merced Número veintidós, comuna de Santiago"
+   },
+   "dudas": [
+    "24 horas de reloj antes del remate. Cae en día hábil a la misma hora."
+   ]
+  },
+  {
+   "n": 52,
+   "rol": "17079-2024",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "Se rematará el 05 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a las 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se llevará a efecto mediante videoconferencia en plataforma ZOOM"
+   },
+   "minimo": {
+    "monto": 3034.410916,
+    "moneda": "UF",
+    "costas_clp": 704100,
+    "cita": "Mínimo: 3034,410916 UF, más $ 704.100 por costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por 10% del mínimo para iniciar las posturas"
+   },
+   "vale_vista": {
+    "regla": "horas_antes",
+    "horas": 24,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-04 12:30",
+    "vv_estado": "calculado",
+    "cita": "con al menos 24 horas de anticipación al remate",
+    "calculo": "reloj"
+   },
+   "direccion": {
+    "valor": "calle Las Cimas N° 734, Unidad 75, comuna de Til Til",
+    "cita": "ubicada en calle Las Cimas N° 734"
+   },
+   "dudas": [
+    "24 horas de reloj antes del remate. Cae en día hábil a la misma hora."
+   ]
+  },
+  {
+   "n": 53,
+   "rol": "12384-2023",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "subastará 3 noviembre 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "3 noviembre 2026, 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "videoconferencia plataforma zoom"
+   },
+   "minimo": {
+    "monto": 128840924,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 128.840.924"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por 10% mínimo"
+   },
+   "vale_vista": {
+    "regla": "horas_antes",
+    "horas": 24,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-02 12:30",
+    "vv_estado": "calculado",
+    "cita": "al menos 24 horas de anticipación a subasta",
+    "calculo": "reloj"
+   },
+   "direccion": {
+    "valor": "calle Sotomayor N° 575 y N° 577, comuna de Santiago",
+    "cita": "propiedad ubicada en calle Sotomayor N° 575 y N° 577"
+   },
+   "dudas": [
+    "24 horas de reloj antes del remate. Cae en día hábil a la misma hora."
+   ]
+  },
+  {
+   "n": 54,
+   "rol": "3613-2024",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-24",
+    "cita": "se rematará el 24 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante la plataforma Zoom, se rematará"
+   },
+   "minimo": {
+    "monto": 41376018,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas será la suma de $ 41.376.018"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para la subasta"
+   },
+   "vale_vista": {
+    "regla": "horas_antes",
+    "horas": 24,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-23 13:30",
+    "vv_estado": "calculado",
+    "cita": "con al menos 24 horas de anticipación a la fecha de remate",
+    "calculo": "reloj"
+   },
+   "direccion": {
+    "valor": "Avenida Ossa N° 480, depto 211, comuna de La Cisterna",
+    "cita": "con acceso por Avenida Ossa N° 480, Comuna de La Cisterna"
+   },
+   "dudas": [
+    "24 horas de reloj antes del remate. Cae en día hábil a la misma hora."
+   ]
+  },
+  {
+   "n": 55,
+   "rol": null,
+   "tribunal": "Juez partidor Gloria Canales Medina",
+   "fecha_remate": {
+    "valor": "2026-11-18",
+    "cita": "el día 18 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 hrs."
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "en Pasaje Ross 149, oficina 605, Valparaíso"
+   },
+   "minimo": {
+    "monto": 40000000,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo de posturas será $ 40.000.000"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "Postores deben consignar 10% para participar en la subasta"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega la garantía."
+   },
+   "direccion": {
+    "valor": "Pasaje Doctor Fonck N° 50, Block 10, depto 15, Valparaíso",
+    "cita": "situado en Valparaíso Pasaje Doctor Fonck N° 50"
+   },
+   "dudas": [
+    "Juez partidor, sin rol. Valparaíso, quedará fuera de filtro.",
+    "La modalidad presencial la deduje del lugar indicado (una oficina). El aviso no dice la palabra presencial."
+   ]
+  },
+  {
+   "n": 56,
+   "rol": "770-2014",
+   "tribunal": "Juzgado de Cobranza Laboral y Previsional de Concepcion",
+   "fecha_remate": {
+    "valor": "2026-11-11",
+    "cita": "11/11/2026, 10:00 horas"
+   },
+   "hora_remate": {
+    "valor": "10:00",
+    "cita": "11/11/2026, 10:00 horas"
+   },
+   "modalidad": {
+    "valor": "mixta",
+    "cita": "vía plataforma Zoom o en forma presencial"
+   },
+   "minimo": {
+    "monto": 87550625,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 87.550.625"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "correspondiente 10% mínimo subasta"
+   },
+   "vale_vista": {
+    "regla": "dias_habiles_antes",
+    "dias": 5,
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-04",
+    "vv_estado": "calculado",
+    "cita": "ingresar comprobante Legible caución módulo especialmente establecido OJV, más tardar quinto día hábil anterior fecha subasta"
+   },
+   "direccion": {
+    "valor": "Lote o Hijuela Cuatro A, Chiquio, comuna de Puerto Montt",
+    "cita": "ubicada en Chiquio, comuna de Puerto Montt"
+   },
+   "dudas": [
+    "No usa vale vista. La caución es por cupón de pago, depósito o transferencia, y se sube a la OJV.",
+    "Puerto Montt. Quedará fuera de filtro.",
+    "Tribunal de cobranza laboral de Concepción.",
+    "La cuenta salta un sábado. Si el sábado se contara como hábil, la fecha cambiaría."
+   ]
+  },
+  {
+   "n": 57,
+   "rol": null,
+   "tribunal": "Juez partidor Benjamín Uriarte Molina",
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "Se rematará el 21 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:30",
+    "cita": "a las 15:30 horas"
+   },
+   "modalidad": {
+    "valor": "en_linea",
+    "cita": "Los postores interesados deberán participar por Meet"
+   },
+   "minimo": {
+    "monto": 180000000,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 180.000.000"
+   },
+   "garantia": {
+    "porcentaje": null,
+    "base": null,
+    "monto": 18000000,
+    "moneda": "CLP",
+    "cita": "Interesados consignar garantía de $ 18.000.000"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega la garantía."
+   },
+   "direccion": {
+    "valor": "Gerónimo de Alderete 1038, Villarrica",
+    "cita": "el inmueble ubicado en Gerónimo de Alderete 1038, Villarrica"
+   },
+   "dudas": [
+    "Juez partidor Benjamín Uriarte Molina, sin rol. Villarrica, quedará fuera de filtro.",
+    "Remate por Google Meet, no Zoom."
+   ],
+   "n_anterior": "57a"
+  },
+  {
+   "n": 58,
+   "rol": null,
+   "tribunal": "Juez partidor Alex Díaz Loayza",
+   "fecha_remate": {
+    "valor": "2026-11-11",
+    "cita": "el día 11 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "17:00",
+    "cita": "a las 17:00 horas"
+   },
+   "modalidad": {
+    "valor": "en_linea",
+    "cita": "en modalidad telemática a través de la plataforma Google Meet"
+   },
+   "minimo": {
+    "monto": 3094388097,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo de postura para el tercer llamado: $ 3.094.388.097"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": 309438810,
+    "moneda": "CLP",
+    "cita": "caución equivalente al 10% del mínimo, ascendente a $ 309.438.810"
+   },
+   "vale_vista": {
+    "regla": "fecha_fija",
+    "vv_desde": "2026-10-15",
+    "vv_desde_origen": "estimado_dia_siguiente_edicion",
+    "vv_hasta": "2026-11-06",
+    "vv_estado": "calculado",
+    "cita": "La caución y los antecedentes completos de individualización del constituyente y del postor deberán acreditarse a más tardar el 6 de noviembre de 2026"
+   },
+   "direccion": {
+    "valor": "Parcela 11-A, avenida Calera de Tango s/n, comuna de Calera de Tango",
+    "cita": "la Parcela 11-A, ubicada en avenida Calera de Tango s/n"
+   },
+   "dudas": [
+    "Juez partidor Alex Díaz Loayza, sin rol. Calera de Tango es Región Metropolitana.",
+    "Tercer llamado. Remate por Google Meet, no Zoom.",
+    "Fecha fija sin hora.",
+    "Iba pegado a otro aviso hasta el arreglo del cortador del 2026-10-15."
+   ],
+   "n_anterior": "57b"
+  },
+  {
+   "n": 59,
+   "rol": "1962-2023",
+   "tribunal": "Juzgado de Letras de Colina",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "el 5 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "REMATE PRESENCIAL EN AVENIDA Interprovincial 130 esquina San Martín, Colina"
+   },
+   "minimo": {
+    "monto": 105693993,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Monto mínimo para subastar $ 105.693.993"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "consignar garantía equivalente al 10% del mínimo fijado para el remate mediante vale vista"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega. Solo que se acompaña a los autos por la OJV."
+   },
+   "direccion": {
+    "valor": "calle Juan Moya Morales 22, depto 603, comuna de Ñuñoa",
+    "cita": "con acceso por calle Juan Moya Morales 22"
+   },
+   "dudas": [
+    "Vale vista sin fecha de entrega."
+   ],
+   "n_anterior": "58a"
+  },
+  {
+   "n": 60,
+   "rol": null,
+   "tribunal": "Juez partidor Cristián Lescot Jerez",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "rematará 28 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "16:00",
+    "cita": "28 de octubre de 2026, 16:00 horas"
+   },
+   "modalidad": {
+    "valor": "mixta",
+    "cita": "vía www.vendaya.cl y presencialmente en Av. Apoquindo 4499, oficina 402-B, Las Condes"
+   },
+   "minimo": {
+    "monto": 1100,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "Mínimo subasta, 1.100 UF"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": null,
+    "moneda": null,
+    "cita": "Garantía 10% mínimo"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega la garantía."
+   },
+   "direccion": {
+    "valor": "calle Los Cancilleres 1686 escala A, depto A 13, comuna de Maipú",
+    "cita": "con acceso por calle Los Cancilleres número 1686 escala A, Comuna de Maipú"
+   },
+   "dudas": [
+    "Juez partidor Cristián Lescot Jerez, sin rol. Maipú es Región Metropolitana.",
+    "Mixta por plataforma vendaya.cl, no Zoom.",
+    "Iba pegado a otro aviso hasta el arreglo del cortador del 2026-10-15."
+   ],
+   "n_anterior": "58b"
+  },
+  {
+   "n": 61,
+   "rol": "3908-2025",
+   "tribunal": "Juzgado de Cobranza Laboral y Previsional de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-12",
+    "cita": "12/11/2026, 12:00 horas"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "12/11/2026, 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "Se realizará dependencias Tribunal"
+   },
+   "minimo": {
+    "monto": 67478580,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 67.478.580"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "monto": 6747858,
+    "moneda": "CLP",
+    "cita": "garantía suficiente $ 6.747.858 equivalente 10% mínimo"
+   },
+   "vale_vista": {
+    "regla": "sin_dato",
+    "vv_desde": null,
+    "vv_desde_origen": null,
+    "vv_hasta": null,
+    "vv_estado": "sin_dato",
+    "cita": null,
+    "nota": "No dice cuándo se entrega el vale vista."
+   },
+   "direccion": {
+    "valor": "calle Mapocho N° 2676, depto 406, comuna de Santiago",
+    "cita": "ubicado en calle Mapocho N° 2676"
+   },
+   "dudas": [
+    "RIT laboral, Juzgado de Cobranza Laboral y Previsional de Santiago."
+   ],
+   "n_anterior": 59
+  }
+ ]
+}

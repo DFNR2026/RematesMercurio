@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Lautaro",
+     "numero": "18460",
+     "unidad": "casa 6",
+     "comuna": "Maipú",
+     "frase_direccion": "con acceso por calle Lautaro N° 18460, comuna de Maipú",
+     "frase_unidad": "la propiedad correspondiente a la casa N° 6 del Condominio Casa Quinta",
+     "frase_comuna": "con acceso por calle Lautaro N° 18460, comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Lautaro",
+     "numero": "18460",
+     "unidad": "casa 6",
+     "comuna": "Maipú",
+     "frase_direccion": "con acceso por calle Lautaro N° 18460",
+     "frase_unidad": "la casa N° 6 del Condominio Casa Quinta",
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1342,
+   "salida": 172,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1342,
+   "salida": 134,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle 'A'",
+     "numero": "2508",
+     "unidad": null,
+     "comuna": "Pedro Aguirre Cerda",
+     "frase_direccion": "inmueble ubicado en calle ‘A’ N° 2.508, Comuna de La Cisterna hoy comuna de Pedro Aguirre Cerda",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de La Cisterna hoy comuna de Pedro Aguirre Cerda"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle 'A'",
+     "numero": "2508",
+     "unidad": null,
+     "comuna": "Pedro Aguirre Cerda",
+     "frase_direccion": "inmueble ubicado en calle ‘A’ N° 2.508",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de La Cisterna hoy comuna de Pedro Aguirre Cerda"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 713,
+   "salida": 181,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 713,
+   "salida": 149,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

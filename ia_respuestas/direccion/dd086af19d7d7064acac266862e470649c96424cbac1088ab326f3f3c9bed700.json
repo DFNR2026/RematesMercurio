@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Ovalle",
+     "frase_direccion": "Parcela N° 129 en que se dividió el Fundo Centro de Limarí",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Ovalle"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Ovalle",
+     "frase_direccion": "Parcela N° 129 en que se dividió el Fundo Centro de Limarí, comuna de Ovalle, Provincia del Limarí, Región de Coquimbo",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Ovalle"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 887,
+   "salida": 121,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 887,
+   "salida": 151,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

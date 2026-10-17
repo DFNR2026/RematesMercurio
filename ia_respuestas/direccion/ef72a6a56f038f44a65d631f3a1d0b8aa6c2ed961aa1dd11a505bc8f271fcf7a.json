@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Martín de Zamora",
+     "numero": "3621",
+     "unidad": "departamento 206",
+     "comuna": "Las Condes",
+     "frase_direccion": "con acceso por calle Martín de Zamora Número 3.621, Comuna de Las Condes",
+     "frase_unidad": "departamento número 206 del vigésimo piso",
+     "frase_comuna": "Comuna de Las Condes"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Martín de Zamora",
+     "numero": "3621",
+     "unidad": "departamento 206",
+     "comuna": "Las Condes",
+     "frase_direccion": "con acceso por calle Martín de Zamora Número 3.621",
+     "frase_unidad": "departamento número 206 del vigésimo piso",
+     "frase_comuna": "Comuna de Las Condes"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 728,
+   "salida": 151,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 728,
+   "salida": 140,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

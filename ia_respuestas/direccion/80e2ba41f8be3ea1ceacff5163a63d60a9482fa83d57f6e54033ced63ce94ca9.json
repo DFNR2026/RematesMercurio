@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Teniente Cruz",
+     "numero": "21",
+     "unidad": "departamento 1318",
+     "comuna": "Pudahuel",
+     "frase_direccion": "con acceso particular por Avenida Teniente Cruz número veintiuno",
+     "frase_unidad": "el departamento número mil trescientos dieciocho del piso trece",
+     "frase_comuna": "Comuna de Pudahuel"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Teniente Cruz",
+     "numero": "21",
+     "unidad": "departamento 1318",
+     "comuna": "Pudahuel",
+     "frase_direccion": "con acceso particular por Avenida Teniente Cruz número veintiuno",
+     "frase_unidad": "el departamento número mil trescientos dieciocho del piso trece",
+     "frase_comuna": "Comuna de Pudahuel"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 764,
+   "salida": 154,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 764,
+   "salida": 154,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

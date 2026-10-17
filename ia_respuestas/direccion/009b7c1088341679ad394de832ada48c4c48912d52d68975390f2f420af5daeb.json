@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_dato",
+     "calle": null,
+     "numero": null,
+     "unidad": "Departamento número D102",
+     "comuna": "Puerto Varas",
+     "frase_direccion": null,
+     "frase_unidad": "Departamento número D102, del edificio Buena Vista",
+     "frase_comuna": "ubicado en la ciudad y comuna de Puerto Varas"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_dato",
+     "calle": null,
+     "numero": null,
+     "unidad": "Departamento número D102",
+     "comuna": "Puerto Varas",
+     "frase_direccion": null,
+     "frase_unidad": "Departamento número D102, del edificio Buena Vista",
+     "frase_comuna": "ubicado en la ciudad y comuna de Puerto Varas"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 654,
+   "salida": 132,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 654,
+   "salida": 132,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

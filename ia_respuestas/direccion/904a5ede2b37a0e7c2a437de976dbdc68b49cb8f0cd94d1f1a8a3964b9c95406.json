@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Las Luciérnagas",
+     "numero": "5677-H",
+     "unidad": null,
+     "comuna": "La Reina",
+     "frase_direccion": "calle Las Luciérnagas número cinco mil seiscientos setenta y siete guión h",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de La Reina"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Las Luciérnagas",
+     "numero": "5677-H",
+     "unidad": null,
+     "comuna": "La Reina",
+     "frase_direccion": "calle Las Luciérnagas número cinco mil seiscientos setenta y siete guión h",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de La Reina"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 849,
+   "salida": 132,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 849,
+   "salida": 132,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

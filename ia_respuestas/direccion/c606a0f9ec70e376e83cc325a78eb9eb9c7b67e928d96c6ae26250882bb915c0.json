@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Mauque",
+     "numero": "0525",
+     "unidad": "departamento 248",
+     "comuna": "Rancagua",
+     "frase_direccion": "acceso Avenida Mauque 0525",
+     "frase_unidad": "Departamento N° 248 4° piso",
+     "frase_comuna": "comuna Rancagua"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Mauque",
+     "numero": "0525",
+     "unidad": "departamento 248",
+     "comuna": "Rancagua",
+     "frase_direccion": "acceso Avenida Mauque 0525, comuna Rancagua",
+     "frase_unidad": "Departamento N° 248 4° piso",
+     "frase_comuna": "comuna Rancagua"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1004,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1004,
+   "salida": 136,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

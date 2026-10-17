@@ -1,0 +1,52 @@
+{
+ "fecha": "2026-10-14",
+ "leida_en": "2026-10-15T00:14:24",
+ "segundos": 23,
+ "union_texto": "salto",
+ "cuerpos": {
+  "A": "2026/10/14 n=8",
+  "B": "2026/10/14 n=12",
+  "C": "2026/10/14 n=12"
+ },
+ "paginas_leidas": 32,
+ "paginas_con_remates": [
+  {
+   "pagina": "B11",
+   "id": "B-20261014-011",
+   "archivo": "B11_B-20261014-011.txt",
+   "cornisas": 5,
+   "salidas": [
+    [
+     "C",
+     8
+    ]
+   ],
+   "entradas": [],
+   "caracteres": 86370,
+   "sha256": "9861d3d46fc8d700991cf3d3acba14bd8feb519021cfbb89c5340715a96ff51a"
+  },
+  {
+   "pagina": "C8",
+   "id": "L64MFDBT",
+   "archivo": "C08_L64MFDBT.txt",
+   "cornisas": 8,
+   "salidas": [],
+   "entradas": [
+    [
+     "B",
+     11
+    ]
+   ],
+   "caracteres": 86079,
+   "sha256": "54ec1104ebd489abc9402b63feddc0a6187002e4d834c43085c507dd807cff45"
+  }
+ ],
+ "rollos": [
+  [
+   "B11",
+   "C8"
+  ]
+ ],
+ "alarmas": [],
+ "notas": []
+}

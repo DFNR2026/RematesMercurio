@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Américo Vespucio",
+     "numero": "1414",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "inmueble ubicado en Avenida Américo Vespucio N° 1414",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Américo Vespucio",
+     "numero": "1414",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "inmueble ubicado en Avenida Américo Vespucio N° 1414",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1236,
+   "salida": 126,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1236,
+   "salida": 126,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

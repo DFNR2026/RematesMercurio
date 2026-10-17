@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Eleuterio Ramírez",
+     "numero": "1491",
+     "unidad": "departamento 1104",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso principal por calle Eleuterio Ramírez número mil cuatrocientos noventa y uno",
+     "frase_unidad": "departamento número mil ciento cuatro del once piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Eleuterio Ramírez",
+     "numero": "1491",
+     "unidad": "departamento 1104",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso principal por calle Eleuterio Ramírez número mil cuatrocientos noventa y uno",
+     "frase_unidad": "el departamento número mil ciento cuatro del once piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 900,
+   "salida": 158,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 900,
+   "salida": 159,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

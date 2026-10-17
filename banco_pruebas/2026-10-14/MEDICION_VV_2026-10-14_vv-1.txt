@@ -1,0 +1,59 @@
+Banco 2026-10-14. Modelo claude-haiku-5-5, instrucciones vv-1. acierto 40, no_leido 10, sin_respuesta 7. Tokens entrada 82654, salida 41335, caché leída 251076, caché escrita 5124. Costo de las llamadas guardadas 0.0321 dólares.
+
+  1 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-05 14:00  | anotado verde 2026-10-15 -> 2026-11-05 14:00
+  2 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-04 14:00  | anotado verde 2026-10-15 -> 2026-11-04 14:00
+  3 acierto      programa verde    dias_habiles_antes 2026-11-11 08:00 -> 2026-11-11 14:00  | anotado verde 2026-11-11 08:00 -> 2026-11-11 14:00
+  4 no_leido     programa rojo     horas_antes None -> None  | anotado ambar 2026-10-15 -> 2026-10-30 14:00 | Las dos lecturas de la IA no coinciden.
+  5 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-15 -> 2026-11-02 14:00 | Las dos lecturas de la IA no coinciden.
+  6 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-02 14:00  | anotado verde 2026-10-15 -> 2026-11-02 14:00
+  7 acierto      programa verde    dias_habiles_antes 2026-11-02 12:00 -> 2026-11-02 14:00  | anotado verde 2026-11-02 12:00 -> 2026-11-02 14:00
+  8 acierto      programa verde    dias_habiles_antes 2026-10-28 12:00 -> 2026-10-28 14:00  | anotado verde 2026-10-28 12:00 -> 2026-10-28 14:00
+  9 SIN RESPUESTA GUARDADA
+ 10 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-15 -> 2026-11-10 13:00 | Las dos lecturas de la IA no coinciden.
+ 11 SIN RESPUESTA GUARDADA
+ 12 SIN RESPUESTA GUARDADA
+ 13 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-16 13:00  | anotado verde 2026-10-15 -> 2026-11-16 13:00
+ 14 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-15 -> 2026-11-02 13:00 | Las dos lecturas de la IA no coinciden.
+ 15 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-15 -> 2026-11-02 14:00 | Las dos lecturas de la IA no coinciden.
+ 16 acierto      programa verde    dias_habiles_antes 2026-10-28 08:30 -> 2026-10-28 12:30  | anotado verde 2026-10-28 08:30 -> 2026-10-28 12:30
+ 17 SIN RESPUESTA GUARDADA
+ 18 acierto      programa verde    dia_anterior_sabado_a_viernes 2026-11-10 12:00 -> 2026-11-10 14:00  | anotado verde 2026-11-10 12:00 -> 2026-11-10 14:00
+ 19 acierto      programa ambar    dia_anterior_sabado_a_viernes 2026-11-06 12:00 -> 2026-11-06 14:00 [2] | anotado ambar 2026-11-06 12:00 -> 2026-11-06 14:00
+ 20 acierto      programa verde    dia_anterior_sabado_a_viernes 2026-10-29 12:00 -> 2026-10-29 14:00  | anotado verde 2026-10-29 12:00 -> 2026-10-29 14:00
+ 21 SIN RESPUESTA GUARDADA
+ 22 acierto      programa ambar    dia_anterior_sabado_a_habil 2026-11-06 12:00 -> 2026-11-06 14:00 [2] | anotado ambar 2026-11-06 12:00 -> 2026-11-06 14:00
+ 23 acierto      programa ambar    dia_anterior_sabado_a_habil 2026-11-06 12:00 -> 2026-11-06 14:00 [2] | anotado ambar 2026-11-06 12:00 -> 2026-11-06 14:00
+ 24 acierto      programa verde    dias_habiles_antes 2026-11-06 09:00 -> 2026-11-06 14:00  | anotado verde 2026-11-06 09:00 -> 2026-11-06 14:00
+ 25 no_leido     programa rojo     dia_anterior None -> None  | anotado verde 2026-10-26 08:30 -> 2026-10-26 09:30 | Las dos lecturas de la IA no coinciden.
+ 26 acierto      programa verde    dia_anterior 2026-11-03 08:30 -> 2026-11-03 09:30  | anotado verde 2026-11-03 08:30 -> 2026-11-03 09:30
+ 27 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 28 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 29 acierto      programa verde    en_el_remate 2026-11-04 13:00 -> 2026-11-04 13:00  | anotado verde 2026-11-04 13:00 -> 2026-11-04 13:00
+ 30 acierto      programa verde    dia_anterior 2026-10-19 09:00 -> 2026-10-19 13:00  | anotado verde 2026-10-19 09:00 -> 2026-10-19 13:00
+ 31 acierto      programa verde    dia_anterior 2026-11-25 09:00 -> 2026-11-25 13:00  | anotado verde 2026-11-25 09:00 -> 2026-11-25 13:00
+ 32 acierto      programa verde    dia_anterior 2026-10-28 09:00 -> 2026-10-28 13:00  | anotado verde 2026-10-28 09:00 -> 2026-10-28 13:00
+ 33 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 34 acierto      programa verde    viernes_anterior 2026-10-23 12:00 -> 2026-10-23 13:00  | anotado verde 2026-10-23 12:00 -> 2026-10-23 13:00
+ 35 acierto      programa verde    dia_anterior 2026-10-28 11:00 -> 2026-10-28 12:00  | anotado verde 2026-10-28 11:00 -> 2026-10-28 12:00
+ 36 acierto      programa verde    dia_anterior 2026-11-04 11:00 -> 2026-11-04 12:00  | anotado verde 2026-11-04 11:00 -> 2026-11-04 12:00
+ 37 SIN RESPUESTA GUARDADA
+ 38 no_leido     programa rojo     dia_anterior None -> None  | anotado verde 2026-10-15 -> 2026-11-02 13:00 | Las dos lecturas de la IA no coinciden.
+ 39 acierto      programa verde    dia_anterior 2026-10-15 -> 2026-11-02 13:00  | anotado verde 2026-10-15 -> 2026-11-02 13:00
+ 40 acierto      programa ambar    dias_habiles_antes 2026-10-15 -> 2026-11-11 [4] | anotado ambar 2026-10-15 -> 2026-11-11
+ 41 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado ambar 2026-10-15 -> 2026-11-04 | Las dos lecturas de la IA no coinciden.
+ 42 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado ambar 2026-10-15 -> 2026-11-02 | Las dos lecturas de la IA no coinciden.
+ 43 acierto      programa ambar    martes_o_jueves_anterior 2026-10-29 10:00 -> 2026-10-29 12:00 [5] | anotado ambar 2026-10-29 10:00 -> 2026-10-29 12:00
+ 44 acierto      programa verde    dia_anterior 2026-10-28 10:00 -> 2026-10-28 12:00  | anotado verde 2026-10-28 10:00 -> 2026-10-28 12:00
+ 45 acierto      programa verde    dia_anterior 2026-11-04 09:00 -> 2026-11-04 12:00  | anotado verde 2026-11-04 09:00 -> 2026-11-04 12:00
+ 46 acierto      programa ambar    dia_anterior 2026-10-30 09:00 -> 2026-10-30 12:00 [2] | anotado ambar 2026-10-30 09:00 -> 2026-10-30 12:00
+ 47 acierto      programa verde    dia_anterior 2026-11-10 09:00 -> 2026-11-10 12:00  | anotado verde 2026-11-10 09:00 -> 2026-11-10 12:00
+ 48 SIN RESPUESTA GUARDADA
+ 49 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-10-30 12:00  | anotado verde 2026-10-15 -> 2026-10-30 12:00
+ 50 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 51 acierto      programa verde    horas_antes 2026-10-15 -> 2026-10-26 13:00  | anotado verde 2026-10-15 -> 2026-10-26 13:00
+ 52 acierto      programa verde    horas_antes 2026-10-15 -> 2026-11-04 12:30  | anotado verde 2026-10-15 -> 2026-11-04 12:30
+ 53 no_leido     programa rojo     sin_dato None -> None  | anotado verde 2026-10-15 -> 2026-11-02 12:30 | La IA no encontró regla, pero el aviso parece dar un plazo (de carnet de identidad, nombre de postor, email y teléfono al menos 24 horas de ).
+ 54 acierto      programa verde    horas_antes 2026-10-15 -> 2026-11-23 13:30  | anotado verde 2026-10-15 -> 2026-11-23 13:30
+ 56 acierto      programa verde    dias_habiles_antes 2026-10-15 -> 2026-11-04  | anotado verde 2026-10-15 -> 2026-11-04
+ 59 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 61 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None

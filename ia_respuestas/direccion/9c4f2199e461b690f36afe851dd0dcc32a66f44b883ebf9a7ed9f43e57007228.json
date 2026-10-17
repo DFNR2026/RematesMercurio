@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Ejército",
+     "numero": "381",
+     "unidad": "departamento 303",
+     "comuna": "Puerto Montt",
+     "frase_direccion": "con acceso por calle Ejército número trescientos ochenta y uno",
+     "frase_unidad": "departamento número trescientos tres",
+     "frase_comuna": "de la ciudad y comuna de Puerto Montt"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Ejército",
+     "numero": "381",
+     "unidad": "departamento 303",
+     "comuna": "Puerto Montt",
+     "frase_direccion": "con acceso por calle Ejército número trescientos ochenta y uno, de la ciudad y comuna de Puerto Montt",
+     "frase_unidad": "departamento número trescientos tres, ubicado en el Tercer Piso",
+     "frase_comuna": "de la ciudad y comuna de Puerto Montt"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 720,
+   "salida": 142,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 720,
+   "salida": 175,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

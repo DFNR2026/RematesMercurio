@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Padre Alberto de Agostini O.S.",
+     "numero": "1698",
+     "unidad": null,
+     "comuna": "Padre Hurtado",
+     "frase_direccion": "calle Padre Alberto de Agostini O.S. número mil seiscientos noventa y ocho",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Padre Hurtado"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Padre Alberto de Agostini O.S.",
+     "numero": "1698",
+     "unidad": null,
+     "comuna": "Padre Hurtado",
+     "frase_direccion": "calle Padre Alberto de Agostini O.S. número mil seiscientos noventa y ocho",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Padre Hurtado"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1114,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1114,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

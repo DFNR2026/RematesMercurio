@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Ossa",
+     "numero": "480",
+     "unidad": "departamento 211",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con acceso por Avenida Ossa N° 480, Comuna de La Cisterna",
+     "frase_unidad": "el departamento N° 211 del 2° piso",
+     "frase_comuna": "Comuna de La Cisterna"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Ossa",
+     "numero": "480",
+     "unidad": "departamento 211",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con acceso por Avenida Ossa N° 480, Comuna de La Cisterna",
+     "frase_unidad": "el departamento N° 211 del 2° piso",
+     "frase_comuna": "Comuna de La Cisterna"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 473,
+   "salida": 147,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 473,
+   "salida": 147,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

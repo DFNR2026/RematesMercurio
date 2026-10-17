@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Independencia",
+     "numero": "4599",
+     "unidad": "departamento 1004",
+     "comuna": "Conchalí",
+     "frase_direccion": "de Avenida Independencia N° 4599, Comuna Conchalí",
+     "frase_unidad": "departamento N° 1004 10° piso",
+     "frase_comuna": "Comuna Conchalí"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Independencia",
+     "numero": "4599",
+     "unidad": "departamento 1004",
+     "comuna": "Conchalí",
+     "frase_direccion": "de Avenida Independencia N° 4599, Comuna Conchalí",
+     "frase_unidad": "departamento N° 1004 10° piso",
+     "frase_comuna": "Comuna Conchalí"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 641,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 641,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

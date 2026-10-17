@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Meza Bell",
+     "numero": "2851",
+     "unidad": "departamento 242",
+     "comuna": "Quinta Normal",
+     "frase_direccion": "ubicado en calle Meza Bell número dos mil ochocientos cincuenta y uno",
+     "frase_unidad": "Departamento número doscientos cuarenta y dos de la Segunda Etapa",
+     "frase_comuna": "Comuna de Quinta Normal"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Meza Bell",
+     "numero": "2851",
+     "unidad": "departamento 242",
+     "comuna": "Quinta Normal",
+     "frase_direccion": "ubicado en calle Meza Bell número dos mil ochocientos cincuenta y uno",
+     "frase_unidad": "Departamento número doscientos cuarenta y dos de la Segunda Etapa",
+     "frase_comuna": "Comuna de Quinta Normal"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 997,
+   "salida": 164,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 997,
+   "salida": 164,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

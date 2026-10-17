@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Los Olmos",
+     "numero": "3031",
+     "unidad": "departamento 1110",
+     "comuna": "Macul",
+     "frase_direccion": "con acceso por calle Los Olmos número 3031, Comuna de Macul",
+     "frase_unidad": "Departamento 1110 del piso 11, del ‘Edificio Ébano’",
+     "frase_comuna": "Comuna de Macul"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Los Olmos",
+     "numero": "3031",
+     "unidad": "departamento 1110",
+     "comuna": "Macul",
+     "frase_direccion": "con acceso por calle Los Olmos número 3031, Comuna de Macul",
+     "frase_unidad": "Departamento 1110 del piso 11, del ‘Edificio Ébano’",
+     "frase_comuna": "Comuna de Macul"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1330,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1330,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

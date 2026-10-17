@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Camino Nuevo",
+     "numero": "2065",
+     "unidad": "departamento C-2302",
+     "comuna": "Chillán",
+     "frase_direccion": "con acceso general por calle Camino Nuevo 2065, Chillán",
+     "frase_unidad": "el departamento C-2302",
+     "frase_comuna": "con acceso general por calle Camino Nuevo 2065, Chillán"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Camino Nuevo",
+     "numero": "2065",
+     "unidad": "departamento C-2302",
+     "comuna": "Chillán",
+     "frase_direccion": "con acceso general por calle Camino Nuevo 2065, Chillán",
+     "frase_unidad": "el departamento C-2302",
+     "frase_comuna": "con acceso general por calle Camino Nuevo 2065, Chillán"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 473,
+   "salida": 151,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 473,
+   "salida": 151,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

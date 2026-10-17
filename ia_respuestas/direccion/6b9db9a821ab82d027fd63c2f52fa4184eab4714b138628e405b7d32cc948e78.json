@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Nueva María Angélica",
+     "numero": "6437",
+     "unidad": "Casa B-06",
+     "comuna": "La Florida",
+     "frase_direccion": "Avenida Nueva María Angélica número seis mil cuatrocientos treinta y siete",
+     "frase_unidad": "Casa B guión cero seis del ‘Condominio Puerta Roja’",
+     "frase_comuna": "Comuna de La Florida"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Nueva María Angélica",
+     "numero": "6437",
+     "unidad": "Casa B guión cero seis del ‘Condominio Puerta Roja’",
+     "comuna": "La Florida",
+     "frase_direccion": "Avenida Nueva María Angélica número seis mil cuatrocientos treinta y siete",
+     "frase_unidad": "Casa B guión cero seis del ‘Condominio Puerta Roja’",
+     "frase_comuna": "Comuna de La Florida"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 555,
+   "salida": 163,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 555,
+   "salida": 183,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

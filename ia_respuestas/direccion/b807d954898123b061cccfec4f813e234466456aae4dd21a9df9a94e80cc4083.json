@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Ecuador",
+     "numero": "4698",
+     "unidad": "departamento 2002",
+     "comuna": "Estación Central",
+     "frase_direccion": "acceso Avenida Ecuador N° 4698",
+     "frase_unidad": "departamento N° 2002",
+     "frase_comuna": "comuna Estación Central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Ecuador",
+     "numero": "4698",
+     "unidad": "departamento 2002",
+     "comuna": "Estación Central",
+     "frase_direccion": "acceso Avenida Ecuador N° 4698",
+     "frase_unidad": "departamento N° 2002",
+     "frase_comuna": "comuna Estación Central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 518,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 518,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Rancagua",
+     "frase_direccion": "Lote número Sesenta, de la subdivisión de la Parcela número Dos del proyecto de Parcelación La Gonzalina, de la comuna de Rancagua, de una Superficie de cinco mil ochenta y uno metros cuadrados",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Rancagua"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Rancagua",
+     "frase_direccion": "Lote número Sesenta, de la subdivisión de la Parcela número Dos del proyecto de Parcelación La Gonzalina, de la comuna de Rancagua, de una Superficie de cinco mil ochenta y uno metros cuadrados",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Rancagua"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 702,
+   "salida": 179,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 702,
+   "salida": 179,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

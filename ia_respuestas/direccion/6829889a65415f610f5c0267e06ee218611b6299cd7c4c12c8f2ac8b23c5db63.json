@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "frase_direccion": "Propiedad correspondiente al Lote número Dos del plano agregado al final del Registro de Propiedad del año mil novecientos noventa y cuatro, bajo el número trescientos noventa y tres en que se dividió la Hijuela Segunda de la subdivisión de la Hijuela Sexta del Antiguo Fundo Cuesta Vieja, ubicado en la comuna de Curacaví",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Curacaví"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "frase_direccion": "Propiedad correspondiente al Lote número Dos del plano agregado al final del Registro de Propiedad del año mil novecientos noventa y cuatro, bajo el número trescientos noventa y tres en que se dividió la Hijuela Segunda de la subdivisión de la Hijuela Sexta del Antiguo Fundo Cuesta Vieja, ubicado en la comuna de Curacaví, Región Metropolitana",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Curacaví, Región Metropolitana"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 944,
+   "salida": 236,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 944,
+   "salida": 254,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

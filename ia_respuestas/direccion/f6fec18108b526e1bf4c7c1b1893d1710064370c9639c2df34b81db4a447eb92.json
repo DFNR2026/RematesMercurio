@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Almirante Latorre",
+     "numero": "125 al 143",
+     "unidad": null,
+     "comuna": "Santiago",
+     "frase_direccion": "predios ubicados calle Almirante Latorre N° 125 al N° 143",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Almirante Latorre",
+     "numero": "125 al 143",
+     "unidad": null,
+     "comuna": "Santiago",
+     "frase_direccion": "predios ubicados calle Almirante Latorre N° 125 al N° 143",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 770,
+   "salida": 126,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 770,
+   "salida": 126,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

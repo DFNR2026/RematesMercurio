@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Colina",
+     "frase_direccion": "la parcela o lote C- veinticuatro del plano de subdivisión del lote noventa y siete de la subdivisión de la Hijuela Dos de Lo Arcaya, Fundo denominado Hijuela Dos de Lo Arcaya, sitio treinta y cuatro de la subdivisión del Fundo San Luis y Santa Isabel o San Luis de Colina, Hijuela Séptima y Octava del Fundo Lo Arcaya e Hijuela Isla Lo Arcaya y porción de terreno que corresponde a la parcela número doce del plano de subdivisión de la antiguas Hijuelas Quinta y Sexta del Fundo Lo Arcaya, Comuna de Colina, Región Metropolitana",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Colina"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Colina",
+     "frase_direccion": "la parcela o lote C- veinticuatro del plano de subdivisión del lote noventa y siete de la subdivisión de la Hijuela Dos de Lo Arcaya, Fundo denominado Hijuela Dos de Lo Arcaya, sitio treinta y cuatro de la subdivisión del Fundo San Luis y Santa Isabel o San Luis de Colina, Hijuela Séptima y Octava del Fundo Lo Arcaya e Hijuela Isla Lo Arcaya y porción de terreno que corresponde a la parcela número doce del plano de subdivisión de la antiguas Hijuelas Quinta y Sexta del Fundo Lo Arcaya",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Colina"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 915,
+   "salida": 344,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 915,
+   "salida": 326,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

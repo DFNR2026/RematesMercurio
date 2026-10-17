@@ -1,0 +1,59 @@
+Banco de dirección 2026-10-14. Modelo claude-haiku-5-5, instrucciones dir-2. Por remate. acierto 60, no_leido 1. Tokens entrada 102974, salida 17740, caché leída 257904, caché escrita 14328. Costo de las llamadas guardadas 0.0235 dólares.
+
+  1 acierto        programa calle Santiago Bueras 3951, comuna Peñaflor | anotado calle Santiago Bueras 3951, comuna Peñaflor
+  2 acierto        programa calle La Viña 1544, comuna Puente Alto | anotado calle La Viña 1544, comuna Puente Alto
+  3 acierto        programa Avenida Pajaritos 3195, oficina 602, comuna Maipú / Avenida Pajaritos 3195, oficina 603, comuna Maipú | anotado Avenida Pajaritos 3195, oficina 602, comuna Maipú / Avenida Pajaritos 3195, oficina 603, comuna Maipú
+  4 acierto        programa calle Álvarez de Toledo 861, comuna San Miguel | anotado calle Álvarez de Toledo 861, comuna San Miguel
+  5 acierto        programa El Maitén 28, comuna Til Til | anotado El Maitén 28, comuna Til Til
+  6 acierto        programa Avenida Vicuña Mackenna Oriente 7320, departamento 1504, comuna La Florida | anotado Avenida Vicuña Mackenna Oriente 7320, departamento 1504, comuna La Florida
+  7 acierto        programa Pasaje Rio Rapel 13362, comuna El Bosque | anotado Pasaje Rio Rapel 13362, comuna El Bosque
+  8 acierto        programa calle Laura Rodig 9225, comuna La Florida | anotado calle Laura Rodig 9225, comuna La Florida
+  9 acierto        programa Avenida Central 1725, vivienda 77, comuna Puente Alto | anotado Avenida Central 1725, vivienda 77, comuna Puente Alto
+ 10 acierto        programa Avenida Santa Clara 301, oficina 7801, comuna Huechuraba | anotado Avenida Santa Clara 301, oficina 7801, comuna Huechuraba
+ 11 acierto        programa calle 20 Norte 1715, departamento 403, comuna Talca | anotado calle 20 Norte 1715, departamento 403, comuna Talca
+ 12 acierto        programa Avenida Américo Vespucio 0337, comuna La Granja | anotado Avenida Américo Vespucio 0337, comuna La Granja
+ 13 acierto        programa calle Santa Inés Oriente 2118, comuna San Bernardo | anotado calle Santa Inés Oriente 2118, comuna San Bernardo
+ 14 acierto        programa Pasaje Los Universitarios 2116, comuna Maipú | anotado Pasaje Los Universitarios 2116, comuna Maipú
+ 15 acierto        programa Avenida Américo Vespucio 1414, comuna Maipú | anotado Avenida Américo Vespucio 1414, comuna Maipú
+ 16 acierto        programa calle Agustinas 1888, departamento 302 D, block D, comuna Santiago | anotado calle Agustinas 1888, departamento 302 D, comuna Santiago
+ 17 acierto        programa Pasaje Río La Ligua 9555, comuna Pudahuel | anotado Pasaje Río La Ligua 9555, comuna Pudahuel
+ 18 acierto        programa calle Piedemonte 18551, unidad 112, comuna San Bernardo | anotado calle Piedemonte 18551, unidad 112, comuna San Bernardo
+ 19 acierto        programa Pasaje Ríos de Chile 2942, comuna Maipú | anotado Pasaje Ríos de Chile 2942, comuna Maipú
+ 20 acierto        programa Avenida Paseo Pie Andino 02639, casa 67, comuna Puente Alto | anotado Avenida Paseo Pie Andino 02639, casa 67, comuna Puente Alto
+ 21 acierto        programa Propiedad correspondiente al Lote número Dos del plano agregado al final del Registro de Propiedad del año mil novecientos noventa y cuatro, bajo el número trescientos noventa y tres en que se dividió, comuna Curacaví | anotado un terreno sin calle, comuna Curacaví
+ 22 acierto        programa Pasaje Cerro Puntiagudo 9525, comuna Pudahuel | anotado Pasaje Cerro Puntiagudo 9525, comuna Pudahuel
+ 23 acierto        programa Cuarta Avenida 1447, departamento 705, comuna San Miguel | anotado calle Cuarta Avenida 1447, departamento 705, comuna San Miguel
+ 24 acierto        programa Pasaje ocho 55, comuna Buin | anotado Pasaje Ocho 55, comuna Buin
+ 25 acierto        programa General Gana 1063, departamento 2302-B, comuna Santiago | anotado General Gana 1063, departamento 2302-B, comuna Santiago
+ 26 no_leido       programa rojo | anotado Calle Pedrales 01867, comuna Puente Alto | Las dos lecturas de la IA no coinciden.
+ 27 acierto        programa calle Apóstol Santiago 32, departamento 2017, comuna Estación Central | anotado calle Apóstol Santiago 32, departamento 2017, comuna Estación Central
+ 28 acierto        programa Avenida Transversal Uno 939, comuna Pudahuel | anotado Avenida Transversal Uno 939, comuna Pudahuel
+ 29 acierto        programa calle Valle La Reserva 588, comuna Isla de Maipo | anotado calle Valle La Reserva 588, comuna Isla de Maipo
+ 30 acierto        programa calle Maipú 636, casa 1, comuna Santiago / calle Maipú 636, casa 3, comuna Santiago / calle Maipú 636, casa 5, comuna Santiago / calle Maipú 636, estacionamiento 6, comuna Santiago | anotado calle Maipú 636, casa 1, comuna Santiago / calle Maipú 636, casa 3, comuna Santiago / calle Maipú 636, casa 5, comuna Santiago / calle Maipú 636, estacionamiento 6, comuna Santiago
+ 31 acierto        programa Avenida Macul 4747, departamento 68, comuna Macul | anotado Avenida Macul 4747, departamento 68, comuna Macul
+ 32 acierto        programa calle Abtao 24, Departamento 1109, comuna Estación Central | anotado calle Abtao 24, departamento 1109, comuna Estación Central
+ 33 acierto        programa calle Los Alerces 3330, departamento 306-A, comuna Ñuñoa | anotado calle Los Alerces 3330, departamento 306-A, comuna Ñuñoa
+ 34 acierto        programa Parcela N° 21, de la fusión y subdivisión del Resto del Lote B, resultante de la subdivisión de la Parcela N° 22; del resto de la parcela N° 20, y del resto de la Parcela N° 21, todos del Proyecto de , comuna Talagante | anotado un terreno sin calle, comuna Talagante
+ 35 acierto        programa la Parcela o Lote signada con el número ciento doce, producto de la subdivisión del predio denominado Resto del Fundo Monterrey, antes La Carcoma, ubicado en la comuna de Curacaví Provincia de Melipil, comuna Curacaví | anotado un terreno sin calle, comuna Curacaví
+ 36 acierto        programa calle Alcalde Pedro Alarcón 777, departamento 310, comuna San Miguel | anotado calle Alcalde Pedro Alarcón 777, departamento 310, comuna San Miguel
+ 37 acierto        programa calle Jenequeo 5765, comuna Quinta Normal | anotado calle Jenequeo 5765, comuna Quinta Normal
+ 38 acierto        programa Avenida Bernardo O’Higgins 4050, oficina 1316, comuna Estación Central | anotado Avenida Bernardo O’Higgins 4050, oficina 1316, comuna Estación Central
+ 39 acierto        programa Avenida Las Perdices 3462, departamento 302, comuna Puente Alto | anotado Avenida Las Perdices 3462, departamento 302, comuna Puente Alto
+ 40 acierto        programa Camino al Volcán 29016, comuna San José de Maipo | anotado Camino al Volcán 29016, comuna San José de Maipo
+ 41 acierto        programa Pasaje Jose Salum Arcuch 768, comuna Peñaflor | anotado Pasaje Jose Salum Arcuch 768, comuna Peñaflor
+ 42 acierto        programa Avenida Lo Ovalle 0926, departamento A 309, comuna La Cisterna | anotado Avenida Lo Ovalle 0926, departamento A 309, comuna La Cisterna
+ 43 acierto        programa calle Emilia Téllez 4849, departamento 59, comuna Ñuñoa | anotado calle Emilia Téllez 4849, departamento 59, comuna Ñuñoa
+ 44 acierto        programa Avenida Macul 3700, departamento 810-B, comuna Macul | anotado Avenida Macul 3700, departamento 810-B, comuna Macul
+ 45 acierto        programa calle Asunción 2659, comuna Maipú | anotado calle Asunción 2659, comuna Maipú
+ 46 acierto        programa el inmueble inscrito a Fojas 41 Número 64 del Registro de Propiedad del Conservador de Bienes Raíces de San Bernardo, correspondiente al año 2009 que corresponde al sitio número 5 de la manzana 1, del | anotado un terreno sin calle
+ 47 acierto        programa calle Álvarez de Toledo 924, departamento 1306, comuna San Miguel | anotado calle Álvarez de Toledo 924, departamento 1306, comuna San Miguel
+ 48 acierto        programa Avenida Presidente Balmaceda 2914, departamento 2104, comuna Santiago | anotado Avenida Presidente Balmaceda 2914, departamento 2104, comuna Santiago
+ 49 acierto        programa Avenida Brasil 875, departamento 1020, comuna Santiago | anotado Avenida Brasil 875, departamento 1020, comuna Santiago
+ 50 acierto        programa calle Camino Nuevo 2065, departamento C-2302, comuna Chillán | anotado calle Camino Nuevo 2065, departamento C-2302, comuna Chillán
+ 51 acierto        programa calle Merced 22, departamento 402, comuna Santiago | anotado calle Merced 22, departamento 402, comuna Santiago
+ 52 acierto        programa calle Las Cimas 734, Unidad N° 75, comuna Til Til | anotado calle Las Cimas 734, unidad 75, comuna Til Til
+ 53 acierto        programa calle Sotomayor 575 y 577, comuna Santiago | anotado calle Sotomayor 575 y 577, comuna Santiago
+ 54 acierto        programa Avenida Ossa 480, departamento 211, comuna La Cisterna | anotado Avenida Ossa 480, departamento 211, comuna La Cisterna
+ 56 acierto        programa ubicada en Chiquio, comuna de Puerto Montt, denominado Lote o Hijuela Numero Cuatro A, comuna Puerto Montt | anotado un terreno sin calle, comuna Puerto Montt
+ 59 acierto        programa calle Juan Moya Morales 22, departamento 603, comuna Ñuñoa | anotado calle Juan Moya Morales 22, departamento 603, comuna Ñuñoa
+ 61 acierto        programa calle Mapocho 2676, departamento 406, comuna Santiago | anotado calle Mapocho 2676, departamento 406, comuna Santiago

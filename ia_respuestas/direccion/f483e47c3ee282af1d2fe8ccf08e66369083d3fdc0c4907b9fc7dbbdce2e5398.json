@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Alcalde Julio Arangua Nuñez Sur",
+     "numero": "304",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "frase_direccion": "calle Alcalde Julio Arangua Nuñez Sur N° 304",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Peñaflor"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Alcalde Julio Arangua Nuñez Sur",
+     "numero": "304",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "frase_direccion": "calle Alcalde Julio Arangua Nuñez Sur N° 304",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Peñaflor"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 824,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 824,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

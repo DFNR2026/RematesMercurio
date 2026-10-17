@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa Ana",
+     "numero": "079",
+     "unidad": "departamento 307",
+     "comuna": "La Granja",
+     "frase_direccion": "con acceso principal en Avenida Santa Ana N° 079",
+     "frase_unidad": "departamento N° 307",
+     "frase_comuna": "comuna de La Granja"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa Ana",
+     "numero": "079",
+     "unidad": "departamento 307",
+     "comuna": "La Granja",
+     "frase_direccion": "con acceso principal en Avenida Santa Ana N° 079",
+     "frase_unidad": "departamento N° 307",
+     "frase_comuna": "comuna de La Granja"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 613,
+   "salida": 128,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 613,
+   "salida": 128,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

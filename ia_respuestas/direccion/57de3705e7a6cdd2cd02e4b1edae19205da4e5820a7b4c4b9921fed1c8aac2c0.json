@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje ocho",
+     "numero": "55",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "la vivienda ubicada en Pasaje ocho número cincuenta y cinco",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Buin"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje ocho",
+     "numero": "55",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "la vivienda ubicada en Pasaje ocho número cincuenta y cinco",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Buin"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1020,
+   "salida": 121,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1020,
+   "salida": 121,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

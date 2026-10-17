@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Parque Central Oriente",
+     "numero": "366",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "propiedad ubicada en Avenida Parque Central Oriente N° 366",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Parque Central Oriente",
+     "numero": "366",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "propiedad ubicada en Avenida Parque Central Oriente N° 366",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 436,
+   "salida": 125,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 436,
+   "salida": 125,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

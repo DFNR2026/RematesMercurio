@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Inés Oriente",
+     "numero": "2118",
+     "unidad": null,
+     "comuna": "San Bernardo",
+     "frase_direccion": "propiedad ubicada en calle Santa Inés Oriente N° 2118, de la comuna de San Bernardo",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de San Bernardo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Inés Oriente",
+     "numero": "2118",
+     "unidad": null,
+     "comuna": "San Bernardo",
+     "frase_direccion": "propiedad ubicada en calle Santa Inés Oriente N° 2118, de la comuna de San Bernardo",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de San Bernardo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1220,
+   "salida": 145,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1220,
+   "salida": 145,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

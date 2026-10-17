@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Luis Hinojosa Pascua",
+     "numero": "1573",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "con numeración municipal por calle Luis Hinojosa Pascua N° 1.573",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Buin"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Luis Hinojosa Pascua",
+     "numero": "1573",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "con numeración municipal por calle Luis Hinojosa Pascua N° 1.573",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Buin"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 910,
+   "salida": 132,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 910,
+   "salida": 132,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Central",
+     "numero": "1725",
+     "unidad": "vivienda 77",
+     "comuna": "Puente Alto",
+     "frase_direccion": "Avenida Central N° 1725",
+     "frase_unidad": "la vivienda N° 77",
+     "frase_comuna": "la comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Central",
+     "numero": "1725",
+     "unidad": "vivienda 77",
+     "comuna": "Puente Alto",
+     "frase_direccion": "ubicado en Avenida Central N° 1725",
+     "frase_unidad": "la vivienda N° 77",
+     "frase_comuna": "la comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 998,
+   "salida": 123,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 998,
+   "salida": 128,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

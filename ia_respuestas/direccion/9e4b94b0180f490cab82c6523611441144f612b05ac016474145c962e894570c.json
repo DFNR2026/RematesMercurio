@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Anatole France",
+     "numero": "3058",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "Pasaje Anatole France número tres mil cincuenta y ocho",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Anatole France",
+     "numero": "3058",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "Pasaje Anatole France número tres mil cincuenta y ocho",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 513,
+   "salida": 123,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 513,
+   "salida": 123,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

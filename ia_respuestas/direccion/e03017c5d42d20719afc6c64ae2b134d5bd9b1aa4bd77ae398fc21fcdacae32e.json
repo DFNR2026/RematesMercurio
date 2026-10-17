@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Brasil",
+     "numero": "875",
+     "unidad": "departamento 1020",
+     "comuna": "Santiago",
+     "frase_direccion": "Avenida Brasil N° 875",
+     "frase_unidad": "el departamento N° 1020 del décimo piso",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Brasil",
+     "numero": "875",
+     "unidad": "departamento 1020",
+     "comuna": "Santiago",
+     "frase_direccion": "Avenida Brasil N° 875",
+     "frase_unidad": "el departamento N° 1020 del décimo piso",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1053,
+   "salida": 128,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1053,
+   "salida": 128,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

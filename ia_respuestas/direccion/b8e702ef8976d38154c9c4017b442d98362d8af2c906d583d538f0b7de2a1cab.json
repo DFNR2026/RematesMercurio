@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Valle La Reserva",
+     "numero": "588",
+     "unidad": null,
+     "comuna": "Isla de Maipo",
+     "frase_direccion": "calle Valle La Reserva N° 588",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Isla de Maipo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Valle La Reserva",
+     "numero": "588",
+     "unidad": null,
+     "comuna": "Isla de Maipo",
+     "frase_direccion": "calle Valle La Reserva N° 588",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Isla de Maipo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 587,
+   "salida": 119,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 587,
+   "salida": 119,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Sotomayor",
+     "numero": "575 y 577",
+     "unidad": null,
+     "comuna": "Santiago",
+     "frase_direccion": "propiedad ubicada en calle Sotomayor N° 575 y N° 577",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Sotomayor",
+     "numero": "575 y 577",
+     "unidad": null,
+     "comuna": "Santiago",
+     "frase_direccion": "propiedad ubicada en calle Sotomayor N° 575 y N° 577",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 380,
+   "salida": 125,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 380,
+   "salida": 125,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

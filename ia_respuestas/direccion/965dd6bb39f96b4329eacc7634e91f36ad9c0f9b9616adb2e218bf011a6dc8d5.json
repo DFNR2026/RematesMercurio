@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle El Amanecer",
+     "numero": "85",
+     "unidad": "departamento Numero Cuarenta y Dos",
+     "comuna": "Valparaíso",
+     "frase_direccion": "con acceso común por calle El Amanecer N° 85",
+     "frase_unidad": "se subastará el departamento Numero Cuarenta y Dos, cuarto piso, Edificio Tres, del Condominio Sol De Curauma",
+     "frase_comuna": "comuna de Valparaíso"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle El Amanecer",
+     "numero": "85",
+     "unidad": "departamento Numero Cuarenta y Dos",
+     "comuna": "Valparaíso",
+     "frase_direccion": "con acceso común por calle El Amanecer N° 85",
+     "frase_unidad": "el departamento Numero Cuarenta y Dos, cuarto piso, Edificio Tres, del Condominio Sol De Curauma",
+     "frase_comuna": "comuna de Valparaíso"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1347,
+   "salida": 181,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1347,
+   "salida": 177,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Vicuña Mackenna Oriente",
+     "numero": "7320",
+     "unidad": "departamento 1504",
+     "comuna": "La Florida",
+     "frase_direccion": "con acceso por Avenida Vicuña Mackenna Oriente número 7320",
+     "frase_unidad": "departamento número 1504 del décimo quinto piso",
+     "frase_comuna": "Comuna de La Florida"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Vicuña Mackenna Oriente",
+     "numero": "7320",
+     "unidad": "departamento 1504",
+     "comuna": "La Florida",
+     "frase_direccion": "con acceso por Avenida Vicuña Mackenna Oriente número 7320",
+     "frase_unidad": "departamento número 1504 del décimo quinto piso",
+     "frase_comuna": "Comuna de La Florida"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 925,
+   "salida": 155,
+   "cache_lectura": 0,
+   "cache_escritura": 2388,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 925,
+   "salida": 155,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

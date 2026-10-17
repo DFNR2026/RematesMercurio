@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "El Maitén",
+     "numero": "28",
+     "unidad": null,
+     "comuna": "Til Til",
+     "frase_direccion": "El Maitén N° 28",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Til Til"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "El Maitén",
+     "numero": "28",
+     "unidad": null,
+     "comuna": "Til Til",
+     "frase_direccion": "El Maitén N° 28",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Til Til"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 529,
+   "salida": 102,
+   "cache_lectura": 0,
+   "cache_escritura": 2388,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 529,
+   "salida": 102,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

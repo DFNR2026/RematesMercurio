@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Pedro Fontova",
+     "numero": null,
+     "unidad": null,
+     "comuna": "Conchalí",
+     "frase_direccion": "Propiedad ubicada en calle Pedro Fontova, que corresponde al sitio número cinco del sector número uno del plano de loteo del Fundo La Palmilla",
+     "frase_unidad": null,
+     "frase_comuna": "Propiedades Ubicadas En La Comuna De Conchalí, Región Metropolitana"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Pedro Fontova",
+     "numero": null,
+     "unidad": null,
+     "comuna": "Conchalí",
+     "frase_direccion": "Propiedad ubicada en calle Pedro Fontova, que corresponde al sitio número cinco del sector número uno del plano de loteo del Fundo La Palmilla",
+     "frase_unidad": null,
+     "frase_comuna": "Propiedades Ubicadas En La Comuna De Conchalí, Región Metropolitana"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1173,
+   "salida": 180,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1173,
+   "salida": 180,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

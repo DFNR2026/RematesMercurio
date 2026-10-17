@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Ríos de Chile",
+     "numero": "2942",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "propiedad ubicada en Pasaje Ríos de Chile Número dos mil novecientos cuarenta y dos",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Ríos de Chile",
+     "numero": "2942",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "propiedad ubicada en Pasaje Ríos de Chile Número dos mil novecientos cuarenta y dos",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 924,
+   "salida": 142,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 924,
+   "salida": 142,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

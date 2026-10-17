@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "frase_direccion": "el lote A guión doscientos ochenta y cinco, del sector A, el que es producto de la subdivisión del predio rústico denominado ‘Hijuela Segunda del Fundo Cuyuncaví’, ubicado en la comuna de Curacaví, Provincia de Melipilla, Región Metropolitana",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Curacaví"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "frase_direccion": "el lote A guión doscientos ochenta y cinco, del sector A, el que es producto de la subdivisión del predio rústico denominado ‘Hijuela Segunda del Fundo Cuyuncaví’, ubicado en la comuna de Curacaví, Provincia de Melipilla, Región Metropolitana",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Curacaví"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 909,
+   "salida": 206,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 909,
+   "salida": 206,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "San Fernando",
+     "frase_direccion": "Lote ASeis-Dos ‘a’, de la subdivisión del Lote A-6, que a su vez es resultante de la subdivisión del resto de la Parcela número 6 del Proyecto de Parcelación Las Rosas de Antivero",
+     "frase_unidad": null,
+     "frase_comuna": "comuna San Fernando"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "San Fernando",
+     "frase_direccion": "Lote ASeis-Dos ‘a’, de la subdivisión del Lote A-6, que a su vez es resultante de la subdivisión del resto de la Parcela número 6 del Proyecto de Parcelación Las Rosas de Antivero",
+     "frase_unidad": null,
+     "frase_comuna": "comuna San Fernando"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 775,
+   "salida": 176,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 775,
+   "salida": 176,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

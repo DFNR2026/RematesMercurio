@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Presidente Riesco",
+     "numero": "2979",
+     "unidad": "departamento 207",
+     "comuna": "Las Condes",
+     "frase_direccion": "Edificio con acceso por Avenida Presidente Riesco número dos mil novecientos setenta y nueve esquina San Sebastián número dos mil novecientos noventa y siete, Comuna de Las Condes",
+     "frase_unidad": "el departamento número doscientos siete del segundo piso",
+     "frase_comuna": "Comuna de Las Condes"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Presidente Riesco",
+     "numero": "2979",
+     "unidad": "departamento 207",
+     "comuna": "Las Condes",
+     "frase_direccion": "Edificio con acceso por Avenida Presidente Riesco número dos mil novecientos setenta y nueve esquina San Sebastián número dos mil novecientos noventa y siete, Comuna de Las Condes",
+     "frase_unidad": "el departamento número doscientos siete del segundo piso",
+     "frase_comuna": "Comuna de Las Condes"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1102,
+   "salida": 195,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1102,
+   "salida": 195,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

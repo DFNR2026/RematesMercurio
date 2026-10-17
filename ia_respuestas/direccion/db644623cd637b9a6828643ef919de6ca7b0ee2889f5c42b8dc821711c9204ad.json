@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Diagonal Teniente Cruz",
+     "numero": "555",
+     "unidad": "departamento 101",
+     "comuna": "Pudahuel",
+     "frase_direccion": "con acceso por calle Diagonal Teniente Cruz número quinientos cincuenta y cinco",
+     "frase_unidad": "el inmueble que corresponde al departamento número ciento uno del primer piso",
+     "frase_comuna": "comuna de Pudahuel"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Diagonal Teniente Cruz",
+     "numero": "555",
+     "unidad": "departamento 101",
+     "comuna": "Pudahuel",
+     "frase_direccion": "con acceso por calle Diagonal Teniente Cruz número quinientos cincuenta y cinco",
+     "frase_unidad": "departamento número ciento uno del primer piso",
+     "frase_comuna": "comuna de Pudahuel"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 2450,
+   "salida": 166,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 2450,
+   "salida": 155,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

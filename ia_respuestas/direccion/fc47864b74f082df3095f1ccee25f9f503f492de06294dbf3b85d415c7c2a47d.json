@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "prolongación Avenida José Tomás de Urmeneta",
+     "numero": "1107-C-C1",
+     "unidad": "departamento 644",
+     "comuna": "Limache",
+     "frase_direccion": "su entrada principal por prolongación Avenida José Tomás de Urmeneta N° 1107-C-C1",
+     "frase_unidad": "Departamento N° 644",
+     "frase_comuna": "ubicado en la Comuna de Limache"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "prolongación Avenida José Tomás de Urmeneta",
+     "numero": "1107-C-C1",
+     "unidad": "Departamento N° 644",
+     "comuna": "Limache",
+     "frase_direccion": "tiene su entrada principal por prolongación Avenida José Tomás de Urmeneta N° 1107-C-C1",
+     "frase_unidad": "que corresponde al Departamento N° 644",
+     "frase_comuna": "el inmueble ubicado en la Comuna de Limache"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 929,
+   "salida": 166,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 929,
+   "salida": 183,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

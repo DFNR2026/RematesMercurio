@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Sergio Valdovinos",
+     "numero": "1410",
+     "unidad": "departamento 107-B",
+     "comuna": "Quinta Normal",
+     "frase_direccion": "ubicado en calle Sergio Valdovinos número mil cuatrocientos diez",
+     "frase_unidad": "departamento número ciento siete- B del primer piso del Edificio B",
+     "frase_comuna": "Comuna de Quinta Normal"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Sergio Valdovinos",
+     "numero": "1410",
+     "unidad": "departamento 107-B",
+     "comuna": "Quinta Normal",
+     "frase_direccion": "ubicado en calle Sergio Valdovinos número mil cuatrocientos diez",
+     "frase_unidad": "departamento número ciento siete- B del primer piso del Edificio B",
+     "frase_comuna": "Comuna de Quinta Normal"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 2445,
+   "salida": 163,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 2445,
+   "salida": 163,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

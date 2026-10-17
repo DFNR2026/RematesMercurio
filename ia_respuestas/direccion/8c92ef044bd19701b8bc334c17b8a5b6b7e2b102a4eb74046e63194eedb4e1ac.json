@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "La Ligua",
+     "frase_direccion": "Sitio número Veinte, de la Manzana Nueve, de la población Los Molles",
+     "frase_unidad": null,
+     "frase_comuna": "ubicada en la comuna de La Ligua"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "La Ligua",
+     "frase_direccion": "Sitio número Veinte, de la Manzana Nueve, de la población Los Molles",
+     "frase_unidad": null,
+     "frase_comuna": "ubicada en la comuna de La Ligua"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 722,
+   "salida": 128,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 722,
+   "salida": 128,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

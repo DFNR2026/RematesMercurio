@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Circunvalación Juan Pablo II",
+     "numero": "41",
+     "unidad": null,
+     "comuna": "Los Andes",
+     "frase_direccion": "Avenida Circunvalación Juan Pablo II número 41, de esta ciudad, comuna y Provincia de Los Andes",
+     "frase_unidad": null,
+     "frase_comuna": "comuna y Provincia de Los Andes"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Circunvalación Juan Pablo II",
+     "numero": "41",
+     "unidad": null,
+     "comuna": "Los Andes",
+     "frase_direccion": "Avenida Circunvalación Juan Pablo II número 41, de esta ciudad, comuna y Provincia de Los Andes",
+     "frase_unidad": null,
+     "frase_comuna": "comuna y Provincia de Los Andes"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1079,
+   "salida": 156,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1079,
+   "salida": 156,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

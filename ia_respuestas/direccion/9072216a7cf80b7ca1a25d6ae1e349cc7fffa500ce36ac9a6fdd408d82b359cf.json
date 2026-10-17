@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Camino Interior Las Loicas",
+     "numero": "1832 -69",
+     "unidad": null,
+     "comuna": "Talagante",
+     "frase_direccion": "Camino Interior Las Loicas número 1832 -69",
+     "frase_unidad": null,
+     "frase_comuna": "ubicada en la Comuna y Provincia de Talagante"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Camino Interior Las Loicas",
+     "numero": "1832 -69",
+     "unidad": null,
+     "comuna": "Talagante",
+     "frase_direccion": "Camino Interior Las Loicas número 1832 -69",
+     "frase_unidad": null,
+     "frase_comuna": "ubicada en la Comuna y Provincia de Talagante"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 837,
+   "salida": 134,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 837,
+   "salida": 134,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

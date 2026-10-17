@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Alcalde Pedro Alarcón",
+     "numero": "777",
+     "unidad": "departamento 310",
+     "comuna": "San Miguel",
+     "frase_direccion": "con acceso principal por calle Alcalde Pedro Alarcón número setecientos setenta y siete",
+     "frase_unidad": "departamento número trescientos diez",
+     "frase_comuna": "comuna de San Miguel"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Alcalde Pedro Alarcón",
+     "numero": "777",
+     "unidad": "departamento 310",
+     "comuna": "San Miguel",
+     "frase_direccion": "con acceso principal por calle Alcalde Pedro Alarcón número setecientos setenta y siete",
+     "frase_unidad": "departamento número trescientos diez",
+     "frase_comuna": "comuna de San Miguel"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1122,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1122,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

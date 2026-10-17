@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Pastor Guillermo Castillo Moraga",
+     "numero": "0 1491",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "Calle Pastor Guillermo Castillo Moraga número cero mil cuatrocientos noventa y uno",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Pastor Guillermo Castillo Moraga",
+     "numero": "0491",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "Calle Pastor Guillermo Castillo Moraga número cero mil cuatrocientos noventa y uno",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 930,
+   "salida": 149,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 930,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

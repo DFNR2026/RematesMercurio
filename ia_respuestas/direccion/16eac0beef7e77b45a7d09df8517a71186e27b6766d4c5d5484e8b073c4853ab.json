@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Carretera Panamericana Presidente Roosevelt",
+     "numero": "670",
+     "unidad": "departamento 12",
+     "comuna": "Santiago",
+     "frase_direccion": "calle Carretera Panamericana Presidente Roosevelt numero seiscientos setenta",
+     "frase_unidad": "el departamento numero doce",
+     "frase_comuna": "Comuna de Santiago Región Metropolitana"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Carretera Panamericana Presidente Roosevelt",
+     "numero": "670",
+     "unidad": "departamento 12",
+     "comuna": "Santiago",
+     "frase_direccion": "edificio colectivo numero catorce de la calle Carretera Panamericana Presidente Roosevelt numero seiscientos setenta",
+     "frase_unidad": "departamento numero doce",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 655,
+   "salida": 159,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 655,
+   "salida": 164,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

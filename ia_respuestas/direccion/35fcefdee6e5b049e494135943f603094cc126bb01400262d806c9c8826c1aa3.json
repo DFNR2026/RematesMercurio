@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Seis Emilio Sanfuentes Vergara",
+     "numero": "509",
+     "unidad": null,
+     "comuna": "Pudahuel",
+     "frase_direccion": "Pasaje Seis Emilio Sanfuentes Vergara N° 509",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Pudahuel"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Seis Emilio Sanfuentes Vergara",
+     "numero": "509",
+     "unidad": null,
+     "comuna": "Pudahuel",
+     "frase_direccion": "Pasaje Seis Emilio Sanfuentes Vergara N° 509",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Pudahuel"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 971,
+   "salida": 141,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 971,
+   "salida": 141,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

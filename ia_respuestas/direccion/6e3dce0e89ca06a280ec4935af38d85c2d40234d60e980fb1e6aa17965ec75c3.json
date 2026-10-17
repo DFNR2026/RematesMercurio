@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "pasaje pag",
+     "numero": "1633",
+     "unidad": null,
+     "comuna": "Cerro Navia",
+     "frase_direccion": "ubicada en pasaje pag N° 1633",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Cerro Navia"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "pasaje pag",
+     "numero": "1633",
+     "unidad": null,
+     "comuna": "Cerro Navia",
+     "frase_direccion": "ubicada en pasaje pag N° 1633",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Cerro Navia"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1282,
+   "salida": 116,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1282,
+   "salida": 116,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

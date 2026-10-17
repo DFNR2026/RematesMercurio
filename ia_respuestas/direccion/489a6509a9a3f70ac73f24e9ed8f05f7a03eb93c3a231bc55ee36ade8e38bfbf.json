@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa María",
+     "numero": "571",
+     "unidad": "departamento 501",
+     "comuna": "Recoleta",
+     "frase_direccion": "ubicado en Avenida Santa María N° 571",
+     "frase_unidad": "el departamento N° 501 del 5° piso",
+     "frase_comuna": "Comuna de Recoleta"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa María",
+     "numero": "571",
+     "unidad": "departamento 501",
+     "comuna": "Recoleta",
+     "frase_direccion": "ubicado en Avenida Santa María N° 571, Comuna de Recoleta",
+     "frase_unidad": "el departamento N° 501 del 5° piso",
+     "frase_comuna": "Comuna de Recoleta"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 804,
+   "salida": 133,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 804,
+   "salida": 144,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

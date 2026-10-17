@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Merced",
+     "numero": "22",
+     "unidad": "departamento 402",
+     "comuna": "Santiago",
+     "frase_direccion": "del edificio de calle Merced Número veintidós",
+     "frase_unidad": "el departamento número cuatrocientos dos",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Merced",
+     "numero": "22",
+     "unidad": "departamento 402",
+     "comuna": "Santiago",
+     "frase_direccion": "del edificio de calle Merced Número veintidós",
+     "frase_unidad": "el departamento número cuatrocientos dos",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 679,
+   "salida": 125,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 679,
+   "salida": 125,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

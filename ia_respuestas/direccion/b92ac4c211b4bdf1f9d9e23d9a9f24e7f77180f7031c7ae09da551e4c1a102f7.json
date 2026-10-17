@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Talagante",
+     "frase_direccion": "la Parcela N° 21, de la fusión y subdivisión del Resto del Lote B, resultante de la subdivisión de la Parcela N° 22; del resto de la parcela N° 20, y del resto de la Parcela N° 21, todos del Proyecto de Parcelación El Cuadro de Sorrento",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Talagante"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Talagante",
+     "frase_direccion": "Parcela N° 21, de la fusión y subdivisión del Resto del Lote B, resultante de la subdivisión de la Parcela N° 22; del resto de la parcela N° 20, y del resto de la Parcela N° 21, todos del Proyecto de Parcelación El Cuadro de Sorrento",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Talagante"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 926,
+   "salida": 203,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 926,
+   "salida": 202,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

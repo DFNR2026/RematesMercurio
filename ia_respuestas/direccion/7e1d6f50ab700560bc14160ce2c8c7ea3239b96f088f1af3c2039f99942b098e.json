@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Elías Fernández Albano",
+     "numero": "492",
+     "unidad": "departamento 1011 A",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con ingreso por Avenida Elías Fernández Albano número cuatrocientos noventa y dos, ex cuatrocientos veintiséis",
+     "frase_unidad": "departamento número mil once A",
+     "frase_comuna": "comuna de La Cisterna"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Elías Fernández Albano",
+     "numero": "492",
+     "unidad": "departamento 1011 A",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con ingreso por Avenida Elías Fernández Albano número cuatrocientos noventa y dos",
+     "frase_unidad": "el inmueble que corresponde al departamento número mil once A",
+     "frase_comuna": "comuna de La Cisterna"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1111,
+   "salida": 168,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1111,
+   "salida": 164,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

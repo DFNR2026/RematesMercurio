@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Asturcón",
+     "numero": "1588",
+     "unidad": null,
+     "comuna": "Huechuraba",
+     "frase_direccion": "Pasaje Asturcón número mil quinientos ochenta y ocho",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Huechuraba"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Asturcón",
+     "numero": "1588",
+     "unidad": null,
+     "comuna": "Huechuraba",
+     "frase_direccion": "Pasaje Asturcón número mil quinientos ochenta y ocho",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Huechuraba"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1407,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1407,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,806 @@
+{
+ "edicion": "2026-10-14",
+ "anotado_por": "Claude (Opus 5.5), 17 de Octubre de 2026, ANTES de escribir instrucciones o código de la IA de la dirección",
+ "uso": "AJUSTE de la parte 3.7b. Reanotado desde banco_nivel2_2026-10-14.json (campo direccion), que queda igual.",
+ "reglas": {
+  "objetivo": "Dirección del inmueble para mostrarla en la ficha (decisión de Diego del 17 de Octubre). No se usa para la clave del bien ni para filtrar.",
+  "calle": "Nombre de la calle tal como lo imprime el aviso, con su tipo si lo trae (calle, Avenida, Pasaje, Camino). Se compara sin tildes, sin mayúsculas y sin el tipo.",
+  "numero": "Número de la calle en cifras, conservando el cero inicial (0337). Si viene en palabras se pasa a cifras. Rangos y dos números se escriben como en el aviso (0344-0358, 575 y 577). Se compara por los números que contiene, sin ceros a la izquierda.",
+  "unidad": "Solo la pieza principal que se vende dentro de un edificio o condominio (departamento, casa, oficina, local, vivienda, unidad). No el lote o sitio del plano de una casa con calle y número. Si se venden depto, bodega y estacionamiento juntos, va el depto. Se compara por tipo y número.",
+  "comuna": "La comuna del inmueble, no la del tribunal. Si el aviso dice 'comuna San Miguel, hoy comuna San Joaquín' va la de hoy. Si el aviso no nombra la comuna, null (no se deduce del conservador).",
+  "sin_calle": "Terreno o sitio sin calle ni número (parcela, lote, hijuela, sitio de un conjunto sin calle). Va su descripción corta. Solo se comparan el tipo y la comuna.",
+  "lista": "Un aviso con varios remates (lista de mínimos) lleva una dirección por remate, en el mismo orden.",
+  "alternativas": "Lectura distinta que también se acepta cuando el aviso es ambiguo (se dice por qué en la nota)."
+ },
+ "avisos": [
+  {
+   "n": 1,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santiago Bueras",
+     "numero": "3951",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle La Viña",
+     "numero": "1544",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Pajaritos",
+     "numero": "3195",
+     "unidad": "oficina 602",
+     "comuna": "Maipú",
+     "descripcion": null
+    },
+    {
+     "tipo": "calle",
+     "calle": "Avenida Pajaritos",
+     "numero": "3195",
+     "unidad": "oficina 603",
+     "comuna": "Maipú",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Álvarez de Toledo",
+     "numero": "861",
+     "unidad": null,
+     "comuna": "San Miguel",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "El Maitén",
+     "numero": "28",
+     "unidad": null,
+     "comuna": "Til Til",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Vicuña Mackenna Oriente",
+     "numero": "7320",
+     "unidad": "departamento 1504",
+     "comuna": "La Florida",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Rio Rapel",
+     "numero": "13362",
+     "unidad": null,
+     "comuna": "El Bosque",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Laura Rodig",
+     "numero": "9225",
+     "unidad": null,
+     "comuna": "La Florida",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Central",
+     "numero": "1725",
+     "unidad": "vivienda 77",
+     "comuna": "Puente Alto",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa Clara",
+     "numero": "301",
+     "unidad": "oficina 7801",
+     "comuna": "Huechuraba",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle 20 Norte",
+     "numero": "1715",
+     "unidad": "departamento 403",
+     "comuna": "Talca",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Américo Vespucio",
+     "numero": "0337",
+     "unidad": null,
+     "comuna": "La Granja",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Inés Oriente",
+     "numero": "2118",
+     "unidad": null,
+     "comuna": "San Bernardo",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Los Universitarios",
+     "numero": "2116",
+     "unidad": null,
+     "comuna": "Maipú",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 15,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Américo Vespucio",
+     "numero": "1414",
+     "unidad": null,
+     "comuna": "Maipú",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 16,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Agustinas",
+     "numero": "1888",
+     "unidad": "departamento 302 D",
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 17,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Río La Ligua",
+     "numero": "9555",
+     "unidad": null,
+     "comuna": "Pudahuel",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 18,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Piedemonte",
+     "numero": "18551",
+     "unidad": "unidad 112",
+     "comuna": "San Bernardo",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 19,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Ríos de Chile",
+     "numero": "2942",
+     "unidad": null,
+     "comuna": "Maipú",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 20,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Paseo Pie Andino",
+     "numero": "02639",
+     "unidad": "casa 67",
+     "comuna": "Puente Alto",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 21,
+   "remates": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "descripcion": "Lote Dos, Hijuela Segunda, Antiguo Fundo Cuesta Vieja"
+    }
+   ]
+  },
+  {
+   "n": 22,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Cerro Puntiagudo",
+     "numero": "9525",
+     "unidad": null,
+     "comuna": "Pudahuel",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 23,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Cuarta Avenida",
+     "numero": "1447",
+     "unidad": "departamento 705",
+     "comuna": "San Miguel",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 24,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Ocho",
+     "numero": "55",
+     "unidad": null,
+     "comuna": "Buin",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 25,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "General Gana",
+     "numero": "1063",
+     "unidad": "departamento 2302-B",
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 26,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Pedrales",
+     "numero": "01867",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 27,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Apóstol Santiago",
+     "numero": "32",
+     "unidad": "departamento 2017",
+     "comuna": "Estación Central",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 28,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Transversal Uno",
+     "numero": "939",
+     "unidad": null,
+     "comuna": "Pudahuel",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 29,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Valle La Reserva",
+     "numero": "588",
+     "unidad": null,
+     "comuna": "Isla de Maipo",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 30,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 1",
+     "comuna": "Santiago",
+     "descripcion": null
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 3",
+     "comuna": "Santiago",
+     "descripcion": null
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "casa 5",
+     "comuna": "Santiago",
+     "descripcion": null
+    },
+    {
+     "tipo": "calle",
+     "calle": "calle Maipú",
+     "numero": "636",
+     "unidad": "estacionamiento 6",
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 31,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Macul",
+     "numero": "4747",
+     "unidad": "departamento 68",
+     "comuna": "Macul",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 32,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Abtao",
+     "numero": "24",
+     "unidad": "departamento 1109",
+     "comuna": "Estación Central",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 33,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Los Alerces",
+     "numero": "3330",
+     "unidad": "departamento 306-A",
+     "comuna": "Ñuñoa",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 34,
+   "remates": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Talagante",
+     "descripcion": "Parcela N° 21, Parcelación El Cuadro de Sorrento"
+    }
+   ]
+  },
+  {
+   "n": 35,
+   "remates": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "descripcion": "Parcela 112, Resto del Fundo Monterrey"
+    }
+   ]
+  },
+  {
+   "n": 36,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Alcalde Pedro Alarcón",
+     "numero": "777",
+     "unidad": "departamento 310",
+     "comuna": "San Miguel",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 37,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Jenequeo",
+     "numero": "5765",
+     "unidad": null,
+     "comuna": "Quinta Normal",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 38,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Bernardo O’Higgins",
+     "numero": "4050",
+     "unidad": "oficina 1316",
+     "comuna": "Estación Central",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 39,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Las Perdices",
+     "numero": "3462",
+     "unidad": "departamento 302",
+     "comuna": "Puente Alto",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 40,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Camino al Volcán",
+     "numero": "29016",
+     "unidad": null,
+     "comuna": "San José de Maipo",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 41,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Jose Salum Arcuch",
+     "numero": "768",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 42,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Lo Ovalle",
+     "numero": "0926",
+     "unidad": "departamento A 309",
+     "comuna": "La Cisterna",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 43,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Emilia Téllez",
+     "numero": "4849",
+     "unidad": "departamento 59",
+     "comuna": "Ñuñoa",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 44,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Macul",
+     "numero": "3700",
+     "unidad": "departamento 810-B",
+     "comuna": "Macul",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 45,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Asunción",
+     "numero": "2659",
+     "unidad": null,
+     "comuna": "Maipú",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 46,
+   "remates": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": null,
+     "descripcion": "sitio número 5 de la manzana 1, loteo El Manzano"
+    }
+   ]
+  },
+  {
+   "n": 47,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Álvarez de Toledo",
+     "numero": "924",
+     "unidad": "departamento 1306",
+     "comuna": "San Miguel",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 48,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Presidente Balmaceda",
+     "numero": "2914",
+     "unidad": "departamento 2104",
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 49,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Brasil",
+     "numero": "875",
+     "unidad": "departamento 1020",
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 50,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Camino Nuevo",
+     "numero": "2065",
+     "unidad": "departamento C-2302",
+     "comuna": "Chillán",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 51,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Merced",
+     "numero": "22",
+     "unidad": "departamento 402",
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 52,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Las Cimas",
+     "numero": "734",
+     "unidad": "unidad 75",
+     "comuna": "Til Til",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 53,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Sotomayor",
+     "numero": "575 y 577",
+     "unidad": null,
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 54,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Ossa",
+     "numero": "480",
+     "unidad": "departamento 211",
+     "comuna": "La Cisterna",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 55,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 56,
+   "remates": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Puerto Montt",
+     "descripcion": "Lote o Hijuela Cuatro A, Chiquio"
+    }
+   ]
+  },
+  {
+   "n": 57,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 58,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 59,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Juan Moya Morales",
+     "numero": "22",
+     "unidad": "departamento 603",
+     "comuna": "Ñuñoa",
+     "descripcion": null
+    }
+   ]
+  },
+  {
+   "n": 60,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 61,
+   "remates": [
+    {
+     "tipo": "calle",
+     "calle": "calle Mapocho",
+     "numero": "2676",
+     "unidad": "departamento 406",
+     "comuna": "Santiago",
+     "descripcion": null
+    }
+   ]
+  }
+ ]
+}

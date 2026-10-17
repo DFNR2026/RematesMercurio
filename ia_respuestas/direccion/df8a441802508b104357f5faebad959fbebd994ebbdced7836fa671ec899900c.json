@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Piedemonte",
+     "numero": "18551",
+     "unidad": "unidad 112",
+     "comuna": "San Bernardo",
+     "frase_direccion": "ubicada calle Piedemonte N° 18551",
+     "frase_unidad": "Unidad N° 112",
+     "frase_comuna": "comuna San Bernardo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Piedemonte",
+     "numero": "18551",
+     "unidad": "Unidad 112",
+     "comuna": "San Bernardo",
+     "frase_direccion": "ubicada calle Piedemonte N° 18551, Condominio Los Álamos, acceso común por Avenida del Manantial Oriente N° 18516, comuna San Bernardo",
+     "frase_unidad": "Unidad N° 112",
+     "frase_comuna": "comuna San Bernardo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 890,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 890,
+   "salida": 173,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

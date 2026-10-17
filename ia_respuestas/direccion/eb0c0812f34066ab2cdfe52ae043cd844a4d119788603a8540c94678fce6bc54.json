@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Estación Pirque",
+     "numero": "1875",
+     "unidad": "Dpto. 214",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "ubicado en calle Estación Pirque número mil ochocientos setenta y cinco",
+     "frase_unidad": "El bien a rematar es el Dpto. 214 del Edificio ’Jardín del Sol’",
+     "frase_comuna": "comuna Ñuñoa"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Estación Pirque",
+     "numero": "1875",
+     "unidad": "Dpto. 214",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "ubicado en calle Estación Pirque número mil ochocientos setenta y cinco",
+     "frase_unidad": "El bien a rematar es el Dpto. 214",
+     "frase_comuna": "comuna Ñuñoa"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 493,
+   "salida": 167,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 493,
+   "salida": 150,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

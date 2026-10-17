@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Palqui Sur",
+     "numero": "587",
+     "unidad": null,
+     "comuna": "Casablanca",
+     "frase_direccion": "inmueble ubicada en Calle Palqui Sur N° 587",
+     "frase_unidad": null,
+     "frase_comuna": "Conservador Bienes Raíces Casablanca"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Palqui Sur",
+     "numero": "587",
+     "unidad": null,
+     "comuna": "Casablanca",
+     "frase_direccion": "inmueble ubicada en Calle Palqui Sur N° 587",
+     "frase_unidad": null,
+     "frase_comuna": "Conservador Bienes Raíces Casablanca"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1052,
+   "salida": 130,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1052,
+   "salida": 130,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

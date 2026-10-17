@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santiago Bueras",
+     "numero": "3951",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "frase_direccion": "inmueble ubicado en calle Santiago Bueras n° 3951",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Peñaflor"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santiago Bueras",
+     "numero": "3951",
+     "unidad": null,
+     "comuna": "Peñaflor",
+     "frase_direccion": "calle Santiago Bueras n° 3951",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Peñaflor"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 948,
+   "salida": 126,
+   "cache_lectura": 0,
+   "cache_escritura": 2244,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 948,
+   "salida": 117,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Gerónimo de Alderete",
+     "numero": "1944",
+     "unidad": "Departamento N° 1303",
+     "comuna": "La Florida",
+     "frase_direccion": "con acceso principal por calle Gerónimo de Alderete N° 1944",
+     "frase_unidad": "Departamento N° 1303",
+     "frase_comuna": "comuna La Florida"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Gerónimo de Alderete",
+     "numero": "1944",
+     "unidad": "Departamento N° 1303",
+     "comuna": "La Florida",
+     "frase_direccion": "con acceso principal por calle Gerónimo de Alderete N° 1944",
+     "frase_unidad": "Departamento N° 1303",
+     "frase_comuna": "comuna La Florida"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1136,
+   "salida": 141,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1136,
+   "salida": 141,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

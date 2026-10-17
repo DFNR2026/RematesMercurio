@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "pasaje Chonchi",
+     "numero": "247",
+     "unidad": null,
+     "comuna": "San Joaquín",
+     "frase_direccion": "pasaje Chonchi N° 247",
+     "frase_unidad": null,
+     "frase_comuna": "comuna San Miguel, hoy comuna San Joaquín"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "pasaje Chonchi",
+     "numero": "247",
+     "unidad": null,
+     "comuna": "San Joaquín",
+     "frase_direccion": "pasaje Chonchi N° 247, de manzana 32, que corresponde a lote n° 11",
+     "frase_unidad": null,
+     "frase_comuna": "comuna San Miguel, hoy comuna San Joaquín"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 680,
+   "salida": 124,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 680,
+   "salida": 144,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

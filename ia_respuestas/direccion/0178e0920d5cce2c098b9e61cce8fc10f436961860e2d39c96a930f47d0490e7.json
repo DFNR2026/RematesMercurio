@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Pedrales",
+     "numero": "01867",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "Calle Pedrales N° 01867",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Pedrales",
+     "numero": "01867",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "Calle Pedrales N° 01867",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 794,
+   "salida": 113,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 794,
+   "salida": 113,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

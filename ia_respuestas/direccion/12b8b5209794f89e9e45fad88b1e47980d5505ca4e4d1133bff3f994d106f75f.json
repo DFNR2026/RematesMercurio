@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Los Aliaga",
+     "numero": "5500",
+     "unidad": "departamento 106",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "con acceso por calle Los Aliaga N° 5500 de la comuna de Ñuñoa",
+     "frase_unidad": "departamento 106 ubicado en el primer piso",
+     "frase_comuna": "de la comuna de Ñuñoa"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Los Aliaga",
+     "numero": "5500",
+     "unidad": "departamento 106",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "con acceso por calle Los Aliaga N° 5500 de la comuna de Ñuñoa",
+     "frase_unidad": "departamento 106 ubicado en el primer piso",
+     "frase_comuna": "con acceso por calle Los Aliaga N° 5500 de la comuna de Ñuñoa"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1235,
+   "salida": 157,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1235,
+   "salida": 177,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

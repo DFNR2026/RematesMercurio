@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Puerto Montt",
+     "frase_direccion": "ubicada en Chiquio, comuna de Puerto Montt, denominado Lote o Hijuela Numero Cuatro A",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puerto Montt"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Puerto Montt",
+     "frase_direccion": "ubicada en Chiquio, comuna de Puerto Montt, denominado Lote o Hijuela Numero Cuatro A",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puerto Montt"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 817,
+   "salida": 141,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 817,
+   "salida": 141,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

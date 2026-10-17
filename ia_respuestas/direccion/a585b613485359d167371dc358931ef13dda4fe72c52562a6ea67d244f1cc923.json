@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Melipilla",
+     "frase_direccion": "el Lote 30-24, resultante de la subdivisión de la Parcela número Treinta, resultante de la subdivisión del Lote Dos en que se dividió el Bien Común General Cerro del Proyecto de Parcelación Culiprán e Hijuela Cuarta de la Hacienda Popeta",
+     "frase_unidad": null,
+     "frase_comuna": "ubicada en la comuna y provincia de Melipilla"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Melipilla",
+     "frase_direccion": "el Lote 30-24, resultante de la subdivisión de la Parcela número Treinta, resultante de la subdivisión del Lote Dos en que se dividió el Bien Común General Cerro del Proyecto de Parcelación Culiprán e Hijuela Cuarta de la Hacienda Popeta",
+     "frase_unidad": null,
+     "frase_comuna": "ubicada en la comuna y provincia de Melipilla"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1746,
+   "salida": 207,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1746,
+   "salida": 207,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

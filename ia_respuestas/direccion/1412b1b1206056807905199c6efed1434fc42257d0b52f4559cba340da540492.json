@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Paine",
+     "frase_direccion": "Lote N° 7, resultantes de la subdivisión del lote A-15, el que a su vez resultó de la división del lote A, de la subdivisión de un inmueble denominado Hijuela La Ensenada de Águila Sur",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Paine"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Paine",
+     "frase_direccion": "Lote N° 7, resultantes de la subdivisión del lote A-15, el que a su vez resultó de la división del lote A, de la subdivisión de un inmueble denominado Hijuela La Ensenada de Águila Sur",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Paine"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1281,
+   "salida": 166,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1281,
+   "salida": 166,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

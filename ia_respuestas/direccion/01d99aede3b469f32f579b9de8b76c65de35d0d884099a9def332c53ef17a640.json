@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Conde del Maule",
+     "numero": "4577",
+     "unidad": "departamento 2007",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por calle Conde del Maule número cuatro mil quinientos setenta y siete",
+     "frase_unidad": "el departamento número dos mil siete del piso veinte",
+     "frase_comuna": "Comuna de Estación Central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Conde del Maule",
+     "numero": "4577",
+     "unidad": "departamento 2007",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por calle Conde del Maule número cuatro mil quinientos setenta y siete",
+     "frase_unidad": "el departamento número dos mil siete del piso veinte",
+     "frase_comuna": "Comuna de Estación Central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1377,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1377,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

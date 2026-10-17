@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "La Capilla",
+     "numero": "1415",
+     "unidad": "vivienda 1415-23",
+     "comuna": "Huechuraba",
+     "frase_direccion": "ubicada en La Capilla 1415, lote 23, Condominio La Capilla, comuna Huechuraba",
+     "frase_unidad": "la vivienda 1415-23",
+     "frase_comuna": "comuna Huechuraba"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "La Capilla",
+     "numero": "1415",
+     "unidad": "vivienda 1415-23",
+     "comuna": "Huechuraba",
+     "frase_direccion": "ubicada en La Capilla 1415, lote 23, Condominio La Capilla",
+     "frase_unidad": "la vivienda 1415-23",
+     "frase_comuna": "comuna Huechuraba"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 591,
+   "salida": 151,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 591,
+   "salida": 141,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

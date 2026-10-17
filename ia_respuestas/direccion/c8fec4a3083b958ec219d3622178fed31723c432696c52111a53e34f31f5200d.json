@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Portugal",
+     "numero": "810",
+     "unidad": "departamento 2102",
+     "comuna": "Santiago",
+     "frase_direccion": "con ingreso por Avenida Portugal número ochocientos diez",
+     "frase_unidad": "el departamento número dos mil ciento dos",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Portugal",
+     "numero": "810",
+     "unidad": "departamento 2102",
+     "comuna": "Santiago",
+     "frase_direccion": "con ingreso por Avenida Portugal número ochocientos diez, Comuna de Santiago",
+     "frase_unidad": "el departamento número dos mil ciento dos",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 903,
+   "salida": 136,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 903,
+   "salida": 146,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

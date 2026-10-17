@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Amalia",
+     "numero": "0161",
+     "unidad": "departamento 311",
+     "comuna": "La Florida",
+     "frase_direccion": "ubicado en calle Santa Amalia número cero ciento sesenta y uno",
+     "frase_unidad": "Departamento número trecientos once",
+     "frase_comuna": "Comuna de La Florida"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Amalia",
+     "numero": "0161",
+     "unidad": "Departamento trecientos once",
+     "comuna": "La Florida",
+     "frase_direccion": "ubicado en calle Santa Amalia número cero ciento sesenta y uno, Comuna de La Florida",
+     "frase_unidad": "Departamento número trecientos once",
+     "frase_comuna": "Comuna de La Florida"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 712,
+   "salida": 138,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 712,
+   "salida": 152,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

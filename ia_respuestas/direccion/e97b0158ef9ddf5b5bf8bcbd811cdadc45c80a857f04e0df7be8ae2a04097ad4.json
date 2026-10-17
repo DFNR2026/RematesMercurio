@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Las Perdices",
+     "numero": "3462",
+     "unidad": "departamento 302",
+     "comuna": "Puente Alto",
+     "frase_direccion": "tiene su acceso principal por Avenida Las Perdices N° 3462",
+     "frase_unidad": "consistente en el departamento N° 302",
+     "frase_comuna": "ubicado en la comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Las Perdices",
+     "numero": "3462",
+     "unidad": "departamento 302",
+     "comuna": "Puente Alto",
+     "frase_direccion": "tiene su acceso principal por Avenida Las Perdices N° 3462",
+     "frase_unidad": "consistente en el departamento N° 302",
+     "frase_comuna": "ubicado en la comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1022,
+   "salida": 148,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1022,
+   "salida": 148,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

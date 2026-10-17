@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle San Francisco",
+     "numero": "15321",
+     "unidad": null,
+     "comuna": "San Bernardo",
+     "frase_direccion": "propiedad ubicada en calle San Francisco N° 15321",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de San Bernardo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle San Francisco",
+     "numero": "15321",
+     "unidad": null,
+     "comuna": "San Bernardo",
+     "frase_direccion": "propiedad ubicada en calle San Francisco N° 15321",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de San Bernardo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 843,
+   "salida": 122,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 843,
+   "salida": 122,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

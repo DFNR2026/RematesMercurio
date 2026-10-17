@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Concón",
+     "numero": "0165",
+     "unidad": "departamento 2501",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por calle Concón 0165, comuna de Estación Central",
+     "frase_unidad": "el departamento 2501 del piso 25",
+     "frase_comuna": "comuna de Estación Central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Concón",
+     "numero": "0165",
+     "unidad": "departamento 2501",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por calle Concón 0165, comuna de Estación Central",
+     "frase_unidad": "el departamento 2501 del piso 25",
+     "frase_comuna": "comuna de Estación Central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 899,
+   "salida": 135,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 899,
+   "salida": 135,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

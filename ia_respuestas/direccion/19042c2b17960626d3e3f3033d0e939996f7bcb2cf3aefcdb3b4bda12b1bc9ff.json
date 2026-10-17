@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle El Membrillo",
+     "numero": "458",
+     "unidad": null,
+     "comuna": "San José de Maipo",
+     "frase_direccion": "inmueble ubicado en calle El Membrillo 458 El Melocotón",
+     "frase_unidad": null,
+     "frase_comuna": "ambos en la comuna San José de Maipo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle El Membrillo",
+     "numero": "458",
+     "unidad": null,
+     "comuna": "San José de Maipo",
+     "frase_direccion": "inmueble ubicado en calle El Membrillo 458 El Melocotón",
+     "frase_unidad": null,
+     "frase_comuna": "ambos en la comuna San José de Maipo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 919,
+   "salida": 131,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 919,
+   "salida": 131,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Laura Rodig",
+     "numero": "9225",
+     "unidad": null,
+     "comuna": "La Florida",
+     "frase_direccion": "propiedad ubicada en calle Laura Rodig N° 9225",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de La Florida"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Laura Rodig",
+     "numero": "9225",
+     "unidad": null,
+     "comuna": "La Florida",
+     "frase_direccion": "propiedad ubicada en calle Laura Rodig N° 9225",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de La Florida"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 638,
+   "salida": 120,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 638,
+   "salida": 120,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

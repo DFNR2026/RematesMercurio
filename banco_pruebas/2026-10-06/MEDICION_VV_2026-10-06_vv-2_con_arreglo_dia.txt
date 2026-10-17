@@ -1,0 +1,61 @@
+Banco 2026-10-06. Modelo claude-haiku-5-5, instrucciones vv-2. acierto 44, no_leido 15. Tokens entrada 120976, salida 20033, caché leída 299637, caché escrita 2561. Costo de las llamadas guardadas 0.0254 dólares.
+
+  1 no_leido     programa rojo     horas_antes None -> None  | anotado verde 2026-10-07 -> 2026-12-01 12:00 | La frase no trae las palabras propias de la regla horas_antes.
+  2 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+  3 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-10-28 14:00  | anotado verde 2026-10-07 -> 2026-10-28 14:00
+  4 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+  5 acierto      programa verde    horas_antes 2026-10-07 -> 2026-10-19 12:00  | anotado verde 2026-10-07 -> 2026-10-19 12:00
+  6 acierto      programa verde    en_el_remate 2026-11-05 13:00 -> 2026-11-05 13:00  | anotado verde 2026-11-05 13:00 -> 2026-11-05 13:00
+  8 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-10-26 14:00  | anotado verde 2026-10-07 -> 2026-10-26 14:00
+  9 acierto      programa ambar    horas_antes 2026-10-07 -> 2026-10-16 14:00 [3] | anotado ambar 2026-10-07 -> 2026-10-16 14:00
+ 12 acierto      programa verde    dias_habiles_antes 2026-10-27 12:00 -> 2026-10-27 14:00  | anotado verde 2026-10-27 12:00 -> 2026-10-27 14:00
+ 13 acierto      programa verde    dias_habiles_antes 2026-10-21 12:00 -> 2026-10-21 14:00  | anotado verde 2026-10-21 12:00 -> 2026-10-21 14:00
+ 14 acierto      programa verde    dias_habiles_antes 2026-10-21 12:00 -> 2026-10-21 14:00  | anotado verde 2026-10-21 12:00 -> 2026-10-21 14:00
+ 22 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-11-02 13:00  | anotado verde 2026-10-07 -> 2026-11-02 13:00
+ 23 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-11-03 13:00  | anotado verde 2026-10-07 -> 2026-11-03 13:00
+ 24 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-10-21 14:00  | anotado verde 2026-10-07 -> 2026-10-21 14:00
+ 25 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-10-14 14:00  | anotado verde 2026-10-07 -> 2026-10-14 14:00
+ 26 acierto      programa ambar    dia_anterior 2026-11-20 12:00 -> 2026-11-20 14:00 [2] | anotado ambar 2026-11-20 12:00 -> 2026-11-20 14:00
+ 28 acierto      programa ambar    dia_anterior_sabado_a_habil 2026-10-16 12:00 -> 2026-10-16 14:00 [2] | anotado ambar 2026-10-16 12:00 -> 2026-10-16 14:00
+ 29 acierto      programa ambar    dia_anterior_sabado_a_habil 2026-10-16 12:00 -> 2026-10-16 14:00 [2] | anotado ambar 2026-10-16 12:00 -> 2026-10-16 14:00
+ 30 acierto      programa verde    dia_anterior_sabado_a_viernes 2026-10-20 12:00 -> 2026-10-20 14:00  | anotado verde 2026-10-20 12:00 -> 2026-10-20 14:00
+ 31 acierto      programa verde    dia_anterior_sabado_a_viernes 2026-10-22 12:00 -> 2026-10-22 14:00  | anotado verde 2026-10-22 12:00 -> 2026-10-22 14:00
+ 35 acierto      programa verde    dia_anterior_sabado_a_viernes 2026-10-27 12:00 -> 2026-10-27 14:00  | anotado verde 2026-10-27 12:00 -> 2026-10-27 14:00
+ 36 acierto      programa verde    dias_habiles_antes 2026-10-23 09:00 -> 2026-10-23 14:00  | anotado verde 2026-10-23 09:00 -> 2026-10-23 14:00
+ 45 acierto      programa rojo     dia_anterior None -> None  | anotado rojo None -> None | La fecha del remate es anterior a la edición.
+ 47 no_leido     programa rojo     martes_o_jueves_anterior None -> None  | anotado ambar 2026-11-04 08:00 -> 2026-11-04 14:00 | Las dos lecturas de la IA no coinciden.
+ 49 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado ambar 2026-10-26 08:00 -> 2026-10-26 14:00 | La frase no trae las palabras propias de la regla dias_habiles_antes.; Faltan los días hábiles.
+ 51 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 55 acierto      programa verde    viernes_anterior 2026-10-23 12:00 -> 2026-10-23 13:00  | anotado verde 2026-10-23 12:00 -> 2026-10-23 13:00
+ 56 acierto      programa rojo     fecha_fija None -> None  | anotado rojo None -> None | La fecha de entrega es anterior a la edición. Posible error de escritura del aviso.
+ 58 acierto      programa verde    dia_anterior 2026-10-07 -> 2026-11-02 12:00  | anotado verde 2026-10-07 -> 2026-11-02 12:00
+ 59 acierto      programa verde    dia_anterior 2026-10-07 -> 2026-10-19 12:00  | anotado verde 2026-10-07 -> 2026-10-19 12:00
+ 61 acierto      programa verde    dia_anterior 2026-10-07 -> 2026-11-03 12:00  | anotado verde 2026-10-07 -> 2026-11-03 12:00
+ 63 no_leido     programa rojo     otra None -> None  | anotado verde 2026-10-07 -> 2026-10-19 | La IA dice que la regla no calza con ninguna conocida.
+ 65 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-07 -> 2026-10-26 | Las dos lecturas de la IA no coinciden.
+ 66 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-10-22  | anotado verde 2026-10-07 -> 2026-10-22
+ 68 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-07 -> 2026-11-10 13:00 | Las dos lecturas de la IA no coinciden.
+ 69 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-07 -> 2026-10-19 13:00 | Las dos lecturas de la IA no coinciden.
+ 70 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-07 -> 2026-10-21 13:00 | La frase no trae las palabras propias de la regla dias_habiles_antes.
+ 72 acierto      programa ambar    dias_habiles_antes 2026-10-07 -> 2026-10-09 [4] | anotado ambar 2026-10-07 -> 2026-10-09
+ 75 acierto      programa ambar    martes_o_jueves_anterior 2026-10-22 10:00 -> 2026-10-22 12:00 [5] | anotado ambar 2026-10-22 10:00 -> 2026-10-22 12:00
+ 78 acierto      programa ambar    martes_o_jueves_anterior 2026-10-20 10:00 -> 2026-10-20 12:00 [5] | anotado ambar 2026-10-20 10:00 -> 2026-10-20 12:00
+ 79 acierto      programa ambar    martes_o_jueves_anterior 2026-10-22 10:00 -> 2026-10-22 12:00 [5] | anotado ambar 2026-10-22 10:00 -> 2026-10-22 12:00
+ 80 no_leido     programa rojo     dia_anterior None -> None  | anotado verde 2026-10-22 10:00 -> 2026-10-22 12:30 | La frase nombra un día de la semana distinto al que da el cálculo.
+ 82 no_leido     programa rojo     dia_anterior None -> None  | anotado verde 2026-10-15 10:00 -> 2026-10-15 12:30 | Las dos lecturas de la IA no coinciden.
+ 83 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-19 09:00 -> 2026-10-19 11:00 | Las dos lecturas de la IA no coinciden.
+ 85 acierto      programa rojo     sin_dato None -> None  | anotado sin_dato None -> None | Las dos lecturas de la IA no coinciden.
+ 86 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 87 acierto      programa rojo     otra None -> None  | anotado sin_dato None -> None | La IA dice que la regla no calza con ninguna conocida.
+ 88 acierto      programa rojo     otra None -> None  | anotado sin_dato None -> None | La IA dice que la regla no calza con ninguna conocida.
+ 89 acierto      programa sin_dato sin_dato None -> None  | anotado sin_dato None -> None
+ 90 acierto      programa verde    dia_anterior 2026-10-26 10:00 -> 2026-10-26 12:00  | anotado verde 2026-10-26 10:00 -> 2026-10-26 12:00
+ 91 no_leido     programa rojo     dia_anterior_sabado_a_habil None -> None  | anotado verde 2026-10-07 -> 2026-10-23 | La frase no trae las palabras propias de la regla dia_anterior_sabado_a_habil.
+ 92 acierto      programa verde    viernes_anterior 2026-10-07 -> 2026-10-23  | anotado verde 2026-10-07 -> 2026-10-23
+ 93 acierto      programa verde    dia_anterior 2026-10-27 09:00 -> 2026-10-27 12:00  | anotado verde 2026-10-27 09:00 -> 2026-10-27 12:00
+ 94 acierto      programa ambar    dia_anterior 2026-10-23 09:00 -> 2026-10-23 12:00 [2] | anotado ambar 2026-10-23 09:00 -> 2026-10-23 12:00
+ 95 acierto      programa verde    dia_anterior 2026-10-21 09:00 -> 2026-10-21 12:00  | anotado verde 2026-10-21 09:00 -> 2026-10-21 12:00
+ 97 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-07 -> 2026-10-20 12:00 | Segunda lectura. El aviso da dos plazos u horarios distintos para la entrega.
+ 98 acierto      programa verde    dias_habiles_antes 2026-10-07 -> 2026-10-19 12:00  | anotado verde 2026-10-07 -> 2026-10-19 12:00
+102 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-07 -> 2026-10-19 13:00 | La frase no trae las palabras propias de la regla dias_habiles_antes.; Faltan los días hábiles.
+103 no_leido     programa rojo     dias_habiles_antes None -> None  | anotado verde 2026-10-07 -> 2026-10-28 12:30 | La frase no trae las palabras propias de la regla dias_habiles_antes.

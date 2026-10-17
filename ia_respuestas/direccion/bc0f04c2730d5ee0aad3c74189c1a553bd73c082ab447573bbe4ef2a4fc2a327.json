@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Volcán Isluga",
+     "numero": "3695",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "Pasaje Volcán Isluga N° 3695",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Volcán Isluga",
+     "numero": "3695",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "Pasaje Volcán Isluga N° 3695",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 654,
+   "salida": 123,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 654,
+   "salida": 123,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Juan Moya Morales",
+     "numero": "22",
+     "unidad": "departamento 603",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "con acceso por calle Juan Moya Morales 22",
+     "frase_unidad": "departamento 603 del 6° piso",
+     "frase_comuna": "Comuna de Ñuñoa"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Juan Moya Morales",
+     "numero": "22",
+     "unidad": "departamento 603",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "con acceso por calle Juan Moya Morales 22",
+     "frase_unidad": "departamento 603 del 6° piso",
+     "frase_comuna": "Comuna de Ñuñoa"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 624,
+   "salida": 138,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 624,
+   "salida": 138,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

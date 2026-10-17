@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Santa Victoria",
+     "numero": "0245",
+     "unidad": "departamento 404",
+     "comuna": "Providencia",
+     "frase_direccion": "acceso por Santa Victoria 0245, Providencia",
+     "frase_unidad": "departamento N° 404 duplex",
+     "frase_comuna": "acceso por Santa Victoria 0245, Providencia"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Santa Victoria",
+     "numero": "0245",
+     "unidad": "departamento 404",
+     "comuna": "Providencia",
+     "frase_direccion": "acceso por Santa Victoria 0245, Providencia",
+     "frase_unidad": "departamento N° 404 duplex",
+     "frase_comuna": "acceso por Santa Victoria 0245, Providencia"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 560,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 560,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

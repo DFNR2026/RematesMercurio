@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Agustinas",
+     "numero": "1888",
+     "unidad": "departamento trescientos dos D",
+     "comuna": "Santiago",
+     "frase_direccion": "Edificio con acceso por calle Agustinas número mil ochocientos ochenta y ocho",
+     "frase_unidad": "departamento número trescientos dos D, block D",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Agustinas",
+     "numero": "1888",
+     "unidad": "departamento 302 D",
+     "comuna": "Santiago",
+     "frase_direccion": "Edificio con acceso por calle Agustinas número mil ochocientos ochenta y ocho",
+     "frase_unidad": "departamento número trescientos dos D, block D",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1316,
+   "salida": 150,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1316,
+   "salida": 147,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

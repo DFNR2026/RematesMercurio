@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Chacabuco",
+     "numero": "1355",
+     "unidad": "departamento 733",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Chacabuco número 1355",
+     "frase_unidad": "departamento 733 del piso 7",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Chacabuco",
+     "numero": "1355",
+     "unidad": "departamento 733",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Chacabuco número 1355",
+     "frase_unidad": "departamento 733 del piso 7",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1193,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1193,
+   "salida": 127,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

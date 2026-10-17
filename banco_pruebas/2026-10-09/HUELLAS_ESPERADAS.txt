@@ -1,0 +1,12 @@
+Huellas SHA-256 de los textos de la edición 2026-10-09 (viernes, cuerpos B y G), copiados el 2026-10-16 desde capturas/2026-10-09 para probar la unión de rollos sin duplicar. La huella de cada página se comprobó contra la que guardó el lector en navegacion.json.
+B11_B-20261009-011.txt  caracteres 89881  bytes 92009  sha256 10caa43c9c218050ba109c673b98955aa55f6d7f0b9dafdfef0ac6e80fcfe4d2  igual al lector
+B12_B-20261009-012.txt  caracteres 90875  bytes 93193  sha256 ed930648b81a37633997e4f5211674caa152dc8843cbc2861c9c708513f06728  igual al lector
+B13_B-20261009-013.txt  caracteres 89248  bytes 91358  sha256 7846fb50aaf10073bfdd8aa9136e6229bbf4e1df24b88fd701732b5499271185  igual al lector
+G05_4B4M9IRB.txt  caracteres 37721  bytes 38508  sha256 9ba6538f31d6080ec61ec2c4cdd0b99ae99c50ee04ba98e6bf5869319ecebbc5  igual al lector
+G06_4B4M9IRC.txt  caracteres 37696  bytes 38559  sha256 5c85cbe9617fd4a8dca575c25c44f93cab86172815a29f3c039c486cb95d35c6  igual al lector
+G07_4B4M9IRD.txt  caracteres 38391  bytes 39328  sha256 afd9805f5a0800638dbc99e6ea6f14c7a4c01a15b5133240190c0fa3799fe544  igual al lector
+G08_4B4M9IRE.txt  caracteres 36998  bytes 37951  sha256 06e4c222228c124f3a06c830311b2a8d7795917410424dbcbc199e7ef7ce77d8  igual al lector
+G09_4B4M9IRF.txt  caracteres 37411  bytes 38343  sha256 ed86869799d39a473bb7699a260e9b7867c6cdfe44fcc8565b27d30d20524c8c  igual al lector
+G10_4B4M9IRG.txt  caracteres 38314  bytes 39277  sha256 071a2a82ba3a496aa399226362ab63d8ca0a74209a2a3c8f3927e88008f268da  igual al lector
+G11_4B4M9IRH.txt  caracteres 38403  bytes 39309  sha256 8f8e0c08d0553635fbaac6c0de29b30c36581e8784b3ab9cc8886ac646e7cf55  igual al lector
+G12_4B4M9IRI.txt  caracteres 36129  bytes 36966  sha256 57762944cca7be416a6c4c575e23c6a622cc40d5b78e13889dc7700b9a012376  igual al lector

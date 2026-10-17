@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Los Alerces",
+     "numero": "3330",
+     "unidad": "departamento 306-A",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "ubicado en calle Los Alerces número tres mil trescientos treinta, Comuna de Ñuñoa",
+     "frase_unidad": "el inmueble correspondiente al departamento número trescientos seis guión A del tercer piso",
+     "frase_comuna": "Comuna de Ñuñoa"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Los Alerces",
+     "numero": "3330",
+     "unidad": "departamento 306-A",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "ubicado en calle Los Alerces número tres mil trescientos treinta, Comuna de Ñuñoa",
+     "frase_unidad": "el inmueble correspondiente al departamento número trescientos seis guión A del tercer piso",
+     "frase_comuna": "Comuna de Ñuñoa"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 635,
+   "salida": 176,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 635,
+   "salida": 176,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

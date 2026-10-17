@@ -1,0 +1,258 @@
+{
+ "edicion": "2026-10-14",
+ "anotado_por": "Claude (Opus 5.5), 17 de Octubre de 2026, ANTES de escribir el código de la carátula",
+ "uso": "AJUSTE de la parte 3.7c.",
+ "reglas": {
+  "objetivo": "Carátula de la causa para mostrarla en la ficha (decisión de Diego del 17 de Octubre, basta la carátula, no se separa en demandante y demandado). La lee el código, sin IA.",
+  "valor": "El texto de la carátula tal como lo imprime el aviso, sin las comillas.",
+  "comparacion": "Sin tildes ni mayúsculas, sin puntuación, y sin las palabras 'con' ni '/' entre las partes.",
+  "sin_dato": "null si el aviso no trae carátula.",
+  "variantes": "Si el aviso la imprime dos veces sin diferencias relevantes (S.A., Ltda o Limitada) cuenta como una (decisión de Diego). Dos carátulas distintas de verdad son duda de lectura."
+ },
+ "avisos": [
+  {
+   "n": 1,
+   "caratula": "Banco del Estado Con Covarruvias Leiva"
+  },
+  {
+   "n": 2,
+   "caratula": "Banco del Estado Con Bustamante González"
+  },
+  {
+   "n": 3,
+   "caratula": "Banco Santander - Chile S.A./Arh Empresa de Servicios Transitorios SpA"
+  },
+  {
+   "n": 4,
+   "caratula": "Banco de Chile con Aguilera"
+  },
+  {
+   "n": 5,
+   "caratula": "Banco de Crédito e Inversiones con Montecino"
+  },
+  {
+   "n": 6,
+   "caratula": "Banco de Crédito e Inversiones/Pérez"
+  },
+  {
+   "n": 7,
+   "caratula": "Banco del Estado de Chile con Rodolfo Antonio Ulloa Batista"
+  },
+  {
+   "n": 8,
+   "caratula": "Banco del Estado de Chile con Amaya Faura, Juan Ernesto"
+  },
+  {
+   "n": 9,
+   "caratula": "Banco del Estado con Fuenzalida Moraga, José Miguel y otra"
+  },
+  {
+   "n": 10,
+   "caratula": "Seguros con Inmobiliaria"
+  },
+  {
+   "n": 11,
+   "caratula": "Fondo de Inversión Activa Deuda Hipotecaria Con Subsidio Habitacional II/Ravello"
+  },
+  {
+   "n": 12,
+   "caratula": "Banco Estado con Riveros Gallardo"
+  },
+  {
+   "n": 13,
+   "caratula": "Banco Estado con Morales Chamorro"
+  },
+  {
+   "n": 14,
+   "caratula": "Banco de Chile con Sepúlveda"
+  },
+  {
+   "n": 15,
+   "caratula": "Banco Estado con Alfaro"
+  },
+  {
+   "n": 16,
+   "caratula": "Banco Itaú Chile S.A/ Mera"
+  },
+  {
+   "n": 17,
+   "caratula": "Augustar Seguros de Vida S.A./Herrera"
+  },
+  {
+   "n": 18,
+   "caratula": "Seguros Vida Security Prevision S.A. con Diaz"
+  },
+  {
+   "n": 19,
+   "caratula": "Banco Estado con Ibañez Rojas"
+  },
+  {
+   "n": 20,
+   "caratula": "Banco Estado con Reyes Ibazeta"
+  },
+  {
+   "n": 21,
+   "caratula": "Scotiabank Chile con Huenhupi Ayala, Jose Francisco"
+  },
+  {
+   "n": 22,
+   "caratula": "Securitizadora Security S.A. con Tilleria"
+  },
+  {
+   "n": 23,
+   "caratula": "Banco de Chile/López"
+  },
+  {
+   "n": 24,
+   "caratula": "Banco Estado con Adasme Soto"
+  },
+  {
+   "n": 25,
+   "caratula": "4 Life con Sociedad"
+  },
+  {
+   "n": 26,
+   "caratula": "Banco de Crédito e Inversiones/ Flores"
+  },
+  {
+   "n": 27,
+   "caratula": "Banco Santander Chile con Fuentes"
+  },
+  {
+   "n": 28,
+   "caratula": "Banco de Crédito e Inversiones/Pastrián"
+  },
+  {
+   "n": 29,
+   "caratula": "Banco Falabella/Ojeda"
+  },
+  {
+   "n": 30,
+   "caratula": "Banco Internacional con Ce Inmobiliaria III S.A."
+  },
+  {
+   "n": 31,
+   "caratula": "Banco Estado con Westermeier López"
+  },
+  {
+   "n": 32,
+   "caratula": "Scotiabank Chile con Pachon"
+  },
+  {
+   "n": 33,
+   "caratula": "Banco Itaú Chile S.A/ Carrasco"
+  },
+  {
+   "n": 34,
+   "caratula": "Banco Santander-Chile S.A. con Gutiérrez"
+  },
+  {
+   "n": 35,
+   "caratula": "Banco de Chile con Salmiq SpA"
+  },
+  {
+   "n": 36,
+   "caratula": "Metlife Chile Seguros de Vida S.A. con Galvez Oyarce, Paulina Andrea"
+  },
+  {
+   "n": 37,
+   "caratula": "Banco Estado con Azócar Reyes"
+  },
+  {
+   "n": 38,
+   "caratula": "Metlife Chile Seguros de Vida S.A. con Román"
+  },
+  {
+   "n": 39,
+   "caratula": "Banco de Crédito e Inversiones con Baeza"
+  },
+  {
+   "n": 40,
+   "caratula": "Seguros con González"
+  },
+  {
+   "n": 41,
+   "caratula": "Scotiabank Chile con Barahona"
+  },
+  {
+   "n": 42,
+   "caratula": "Banco de Chile con Miranda"
+  },
+  {
+   "n": 43,
+   "caratula": "Banco Falabella con Bodaleo"
+  },
+  {
+   "n": 44,
+   "caratula": "Scotiabank Chile S.A./Gil"
+  },
+  {
+   "n": 45,
+   "caratula": "Banco del Estado con Contreras Ríos"
+  },
+  {
+   "n": 46,
+   "caratula": "CAT Administradora de Tarjetas S.A./ Moreno"
+  },
+  {
+   "n": 47,
+   "caratula": "Banco de Crédito e Inversiones con Barraza"
+  },
+  {
+   "n": 48,
+   "caratula": "Banco Estado con Valdés Galaz"
+  },
+  {
+   "n": 49,
+   "caratula": "Banco Itaú Chile S.A./ Rubilar"
+  },
+  {
+   "n": 50,
+   "caratula": "Fondo con Villegas"
+  },
+  {
+   "n": 51,
+   "caratula": "Banco Santander-Chile con Vera"
+  },
+  {
+   "n": 52,
+   "caratula": "Bice Vida Compañía de Seguros S.A. Con Quiroga Brant"
+  },
+  {
+   "n": 53,
+   "caratula": "Banco del Estado de Chile con Francisco Javier Ruiz Godoy"
+  },
+  {
+   "n": 54,
+   "caratula": "Scotiabank Chile con Arevalo Arevalo Daniel"
+  },
+  {
+   "n": 55,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 56,
+   "caratula": "Navarrete con Tresam Ingenieria y Servicios Mecanicos Ltda."
+  },
+  {
+   "n": 57,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 58,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 59,
+   "caratula": "Banco de Crédito e Inversiones con Velasco"
+  },
+  {
+   "n": 60,
+   "no_se_mide": "partición (se descarta)"
+  },
+  {
+   "n": 61,
+   "caratula": "Barrera con López"
+  }
+ ]
+}

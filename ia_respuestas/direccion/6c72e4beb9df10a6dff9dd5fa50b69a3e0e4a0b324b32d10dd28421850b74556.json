@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Lo Ovalle",
+     "numero": "0926",
+     "unidad": "departamento A trescientos nueve",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con acceso por Avenida Lo Ovalle cero novecientos veintiséis, Comuna de La Cisterna",
+     "frase_unidad": "el departamento número A trescientos nueve",
+     "frase_comuna": "Comuna de La Cisterna"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Lo Ovalle",
+     "numero": "0926",
+     "unidad": "departamento A trescientos nueve",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con acceso por Avenida Lo Ovalle cero novecientos veintiséis, Comuna de La Cisterna",
+     "frase_unidad": "el departamento número A trescientos nueve",
+     "frase_comuna": "Comuna de La Cisterna"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 840,
+   "salida": 167,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 840,
+   "salida": 167,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

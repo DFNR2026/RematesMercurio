@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Álvarez de Toledo",
+     "numero": "924",
+     "unidad": "departamento 1306",
+     "comuna": "San Miguel",
+     "frase_direccion": "con acceso por calle Álvarez de Toledo 924",
+     "frase_unidad": "departamento 1306 del 13° piso del Edificio Toledo Plaza",
+     "frase_comuna": "comuna San Miguel"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Álvarez de Toledo",
+     "numero": "924",
+     "unidad": "departamento 1306",
+     "comuna": "San Miguel",
+     "frase_direccion": "con acceso por calle Álvarez de Toledo 924",
+     "frase_unidad": "departamento 1306 del 13° piso del Edificio Toledo Plaza",
+     "frase_comuna": "comuna San Miguel"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 607,
+   "salida": 149,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 607,
+   "salida": 149,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

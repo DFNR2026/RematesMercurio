@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Las Acacias",
+     "numero": "02927",
+     "unidad": null,
+     "comuna": "San Bernardo",
+     "frase_direccion": "inmueble ubicado en calle Las Acacias 02927",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de San Bernardo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Las Acacias",
+     "numero": "02927",
+     "unidad": null,
+     "comuna": "San Bernardo",
+     "frase_direccion": "inmueble ubicado en calle Las Acacias 02927",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de San Bernardo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 413,
+   "salida": 122,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 413,
+   "salida": 122,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

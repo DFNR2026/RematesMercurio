@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Suárez Mujica",
+     "numero": "2967",
+     "unidad": "departamento 306",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "acceso calle Suárez Mujica N° 2967",
+     "frase_unidad": "departamento n° 306 3° piso",
+     "frase_comuna": "comuna Ñuñoa"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Suárez Mujica",
+     "numero": "2967",
+     "unidad": "departamento 306",
+     "comuna": "Ñuñoa",
+     "frase_direccion": "acceso calle Suárez Mujica N° 2967",
+     "frase_unidad": "departamento n° 306 3° piso",
+     "frase_comuna": "comuna Ñuñoa"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 471,
+   "salida": 136,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 471,
+   "salida": 136,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

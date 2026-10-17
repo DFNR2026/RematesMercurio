@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Emiliano Zapata",
+     "numero": "916",
+     "unidad": "departamento 432",
+     "comuna": "Recoleta",
+     "frase_direccion": "acceso por Emiliano Zapata 916, Comuna Recoleta",
+     "frase_unidad": "departamento 432 cuarto piso",
+     "frase_comuna": "Comuna Recoleta"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Emiliano Zapata",
+     "numero": "916",
+     "unidad": "departamento 432",
+     "comuna": "Recoleta",
+     "frase_direccion": "acceso por Emiliano Zapata 916",
+     "frase_unidad": "departamento 432 cuarto piso",
+     "frase_comuna": "Comuna Recoleta"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 665,
+   "salida": 138,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 665,
+   "salida": 128,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

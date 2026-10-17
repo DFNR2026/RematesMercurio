@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle La Viña",
+     "numero": "1544",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "inmueble ubicado en calle La Viña N° 1544, de la comuna de Puente Alto",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle La Viña",
+     "numero": "1544",
+     "unidad": null,
+     "comuna": "Puente Alto",
+     "frase_direccion": "inmueble ubicado en calle La Viña N° 1544, de la comuna de Puente Alto",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 990,
+   "salida": 133,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 990,
+   "salida": 133,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Josemaria Escrivá de Balaguer",
+     "numero": "9195",
+     "unidad": "departamento 201A",
+     "comuna": "Vitacura",
+     "frase_direccion": "ubicado en Avenida Josemaria Escrivá de Balaguer número nueve mil ciento noventa y cinco",
+     "frase_unidad": "departamento número doscientos uno A del segundo piso de edificio Sur",
+     "frase_comuna": "Comuna de Vitacura"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Josemaria Escrivá de Balaguer",
+     "numero": "9195",
+     "unidad": "departamento 201A",
+     "comuna": "Vitacura",
+     "frase_direccion": "ubicado en Avenida Josemaria Escrivá de Balaguer número nueve mil ciento noventa y cinco",
+     "frase_unidad": "departamento número doscientos uno A del segundo piso de edificio Sur",
+     "frase_comuna": "Comuna de Vitacura"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 901,
+   "salida": 180,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 901,
+   "salida": 180,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

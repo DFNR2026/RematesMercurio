@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Rio Rapel",
+     "numero": "13362",
+     "unidad": null,
+     "comuna": "El Bosque",
+     "frase_direccion": "Pasaje Rio Rapel N° 13362, sitio 5, manzana G, plano Población Ríos de Chile",
+     "frase_unidad": null,
+     "frase_comuna": "comuna El Bosque"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje Rio Rapel",
+     "numero": "13362",
+     "unidad": null,
+     "comuna": "El Bosque",
+     "frase_direccion": "Pasaje Rio Rapel N° 13362",
+     "frase_unidad": null,
+     "frase_comuna": "comuna El Bosque"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 453,
+   "salida": 142,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 453,
+   "salida": 118,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

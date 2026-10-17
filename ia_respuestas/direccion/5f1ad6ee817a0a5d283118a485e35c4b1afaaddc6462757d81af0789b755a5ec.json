@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Petronila",
+     "numero": "38",
+     "unidad": "departamento 1305",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por calle Santa Petronila n° 38",
+     "frase_unidad": "el departamento n° 1.305 del 13° piso",
+     "frase_comuna": "comuna de Estación Central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Petronila",
+     "numero": "38",
+     "unidad": "departamento 1305",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por calle Santa Petronila n° 38",
+     "frase_unidad": "el departamento n° 1.305 del 13° piso",
+     "frase_comuna": "comuna de Estación Central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1330,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1330,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,675 @@
+{
+ "edicion": "2026-08-06",
+ "paginas": [
+  "B-20260806-011",
+  "B-20260806-012",
+  "B-20260806-013"
+ ],
+ "avisos": [
+  {
+   "n": 1,
+   "rol": "2477-2020",
+   "tribunal": "1° Juzgado Civil de Puente Alto",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 2,
+   "rol": "3031-2025",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 3,
+   "rol": "11642-2017",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 4,
+   "rol": "1584-2023",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "tribunal escrito PRIMER"
+  },
+  {
+   "n": 5,
+   "rol": "2736-2025",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 6,
+   "rol": "16669-2023",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 7,
+   "rol": "20800-2023",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 8,
+   "rol": "3610-2025",
+   "tribunal": "2° Juzgado de Letras de Antofagasta",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 9,
+   "rol": "661-2025",
+   "tribunal": "2° Juzgado de Letras de Talagante",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 10,
+   "rol": null,
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "aviso SIN ROL impreso, caratulado Banco Santander-Chile con Iturra Saldias"
+  },
+  {
+   "n": 11,
+   "rol": "3844-2024",
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 12,
+   "rol": "12646-2024",
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 13,
+   "rol": "2087-2024",
+   "tribunal": "3° Juzgado de Letras de Antofagasta",
+   "pagina": "011",
+   "nota": "rol escrito 2087/2024"
+  },
+  {
+   "n": 14,
+   "rol": "7456-2025",
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 15,
+   "rol": "19895-2024",
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 16,
+   "rol": "3874-2026",
+   "tribunal": "3° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "rol al inicio del aviso"
+  },
+  {
+   "n": 17,
+   "rol": "12359-2023",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 18,
+   "rol": "14838-2024",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "rol escrito C14838-2024"
+  },
+  {
+   "n": 19,
+   "rol": "4920-2023",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "tribunal escrito CUARTO"
+  },
+  {
+   "n": 20,
+   "rol": "7393-2023",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 21,
+   "rol": "17804-2025",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 22,
+   "rol": "6816-2021",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 23,
+   "rol": "5868-2025",
+   "tribunal": "6° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 24,
+   "rol": "12693-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 25,
+   "rol": "1577-2023",
+   "tribunal": "8° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "tribunal escrito OCTAVO"
+  },
+  {
+   "n": 26,
+   "rol": "5337-2022",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 27,
+   "rol": "1301-2026",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "rol con punto de miles C-1.301-2026"
+  },
+  {
+   "n": 28,
+   "rol": "12609-2025",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 29,
+   "rol": "13780-2023",
+   "tribunal": "9° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 30,
+   "rol": "9488-2022",
+   "tribunal": "10° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 31,
+   "rol": "19896-2024",
+   "tribunal": "10° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": ""
+  },
+  {
+   "n": 32,
+   "rol": "5526-2025",
+   "tribunal": "10° Juzgado Civil de Santiago",
+   "pagina": "011",
+   "nota": "ultimo aviso de la pagina 011"
+  },
+  {
+   "n": 33,
+   "rol": "4425-2022",
+   "tribunal": "11° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "primer aviso de la pagina 012, empieza pegado al cambio de pagina"
+  },
+  {
+   "n": 34,
+   "rol": "8629-2023",
+   "tribunal": "11° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 35,
+   "rol": "3990-2025",
+   "tribunal": "13° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "rol impreso sin guion C-39902025"
+  },
+  {
+   "n": 36,
+   "rol": "12433-2025",
+   "tribunal": "13° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 37,
+   "rol": "17671-2023",
+   "tribunal": "14° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 38,
+   "rol": "19357-2024",
+   "tribunal": "14° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 39,
+   "rol": "21650-2024",
+   "tribunal": "14° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "rol escrito Rol N.° C-21650-2024"
+  },
+  {
+   "n": 40,
+   "rol": "7115-2025",
+   "tribunal": "14° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 41,
+   "rol": "14842-2019",
+   "tribunal": "15° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "tribunal escrito 15° TRIBUNAL CIVIL"
+  },
+  {
+   "n": 42,
+   "rol": "12980-2023",
+   "tribunal": "15° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "rol impreso sin guion C-129802023"
+  },
+  {
+   "n": 43,
+   "rol": "1549-2025",
+   "tribunal": "15° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 44,
+   "rol": "10827-2022",
+   "tribunal": "16° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 45,
+   "rol": "23517-2014",
+   "tribunal": "16° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 46,
+   "rol": "943-2021",
+   "tribunal": "17° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 47,
+   "rol": "11262-2023",
+   "tribunal": "18° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "aviso muy largo, 7.895 caracteres"
+  },
+  {
+   "n": 48,
+   "rol": "6074-2022",
+   "tribunal": "18° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 49,
+   "rol": "9875-2025",
+   "tribunal": "18° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 50,
+   "rol": "18488-2024",
+   "tribunal": "18° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 51,
+   "rol": "1570-2022",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 52,
+   "rol": "18936-2024",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 53,
+   "rol": "6693-2024",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "empieza pegado a la palabra Secretario del aviso anterior"
+  },
+  {
+   "n": 54,
+   "rol": "7763-2017",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 55,
+   "rol": "18463-2023",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 56,
+   "rol": "10315-2025",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 57,
+   "rol": "1094-2025",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 58,
+   "rol": "12743-2024",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 59,
+   "rol": "20807-2024",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 60,
+   "rol": "2652-2025",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 61,
+   "rol": "10903-2022",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 62,
+   "rol": "5915-2025",
+   "tribunal": "22° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": "rol sin la palabra Rol"
+  },
+  {
+   "n": 63,
+   "rol": "13868-2019",
+   "tribunal": "22° Juzgado Civil de Santiago",
+   "pagina": "012",
+   "nota": ""
+  },
+  {
+   "n": 64,
+   "rol": "14821-2023",
+   "tribunal": "23° Juzgado Civil de Santiago",
+   "pagina": "012 y 013",
+   "nota": "aviso partido entre paginas 012 y 013, su rol esta en la 013"
+  },
+  {
+   "n": 65,
+   "rol": "13827-2023",
+   "tribunal": "23° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 66,
+   "rol": "13393-2024",
+   "tribunal": "23° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 67,
+   "rol": "4949-2025",
+   "tribunal": "23° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 68,
+   "rol": "8383-2024",
+   "tribunal": "23° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 69,
+   "rol": "19620-2024",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 70,
+   "rol": "695-2026",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": "empieza pegado a Secretaria(o). del aviso anterior"
+  },
+  {
+   "n": 71,
+   "rol": "16026-2023",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 72,
+   "rol": "7035-2024",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": "rol sin la palabra Rol"
+  },
+  {
+   "n": 73,
+   "rol": "15189-2024",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 74,
+   "rol": "8942-2025",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 75,
+   "rol": "12278-2025",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": "rol impreso sin guion C-122782025"
+  },
+  {
+   "n": 76,
+   "rol": "2882-2022",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 77,
+   "rol": "365-2026",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 78,
+   "rol": "4653-2024",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 79,
+   "rol": "508-2026",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 80,
+   "rol": "17702-2025",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 81,
+   "rol": "7974-2023",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 82,
+   "rol": "8893-2025",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 83,
+   "rol": "17457-2023",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": "rol escrito C17457-2023"
+  },
+  {
+   "n": 84,
+   "rol": "8228-2025",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 85,
+   "rol": "11893-2024",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 86,
+   "rol": "12458-2024",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 87,
+   "rol": "17890-2025",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 88,
+   "rol": "3834-2025",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 89,
+   "rol": "3015-2025",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 90,
+   "rol": "11613-2024",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 91,
+   "rol": "14269-2024",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 92,
+   "rol": "21064-2024",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 93,
+   "rol": "13448-2025",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "pagina": "013",
+   "nota": ""
+  },
+  {
+   "n": 94,
+   "rol": null,
+   "tribunal": "Juez arbitro partidor Daniela Penailillo",
+   "pagina": "013",
+   "nota": "sin rol"
+  },
+  {
+   "n": 95,
+   "rol": "84-2016",
+   "tribunal": "Juzgado de Cobranza Laboral y Previsional de Santiago",
+   "pagina": "013",
+   "nota": "es un RIT, no un Rol"
+  }
+ ]
+}

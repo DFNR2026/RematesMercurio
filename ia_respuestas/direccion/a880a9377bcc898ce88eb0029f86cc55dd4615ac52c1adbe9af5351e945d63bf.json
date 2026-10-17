@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Asunción",
+     "numero": "2659",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "inmueble ubicado en calle Asunción N° 2659",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Asunción",
+     "numero": "2659",
+     "unidad": null,
+     "comuna": "Maipú",
+     "frase_direccion": "inmueble ubicado en calle Asunción N° 2659, Sitio N° 32, Manzana 1, del Conjunto Habitacional ‘El Porvenir de Maipú’, Etapa 11, comuna de Maipú",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1208,
+   "salida": 114,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1208,
+   "salida": 173,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

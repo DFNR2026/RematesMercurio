@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Pedrales",
+     "numero": "01867",
+     "unidad": "sitio N° 10 diez de la manzana C, y la casa model o B 4",
+     "comuna": "Puente Alto",
+     "frase_direccion": "Calle Pedrales N° 01867",
+     "frase_unidad": "que corresponde al sitio N° 10 diez de la manzana C, y la casa model o B 4 construida en él",
+     "frase_comuna": "ubicado en la comuna de Puente Alto"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Pedrales",
+     "numero": "01867",
+     "unidad": "casa model o B 4",
+     "comuna": "Puente Alto",
+     "frase_direccion": "Calle Pedrales N° 01867",
+     "frase_unidad": "la casa model o B 4 construida en él",
+     "frase_comuna": "ubicado en la comuna de Puente Alto"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 794,
+   "salida": 180,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 794,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

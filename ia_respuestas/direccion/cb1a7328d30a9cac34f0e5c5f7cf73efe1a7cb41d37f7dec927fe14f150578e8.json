@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje San Camilo",
+     "numero": "10906",
+     "unidad": null,
+     "comuna": "La Pintana",
+     "frase_direccion": "Pasaje San Camilo número diez mil novecientos seis",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de La Pintana"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Pasaje San Camilo",
+     "numero": "10906",
+     "unidad": null,
+     "comuna": "La Pintana",
+     "frase_direccion": "Pasaje San Camilo número diez mil novecientos seis",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de La Pintana"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1184,
+   "salida": 121,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1184,
+   "salida": 121,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

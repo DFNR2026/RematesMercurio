@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida El Bosque",
+     "numero": "1234",
+     "unidad": "departamento 902",
+     "comuna": "Providencia",
+     "frase_direccion": "edificio ubicado Avenida El Bosque N° 1234",
+     "frase_unidad": "departamento noveno piso Número 902",
+     "frase_comuna": "Comuna Providencia"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida El Bosque",
+     "numero": "1234",
+     "unidad": "departamento 902",
+     "comuna": "Providencia",
+     "frase_direccion": "edificio ubicado Avenida El Bosque N° 1234",
+     "frase_unidad": "departamento noveno piso Número 902",
+     "frase_comuna": "Comuna Providencia"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 661,
+   "salida": 133,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 661,
+   "salida": 133,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

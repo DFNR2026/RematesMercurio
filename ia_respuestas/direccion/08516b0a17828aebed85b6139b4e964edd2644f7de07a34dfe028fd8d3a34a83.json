@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Eleodoro Yáñez",
+     "numero": "2566",
+     "unidad": "departamento N° 41",
+     "comuna": "providencia",
+     "frase_direccion": "Avenida Eleodoro Yáñez N° 2566",
+     "frase_unidad": "departamento N° 41",
+     "frase_comuna": "comuna de providencia"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Eleodoro Yáñez",
+     "numero": "2566",
+     "unidad": "departamento 41",
+     "comuna": "providencia",
+     "frase_direccion": "Avenida Eleodoro Yáñez N° 2566",
+     "frase_unidad": "departamento N° 41",
+     "frase_comuna": "comuna de providencia"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1129,
+   "salida": 133,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1129,
+   "salida": 131,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

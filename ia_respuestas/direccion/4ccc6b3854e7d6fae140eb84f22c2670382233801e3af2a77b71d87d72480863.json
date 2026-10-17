@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida General San Martín",
+     "numero": "3275",
+     "unidad": "departamento 217",
+     "comuna": "Maipú",
+     "frase_direccion": "con acceso por Avenida General San Martín N° 3275, comuna de Maipú",
+     "frase_unidad": "departamento N° 217 del piso segundo",
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida General San Martín",
+     "numero": "3275",
+     "unidad": "departamento 217",
+     "comuna": "Maipú",
+     "frase_direccion": "con acceso por Avenida General San Martín N° 3275, comuna de Maipú",
+     "frase_unidad": "departamento N° 217 del piso segundo",
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1412,
+   "salida": 142,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1412,
+   "salida": 142,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

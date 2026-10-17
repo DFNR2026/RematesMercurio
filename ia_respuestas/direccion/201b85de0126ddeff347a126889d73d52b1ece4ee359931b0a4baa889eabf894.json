@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle El Portal",
+     "numero": "6450",
+     "unidad": null,
+     "comuna": "Huechuraba",
+     "frase_direccion": "calle El Portal Número seis mil cuatrocientos cincuenta",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Huechuraba"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle El Portal",
+     "numero": "6450",
+     "unidad": null,
+     "comuna": "Huechuraba",
+     "frase_direccion": "calle El Portal Número seis mil cuatrocientos cincuenta",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Huechuraba"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 649,
+   "salida": 122,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 649,
+   "salida": 122,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

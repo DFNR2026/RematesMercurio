@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "San Esteban",
+     "frase_direccion": "Parcela número sesenta y dos del predio agrícola denominado actualmente ‘Hijuela Sector D del Lote A’, antes ‘Fundo San Francisco’, ubicado en la comuna de San Esteban, Provincia de Los Andes",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de San Esteban"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "San Esteban",
+     "frase_direccion": "Parcela número sesenta y dos del predio agrícola denominado actualmente ‘Hijuela Sector D del Lote A’, antes ‘Fundo San Francisco’, ubicado en la comuna de San Esteban, Provincia de Los Andes",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de San Esteban"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 750,
+   "salida": 186,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 750,
+   "salida": 186,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

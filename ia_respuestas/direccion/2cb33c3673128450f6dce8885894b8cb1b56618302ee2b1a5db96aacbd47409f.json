@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle 20 Norte",
+     "numero": "1715",
+     "unidad": "departamento 403",
+     "comuna": "Talca",
+     "frase_direccion": "ubicado en calle 20 Norte número 1715",
+     "frase_unidad": "Departamento Número 403",
+     "frase_comuna": "de la comuna y provincia de Talca"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle 20 Norte",
+     "numero": "1715",
+     "unidad": "Departamento Número 403, Torre I, Piso 4°, Edificio 5",
+     "comuna": "Talca",
+     "frase_direccion": "ubicado en calle 20 Norte número 1715",
+     "frase_unidad": "correspondiente al Departamento Número 403, Torre I, Piso 4°, Edificio 5",
+     "frase_comuna": "de la comuna y provincia de Talca"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1054,
+   "salida": 128,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1054,
+   "salida": 175,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

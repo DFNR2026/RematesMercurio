@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida El Canal",
+     "numero": "21500",
+     "unidad": "casa 71",
+     "comuna": "Pudahuel",
+     "frase_direccion": "con frente a Avenida El Canal número veintiún mil quinientos",
+     "frase_unidad": "la vivienda o unidad número setenta y uno",
+     "frase_comuna": "Comuna de Pudahuel"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida El Canal",
+     "numero": "21500",
+     "unidad": "vivienda o unidad número setenta y uno",
+     "comuna": "Pudahuel",
+     "frase_direccion": "con frente a Avenida El Canal número veintiún mil quinientos",
+     "frase_unidad": "la vivienda o unidad número setenta y uno",
+     "frase_comuna": "Comuna de Pudahuel"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1029,
+   "salida": 142,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1029,
+   "salida": 153,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

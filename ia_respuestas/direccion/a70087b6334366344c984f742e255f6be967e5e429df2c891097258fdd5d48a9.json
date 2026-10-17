@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "pasaje lanceros del rey",
+     "numero": "5946",
+     "unidad": null,
+     "comuna": "estación central",
+     "frase_direccion": "pasaje lanceros del rey número cinco mil novecientos cuarenta y seis",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de estación central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "pasaje lanceros del rey",
+     "numero": "5946",
+     "unidad": null,
+     "comuna": "estación central",
+     "frase_direccion": "pasaje lanceros del rey número cinco mil novecientos cuarenta y seis",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de estación central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 788,
+   "salida": 126,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 788,
+   "salida": 126,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

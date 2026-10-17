@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida 13 Lo Ovalle",
+     "numero": "0320",
+     "unidad": "departamento 1104",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con acceso por Avenida 13 Lo Ovalle N° 0320",
+     "frase_unidad": "departamento N° 1104 del décimo primer piso",
+     "frase_comuna": "de la comuna de La Cisterna"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida 13 Lo Ovalle",
+     "numero": "0320",
+     "unidad": "departamento 1104",
+     "comuna": "La Cisterna",
+     "frase_direccion": "con acceso por Avenida 13 Lo Ovalle N° 0320",
+     "frase_unidad": "departamento N° 1104 del décimo primer piso",
+     "frase_comuna": "de la comuna de La Cisterna"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 892,
+   "salida": 155,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 892,
+   "salida": 155,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

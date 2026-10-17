@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "frase_direccion": "la Parcela o Lote signada con el número ciento doce, producto de la subdivisión del predio denominado Resto del Fundo Monterrey, antes La Carcoma, ubicado en la comuna de Curacaví Provincia de Melipilla",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Curacaví Provincia de Melipilla"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Curacaví",
+     "frase_direccion": "la Parcela o Lote signada con el número ciento doce, producto de la subdivisión del predio denominado Resto del Fundo Monterrey, antes La Carcoma, ubicado en la comuna de Curacaví Provincia de Melipilla",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Curacaví Provincia de Melipilla"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1057,
+   "salida": 192,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1057,
+   "salida": 192,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

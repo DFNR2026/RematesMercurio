@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle el bosque",
+     "numero": "091",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "vivienda ubicada calle el bosque N° 091",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Buin"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle el bosque",
+     "numero": "091",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "vivienda ubicada calle el bosque N° 091",
+     "frase_unidad": null,
+     "frase_comuna": "comuna Buin"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 614,
+   "salida": 108,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 614,
+   "salida": 108,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

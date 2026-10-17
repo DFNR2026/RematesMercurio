@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa Clara",
+     "numero": "301",
+     "unidad": "oficina 7801",
+     "comuna": "Huechuraba",
+     "frase_direccion": "ubicado en Avenida Santa Clara 301, Ciudad Empresarial, Huechuraba",
+     "frase_unidad": "la oficina 7801",
+     "frase_comuna": "ubicado en Avenida Santa Clara 301, Ciudad Empresarial, Huechuraba"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Santa Clara",
+     "numero": "301",
+     "unidad": "oficina 7801",
+     "comuna": "Huechuraba",
+     "frase_direccion": "ubicado en Avenida Santa Clara 301, Ciudad Empresarial, Huechuraba",
+     "frase_unidad": "la oficina 7801",
+     "frase_comuna": "ubicado en Avenida Santa Clara 301, Ciudad Empresarial, Huechuraba"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 761,
+   "salida": 172,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 761,
+   "salida": 172,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

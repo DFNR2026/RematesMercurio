@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Apóstol Santiago",
+     "numero": "32",
+     "unidad": "departamento 2017",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso principal por calle Apóstol Santiago número 32",
+     "frase_unidad": "el departamento 2017 del piso 20",
+     "frase_comuna": "Comuna de Estación Central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Apóstol Santiago",
+     "numero": "32",
+     "unidad": "departamento 2017",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso principal por calle Apóstol Santiago número 32",
+     "frase_unidad": "el departamento 2017 del piso 20",
+     "frase_comuna": "Comuna de Estación Central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 937,
+   "salida": 139,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 937,
+   "salida": 139,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

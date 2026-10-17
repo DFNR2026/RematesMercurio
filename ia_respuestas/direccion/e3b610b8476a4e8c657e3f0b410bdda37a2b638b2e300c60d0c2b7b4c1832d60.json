@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Circunvalación",
+     "numero": "193",
+     "unidad": "departamento 504",
+     "comuna": "Ovalle",
+     "frase_direccion": "con acceso por Avenida Circunvalación N° 193, comuna de Ovalle",
+     "frase_unidad": "Departamento N° 504 del quinto piso",
+     "frase_comuna": "comuna de Ovalle"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Circunvalación",
+     "numero": "193",
+     "unidad": "departamento 504",
+     "comuna": "Ovalle",
+     "frase_direccion": "con acceso por Avenida Circunvalación N° 193, comuna de Ovalle",
+     "frase_unidad": "Departamento N° 504 del quinto piso",
+     "frase_comuna": "comuna de Ovalle"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1202,
+   "salida": 146,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1202,
+   "salida": 146,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

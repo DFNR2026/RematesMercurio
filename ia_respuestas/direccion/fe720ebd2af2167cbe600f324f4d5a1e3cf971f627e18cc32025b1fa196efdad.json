@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle San Diego",
+     "numero": "2002",
+     "unidad": "departamento 702",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle San Diego número 2002",
+     "frase_unidad": "departamento 702 del piso 7, de la torre 1, del ‘Condominio Eco Arauco’",
+     "frase_comuna": "todos de la comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle San Diego",
+     "numero": "2002 y 2058",
+     "unidad": "departamento 702",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle San Diego número 2002, y estacionamiento 113 en conjunto con la bodega 68 del primer subterráneo, del ‘Condominio Eco Arauco’, con acceso por calle San Diego número 2058",
+     "frase_unidad": "departamento 702 del piso 7, de la torre 1",
+     "frase_comuna": "todos de la comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1309,
+   "salida": 151,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1309,
+   "salida": 204,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,3 @@
+Huellas SHA-256 de los textos de la edición 2026-09-01 (cuerpos B y C), copiados el 2026-10-17 desde capturas/2026-09-01 para probar la parte 3.7b (26 remates del rol C-5656-2013 que se distinguen por la inscripción). La huella de cada página se comprobó contra la que guardó el lector en navegacion.json.
+B15_B-20260901-015.txt  caracteres 77107  bytes 78892  sha256 fdc2cccba981a0edf417143333ed90c5bc83c1854034be7732133472fc78c559  igual al lector
+C08_VO4M4DJJ.txt  caracteres 73079  bytes 74706  sha256 42fafed14f725a19badca671b9efc2892c7411715bfbdb1a5b9aadbee3ea8d37  igual al lector

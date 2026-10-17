@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Pucón",
+     "frase_direccion": "inmueble rural, de una superficie aproximada de 6,10 hectáreas, ubicado en el sector candelaria, plano 1100/1990, de la comuna de Pucón",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Pucón"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Pucón",
+     "frase_direccion": "inmueble rural, de una superficie aproximada de 6,10 hectáreas, ubicado en el sector candelaria, plano 1100/1990, de la comuna de Pucón",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Pucón"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 859,
+   "salida": 153,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 859,
+   "salida": 153,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-1",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Macul",
+     "numero": "3700",
+     "unidad": "departamento 810-B",
+     "comuna": "Macul",
+     "frase_direccion": "con acceso principal por Avenida Macul número 3.700",
+     "frase_unidad": "departamento número 810-B",
+     "frase_comuna": "comuna de Macul"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Macul",
+     "numero": "3700",
+     "unidad": "departamento 810-B",
+     "comuna": "Macul",
+     "frase_direccion": "con acceso principal por Avenida Macul número 3.700",
+     "frase_unidad": "departamento número 810-B",
+     "frase_comuna": "comuna de Macul"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 881,
+   "salida": 125,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 881,
+   "salida": 125,
+   "cache_lectura": 2244,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

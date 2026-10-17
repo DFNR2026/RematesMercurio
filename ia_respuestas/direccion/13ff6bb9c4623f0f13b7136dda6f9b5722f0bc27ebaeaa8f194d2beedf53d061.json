@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Marítima",
+     "numero": "406",
+     "unidad": "Departamento N° 811",
+     "comuna": "Papudo",
+     "frase_direccion": "con acceso común por Avenida Marítima N° 406, del Condominio Punta del Rey II, comuna de Papudo",
+     "frase_unidad": "el Departamento N° 811, del piso ocho",
+     "frase_comuna": "comuna de Papudo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Marítima",
+     "numero": "406",
+     "unidad": "Departamento N° 811",
+     "comuna": "Papudo",
+     "frase_direccion": "con acceso común por Avenida Marítima N° 406, del Condominio Punta del Rey II, comuna de Papudo",
+     "frase_unidad": "el Departamento N° 811, del piso ocho",
+     "frase_comuna": "comuna de Papudo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 975,
+   "salida": 158,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 975,
+   "salida": 158,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

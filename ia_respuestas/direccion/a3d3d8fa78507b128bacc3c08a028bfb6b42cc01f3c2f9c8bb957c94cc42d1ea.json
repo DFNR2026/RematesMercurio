@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Lucía",
+     "numero": "232 y 234",
+     "unidad": "departamento 71",
+     "comuna": "Santiago",
+     "frase_direccion": "edificio ubicado en calle Santa Lucía números doscientos treinta y dos y doscientos treinta y cuatro",
+     "frase_unidad": "Departamento número setenta y uno del séptimo piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Lucía",
+     "numero": "232 y 234",
+     "unidad": "departamento 71",
+     "comuna": "Santiago",
+     "frase_direccion": "edificio ubicado en calle Santa Lucía números doscientos treinta y dos y doscientos treinta y cuatro",
+     "frase_unidad": "Departamento número setenta y uno del séptimo piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 830,
+   "salida": 162,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 830,
+   "salida": 162,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

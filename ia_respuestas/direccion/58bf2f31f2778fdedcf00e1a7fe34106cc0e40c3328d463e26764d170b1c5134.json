@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Presidente Balmaceda",
+     "numero": "2914",
+     "unidad": "departamento 2104",
+     "comuna": "Santiago",
+     "frase_direccion": "Avenida Presidente Balmaceda N° 2914, comuna de Santiago",
+     "frase_unidad": "el departamento N° 2104 del vigésimo primer piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Presidente Balmaceda",
+     "numero": "2914",
+     "unidad": "departamento 2104",
+     "comuna": "Santiago",
+     "frase_direccion": "ubicado en Avenida Presidente Balmaceda N° 2914, comuna de Santiago",
+     "frase_unidad": "el departamento N° 2104 del vigésimo primer piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1603,
+   "salida": 154,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1603,
+   "salida": 159,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

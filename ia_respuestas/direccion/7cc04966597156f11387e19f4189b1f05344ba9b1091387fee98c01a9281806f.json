@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Camino al Volcán",
+     "numero": "29016",
+     "unidad": null,
+     "comuna": "San José de Maipo",
+     "frase_direccion": "Camino al Volcán N° 29016",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de San José de Maipo"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Camino al Volcán",
+     "numero": "29016",
+     "unidad": null,
+     "comuna": "San José de Maipo",
+     "frase_direccion": "Camino al Volcán N° 29016",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de San José de Maipo"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 471,
+   "salida": 115,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 471,
+   "salida": 115,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

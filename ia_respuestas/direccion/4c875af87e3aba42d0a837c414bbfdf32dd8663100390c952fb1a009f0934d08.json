@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Piedra Roja",
+     "numero": "060",
+     "unidad": "departamento 506",
+     "comuna": "Quilicura",
+     "frase_direccion": "con acceso por calle Piedra Roja número 060",
+     "frase_unidad": "departamento 506 del piso 5",
+     "frase_comuna": "comuna de Quilicura"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Piedra Roja",
+     "numero": "060",
+     "unidad": "departamento 506",
+     "comuna": "Quilicura",
+     "frase_direccion": "con acceso por calle Piedra Roja número 060",
+     "frase_unidad": "departamento 506 del piso 5",
+     "frase_comuna": "comuna de Quilicura"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 797,
+   "salida": 129,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 797,
+   "salida": 129,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

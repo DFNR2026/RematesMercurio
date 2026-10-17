@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Isabel",
+     "numero": "489",
+     "unidad": "departamento 712",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Santa Isabel número 489",
+     "frase_unidad": "departamento Número 712 del séptimo piso",
+     "frase_comuna": "comuna de Santiago Región Metropolitana"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Santa Isabel",
+     "numero": "489",
+     "unidad": "departamento 712",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por calle Santa Isabel número 489",
+     "frase_unidad": "departamento Número 712 del séptimo piso",
+     "frase_comuna": "comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 731,
+   "salida": 139,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 731,
+   "salida": 131,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

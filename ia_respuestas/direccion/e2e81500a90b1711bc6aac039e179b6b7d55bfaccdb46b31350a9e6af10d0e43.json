@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Las Naciones",
+     "numero": "2251",
+     "unidad": "casa 18",
+     "comuna": "Maipú",
+     "frase_direccion": "con frente a Avenida Las Naciones N° 2251, comuna de Maipú",
+     "frase_unidad": "la casa N° 18, que forma parte del Condominio ‘Alfonso Calderón Squadritto’",
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Las Naciones",
+     "numero": "2251",
+     "unidad": "casa 18",
+     "comuna": "Maipú",
+     "frase_direccion": "con frente a Avenida Las Naciones N° 2251, comuna de Maipú",
+     "frase_unidad": "la casa N° 18",
+     "frase_comuna": "comuna de Maipú"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1283,
+   "salida": 164,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1283,
+   "salida": 135,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

@@ -1,0 +1,18 @@
+Banco 2026-10-06, 60 avisos
+fecha_remate aciertos  59 | vacíos   1 | EQUIVOCADOS   0
+hora_remate  aciertos  59 | vacíos   1 | EQUIVOCADOS   0
+minimo       aciertos  58 | vacíos   0 | EQUIVOCADOS   2
+garantia     aciertos  58 | vacíos   0 | EQUIVOCADOS   2
+modalidad    aciertos  55 | vacíos   2 | EQUIVOCADOS   3
+tribunal     aciertos  60 | vacíos   0 | EQUIVOCADOS   0
+VACIO      modalidad    aviso   4 esperado presencial obtenido None | None | ['El aviso no dice si el remate es por Zoom o presencial.']
+VACIO      modalidad    aviso   5 esperado presencial obtenido None | None | ['El aviso no dice si el remate es por Zoom o presencial.']
+EQUIVOCADO modalidad    aviso   6 esperado mixta obtenido zoom | videoconferencia | []
+EQUIVOCADO minimo       aviso  26 esperado [(1742.2482, 'UF', 2097500)] obtenido [(1742.2482, 'UF', None)] | Mínimo subasta 1.742,2482.Unidades de Fomento | []
+EQUIVOCADO garantia     aviso  55 esperado None obtenido (10, 'minimo', None, 'texto') | 10% del mínimo | ['El trozo trae más de una fecha de remate (2026-10-22, 2026-10-27). Puede tener dos avisos pegados.', 'El aviso trae varios montos mínimos y el código no pudo asignar cada uno a su inmueble: 1.105,254 UF, $ 36.289.519']
+EQUIVOCADO modalidad    aviso  55 esperado None obtenido zoom | en forma virtual | ['El trozo trae más de una fecha de remate (2026-10-22, 2026-10-27). Puede tener dos avisos pegados.', 'El aviso trae varios montos mínimos y el código no pudo asignar cada uno a su inmueble: 1.105,254 UF, $ 36.289.519']
+EQUIVOCADO minimo       aviso  89 esperado [(3242.3832, 'UF', 1315000)] obtenido [(3242.3832, 'UF', None)] | Mínimo para las posturas es de 3.242,3832 Unidades de Fomento | []
+VACIO      fecha_remate aviso 101 esperado 2026-10-20 obtenido None | None | ['No se encontró la fecha del remate.']
+VACIO      hora_remate  aviso 101 esperado 13:00 obtenido None | None | ['No se encontró la fecha del remate.']
+EQUIVOCADO garantia     aviso 102 esperado None obtenido (10, 'minimo', None, 'texto') | 10% del mínimo | ['El trozo trae más de una fecha de remate (2026-10-21, 2026-10-29). Puede tener dos avisos pegados.', 'El aviso trae varios montos mínimos y el código no pudo asignar cada uno a su inmueble: 78,997658 UF, 2.223,26 UF']
+EQUIVOCADO modalidad    aviso 102 esperado None obtenido zoom | video conferencia | ['El trozo trae más de una fecha de remate (2026-10-21, 2026-10-29). Puede tener dos avisos pegados.', 'El aviso trae varios montos mínimos y el código no pudo asignar cada uno a su inmueble: 78,997658 UF, 2.223,26 UF']

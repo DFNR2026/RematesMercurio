@@ -1,0 +1,146 @@
+{
+ "fecha": "2026-10-09",
+ "leida_en": "2026-10-15T00:16:20",
+ "segundos": 29,
+ "union_texto": "salto",
+ "cuerpos": {
+  "A": "2026/10/09 n=10",
+  "B": "2026/10/09 n=14",
+  "C": "2026/10/09 n=14",
+  "G": "2026/10/09 n=12"
+ },
+ "paginas_leidas": 50,
+ "paginas_con_remates": [
+  {
+   "pagina": "B11",
+   "id": "B-20261009-011",
+   "archivo": "B11_B-20261009-011.txt",
+   "cornisas": 8,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 89881,
+   "sha256": "10caa43c9c218050ba109c673b98955aa55f6d7f0b9dafdfef0ac6e80fcfe4d2"
+  },
+  {
+   "pagina": "B12",
+   "id": "B-20261009-012",
+   "archivo": "B12_B-20261009-012.txt",
+   "cornisas": 8,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 90875,
+   "sha256": "ed930648b81a37633997e4f5211674caa152dc8843cbc2861c9c708513f06728"
+  },
+  {
+   "pagina": "B13",
+   "id": "B-20261009-013",
+   "archivo": "B13_B-20261009-013.txt",
+   "cornisas": 8,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 89248,
+   "sha256": "7846fb50aaf10073bfdd8aa9136e6229bbf4e1df24b88fd701732b5499271185"
+  },
+  {
+   "pagina": "G5",
+   "id": "4B4M9IRB",
+   "archivo": "G05_4B4M9IRB.txt",
+   "cornisas": 1,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 37721,
+   "sha256": "9ba6538f31d6080ec61ec2c4cdd0b99ae99c50ee04ba98e6bf5869319ecebbc5"
+  },
+  {
+   "pagina": "G6",
+   "id": "4B4M9IRC",
+   "archivo": "G06_4B4M9IRC.txt",
+   "cornisas": 7,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 37696,
+   "sha256": "5c85cbe9617fd4a8dca575c25c44f93cab86172815a29f3c039c486cb95d35c6"
+  },
+  {
+   "pagina": "G7",
+   "id": "4B4M9IRD",
+   "archivo": "G07_4B4M9IRD.txt",
+   "cornisas": 7,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 38391,
+   "sha256": "afd9805f5a0800638dbc99e6ea6f14c7a4c01a15b5133240190c0fa3799fe544"
+  },
+  {
+   "pagina": "G8",
+   "id": "4B4M9IRE",
+   "archivo": "G08_4B4M9IRE.txt",
+   "cornisas": 7,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 36998,
+   "sha256": "06e4c222228c124f3a06c830311b2a8d7795917410424dbcbc199e7ef7ce77d8"
+  },
+  {
+   "pagina": "G9",
+   "id": "4B4M9IRF",
+   "archivo": "G09_4B4M9IRF.txt",
+   "cornisas": 7,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 37411,
+   "sha256": "ed86869799d39a473bb7699a260e9b7867c6cdfe44fcc8565b27d30d20524c8c"
+  },
+  {
+   "pagina": "G10",
+   "id": "4B4M9IRG",
+   "archivo": "G10_4B4M9IRG.txt",
+   "cornisas": 7,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 38314,
+   "sha256": "071a2a82ba3a496aa399226362ab63d8ca0a74209a2a3c8f3927e88008f268da"
+  },
+  {
+   "pagina": "G11",
+   "id": "4B4M9IRH",
+   "archivo": "G11_4B4M9IRH.txt",
+   "cornisas": 7,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 38403,
+   "sha256": "8f8e0c08d0553635fbaac6c0de29b30c36581e8784b3ab9cc8886ac646e7cf55"
+  },
+  {
+   "pagina": "G12",
+   "id": "4B4M9IRI",
+   "archivo": "G12_4B4M9IRI.txt",
+   "cornisas": 7,
+   "salidas": [],
+   "entradas": [],
+   "caracteres": 36129,
+   "sha256": "57762944cca7be416a6c4c575e23c6a622cc40d5b78e13889dc7700b9a012376"
+  }
+ ],
+ "rollos": [
+  [
+   "B11",
+   "B12",
+   "B13"
+  ],
+  [
+   "G5",
+   "G6",
+   "G7",
+   "G8",
+   "G9",
+   "G10",
+   "G11",
+   "G12"
+  ]
+ ],
+ "alarmas": [],
+ "notas": [
+  "Hay más de un bloque de remates (B11-B12-B13 | G5-G6-G7-G8-G9-G10-G11-G12). Puede ser un cuerpo reimpreso, como B y G los viernes. Se leen todos y se unen sin duplicar por rol."
+ ]
+}

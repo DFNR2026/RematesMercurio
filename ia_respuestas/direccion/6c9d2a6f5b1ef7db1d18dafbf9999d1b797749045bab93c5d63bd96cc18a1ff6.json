@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Lord Cochrane",
+     "numero": "298",
+     "unidad": "departamento 210",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso principal por calle Lord Cochrane Número doscientos noventa y ocho, Comuna de Santiago",
+     "frase_unidad": "departamento Número doscientos diez del segundo piso",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Lord Cochrane",
+     "numero": "298",
+     "unidad": "departamento 210",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso principal por calle Lord Cochrane Número doscientos noventa y ocho, Comuna de Santiago",
+     "frase_unidad": "departamento Número doscientos diez del segundo piso",
+     "frase_comuna": "Comuna de Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1342,
+   "salida": 158,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1342,
+   "salida": 158,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

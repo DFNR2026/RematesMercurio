@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "General Gana",
+     "numero": "1063",
+     "unidad": "departamento 2302-B",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por General Gana 1063, Santiago",
+     "frase_unidad": "el departamento 2302-B piso 23",
+     "frase_comuna": "con acceso por General Gana 1063, Santiago"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "General Gana",
+     "numero": "1063",
+     "unidad": "departamento 2302-B",
+     "comuna": "Santiago",
+     "frase_direccion": "con acceso por General Gana 1063, Santiago",
+     "frase_unidad": "el departamento 2302-B piso 23",
+     "frase_comuna": "con acceso por General Gana 1063, Santiago"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 482,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 482,
+   "salida": 137,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

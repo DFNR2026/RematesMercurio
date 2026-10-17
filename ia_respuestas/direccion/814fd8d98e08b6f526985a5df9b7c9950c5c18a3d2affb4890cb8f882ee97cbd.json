@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Camino Nuevo",
+     "numero": "2065",
+     "unidad": "Departamento 2206 B",
+     "comuna": "Chillán",
+     "frase_direccion": "Calle Camino Nuevo N° 2065",
+     "frase_unidad": "Departamento N° 2206 B",
+     "frase_comuna": "de la comuna de Chillán"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Camino Nuevo",
+     "numero": "2065",
+     "unidad": "Departamento 2206 B",
+     "comuna": "Chillán",
+     "frase_direccion": "Chillan, Calle Camino Nuevo N° 2065",
+     "frase_unidad": "Departamento N° 2206 B",
+     "frase_comuna": "de la comuna de Chillán"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1049,
+   "salida": 135,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1049,
+   "salida": 140,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

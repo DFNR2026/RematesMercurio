@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Costanera del Río",
+     "numero": "213",
+     "unidad": "departamento 228",
+     "comuna": "La Serena",
+     "frase_direccion": "con acceso general por Avenida Costanera del Río N° 213",
+     "frase_unidad": "del departamento número 228",
+     "frase_comuna": "comuna de La Serena"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Costanera del Río",
+     "numero": "213",
+     "unidad": "departamento 228",
+     "comuna": "La Serena",
+     "frase_direccion": "con acceso general por Avenida Costanera del Río N° 213",
+     "frase_unidad": "del departamento número 228",
+     "frase_comuna": "comuna de La Serena"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 979,
+   "salida": 129,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 979,
+   "salida": 129,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

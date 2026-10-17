@@ -1,0 +1,2827 @@
+{
+ "edicion": "2026-10-06",
+ "uso": "VALIDACIÓN de la parte 3.6. Anotado por Claude antes de escribir el código de extracción. No se usa para ajustar reglas.",
+ "reglas": {
+  "garantia_base_origen": "texto si el aviso dice de qué es el porcentaje. asumido si no lo dice (decisión de Diego, se asume el mínimo y el HUD lo muestra como ASUMIDO).",
+  "modalidad": "Si el aviso no usa la palabra presencial pero dice que se remata en el tribunal, se anota presencial y se deja la duda."
+ },
+ "avisos": [
+  {
+   "n": 1,
+   "n_hasta_2026_10_15": 1,
+   "rol": "461-2023",
+   "tribunal": "1° Juzgado de Letras de San Bernardo",
+   "fecha_remate": {
+    "valor": "2026-12-02",
+    "cita": "el 2 de diciembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "subastará en recinto del tribunal"
+   },
+   "minimo": {
+    "monto": 47680218,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $47.680.218"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "caución 10% del mínimo"
+   },
+   "dudas": [
+    "Modalidad deducida de 'en recinto del tribunal'. El aviso no dice la palabra presencial."
+   ]
+  },
+  {
+   "n": 2,
+   "n_hasta_2026_10_15": 2,
+   "rol": "2461-2022",
+   "tribunal": "1° Juzgado de Letras de San Bernardo",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "el 28 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "en recinto del tribunal"
+   },
+   "minimo": {
+    "monto": 188353456,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $188.353.456"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "caución 10% mínimo"
+   },
+   "dudas": [
+    "Modalidad deducida de 'en recinto del tribunal'."
+   ],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 2.dudas",
+     "antes": "Rol impreso sin guion después de la C (C2461-2022).",
+     "despues": null,
+     "motivo": "Duda FALSA. El diario imprime el rol bien, partido entre dos renglones (ej. 'Rol C-' y '2461-2022'). El cortador anterior borraba ese guion. Verificado en el texto crudo el 2026-10-16."
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "n_hasta_2026_10_15": 3,
+   "rol": "11266-2023",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "se rematará el día 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:15",
+    "cita": "a las 13:15 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "de forma presencial en dependencias del Tribunal"
+   },
+   "minimo": {
+    "monto": 123212083,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para iniciar posturas será la suma de $ 123.212.083"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "al menos por el 10% del precio mínimo"
+   },
+   "dudas": []
+  },
+  {
+   "n": 4,
+   "n_hasta_2026_10_15": 4,
+   "rol": "6244-2024",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-12-01",
+    "cita": "el día martes 1 de diciembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "presencial, se rematará"
+   },
+   "minimo": {
+    "monto": 1759.3831,
+    "moneda": "UF",
+    "costas_clp": 677300,
+    "cita": "Mínimo subasta serán UF 1.759 ,3831.-",
+    "cita_costas": "más la suma de $677.300, correspondiente al crédito hipotecario demandando y costas, respectivamente"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para la subasta"
+   },
+   "dudas": [
+    "Mínimo impreso con un espacio dentro del número (1.759 ,3831).",
+    "La frase de costas es enredada. 'crédito hipotecario y costas, respectivamente' reparte UF al crédito y los $677.300 a las costas."
+   ]
+  },
+  {
+   "n": 5,
+   "n_hasta_2026_10_15": 5,
+   "rol": "1596-2024",
+   "tribunal": "1° Juzgado de Letras de Buin",
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "21 octubre 2026, 12:00 horas"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "21 octubre 2026, 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "subastará en dependencias tribunal"
+   },
+   "minimo": {
+    "monto": 39351634,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 39.351.634"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "caución 10% mínimo"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio. Empieza con el tribunal.",
+    "Modalidad deducida de 'en dependencias tribunal'.",
+    "Vale vista 48 horas antes."
+   ]
+  },
+  {
+   "n": 6,
+   "n_hasta_2026_10_15": 6,
+   "rol": "6692-2024",
+   "tribunal": "1° Juzgado de Familia de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "para el día 05 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "mixta",
+    "cita": "La parte interesada en asistir vía videoconferencia deberá solicitar comparecer por esta vía"
+   },
+   "minimo": {
+    "monto": 15673429,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo de posturas será la suma de $ 15.673.429"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo de ella"
+   },
+   "dudas": [
+    "Empieza con NOTIFICACIÓN y es una audiencia de remate de un Juzgado de Familia (RIT).",
+    "Presencial en el tribunal y por Zoom solo si se pide hasta dos días antes. Anotado mixta.",
+    "Trae otra fecha escrita en palabras (quince de septiembre dos mil veintiséis), que es la fecha de la resolución.",
+    "El vale vista se acompaña el día del remate."
+   ]
+  },
+  {
+   "n": 8,
+   "n_hasta_2026_10_15": 8,
+   "rol": "9505-2024",
+   "tribunal": "1° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "Se rematará el 27 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "de manera presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 700,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "Mínimo: 700 unidades de fomento"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "al menos por el 10% del precio mínimo"
+   },
+   "dudas": [
+    "Se remata el 50% de la propiedad."
+   ]
+  },
+  {
+   "n": 9,
+   "n_hasta_2026_10_15": 9,
+   "rol": "1967-2025",
+   "tribunal": "1° Juzgado Civil de San Miguel",
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "el día 21 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "14:30",
+    "cita": "a las 14:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "El remate se realizará exclusivamente por videoconferencia por la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 4115505,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para las posturas será la suma de $ 4.115.505"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "garantía suficiente del 10% del mínimo"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio."
+   ]
+  },
+  {
+   "n": 12,
+   "n_hasta_2026_10_15": 12,
+   "rol": "13771-2025",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "rematará próximo 28 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "remate a efectuarse por videoconferencia a través de la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 22521780,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 22.521.780"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado"
+   },
+   "dudas": [
+    "Rol impreso sin guion después de la C (C13771-2025)."
+   ]
+  },
+  {
+   "n": 13,
+   "n_hasta_2026_10_15": 13,
+   "rol": "9191-2025",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "el día jueves 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará mediante la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 73404130,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta la suma de $ 73.404.130"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado"
+   },
+   "dudas": []
+  },
+  {
+   "n": 14,
+   "n_hasta_2026_10_15": 14,
+   "rol": "14927-2015",
+   "tribunal": "2° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "se rematará el día 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "Se rematará mediante video conferencia, vía plataforma zoom"
+   },
+   "minimo": {
+    "monto": 117181185,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo: $ 117.181.185"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado"
+   },
+   "dudas": [
+    "Trae la fecha de firma 'Santiago, septiembre de 2026', sin día."
+   ]
+  },
+  {
+   "n": 22,
+   "n_hasta_2026_10_15": 22,
+   "rol": "699-2026",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "remata el día 3 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas por video conferencia"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 152274573,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $ 152.274.573"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por un monto equivalente al 10% del precio mínimo"
+   },
+   "dudas": [],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 22.dudas",
+     "antes": "Rol impreso con el número y el año pegados (C-6992026). Se lee 699-2026, pero podría ser otro corte.",
+     "despues": null,
+     "motivo": "Duda FALSA. El diario imprime el rol bien, partido entre dos renglones (ej. 'Rol C-' y '2461-2022'). El cortador anterior borraba ese guion. Verificado en el texto crudo el 2026-10-16."
+    }
+   ]
+  },
+  {
+   "n": 23,
+   "n_hasta_2026_10_15": 23,
+   "rol": "15781-2025",
+   "tribunal": "4° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "remata el día 04 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas por video conferencia"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 25995534,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $25.995.534"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por un monto equivalente al 10% del precio mínimo"
+   },
+   "dudas": [
+    "Aviso partido entre B7 y B8."
+   ],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 23.dudas",
+     "antes": "Rol impreso con el número y el año pegados (C-157812025).",
+     "despues": null,
+     "motivo": "Duda FALSA. El diario imprime el rol bien, partido entre dos renglones (ej. 'Rol C-' y '2461-2022'). El cortador anterior borraba ese guion. Verificado en el texto crudo el 2026-10-16."
+    }
+   ]
+  },
+  {
+   "n": 24,
+   "n_hasta_2026_10_15": 24,
+   "rol": "18569-2023",
+   "tribunal": "5° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "el 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:10",
+    "cita": "a las 13:10 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se subastará vía plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 157365483,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 157.365.483"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "caución del 10% del mínimo"
+   },
+   "dudas": []
+  },
+  {
+   "n": 25,
+   "n_hasta_2026_10_15": 25,
+   "rol": "6145-2024",
+   "tribunal": "5° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-15",
+    "cita": "el día 15 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:20",
+    "cita": "a las 13:20 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La Subasta se llevará a efecto mediante videoconferencia por la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 57036993,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta será la suma de $ 57.036. 993"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "asumido",
+    "monto": null,
+    "moneda": null,
+    "cita": "rendir caución del 10%"
+   },
+   "dudas": [
+    "Garantía del 10% sin decir de qué. Se asume el mínimo.",
+    "Mínimo impreso con un espacio dentro del número.",
+    "Termina con 'EXTRACTO.', que es el comienzo del aviso siguiente."
+   ]
+  },
+  {
+   "n": 26,
+   "n_hasta_2026_10_15": 26,
+   "rol": "952-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-23",
+    "cita": "fijó remate 23 de Noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:15",
+    "cita": "23 de Noviembre de 2026, 13:15 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante Videoconferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 1742.2482,
+    "moneda": "UF",
+    "costas_clp": 2097500,
+    "cita": "Mínimo subasta 1.742,2482.- Unidades de Fomento",
+    "cita_costas": "más la suma de $2.097.500"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "Garantía 10% del mínimo"
+   },
+   "dudas": [
+    "El aviso no dice que los $2.097.500 sean costas, solo 'más la suma de'. Anotado como costas.",
+    "Aviso sin la palabra REMATE al inicio.",
+    "Inmueble en La Serena."
+   ],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 26.minimo.cita",
+     "antes": "Mínimo subasta 1.742,2482.Unidades de Fomento",
+     "despues": "Mínimo subasta 1.742,2482.- Unidades de Fomento",
+     "motivo": "Cita escrita sobre el texto del cortador anterior, que borraba el guion al final de un renglón aunque no fuera palabra cortada (el '.-' de los montos se pegaba a la palabra siguiente). Corregida el 2026-10-16 con el texto del cortador nuevo. Bitácora del 16."
+    }
+   ]
+  },
+  {
+   "n": 28,
+   "n_hasta_2026_10_15": 28,
+   "rol": "17579-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-19",
+    "cita": "rematará 19 octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "13:15",
+    "cita": "19 octubre 2026, 13:15 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La audiencia se llevará a cabo en sala virtual remates del tribunal id zoom"
+   },
+   "minimo": {
+    "monto": 42956736,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 42.956.736"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "no podrá ser inferior al 10% mínimo fijado para remate"
+   },
+   "dudas": []
+  },
+  {
+   "n": 29,
+   "n_hasta_2026_10_15": 29,
+   "rol": "5852-2021",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-19",
+    "cita": "el día 19 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:45",
+    "cita": "a las 12:45 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "rematará mediante videoconferencia, vía plataforma zoom"
+   },
+   "minimo": {
+    "monto": 25520120,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 25.520.120"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo"
+   },
+   "dudas": [
+    "Se rematan derechos (50%) de un departamento con estacionamiento y bodega."
+   ]
+  },
+  {
+   "n": 30,
+   "n_hasta_2026_10_15": 30,
+   "rol": "14135-2025",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "remata día 21 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:15",
+    "cita": "a las 15:15 hrs"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "por video conferencia a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 37713212,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta asciende a la suma de $ 37.713.212"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "no podrá ser inferior al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 30.dudas",
+     "antes": "Rol impreso con el número y el año pegados (C-141352025).",
+     "despues": null,
+     "motivo": "Duda FALSA. El diario imprime el rol bien, partido entre dos renglones (ej. 'Rol C-' y '2461-2022'). El cortador anterior borraba ese guion. Verificado en el texto crudo el 2026-10-16."
+    }
+   ]
+  },
+  {
+   "n": 31,
+   "n_hasta_2026_10_15": 31,
+   "rol": "22672-2024",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-23",
+    "cita": "rematará el día 23 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:00",
+    "cita": "a las 11:00 horas por videoconferencia"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "por videoconferencia mediante plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 169472201,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas: $ 169.472.201"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "no podrá ser inferior al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "Tres inmuebles (departamento, estacionamiento y bodega) con un solo mínimo. Es un solo remate.",
+    "Trae otro monto ($ 200.000, el alza mínima de las posturas) que no es el mínimo."
+   ],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 31.dudas",
+     "antes": "Rol impreso con el número y el año pegados (C-226722024).",
+     "despues": null,
+     "motivo": "Duda FALSA. El diario imprime el rol bien, partido entre dos renglones (ej. 'Rol C-' y '2461-2022'). El cortador anterior borraba ese guion. Verificado en el texto crudo el 2026-10-16."
+    }
+   ]
+  },
+  {
+   "n": 35,
+   "n_hasta_2026_10_15": 35,
+   "rol": "33187-2018",
+   "tribunal": "7° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "el día 28 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:45",
+    "cita": "a las 12:45 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "la audiencia se llevará a cabo mediante plataforma zoom"
+   },
+   "minimo": {
+    "monto": 960.90346,
+    "moneda": "UF",
+    "costas_clp": 1451043,
+    "costas_partes": [
+     951043,
+     500000
+    ],
+    "cita": "El mínimo de la subasta será la cantidad de 960,90346 Unidades de Fomento",
+    "cita_costas": "más $ 951.043 por concepto de costas procesales y $ 500.000 por concepto de costas personales"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "no podrá ser inferior al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio.",
+    "Costas en dos partes (procesales y personales)."
+   ]
+  },
+  {
+   "n": 36,
+   "n_hasta_2026_10_15": 36,
+   "rol": "4303-2025",
+   "tribunal": "8° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-26",
+    "cita": "rematará 26 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:15",
+    "cita": "a las 15:15 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "el remate se realizará de manera presencial, en las dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 32088798,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo de la subasta será la suma de $32.088.798"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "dudas": []
+  },
+  {
+   "n": 45,
+   "n_hasta_2026_10_15": 45,
+   "rol": "20712-2024",
+   "tribunal": "12° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2025-10-20",
+    "cita": "en primer llamado con fecha 20 de Octubre de 2025"
+   },
+   "hora_remate": {
+    "valor": "13:45",
+    "cita": "a las 13:45 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se ha dispuesto rematar en modalidad videoconferencia"
+   },
+   "minimo": {
+    "lista": [
+     {
+      "monto": 97961075,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "Mínimo para el Lote 1 es la suma de $ 97.961.075",
+      "inmueble": "Lote 1, casa 1 y estacionamiento 1"
+     },
+     {
+      "monto": 99245353,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "Mínimo para el Lote 2 es la suma de $ 99.245.353",
+      "inmueble": "Lote 2, casa 3 y estacionamiento 3"
+     },
+     {
+      "monto": 99245353,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "Mínimo para el Lote 3 es la suma de $ 99.245.353",
+      "inmueble": "Lote 3, casa 5 y estacionamiento 5"
+     },
+     {
+      "monto": 8623009,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "cuyo mínimo para la subasta será $ 8.623.009",
+      "inmueble": "Lote 4, estacionamiento 6"
+     }
+    ]
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "asumido",
+    "monto": null,
+    "moneda": null,
+    "cita": "constituir garantía del 10% de cada Lote"
+   },
+   "dudas": [
+    "ERROR DE ESCRITURA del aviso. Dice 20 de Octubre de 2025, un año antes de la edición. El mismo remate en la edición del 14 de Octubre dice 2026. Se anota lo que dice el aviso. El código debe alertar una fecha anterior a la edición.",
+    "Cuatro lotes, cada uno con su mínimo.",
+    "Garantía del 10% de cada lote, sin decir si es del mínimo. Anotada como asumida."
+   ]
+  },
+  {
+   "n": 47,
+   "n_hasta_2026_10_15": 47,
+   "rol": "11981-2025",
+   "tribunal": "13° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-05",
+    "cita": "día 5 de Noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "día 5 de Noviembre de 2026 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará por videoconferencia plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 268555752,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 268.555.752"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "vale vista por 10% del mínimo"
+   },
+   "dudas": [
+    "Tribunal escrito en palabras (DÉCIMO TERCER).",
+    "Vale vista solo lunes o miércoles anterior al remate."
+   ]
+  },
+  {
+   "n": 49,
+   "n_hasta_2026_10_15": 49,
+   "rol": "19087-2024",
+   "tribunal": "13° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "el día 27 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:45",
+    "cita": "a las 13:45 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "a través de videoconferencia, vía plataforma zoom"
+   },
+   "minimo": {
+    "monto": 95009007,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas la suma de $ 95.009.007"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "un 10% del precio mínimo"
+   },
+   "dudas": [
+    "Rol impreso con espacio en vez de guion (C 19087-2024).",
+    "Vale vista solo lunes o miércoles anterior al remate."
+   ]
+  },
+  {
+   "n": 51,
+   "n_hasta_2026_10_15": 51,
+   "rol": "13854-2024",
+   "tribunal": "14° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "rematará el día 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "de manera presencial en las dependencias del Tribunal"
+   },
+   "minimo": {
+    "monto": 63080105,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo Postura $ 63.080.105"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo total establecido"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio.",
+    "Rol impreso con el número y el año pegados (C-138542024).",
+    "Inmueble en Puerto Montt.",
+    "No dice cuándo se entrega el vale vista."
+   ]
+  },
+  {
+   "n": 55,
+   "n_hasta_2026_10_15": 55,
+   "parte_de_pegado": "primera parte del aviso pegado 55",
+   "rol": null,
+   "tribunal": "15° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "el 27 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se subastará en forma virtual a través plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 1105.254,
+    "moneda": "UF",
+    "costas_clp": 443700,
+    "cita": "El mínimo para la subasta será la suma de 1.105,254 Unidades de Fomento",
+    "cita_costas": "más suma de $443.700.- por costas procesales y personales"
+   },
+   "garantia": {
+    "no_anotado": true,
+    "motivo": "La subanotación de los avisos pegados (hecha antes del código) no traía este dato. No se anota ahora para no contaminar la validación. La medición no lo cuenta."
+   },
+   "dudas": [
+    "Primer aviso, Rancagua. Queda cortado en 'deberá pagarse al contado' y no trae rol.",
+    "El primer aviso (Rancagua) queda cortado y sin rol.",
+    "ERROR DE ESCRITURA en el segundo aviso. Pide entregar el vale vista el 19/06/2026, avisar hasta el 18/06/2026 y escribir hasta el 24/06/2026, cuatro meses antes del remate del 22/10/2026. Parecen fechas copiadas de un aviso viejo."
+   ]
+  },
+  {
+   "n": 56,
+   "n_hasta_2026_10_15": 55,
+   "parte_de_pegado": "segunda parte del aviso pegado 55",
+   "rol": "2991-2024",
+   "tribunal": "15° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "Rematará el 22/10/2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "Rematará el 22/10/2026 a las 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "la subasta se desarrollará mediante la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 36289519,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para iniciar las posturas: $36.289.519"
+   },
+   "garantia": {
+    "no_anotado": true,
+    "motivo": "La subanotación de los avisos pegados (hecha antes del código) no traía este dato. No se anota ahora para no contaminar la validación. La medición no lo cuenta."
+   },
+   "dudas": [
+    "Segundo aviso, Linares. Es el dueño del rol C-2991-2024 del final.",
+    "El primer aviso (Rancagua) queda cortado y sin rol.",
+    "ERROR DE ESCRITURA en el segundo aviso. Pide entregar el vale vista el 19/06/2026, avisar hasta el 18/06/2026 y escribir hasta el 24/06/2026, cuatro meses antes del remate del 22/10/2026. Parecen fechas copiadas de un aviso viejo."
+   ]
+  },
+  {
+   "n": 58,
+   "n_hasta_2026_10_15": 57,
+   "rol": "2867-2025",
+   "tribunal": "17° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-03",
+    "cita": "el día 03 de noviembre del año 2026"
+   },
+   "hora_remate": {
+    "valor": "10:30",
+    "cita": "a las 10:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "se remata en dependencias del Tribunal"
+   },
+   "minimo": {
+    "monto": 29200323,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $ 29.200.323"
+   },
+   "garantia": {
+    "porcentaje": null,
+    "base": "sin_dato",
+    "base_origen": null,
+    "monto": null,
+    "moneda": null,
+    "cita": "Los interesados deberán constituir garantía suficiente para participar en el remate mediante vale vista"
+   },
+   "dudas": [
+    "La garantía no dice porcentaje ni monto. Hay que verlo en las bases.",
+    "Modalidad deducida de 'en dependencias del Tribunal'."
+   ]
+  },
+  {
+   "n": 59,
+   "n_hasta_2026_10_15": 58,
+   "rol": "8496-2024",
+   "tribunal": "17° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-20",
+    "cita": "se rematará el día 20 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "10:30",
+    "cita": "a las 10:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "en dependencias del Tribunal"
+   },
+   "minimo": {
+    "monto": 1000,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "Mínimo para la subasta asciende a 1.000.- Unidades de Fomento"
+   },
+   "garantia": {
+    "porcentaje": null,
+    "base": "sin_dato",
+    "base_origen": null,
+    "monto": null,
+    "moneda": null,
+    "cita": "Interesados deberán constituir garantía suficiente para participar en remate mediante vale vista"
+   },
+   "dudas": [
+    "La garantía no dice porcentaje ni monto.",
+    "Modalidad deducida de 'en dependencias del Tribunal'.",
+    "El mínimo viene al final del aviso, después de la garantía."
+   ]
+  },
+  {
+   "n": 61,
+   "n_hasta_2026_10_15": 60,
+   "rol": "13505-2023",
+   "tribunal": "17° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "rematará 04 noviembre 2026"
+   },
+   "hora_remate": {
+    "valor": "10:30",
+    "cita": "04 noviembre 2026, 10:30 HRS"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "presencialmente en dependencias tribunal"
+   },
+   "minimo": {
+    "monto": 78143806,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para iniciar posturas $ 78.143.806"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "caución equivalente 10% mínimo establecido para subasta"
+   },
+   "dudas": [
+    "El rol aparece dos veces escrito distinto (C-13505-2023 y C13505-2023)."
+   ]
+  },
+  {
+   "n": 63,
+   "n_hasta_2026_10_15": 62,
+   "rol": "11227-2025",
+   "tribunal": "18° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "rematará el 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "11:00",
+    "cita": "a las 11:00 hrs"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "por videoconferencia mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 72694242,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para las posturas $72.694.242"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar postura"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio. Tribunal en palabras (DÉCIMO OCTAVO).",
+    "Vale vista con a lo menos 3 días hábiles de anticipación."
+   ]
+  },
+  {
+   "n": 65,
+   "n_hasta_2026_10_15": 64,
+   "rol": "8206-2024",
+   "tribunal": "18° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "rematará 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a las 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante video conferencia plataforma zoom"
+   },
+   "minimo": {
+    "monto": 206060414,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo será la suma de $ 206.060.414"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar postura"
+   },
+   "dudas": [
+    "Rol impreso sin ningún guion (C82062024). Se lee 8206-2024.",
+    "Inmueble en Puerto Varas."
+   ]
+  },
+  {
+   "n": 66,
+   "n_hasta_2026_10_15": 65,
+   "rol": "22391-2024",
+   "tribunal": "18° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "subastará el 27 de octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "10:30",
+    "cita": "a 10:30 hrs"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante plataforma zoom"
+   },
+   "minimo": {
+    "monto": 1686.67309,
+    "moneda": "UF",
+    "costas_clp": 318700,
+    "cita": "El mínimo para la subasta será la suma de 1686,67309 Unidades de Fomento",
+    "cita_costas": "más la suma de $318.700.- por concepto de costas procesales y personales"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por 10% del mínimo para iniciar postura"
+   },
+   "dudas": [
+    "Inmueble en Casablanca."
+   ]
+  },
+  {
+   "n": 68,
+   "n_hasta_2026_10_15": 67,
+   "rol": "25063-2016",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-11",
+    "cita": "el 11 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 hrs"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se realizará por videoconferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 49814576,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $49.814.576"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "correspondiente al 10% del mínimo de remate"
+   },
+   "dudas": [
+    "Rol escrito de dos formas, sin prefijo (25.063-2016) y sin guion después de la C (C25063-2016)."
+   ]
+  },
+  {
+   "n": 69,
+   "n_hasta_2026_10_15": 68,
+   "rol": "9943-2025",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-20",
+    "cita": "el día 20 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "a las 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "remata por video conferencia"
+   },
+   "minimo": {
+    "monto": 25214977,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $25.214.977"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "un 10% del mínimo para la subasta"
+   },
+   "dudas": [
+    "Rol impreso con el número y el año pegados (C-99432025)."
+   ]
+  },
+  {
+   "n": 70,
+   "n_hasta_2026_10_15": 69,
+   "rol": "4176-2025",
+   "tribunal": "19° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "el 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 hrs"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se subastará mediante videoconferencia, vía plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 148627225,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo subasta $ 148.627.225"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "correspondiente al 10% del mínimo de remate"
+   },
+   "dudas": []
+  },
+  {
+   "n": 72,
+   "n_hasta_2026_10_15": 71,
+   "rol": "6964-2022",
+   "tribunal": "20° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-13",
+    "cita": "rematará el día 13 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante videoconferencia, plataforma zoom"
+   },
+   "minimo": {
+    "monto": 194333939,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para la subasta será la suma de $194.333.939"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar posturas"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio. Tribunal en palabras (VIGÉSIMO).",
+    "Rol impreso sin guion después de la C (C6964-2022)."
+   ]
+  },
+  {
+   "n": 75,
+   "n_hasta_2026_10_15": 74,
+   "rol": "12153-2025",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "rematará 27/10/ 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "27/10/ 2026, 13:00 hrs."
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "presencialmente en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 44491455,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas $ 44.491.455"
+   },
+   "garantia": {
+    "porcentaje": 20,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 20% del precio mínimo"
+   },
+   "dudas": [
+    "Fecha con un espacio dentro (27/10/ 2026).",
+    "Garantía del 20%.",
+    "Vale vista solo martes y jueves anterior.",
+    "El trozo arrastra al final un aviso de OTRA sección (posesión efectiva 'EXTRACTO PARA PUBLICACIÓN', causa V-101-2025) con fechas de 2024, 2025 y 2026 que no son del remate."
+   ]
+  },
+  {
+   "n": 78,
+   "n_hasta_2026_10_15": 77,
+   "rol": "19063-2023",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "se rematará el 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "22 de octubre de 2026, 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "en forma presencial en dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 65044380,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo será la suma de $ 65.044.380"
+   },
+   "garantia": {
+    "porcentaje": 20,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 20% del precio mínimo"
+   },
+   "dudas": [
+    "Garantía del 20%.",
+    "Vale vista solo martes y jueves anterior."
+   ]
+  },
+  {
+   "n": 79,
+   "n_hasta_2026_10_15": 78,
+   "rol": "2465-2024",
+   "tribunal": "21° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "subastará día 27 octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "13:30",
+    "cita": "27 octubre 2026 13:30 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "modalidad presencial"
+   },
+   "minimo": {
+    "monto": 102887865,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 102.887.865"
+   },
+   "garantia": {
+    "porcentaje": 20,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 20% del mínimo"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio.",
+    "Garantía del 20%.",
+    "Vale vista solo martes y jueves anterior."
+   ]
+  },
+  {
+   "n": 80,
+   "n_hasta_2026_10_15": 79,
+   "rol": "10880-2022",
+   "tribunal": "22° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-26",
+    "cita": "Rematará el día 26 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "10:30",
+    "cita": "a las 10:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "a través de la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 18000000,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo Postura $ 18.000.000"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo fijado"
+   },
+   "dudas": [
+    "Empieza con EXTRACTO y no con REMATE.",
+    "Vale vista solo el jueves inmediatamente anterior."
+   ]
+  },
+  {
+   "n": 82,
+   "n_hasta_2026_10_15": 81,
+   "rol": "9447-2024",
+   "tribunal": "22° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-19",
+    "cita": "se rematará el 19 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a las 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "por vía video conferencia, a través del ID"
+   },
+   "minimo": {
+    "monto": 78040659,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para el remate será la suma de $ 78.040. 659"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "caución del 10% del mínimo fijado para la subasta"
+   },
+   "dudas": [
+    "No nombra la plataforma, solo videoconferencia con un ID. Anotado zoom.",
+    "Mínimo con espacio dentro del número.",
+    "Rol impreso con el número y el año pegados (C-94472024)."
+   ]
+  },
+  {
+   "n": 83,
+   "n_hasta_2026_10_15": 82,
+   "rol": "21664-2024",
+   "tribunal": "23° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "el día 21 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a las 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante el uso de plataforma zoom"
+   },
+   "minimo": {
+    "monto": 94887740,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para las posturas será la suma de $94.887.740"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "Empieza con ANTE y no con REMATE.",
+    "Trae otra fecha, la del vale vista (19 de octubre de 2026), que no es la del remate."
+   ]
+  },
+  {
+   "n": 85,
+   "n_hasta_2026_10_15": 84,
+   "rol": "28969-2019",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "el día 28 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "a las 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "remata de forma presencial"
+   },
+   "minimo": {
+    "monto": 269.070577,
+    "moneda": "UF",
+    "costas_clp": 206800,
+    "cita": "Mínimo para las posturas subasta asciende a 269,070577 Unidades de Fomento",
+    "cita_costas": "más la suma de $206.800.- por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "No dice cuándo se entrega el vale vista."
+   ],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 85.minimo.cita_costas",
+     "antes": "más la suma de $206.800.por concepto de costas",
+     "despues": "más la suma de $206.800.- por concepto de costas",
+     "motivo": "Cita escrita sobre el texto del cortador anterior, que borraba el guion al final de un renglón aunque no fuera palabra cortada (el '.-' de los montos se pegaba a la palabra siguiente). Corregida el 2026-10-16 con el texto del cortador nuevo. Bitácora del 16."
+    }
+   ]
+  },
+  {
+   "n": 86,
+   "n_hasta_2026_10_15": 85,
+   "rol": "13349-2025",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "se rematará de manera presencial, 28 octubre 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "28 octubre 2026, 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "se rematará de manera presencial"
+   },
+   "minimo": {
+    "monto": 41711539,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas $ 41.711.539"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio.",
+    "No dice cuándo se entrega el vale vista."
+   ]
+  },
+  {
+   "n": 87,
+   "n_hasta_2026_10_15": 86,
+   "rol": "13111-2024",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "el día miércoles 4 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "a las 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "remata de forma presencial en dependencias del Tribunal"
+   },
+   "minimo": {
+    "monto": 37309850,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $37.309.850"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "No dice cuándo se entrega el vale vista."
+   ]
+  },
+  {
+   "n": 88,
+   "n_hasta_2026_10_15": 87,
+   "rol": "11400-2019",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "el día 4 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "a las 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "remata de forma presencial en dependencias del Tribunal"
+   },
+   "minimo": {
+    "monto": 77645371,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas subasta será la suma de $77.645.371"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "No dice cuándo se entrega el vale vista."
+   ]
+  },
+  {
+   "n": 89,
+   "n_hasta_2026_10_15": 88,
+   "rol": "15745-2022",
+   "tribunal": "24° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-11-04",
+    "cita": "Se rematará el día 04 de noviembre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "a las 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "La audiencia de remate se realizará en forma presencial en las dependencias del tribunal"
+   },
+   "minimo": {
+    "monto": 2059.5452,
+    "moneda": "UF",
+    "costas_clp": 341520,
+    "cita": "Mínimo posturas 2.059,5452 UF",
+    "cita_costas": "más $ 341.520.- por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para el remate"
+   },
+   "dudas": [
+    "Tribunal en palabras (VIGÉSIMO CUARTO).",
+    "Inmueble en Rancagua.",
+    "No dice cuándo se entrega el vale vista."
+   ],
+   "correcciones_2026_10_16": [
+    {
+     "campo": "aviso 89.minimo.cita_costas",
+     "antes": "más $ 341.520.por concepto de costas",
+     "despues": "más $ 341.520.- por concepto de costas",
+     "motivo": "Cita escrita sobre el texto del cortador anterior, que borraba el guion al final de un renglón aunque no fuera palabra cortada (el '.-' de los montos se pegaba a la palabra siguiente). Corregida el 2026-10-16 con el texto del cortador nuevo. Bitácora del 16."
+    }
+   ]
+  },
+  {
+   "n": 90,
+   "n_hasta_2026_10_15": 89,
+   "rol": "6996-2023",
+   "tribunal": "26° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "El Día 27 de Octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:05",
+    "cita": "A Las 15:05 Horas"
+   },
+   "modalidad": {
+    "valor": "presencial",
+    "cita": "rematará en forma presencial en dependencias del Tribunal"
+   },
+   "minimo": {
+    "monto": 3242.3832,
+    "moneda": "UF",
+    "costas_clp": 1315000,
+    "cita": "El Mínimo para las posturas es de 3.242,3832 Unidades de Fomento",
+    "cita_costas": "más las costas procesales y personales que corresponden a la suma de $ 1.315.000"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "corresponde al 10% del mínimo fijado para la subasta"
+   },
+   "dudas": [
+    "Trae la equivalencia en pesos del mínimo ($ 129.482.400) a otra fecha (16/04/2026). Ni ese monto ni esa fecha son el mínimo ni el remate.",
+    "Rol escrito pegado (C-69962023) y bien escrito (C-6996-2023) en el mismo aviso."
+   ]
+  },
+  {
+   "n": 91,
+   "n_hasta_2026_10_15": 90,
+   "rol": "2935-2020",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-26",
+    "cita": "el día 26 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "10:00",
+    "cita": "a las 10:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante la plataforma de video comunicaciones Zoom"
+   },
+   "minimo": {
+    "monto": 664.595333,
+    "moneda": "UF",
+    "costas_clp": 522300,
+    "cita": "Mínimo para las posturas asciende a 664,595333 Unidades de Fomento",
+    "cita_costas": "más la suma de $522.300.- por concepto de costas"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "consignar garantía suficiente equivalente al 10% del mínimo"
+   },
+   "dudas": [
+    "La garantía aparece dos veces. Primero sin porcentaje y más abajo con 10% del mínimo.",
+    "Vale vista hasta el viernes de la semana anterior."
+   ]
+  },
+  {
+   "n": 92,
+   "n_hasta_2026_10_15": 91,
+   "rol": "5569-2024",
+   "tribunal": "27° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-27",
+    "cita": "27 de octubre de 2026, a las 10:00 horas"
+   },
+   "hora_remate": {
+    "valor": "10:00",
+    "cita": "a las 10:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se subastará mediante videoconferencia a través de la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 35865073,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "El mínimo para las posturas será la suma de $ 35.865.073"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo"
+   },
+   "dudas": [
+    "La fecha viene después del link de Zoom, sin verbo de remate justo antes."
+   ]
+  },
+  {
+   "n": 93,
+   "n_hasta_2026_10_15": 92,
+   "rol": "2991-2025",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "subastará 28/10/2026"
+   },
+   "hora_remate": {
+    "valor": "14:00",
+    "cita": "28/10/2026,14:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "El remate se realizará por plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 42134944,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo posturas será $ 42.134.944"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio."
+   ]
+  },
+  {
+   "n": 94,
+   "n_hasta_2026_10_15": 93,
+   "rol": "7388-2023",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-26",
+    "cita": "el día 26 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a las 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "se rematará por video-conferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 45122901,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas será la suma de $ 45.122.901"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio.",
+    "Rol impreso sin guion después de la C (C7388-2023)."
+   ]
+  },
+  {
+   "n": 95,
+   "n_hasta_2026_10_15": 94,
+   "rol": "27547-2017",
+   "tribunal": "28° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-22",
+    "cita": "se rematará el jueves 22 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:50",
+    "cita": "a las 12:50 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "por videoconferencia, mediante la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 15504196,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Minimo $ 15.504.196"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el 10% del mínimo para iniciar las posturas"
+   },
+   "dudas": [
+    "'Minimo' sin tilde.",
+    "Se remata la nuda propiedad.",
+    "Trae la fecha de firma 'Santiago, septiembre de 2026'."
+   ]
+  },
+  {
+   "n": 97,
+   "n_hasta_2026_10_15": 96,
+   "rol": "8597-2022",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "el día 21 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:30",
+    "cita": "a las 15:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "La subasta se desarrollará mediante videoconferencia en plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 421173634,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo postura asciende a $ 421.173.634"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del mínimo fijado para las posturas"
+   },
+   "dudas": [
+    "Trae otra hora (10:30) para el caso de suspensión. No es la hora del remate.",
+    "Incluye derechos de agua además del inmueble. Santa Bárbara.",
+    "Aviso partido entre B9 y B10."
+   ]
+  },
+  {
+   "n": 98,
+   "n_hasta_2026_10_15": 97,
+   "rol": "4765-2026",
+   "tribunal": "29° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-20",
+    "cita": "el día 20 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "a las 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "Se rematará a través de la plataforma zoom"
+   },
+   "minimo": {
+    "monto": 96080057,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "mínimo para las posturas asciende a la suma de $96.080.057"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "tasacion",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "equivalente al 10% del valor de tasación aprobado"
+   },
+   "dudas": [
+    "Garantía sobre la TASACIÓN, no sobre el mínimo.",
+    "Aviso sin la palabra REMATE al inicio.",
+    "Trae otra hora (10:30) para el caso de suspensión."
+   ]
+  },
+  {
+   "n": 102,
+   "n_hasta_2026_10_15": 101,
+   "rol": "14985-2025",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-20",
+    "cita": "el 20 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "13:00",
+    "cita": "a las 13:00 hrs."
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "por intermedio de la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 46290061,
+    "moneda": "CLP",
+    "costas_clp": null,
+    "cita": "Mínimo para las posturas será $ 46.290.061"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "por el monto que corresponda al 10% del mínimo"
+   },
+   "dudas": [
+    "Aviso sin la palabra REMATE al inicio. Tribunal en palabras (TRIGÉSIMO)."
+   ]
+  },
+  {
+   "n": 103,
+   "n_hasta_2026_10_15": 102,
+   "parte_de_pegado": "primera parte del aviso pegado 102",
+   "rol": "9481-2023",
+   "tribunal": "30° Juzgado Civil de Santiago",
+   "fecha_remate": {
+    "valor": "2026-10-29",
+    "cita": "remata el día 29 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "a las 12:30 horas por video conferencia"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante la función de la plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 78.997658,
+    "moneda": "UF",
+    "costas_clp": 453800,
+    "cita": "Mínimo para las posturas subasta asciende a la cantidad de 78,997658 Unidades de Fomento",
+    "cita_costas": "más la suma de $453.800.- por concepto de costas"
+   },
+   "garantia": {
+    "no_anotado": true,
+    "motivo": "La subanotación de los avisos pegados (hecha antes del código) no traía este dato. No se anota ahora para no contaminar la validación. La medición no lo cuenta."
+   },
+   "dudas": [
+    "Primer aviso, 30° Civil, Puente Alto. Es el dueño del rol C-9481-2023.",
+    "El segundo es un remate de partición ante juez árbitro. Ver si cae en el descarte de partidores.",
+    "Mínimo del primero muy bajo (78,997658 UF). Puede ser real o errata."
+   ]
+  },
+  {
+   "n": 104,
+   "n_hasta_2026_10_15": 102,
+   "parte_de_pegado": "segunda parte del aviso pegado 102",
+   "rol": null,
+   "tribunal": null,
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "se ordenó remate para el día 21 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "12:00",
+    "cita": "a las 12:00 horas, mediante plataforma virtual Zoom"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante plataforma virtual Zoom"
+   },
+   "minimo": {
+    "monto": 2223.26,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "a 2.223,26 UF"
+   },
+   "garantia": {
+    "no_anotado": true,
+    "motivo": "La subanotación de los avisos pegados (hecha antes del código) no traía este dato. No se anota ahora para no contaminar la validación. La medición no lo cuenta."
+   },
+   "dudas": [
+    "Segundo aviso, juez árbitro Juan Pablo Gracia Domic, partición 'Oliva con González', Conchalí. Sin rol de juzgado (dice Rol P-12025).",
+    "El segundo es un remate de partición ante juez árbitro. Ver si cae en el descarte de partidores.",
+    "Mínimo del primero muy bajo (78,997658 UF). Puede ser real o errata."
+   ]
+  },
+  {
+   "n": 105,
+   "n_hasta_2026_10_15": 103,
+   "rol": null,
+   "tribunal": "Jueza árbitro Gabriela Luz Farías Ayala",
+   "fecha_remate": {
+    "valor": "2026-10-21",
+    "cita": "21 octubre 2026, 12:30 horas"
+   },
+   "hora_remate": {
+    "valor": "12:30",
+    "cita": "21 octubre 2026, 12:30 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "vía plataforma Zoom"
+   },
+   "minimo": {
+    "monto": 11334,
+    "moneda": "UF",
+    "costas_clp": null,
+    "cita": "Mínimo subasta 11.334 UF"
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "caución equivalente a 10% del mínimo establecido"
+   },
+   "dudas": [
+    "Remate de partición ante jueza árbitro, sin rol. El aviso la llama también 'jueza partidora'. Debería caer en el descarte de partidores.",
+    "Caución por transferencia, depósito o vale vista."
+   ]
+  },
+  {
+   "n": 107,
+   "n_hasta_2026_10_15": 105,
+   "rol": null,
+   "tribunal": "Jueza árbitro Paulina Aguilar Escudero",
+   "fecha_remate": {
+    "valor": "2026-10-28",
+    "cita": "se rematarán el día 28 de octubre de 2026"
+   },
+   "hora_remate": {
+    "valor": "15:00",
+    "cita": "a las 15:00 horas"
+   },
+   "modalidad": {
+    "valor": "zoom",
+    "cita": "mediante videoconferencia y en forma separada"
+   },
+   "minimo": {
+    "lista": [
+     {
+      "monto": 147500000,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "mínimo de las posturas: $ 147.500.000",
+      "inmueble": "Angamos 1104, San Bernardo"
+     },
+     {
+      "monto": 64770000,
+      "moneda": "CLP",
+      "costas_clp": null,
+      "cita": "mínimo de las posturas: $ 64.770.000",
+      "inmueble": "Lote 2, Villa Alegre, Placilla"
+     }
+    ]
+   },
+   "garantia": {
+    "porcentaje": 10,
+    "base": "minimo",
+    "base_origen": "texto",
+    "monto": null,
+    "moneda": null,
+    "cita": "Interesados consignar 10% del mínimo respectivo"
+   },
+   "dudas": [
+    "Remate de partición ante jueza árbitro, sin rol. Debería caer en el descarte de partidores.",
+    "Dos inmuebles rematados por separado, cada uno con su mínimo.",
+    "No nombra la plataforma, solo videoconferencia. Anotado zoom.",
+    "Trae la fecha de firma (10 de septiembre de 2026)."
+   ]
+  }
+ ],
+ "renumeracion_2026_10_15": {
+  "motivo": "Arreglo del cortador (parte 3.6b). Tres señales nuevas de comienzo de aviso separan los pegados 55 (15° Civil Rancagua | 15° Civil Linares), 102 (30° Civil | juez árbitro Gracia Domic) y 106 (Cobranza | juez árbitro Gómez). La edición pasa de 107 a 110 avisos.",
+  "metodo": "Mapeo hecho por código por la posición de cada aviso en el rollo (el texto del rollo no cambia, solo los cortes). Cada aviso viejo se asigna a los avisos nuevos que empiezan dentro de su tramo.",
+  "mapa_viejo_a_nuevo": {
+   "1": [
+    1
+   ],
+   "2": [
+    2
+   ],
+   "3": [
+    3
+   ],
+   "4": [
+    4
+   ],
+   "5": [
+    5
+   ],
+   "6": [
+    6
+   ],
+   "7": [
+    7
+   ],
+   "8": [
+    8
+   ],
+   "9": [
+    9
+   ],
+   "10": [
+    10
+   ],
+   "11": [
+    11
+   ],
+   "12": [
+    12
+   ],
+   "13": [
+    13
+   ],
+   "14": [
+    14
+   ],
+   "15": [
+    15
+   ],
+   "16": [
+    16
+   ],
+   "17": [
+    17
+   ],
+   "18": [
+    18
+   ],
+   "19": [
+    19
+   ],
+   "20": [
+    20
+   ],
+   "21": [
+    21
+   ],
+   "22": [
+    22
+   ],
+   "23": [
+    23
+   ],
+   "24": [
+    24
+   ],
+   "25": [
+    25
+   ],
+   "26": [
+    26
+   ],
+   "27": [
+    27
+   ],
+   "28": [
+    28
+   ],
+   "29": [
+    29
+   ],
+   "30": [
+    30
+   ],
+   "31": [
+    31
+   ],
+   "32": [
+    32
+   ],
+   "33": [
+    33
+   ],
+   "34": [
+    34
+   ],
+   "35": [
+    35
+   ],
+   "36": [
+    36
+   ],
+   "37": [
+    37
+   ],
+   "38": [
+    38
+   ],
+   "39": [
+    39
+   ],
+   "40": [
+    40
+   ],
+   "41": [
+    41
+   ],
+   "42": [
+    42
+   ],
+   "43": [
+    43
+   ],
+   "44": [
+    44
+   ],
+   "45": [
+    45
+   ],
+   "46": [
+    46
+   ],
+   "47": [
+    47
+   ],
+   "48": [
+    48
+   ],
+   "49": [
+    49
+   ],
+   "50": [
+    50
+   ],
+   "51": [
+    51
+   ],
+   "52": [
+    52
+   ],
+   "53": [
+    53
+   ],
+   "54": [
+    54
+   ],
+   "55": [
+    55,
+    56
+   ],
+   "56": [
+    57
+   ],
+   "57": [
+    58
+   ],
+   "58": [
+    59
+   ],
+   "59": [
+    60
+   ],
+   "60": [
+    61
+   ],
+   "61": [
+    62
+   ],
+   "62": [
+    63
+   ],
+   "63": [
+    64
+   ],
+   "64": [
+    65
+   ],
+   "65": [
+    66
+   ],
+   "66": [
+    67
+   ],
+   "67": [
+    68
+   ],
+   "68": [
+    69
+   ],
+   "69": [
+    70
+   ],
+   "70": [
+    71
+   ],
+   "71": [
+    72
+   ],
+   "72": [
+    73
+   ],
+   "73": [
+    74
+   ],
+   "74": [
+    75
+   ],
+   "75": [
+    76
+   ],
+   "76": [
+    77
+   ],
+   "77": [
+    78
+   ],
+   "78": [
+    79
+   ],
+   "79": [
+    80
+   ],
+   "80": [
+    81
+   ],
+   "81": [
+    82
+   ],
+   "82": [
+    83
+   ],
+   "83": [
+    84
+   ],
+   "84": [
+    85
+   ],
+   "85": [
+    86
+   ],
+   "86": [
+    87
+   ],
+   "87": [
+    88
+   ],
+   "88": [
+    89
+   ],
+   "89": [
+    90
+   ],
+   "90": [
+    91
+   ],
+   "91": [
+    92
+   ],
+   "92": [
+    93
+   ],
+   "93": [
+    94
+   ],
+   "94": [
+    95
+   ],
+   "95": [
+    96
+   ],
+   "96": [
+    97
+   ],
+   "97": [
+    98
+   ],
+   "98": [
+    99
+   ],
+   "99": [
+    100
+   ],
+   "100": [
+    101
+   ],
+   "101": [
+    102
+   ],
+   "102": [
+    103,
+    104
+   ],
+   "103": [
+    105
+   ],
+   "104": [
+    106
+   ],
+   "105": [
+    107
+   ],
+   "106": [
+    108,
+    109
+   ],
+   "107": [
+    110
+   ]
+  },
+  "campo_n_hasta_2026_10_15": "Número del aviso con el cortador anterior (commit 457051a).",
+  "nota_validacion": "La cifra honesta de validación de la parte 3.6 sigue siendo la del punto 43 de la bitácora del 15 (7 de 360). Las partes nuevas solo usan lo anotado antes del código. La garantía de las 4 partes queda no_anotado.",
+  "registro_pegados_previo": [
+   {
+    "n": 55,
+    "rol": "2991-2024",
+    "tribunal": "15° Juzgado Civil de Santiago",
+    "pegado": true,
+    "fecha_remate": {
+     "valor": null,
+     "cita": null
+    },
+    "hora_remate": {
+     "valor": null,
+     "cita": null
+    },
+    "modalidad": {
+     "valor": null,
+     "cita": null
+    },
+    "minimo": {
+     "monto": null,
+     "moneda": null,
+     "costas_clp": null,
+     "cita": null
+    },
+    "garantia": {
+     "porcentaje": null,
+     "base": null,
+     "base_origen": null,
+     "monto": null,
+     "moneda": null,
+     "cita": null
+    },
+    "avisos_pegados": [
+     {
+      "que": "Primer aviso, Rancagua. Queda cortado en 'deberá pagarse al contado' y no trae rol.",
+      "fecha_remate": {
+       "valor": "2026-10-27",
+       "cita": "el 27 de octubre de 2026"
+      },
+      "hora_remate": {
+       "valor": "12:30",
+       "cita": "a 12:30 horas"
+      },
+      "modalidad": {
+       "valor": "zoom",
+       "cita": "se subastará en forma virtual a través plataforma Zoom"
+      },
+      "minimo": {
+       "monto": 1105.254,
+       "moneda": "UF",
+       "costas_clp": 443700,
+       "cita": "El mínimo para la subasta será la suma de 1.105,254 Unidades de Fomento",
+       "cita_costas": "más suma de $443.700.- por costas procesales y personales"
+      }
+     },
+     {
+      "que": "Segundo aviso, Linares. Es el dueño del rol C-2991-2024 del final.",
+      "fecha_remate": {
+       "valor": "2026-10-22",
+       "cita": "Rematará el 22/10/2026"
+      },
+      "hora_remate": {
+       "valor": "12:30",
+       "cita": "Rematará el 22/10/2026 a las 12:30 horas"
+      },
+      "modalidad": {
+       "valor": "zoom",
+       "cita": "la subasta se desarrollará mediante la plataforma zoom"
+      },
+      "minimo": {
+       "monto": 36289519,
+       "moneda": "CLP",
+       "costas_clp": null,
+       "cita": "El mínimo para iniciar las posturas: $36.289.519"
+      }
+     }
+    ],
+    "dudas": [
+     "DOS AVISOS PEGADOS que el cortador no separó. El segundo empieza en '15° JUZGADO CIVIL SANTIAGO. Huérfanos' justo después de 'pagarse al contado', sin punto antes. Solo hay un rol, al final, y es del segundo.",
+     "El primer aviso (Rancagua) queda cortado y sin rol.",
+     "ERROR DE ESCRITURA en el segundo aviso. Pide entregar el vale vista el 19/06/2026, avisar hasta el 18/06/2026 y escribir hasta el 24/06/2026, cuatro meses antes del remate del 22/10/2026. Parecen fechas copiadas de un aviso viejo.",
+     "Se espera que el código NO entregue una fecha para este trozo y lo marque porque trae dos fechas de remate distintas."
+    ]
+   },
+   {
+    "n": 102,
+    "rol": "9481-2023",
+    "tribunal": "30° Juzgado Civil de Santiago",
+    "pegado": true,
+    "fecha_remate": {
+     "valor": null,
+     "cita": null
+    },
+    "hora_remate": {
+     "valor": null,
+     "cita": null
+    },
+    "modalidad": {
+     "valor": null,
+     "cita": null
+    },
+    "minimo": {
+     "monto": null,
+     "moneda": null,
+     "costas_clp": null,
+     "cita": null
+    },
+    "garantia": {
+     "porcentaje": null,
+     "base": null,
+     "base_origen": null,
+     "monto": null,
+     "moneda": null,
+     "cita": null
+    },
+    "avisos_pegados": [
+     {
+      "que": "Primer aviso, 30° Civil, Puente Alto. Es el dueño del rol C-9481-2023.",
+      "fecha_remate": {
+       "valor": "2026-10-29",
+       "cita": "remata el día 29 de octubre de 2026"
+      },
+      "hora_remate": {
+       "valor": "12:30",
+       "cita": "a las 12:30 horas por video conferencia"
+      },
+      "modalidad": {
+       "valor": "zoom",
+       "cita": "mediante la función de la plataforma Zoom"
+      },
+      "minimo": {
+       "monto": 78.997658,
+       "moneda": "UF",
+       "costas_clp": 453800,
+       "cita": "Mínimo para las posturas subasta asciende a la cantidad de 78,997658 Unidades de Fomento",
+       "cita_costas": "más la suma de $453.800.- por concepto de costas"
+      }
+     },
+     {
+      "que": "Segundo aviso, juez árbitro Juan Pablo Gracia Domic, partición 'Oliva con González', Conchalí. Sin rol de juzgado (dice Rol P-12025).",
+      "fecha_remate": {
+       "valor": "2026-10-21",
+       "cita": "se ordenó remate para el día 21 de octubre de 2026"
+      },
+      "hora_remate": {
+       "valor": "12:00",
+       "cita": "a las 12:00 horas, mediante plataforma virtual Zoom"
+      },
+      "modalidad": {
+       "valor": "zoom",
+       "cita": "mediante plataforma virtual Zoom"
+      },
+      "minimo": {
+       "monto": 2223.26,
+       "moneda": "UF",
+       "costas_clp": null,
+       "cita": "a 2.223,26 UF"
+      }
+     }
+    ],
+    "dudas": [
+     "DOS AVISOS PEGADOS que el cortador no separó. El segundo empieza en 'EXTRACTO. ANTE EL SEÑOR JUEZ Árbitro' y la regla solo reconoce 'ANTE JUEZ' seguido.",
+     "El segundo es un remate de partición ante juez árbitro. Ver si cae en el descarte de partidores.",
+     "Mínimo del primero muy bajo (78,997658 UF). Puede ser real o errata.",
+     "Se espera que el código lo marque por traer dos fechas de remate."
+    ]
+   }
+  ]
+ }
+}

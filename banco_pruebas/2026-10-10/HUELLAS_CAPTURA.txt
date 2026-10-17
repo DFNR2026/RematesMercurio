@@ -1,0 +1,9 @@
+Huellas SHA-256 de las páginas de la edición 2026-10-10 copiadas el 2026-10-17 desde capturas/2026-10-10 (con navegacion.json) para la parte 4 (republicaciones entre las 7 ediciones). Comprobadas contra la huella que guardó el lector.
+D05_3B4M9IP5.txt  sha256 199b38895f3c9307db4b9acafa425f57d3d5141285d5c2ec34b829a3ae9c400d  igual al lector
+D06_3B4M9IP6.txt  sha256 ca6f98424ac91bef4300853f087aff52c7912330c010e2e639c16c88c099302d  igual al lector
+D07_3B4M9IP7.txt  sha256 567e3b9c23241a93eaf245592f52642c5346c657aaa143c5b8946a5ad5d508a0  igual al lector
+D08_3B4M9IP8.txt  sha256 f771f4ca6a76aa56049609ff461aa65b11137fb3daa1bf9fce10b51da7280c34  igual al lector
+D09_3B4M9IP9.txt  sha256 1e47b554c8e1c3b2db302efa50462a44e346fbdf6ecb4e7069c62119becddaac  igual al lector
+D10_3B4M9IPA.txt  sha256 f9ba39b9b938551afb93acfeaf04803580f173f794e198742e88319d209df587  igual al lector
+D11_3B4M9IPB.txt  sha256 d296974b324f61fe59e48ec5238eae11906c816045cd43100a5936ede55f3c1a  igual al lector
+D12_3B4M9IPC.txt  sha256 c90c94586d567606859d092d14b0edb85d79f92661b695ed446e557ec7d7fa0d  igual al lector

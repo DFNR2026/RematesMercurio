@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Rodolfo Jaramillo",
+     "numero": "2519",
+     "unidad": null,
+     "comuna": "Padre Hurtado",
+     "frase_direccion": "Calle Rodolfo Jaramillo Número dos mil quinientos diecinueve",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Padre Hurtado"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Calle Rodolfo Jaramillo",
+     "numero": "2519",
+     "unidad": null,
+     "comuna": "Padre Hurtado",
+     "frase_direccion": "Calle Rodolfo Jaramillo Número dos mil quinientos diecinueve",
+     "frase_unidad": null,
+     "frase_comuna": "ubicado en la comuna de Padre Hurtado"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 862,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 862,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

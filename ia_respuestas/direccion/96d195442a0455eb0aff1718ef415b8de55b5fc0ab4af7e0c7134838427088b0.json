@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Máfil",
+     "frase_direccion": "inmueble rural en Runca, comuna de Máfil, Provincia de Valdivia, Décima Región, que tiene una superficie aproximada de tres hectáreas siete áreas, según plano X guion uno guion seiscientos setenta y cinco, Hijuela número cuatro",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Máfil"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Máfil",
+     "frase_direccion": "inmueble rural en Runca, comuna de Máfil, Provincia de Valdivia, Décima Región, que tiene una superficie aproximada de tres hectáreas siete áreas, según plano X guion uno guion seiscientos setenta y cinco, Hijuela número cuatro",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Máfil"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1198,
+   "salida": 187,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1198,
+   "salida": 187,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

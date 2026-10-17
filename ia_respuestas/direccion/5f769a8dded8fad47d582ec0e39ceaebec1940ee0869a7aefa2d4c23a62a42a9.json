@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Ecuador",
+     "numero": "4570",
+     "unidad": "departamento 1613",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por Avenida Ecuador N° 4570, comuna de Estación Central",
+     "frase_unidad": "1) Departamento 1613 del piso 16",
+     "frase_comuna": "comuna de Estación Central"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida Ecuador",
+     "numero": "4570",
+     "unidad": "departamento 1613",
+     "comuna": "Estación Central",
+     "frase_direccion": "con acceso por Avenida Ecuador N° 4570, comuna de Estación Central",
+     "frase_unidad": "1) Departamento 1613 del piso 16",
+     "frase_comuna": "comuna de Estación Central"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 3330,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 3330,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

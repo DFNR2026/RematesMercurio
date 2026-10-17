@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida La Florida",
+     "numero": "9423",
+     "unidad": "Departamento 910-B",
+     "comuna": "La Florida",
+     "frase_direccion": "con acceso por Avenida La Florida 9423, comuna de La Florida",
+     "frase_unidad": "Departamento 910-B del piso 9 de la Torre B",
+     "frase_comuna": "comuna de La Florida"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "Avenida La Florida",
+     "numero": "9423",
+     "unidad": "departamento 910-B",
+     "comuna": "La Florida",
+     "frase_direccion": "con acceso por Avenida La Florida 9423, comuna de La Florida",
+     "frase_unidad": "Departamento 910-B del piso 9 de la Torre B",
+     "frase_comuna": "comuna de La Florida"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1113,
+   "salida": 147,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1113,
+   "salida": 146,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}
