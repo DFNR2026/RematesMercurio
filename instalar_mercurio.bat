@@ -99,7 +99,7 @@ echo.
 
 REM ── Verificacion final: TODO carga desde el venv ──
 echo Verificando que el pipeline completo carga desde el .venv...
-.venv\Scripts\python.exe -c "import main; import fitz; import requests; import openai; import anthropic; print('   VERIFICACION OK: el pipeline y todas las librerias cargan.')"
+.venv\Scripts\python.exe -c "import main; import anthropic; import rapidfuzz; print('   VERIFICACION OK: el pipeline y todas las librerias cargan.')"
 if errorlevel 1 (
     echo   [ADVERTENCIA] La verificacion fallo. Algo no quedo bien.
     echo   Copia el mensaje de error de arriba para diagnosticarlo.
@@ -113,7 +113,7 @@ echo ============================================================
 echo.
 echo   Falta antes de la primera corrida:
 echo     1. Copiar causas_ojv.xlsx (historial) a esta carpeta.
-echo     2. En config.py pegar: ANTHROPIC_API_KEY, DEEPSEEK_API_KEY,
+echo     2. En config.py pegar: ANTHROPIC_API_KEY,
 echo        MERCURIO_USER, MERCURIO_PASS.
 echo.
 echo   Luego ejecuta:  ejecutar_mercurio.bat

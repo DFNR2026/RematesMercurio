@@ -15,16 +15,7 @@ CAUSAS_XLSX   = os.path.join(BASE_DIR, "causas_ojv.xlsx")
 
 # === CLAVES API ===
 ANTHROPIC_API_KEY = "sk-ant-XXXXXXXXXX"  # <-- PEGAR TU API KEY DE ANTHROPIC AQUÍ
-DEEPSEEK_API_KEY = ""                    # <-- PEGAR TU API KEY DE DEEPSEEK AQUÍ
-
-# === MOTOR DE EXTRACCIÓN ===
-MODELO_EXTRACCION = "sonnet"   # valores: "sonnet" | "deepseek"
-
-# === TARIFAS DEEPSEEK (USD por 1M tokens) ===
-# Verificar periódicamente en https://api-docs.deepseek.com/quick_start/pricing
-# — los precios cambian; estos son referenciales a 2026-05.
-DEEPSEEK_PRECIO_INPUT_USD_POR_1M  = 0.14
-DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M = 0.28
+# La IA es Claude Haiku (motor/ia_comun.py). DeepSeek se retiró del programa el 17 de Octubre de 2026.
 
 # === EXCEL SHEETS ===
 SHEET_REFERENCIA = "REFERENCIA"

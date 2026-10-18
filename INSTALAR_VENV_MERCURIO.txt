@@ -65,7 +65,6 @@ PASO 4 - Falta antes de la primera corrida
    ya procesadas) a la carpeta E:\Mercurio.
 2. Abrir  config.py  y pegar las credenciales reales:
       ANTHROPIC_API_KEY
-      DEEPSEEK_API_KEY
       MERCURIO_USER
       MERCURIO_PASS
 
