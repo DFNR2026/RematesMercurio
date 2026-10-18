@@ -93,6 +93,7 @@ ORDINAL = rf"(?:\d{{1,2}}\s*(?:°|º|er|ER|o)?|(?:{_ORD_PAL})(?:\s+(?:{_ORD_PAL}
 INICIO = re.compile(
     r"(?:EXTRACTO\s+|AVISO\s+)?REMATE\b"                                   # REMATE en mayúsculas, aunque venga pegado (SecretarioREMATE)
     r"|EXTRACTO\.?\s+JUZGADO\b"                                             # EXTRACTO. JUZGADO COBRANZA (visto el 06-08, pegado a un correo)
+    r"|EXTRACTO\s+\d{1,2}\s*[°º]\s*(?:JUZGADO|TRIBUNAL)\b"                  # Mercurio, 17 de Octubre. "Ltda.’. EXTRACTO 3°JUZGADO CIVIL DE Viña del Mar" iba pegado al rol 1442-2024 (16-10 y 17-10)
     r"|(?<=[a-záéíóúñ] )\d{1,2}\s*[°º]\s+JUZGADO\s+CIVIL\b(?=.{0,120}?\b(?:[Rr]ematar[áa]|[Rr]emata|[Ss]ubastar[áa])\b)"
                                                                             # "pagarse al contado 15° JUZGADO CIVIL SANTIAGO. ... Rematará" sin punto antes (visto el 2026-10-06)
     r"|(?:(?<=\. )|(?<=\.’ )|(?<=\.” )|(?<=\.\) )|^)(?:"                    # o un encabezado de tribunal al comenzar una oración

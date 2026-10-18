@@ -337,7 +337,12 @@ _TIPO = (r"(civil|(?:de\s+)?letras\s+(?:en\s+lo\s+)?civil|(?:de\s+letras\s+)?(?:
          r"|de\s+letras(?:\s+del\s+trabajo)?|letras|de\s+familia|familia|de\s+polic[ií]a\s+local|polic[ií]a\s+local)")
 # Palabras que no son ciudad ("7° JUZGADO CIVIL, EN calle Huérfanos 1409")
 _NO_CIUDAD = {"en", "ubicado", "ubicada", "con", "causa", "autos", "rol", "huerfanos", "huérfanos", "calle", "avenida", "juicio", "expediente", "domiciliado"}
-_TRIBUNAL = re.compile(rf"(?:{_ORDINAL}\s*)?juz(?:gado)?\.?\s+{_TIPO}\s*,?\s*(?:de\s+|del\s+)?([A-ZÁÉÍÓÚÑa-záéíóúñ]+(?:\s+(?!(?i:huerfanos|huérfanos|ubicado))(?-i:[A-ZÁÉÍÓÚÑ][a-záéíóúñA-ZÁÉÍÓÚÑ]+))?)", re.I)
+# Mercurio (17 de Octubre de 2026). También "15° TRIBUNAL CIVIL DE Santiago" (6 de Agosto, rol 14842-2019), que es el mismo
+# juzgado civil. Se escribe igual que los demás ("15° Juzgado Civil de Santiago"). Agendar no tiene este arreglo.
+# Mercurio (17 de Octubre). La segunda palabra de la ciudad no puede ser Causa, Caratulado, Rol, Juicio, Autos ni Expediente
+# ("6° JUZGADO CIVIL DE Santiago Causa" del 16-10 y "1° Juz. de Letras de Quillota Caratulado" del 06-10).
+# Mercurio (17 de Octubre). La ciudad acepta un "de", "del" o "de la" seguido de mayúscula ("Viña del Mar", rol 1177-2025 del 16-10).
+_TRIBUNAL = re.compile(rf"(?:{_ORDINAL}\s*)?(?:juz(?:gado)?\.?|tribunal)\s+{_TIPO}\s*,?\s*(?:de\s+|del\s+)?([A-ZÁÉÍÓÚÑa-záéíóúñ]+(?:\s+(?!(?i:(?:huerfanos|huérfanos|ubicad[oa]|causa|caratulad\w*|rol|juicio|autos|expediente)\b))(?-i:[A-ZÁÉÍÓÚÑ][a-záéíóúñA-ZÁÉÍÓÚÑ]+))?(?:\s+(?-i:del?|de\s+la)\s+(?-i:[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+))?)", re.I)
 _MINUSC = {"de", "del", "y"}
 
 
