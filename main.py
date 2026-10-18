@@ -1,27 +1,21 @@
 """
-main.py — Orquestador del Sistema de Análisis de Remates Judiciales
+main.py — Orquestador del Extractor El Mercurio Digital (M1 lectura, M5 Excel)
 
-Encadena los 5 módulos en secuencia e imprime un resumen de cada etapa.
+Uso (lo normal es ejecutar_mercurio.bat, que llama a esto):
+    python main.py --fecha 2026-10-17                          # una edición
+    python main.py --fecha 2026-10-14 --fecha-fin 2026-10-17   # varias ediciones en UN solo Excel
+    python main.py --fecha 2026-10-14 --usar-captura           # usa la lectura ya guardada en capturas\\ (sin internet al diario)
+    python main.py --demo                                      # 25 causas sintéticas, solo para probar el Excel
+    python main.py --fecha 2026-10-17 --hasta 1                # se detiene después de la lectura (sin Excel)
 
-Uso:
-    python main.py              # pipeline completo (M1 → M5)
-    python main.py --demo       # 25 causas sintéticas (omite M1)
-    python main.py --hasta 1    # detiene el pipeline después de M1
-    python main.py --silencio   # suprime logs de módulos (solo muestra resúmenes)
+Códigos de salida (los lee ejecutar_mercurio.bat para mostrar el aviso correcto al abogado):
+    0  terminó bien (con o sin causas nuevas)
+    2  la edición no está publicada todavía
+    3  no se pudo leer el diario (no hay informe)
+    4  hay informe, pero puede estar incompleto (dice qué pasó y qué hacer)
+    1  error inesperado del programa
 
-# ===========================================================================
-# ANTES DE CADA CORRIDA DE PRUEBA — limpiar estado previo:
-#
-#   python limpiar_cache.py
-#
-# Esto borra:
-#   1. Todo el contenido de Descargas\\
-#   2. Las filas de datos de la hoja CAUSAS en causas_ojv.xlsx
-#      (deja solo el encabezado, para que M1 no filtre causas ya procesadas)
-#
-# Si no se limpia entre pruebas:
-#   - M1 marcará las causas como "ya en historial" y devolverá 0 causas nuevas
-# ===========================================================================
+Traspaso del 17 de Octubre de 2026. Se retiró el lector viejo de PDFs (modulo1_parser, carpeta Diarios), que ya no existía.
 """
 
 import os
@@ -99,19 +93,10 @@ sys.stderr = _TeeWriter(sys.__stderr__, _log_fh)
 # ─────────────────────────────────────────────────────────────────
 # Imports de módulos del proyecto
 # ─────────────────────────────────────────────────────────────────
-try:
-    from modulo1_parser import parsear_diarios
-except ImportError:
-    parsear_diarios = None
-from modulo1_mercurio     import extraer_mercurio, EdicionNoDisponible
-from modulo5_reporte      import generar_reporte, actualizar_historial
+from modulo1_mercurio import extraer_mercurio, obtener_metricas, EdicionNoDisponible
+from modulo5_reporte import generar_reporte, actualizar_historial, PASOS_SI_FALLA
 
-
-# ─────────────────────────────────────────────────────────────────
-# Utilidades de presentación
-# ─────────────────────────────────────────────────────────────────
-
-_W = 60   # ancho de línea de separador
+_W = 60
 
 
 def _sep(titulo: str = "") -> None:
@@ -122,231 +107,115 @@ def _sep(titulo: str = "") -> None:
     print("=" * _W)
 
 
-def _ok(modulo: int, msg: str, tiempo_s: float) -> None:
-    print(f"  [M{modulo}] {msg}  ({tiempo_s:.1f}s)")
+def _fechas(desde: str | None, hasta: str | None) -> list[str]:
+    from datetime import date, timedelta
+    if not desde:
+        return [date.today().isoformat()]
+    a = date.fromisoformat(desde)
+    b = date.fromisoformat(hasta) if hasta else a
+    if b < a:
+        a, b = b, a
+    return [(a + timedelta(days=i)).isoformat() for i in range((b - a).days + 1)]
 
-
-def _resumen_final(causas: list[dict], elapsed_s: float, ruta_reporte: str) -> None:
-    """Imprime el resumen ejecutivo al terminar el pipeline."""
-    total = len(causas)
-
-    # Métricas de extracción
-    try:
-        from modulo1_mercurio import obtener_metricas
-        met = obtener_metricas()
-    except Exception:
-        met = {}
-    tokens_in = met.get("tokens_input", 0)
-    tokens_out = met.get("tokens_output", 0)
-    tokens_total = tokens_in + tokens_out
-
-    # Costo estimado
-    try:
-        from config import MODELO_EXTRACCION, DEEPSEEK_PRECIO_INPUT_USD_POR_1M, DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
-    except ImportError:
-        MODELO_EXTRACCION = "desconocido"
-    if MODELO_EXTRACCION == "deepseek":
-        try:
-            costo = (tokens_in / 1e6) * DEEPSEEK_PRECIO_INPUT_USD_POR_1M + (tokens_out / 1e6) * DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
-            costo_str = f"USD {costo:.4f}"
-        except Exception:
-            costo_str = "no calculado"
-    else:
-        costo_str = f"no calculado (motor={MODELO_EXTRACCION})"
-
-    _sep("RESUMEN EJECUTIVO")
-    mins, segs = divmod(int(elapsed_s), 60)
-    print(f"  Tiempo total           : {mins}m {segs}s")
-    print(f"  Total causas procesadas: {total}")
-    print()
-    print("  MÉTRICAS DE EXTRACCIÓN")
-    print(f"    Tokens entrada       : {tokens_in:,}")
-    print(f"    Tokens salida        : {tokens_out:,}")
-    print(f"    Tokens total         : {tokens_total:,}")
-    print(f"    Costo estimado       : {costo_str}")
-    print()
-    if ruta_reporte:
-        print(f"  Reporte: {ruta_reporte}")
-    _sep()
-
-
-# ─────────────────────────────────────────────────────────────────
-# Causas demo (para pruebas sin M1)
-# ────────────────────────────────────────────────────────────────
 
 def _causas_demo() -> list[dict]:
-    """Genera 25 causas sintéticas para probar el tramo post-M1 (→ M5) sin red ni API."""
+    """25 causas sintéticas para probar el Excel sin red ni IA. Escriben en el historial: respaldar causas_ojv.xlsx antes."""
     import random
     random.seed(42)
-
-    comunas_rm  = ["Maipú", "La Florida", "Santiago", "Puente Alto", "San Bernardo",
-                   "Peñalolén", "Las Condes", "Ñuñoa", "San Miguel", "Lo Espejo"]
-    comunas_reg = ["Valparaíso", "Concepción", "Temuco", "La Serena",
-                   "Iquique", "Antofagasta", "Rancagua", "Talca"]
-    bancos = ["Banco BCI", "Banco Itaú Chile", "Banco Santander", "Banco de Chile"]
-
-    causas = []
-    for i in range(1, 26):
-        es_rm   = i <= 15
-        comuna  = random.choice(comunas_rm if es_rm else comunas_reg)
-
-        causas.append({
-            "rol":         str(30000 + i),
-            "año":         str(random.randint(2015, 2023)),
-            "corte":       "C.A. de Santiago" if es_rm
-                           else f"C.A. de {random.choice(comunas_reg)}",
-            "tribunal":    f"{i}° Juzgado Civil de {'Santiago' if es_rm else comuna}",
-            "demandante":  random.choice(bancos),
-            "demandado":   f"Deudor Demo {i}",
-            "direccion":   f"Calle Demo {i * 100}",
-            "comuna":      comuna,
-            "region_rm":   es_rm,
-        })
-    return causas
+    comunas = ["Maipú", "La Florida", "Santiago", "Puente Alto", "San Bernardo", "Peñalolén", "Las Condes", "Ñuñoa"]
+    return [{"rol": str(30000 + i), "año": str(random.randint(2018, 2024)), "corte": "C.A. de Santiago",
+             "tribunal": f"{i}° Juzgado Civil de Santiago", "demandante": "Banco Demo", "demandado": f"Deudor Demo {i}",
+             "direccion": f"Calle Demo {i * 100}", "comuna": random.choice(comunas), "fojas": str(1000 + i),
+             "observaciones": "", "revisar": False, "region_rm": True} for i in range(1, 26)]
 
 
-# ─────────────────────────────────────────────────────────────────
-# Pipeline principal
-# ─────────────────────────────────────────────────────────────────
+def _imprimir_fallos(fallos: list) -> None:
+    print()
+    print("  " + "!" * 58)
+    print("  ATENCIÓN. EL INFORME PUEDE ESTAR INCOMPLETO")
+    print("  " + "!" * 58)
+    for f in fallos:
+        print(f"  - {f}")
+    print()
+    print("  QUÉ HACER")
+    for p in PASOS_SI_FALLA:
+        print(f"  {p}")
+    print("  " + "!" * 58)
+
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Sistema de Análisis de Remates Judiciales — Chile",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Ejemplos:
-  python main.py                        # pipeline completo (M1 -> M5)
-  python main.py --demo                 # prueba con datos sintéticos (sin M1)
-  python main.py --hasta 1              # detiene tras M1 (sin reporte)
-  python main.py --silencio             # solo resúmenes, sin logs de módulos
-  python main.py --limpiar-historial    # M1 ignora historial CAUSAS (testing)
-  python main.py --diarios "Diarios test"  # carpeta alternativa de PDFs
-        """,
-    )
-    parser.add_argument("--demo",     action="store_true",
-                        help="Usar 25 causas sintéticas (omite M1)")
-    parser.add_argument("--hasta",    type=int, default=5, metavar="N",
-                        help="Detener el pipeline después del Módulo N "
-                             "(1-4: solo M1; 5: pipeline completo M1 -> M5)")
-    parser.add_argument("--silencio", action="store_true",
-                        help="Suprimir logs de módulos (mostrar solo resúmenes)")
-    parser.add_argument("--limpiar-historial", action="store_true",
-                        help="M1 ignora la hoja CAUSAS (trata historial como vacío). "
-                             "El Excel NO se modifica. Solo para testing.")
-    parser.add_argument("--diarios",  type=str, default=None, metavar="RUTA",
-                        help="Carpeta alternativa de PDFs de entrada (default: Diarios/)")
-    parser.add_argument("--fecha",    type=str, default=None, metavar="YYYY-MM-DD",
-                        help="Usar Módulo 1-Mercurio Digital en vez del parser de PDFs. "
-                             "Extrae avisos de la edición digital de la fecha indicada.")
+    parser = argparse.ArgumentParser(description="Extractor El Mercurio Digital — remates de propiedades (sección 1616)")
+    parser.add_argument("--fecha", type=str, default=None, metavar="AAAA-MM-DD", help="Edición a leer (por defecto hoy)")
+    parser.add_argument("--fecha-fin", type=str, default=None, metavar="AAAA-MM-DD",
+                        help="Última edición de un lote. Todas las ediciones entre --fecha y esta van en un solo Excel")
+    parser.add_argument("--usar-captura", action="store_true", help="Usa la lectura ya guardada en capturas\\ si existe")
+    parser.add_argument("--demo", action="store_true", help="25 causas sintéticas (sin lectura)")
+    parser.add_argument("--hasta", type=int, default=5, metavar="N", help="1 a 4 se detiene tras la lectura. 5 completo")
+    parser.add_argument("--silencio", action="store_true", help="Solo resúmenes")
     args = parser.parse_args()
-
     if args.silencio:
-        # Suprimir todos los loggers excepto el de main
         logging.root.setLevel(logging.WARNING)
-        log.setLevel(logging.INFO)
 
-    t_total = time.time()
-    ruta_reporte = ""
-    causas: list[dict] = []
-    metricas = {}
-
-    _sep("SISTEMA DE ANÁLISIS DE REMATES JUDICIALES")
+    t0 = time.time()
+    _sep("EXTRACTOR EL MERCURIO DIGITAL")
     print(f"  Log: {_LOG_FILE}")
-
+    metricas: dict = {}
     try:
-        # ── Modo demo: saltar M1 ───────────────────────────────
         if args.demo:
             causas = _causas_demo()
-            print(f"  [DEMO] {len(causas)} causas sintéticas generadas")
-            modulo_inicio = 5
+            metricas = {"ediciones": [], "fallos": []}
+            print(f"  [DEMO] {len(causas)} causas sintéticas")
         else:
-            modulo_inicio = 1
-
-        # ── Módulo 1: Parser PDFs  o  Mercurio Digital ─────────
-        if modulo_inicio <= 1 <= args.hasta:
-            if args.fecha:
-                _sep("MÓDULO 1 — Extractor El Mercurio Digital")
-                print(f"  [M1] Fecha edición digital: {args.fecha}")
-                print(f"  [M1] Log detallado: logs/mercurio_*.log")
-                t = time.time()
-                try:
-                    causas = extraer_mercurio(fecha=args.fecha)
-                except EdicionNoDisponible:
-                    print(f"  [M1] Edición del {args.fecha} no disponible.")
-                    sys.exit(2)
-                _ok(1, f"{len(causas)} causas nuevas (Mercurio Digital)", time.time() - t)
-                from modulo1_mercurio import obtener_metricas
-                metricas = obtener_metricas()
-            else:
-                if parsear_diarios is None:
-                    log.error("modulo1_parser no disponible. Usa --fecha para extraer desde El Mercurio Digital.")
-                    sys.exit(1)
-                _sep("MÓDULO 1 — Parsear PDFs del Diario P&L")
-                if args.limpiar_historial:
-                    print("  [M1] Modo testing: historial CAUSAS ignorado (Excel intacto)")
-                if args.diarios:
-                    print(f"  [M1] Carpeta de entrada: {args.diarios}")
-                t = time.time()
-                m1_kwargs = {"ignorar_historial": args.limpiar_historial}
-                if args.diarios:
-                    m1_kwargs["directorio"] = args.diarios
-                causas = parsear_diarios(**m1_kwargs)
-                _ok(1, f"{len(causas)} causas nuevas detectadas", time.time() - t)
-
-            if not causas:
-                print()
-                print("  Sin causas nuevas. Verificar PDFs en Diarios/")
-                return
-
-            # Mover PDFs procesados a Diarios_Procesados/
-            # (solo si se usó la carpeta por defecto; carpeta custom no se toca)
-            if not args.diarios:
-                from config import DIARIOS_DIR, DIARIOS_PROCESADOS_DIR
-                os.makedirs(DIARIOS_PROCESADOS_DIR, exist_ok=True)
-                pdfs_movidos = 0
-                for f in os.listdir(DIARIOS_DIR):
-                    if f.lower().endswith(".pdf"):
-                        src = os.path.join(DIARIOS_DIR, f)
-                        dst = os.path.join(DIARIOS_PROCESADOS_DIR, f)
-                        shutil.move(src, dst)
-                        pdfs_movidos += 1
-                if pdfs_movidos:
-                    print(f"  [M1] {pdfs_movidos} PDF(s) movidos a Diarios_Procesados/")
-
-        # ── Checkpoint --hasta: 1-4 detienen tras M1 ────────────
-        if args.hasta < 5:
-            _resumen_final(causas, time.time() - t_total, ruta_reporte)
-            return
-
-        # ── Módulo 5: Reporte ───────────────────────────────────
-        _sep("MÓDULO 5 — Reporte y actualización de historial")
-        t = time.time()
-        actualizar_historial(causas)
-        ruta_reporte = generar_reporte(causas, metricas=metricas)
-        _ok(5, f"Reporte generado: {ruta_reporte}", time.time() - t)
-
-    except KeyboardInterrupt:
-        print()
-        print("  Detenido por el usuario (Ctrl+C).")
-        if causas:
-            print(f"  {len(causas)} causas en memoria — generando reporte parcial...")
+            fechas = _fechas(args.fecha, args.fecha_fin)
+            _sep("LECTURA DEL DIARIO")
+            print(f"  Ediciones: {', '.join(fechas)}")
+            print("  Log detallado: logs/mercurio_*.log")
             try:
-                ruta_reporte = generar_reporte(causas, metricas=metricas)
-                print(f"  Reporte parcial: {ruta_reporte}")
-            except Exception as e:
-                print(f"  Error al generar reporte parcial: {e}")
-
+                causas = extraer_mercurio(fechas, usar_captura=args.usar_captura)
+            except EdicionNoDisponible as e:
+                print()
+                print(f"  La edición del {e} todavía no está publicada en El Mercurio Digital.")
+                print("  Pruebe de nuevo más tarde.")
+                sys.exit(2)
+            metricas = obtener_metricas()
+            sin_rol = metricas.get("sin_rol") or []
+            print(f"  Causas nuevas {len(causas)}. Avisos sin rol {len(sin_rol)}. "
+                  f"Excluidas por dominio {len(metricas.get('excluidos_cbr') or [])}. Descartadas {len(metricas.get('descartados') or [])}.")
+            fallos = metricas.get("fallos") or []
+            if fallos:
+                _imprimir_fallos(fallos)
+            if not metricas.get("ediciones"):
+                print()
+                print("  NO se generó informe. No se pudo leer ninguna edición.")
+                print("  OJO. Esto NO significa que no haya remates. Significa que el programa no pudo leerlos.")
+                sys.exit(3)
+            if not causas and not sin_rol:
+                print()
+                print("  Sin causas nuevas. La lectura funcionó bien y no hay remates nuevos que cumplan los criterios.")
+                sys.exit(4 if fallos else 0)
+        if args.hasta < 5:
+            print(f"  Detenido después de la lectura (--hasta {args.hasta}). No se generó Excel.")
+            return
+        _sep("INFORME EXCEL")
+        actualizar_historial(causas)
+        ruta = generar_reporte(causas, metricas=metricas)
+        print(f"  Informe: {ruta}")
+        print(f"  Tiempo total: {int(time.time() - t0)} s")
+        _sep()
+        if metricas.get("fallos"):
+            sys.exit(4)
+    except KeyboardInterrupt:
+        print("\n  Detenido por el usuario (Ctrl+C).")
+        sys.exit(1)
+    except SystemExit:
+        raise
     except Exception as e:
         print()
-        print(f"  ERROR FATAL: {e}")
+        print(f"  ERROR INESPERADO DEL PROGRAMA. {e}")
         import traceback
         traceback.print_exc()
-        if causas:
-            print(f"  {len(causas)} causas en memoria hasta el punto de fallo.")
+        print("  Avise a Diego y envíele el archivo más nuevo de la carpeta logs.")
         sys.exit(1)
-
-    # ── Resumen final ───────────────────────────────────────────
-    _resumen_final(causas, time.time() - t_total, ruta_reporte)
 
 
 if __name__ == "__main__":

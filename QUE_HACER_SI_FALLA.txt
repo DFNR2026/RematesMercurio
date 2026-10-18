@@ -1,0 +1,27 @@
+QUÉ HACER SI EL PROGRAMA DEL MERCURIO FALLA
+============================================
+
+El programa avisa en pantalla cuando algo salió mal. También lo dice el nombre del informe
+(termina en INCOMPLETO) y la hoja "Resumen" del Excel, en un recuadro rojo.
+
+Qué significa cada aviso
+- "La edición todavía no está publicada". El diario aún no sube la edición del día. No es un error.
+- "No se pudo leer el diario. No hay informe". El programa no logró entrar al diario. Casi siempre
+  es internet. NO significa que no haya remates.
+- "El informe puede estar incompleto". Hay informe, pero faltó leer algo (una página o algunas
+  direcciones). El recuadro rojo de la hoja Resumen dice exactamente qué.
+- "Error inesperado del programa". Algo falló dentro del programa.
+
+Qué hacer, en este orden
+1. Revise que el computador tenga internet (abra cualquier página en el navegador).
+2. Espere unos 10 minutos y vuelva a hacer doble clic en ejecutar_mercurio.bat.
+   Lo que ya se leyó no se vuelve a cobrar.
+3. Si dice que la edición no está disponible, pruebe más tarde.
+4. Si el aviso habla de la inteligencia artificial, puede faltar saldo en la cuenta. Avise a Diego.
+5. Si falla dos veces seguidas, avise a Diego y envíele el archivo más nuevo de la carpeta "logs".
+6. Mientras tanto puede revisar los remates directamente en El Mercurio, Clasificados, sección 1616.
+
+Sobre la columna Observaciones
+Cuando una causa trae una observación, el programa no pudo confirmar algún dato (por ejemplo la
+dirección o el año de inscripción). La causa igual aparece, para no perderla. Esas causas vuelven a
+salir en los días siguientes mientras el aviso se siga publicando.

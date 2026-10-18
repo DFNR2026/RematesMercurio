@@ -19,8 +19,9 @@ from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.utils import get_column_letter
 
-from config import CAUSAS_XLSX, BASE_DIR, REPORTES_DIR, SHEET_CAUSAS, MODELO_EXTRACCION, DEEPSEEK_PRECIO_INPUT_USD_POR_1M, DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
+from config import CAUSAS_XLSX, BASE_DIR, REPORTES_DIR, SHEET_CAUSAS
 from modulo1_mercurio import _clave_causa
+from motor.filtros import fecha_palabras
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [M5] %(message)s")
 log = logging.getLogger(__name__)
@@ -134,7 +135,7 @@ _COLUMNAS = [
 # Escritura de hoja de datos
 # ─────────────────────────────────────────────────────────────────
 
-def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None, descartados: list | None = None) -> None:
+def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None, descartados: list | None = None, sin_rol: list | None = None) -> None:
     """
     Crea una hoja con la lista de causas ordenadas, headers y formato condicional.
     """
@@ -178,19 +179,43 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
 
         ws.row_dimensions[row_idx].height = 16
 
-    if not causas:
-        return
-
     max_row = len(causas) + 1
 
     # ── Auto-filtro ──
-    ws.auto_filter.ref = f"A1:{get_column_letter(len(_COLUMNAS))}{max_row}"
+    if causas:
+        ws.auto_filter.ref = f"A1:{get_column_letter(len(_COLUMNAS))}{max_row}"
+
+    # ── Avisos sin número de rol (traspaso del 17 de Octubre de 2026). Van después de la tabla principal y antes de las
+    #    excluidas por dominio (decisión de Diego). Antes estos avisos se botaban en silencio.
+    sin_rol = sin_rol or []
+    inicio_sr = max_row + 3
+    cell_sr = ws.cell(row=inicio_sr, column=1, value="AVISOS SIN NÚMERO DE ROL (revisar en el diario)")
+    cell_sr.font = Font(bold=True, color="FFFFFF", size=11)
+    cell_sr.fill = PatternFill("solid", fgColor="B8860B")
+    ws.merge_cells(start_row=inicio_sr, start_column=1, end_row=inicio_sr, end_column=6)
+    ws.row_dimensions[inicio_sr].height = 20
+    for ci, h in enumerate(["Tribunal", "Carátula", "Dirección", "Comuna", "Página", "Motivo"], 1):
+        cell = ws.cell(row=inicio_sr + 1, column=ci, value=h)
+        cell.font = Font(bold=True, color="FFFFFF", size=10)
+        cell.fill = PatternFill("solid", fgColor="1F4E79")
+        cell.alignment = _ALIGN_CENTER
+        cell.border = _BORDER_THIN
+    if sin_rol:
+        for fi, s in enumerate(sin_rol):
+            r_s = inicio_sr + 2 + fi
+            for ci, campo in enumerate(["tribunal", "caratula", "direccion", "comuna", "pagina", "motivo"], 1):
+                c = ws.cell(row=r_s, column=ci, value=s.get(campo, "") or "")
+                c.font = _FONT_BODY
+                c.border = _BORDER_THIN
+        fin_sr = inicio_sr + 2 + len(sin_rol)
+    else:
+        c = ws.cell(row=inicio_sr + 2, column=1, value="Sin avisos sin rol en esta edición")
+        c.font = _FONT_BODY
+        ws.merge_cells(start_row=inicio_sr + 2, start_column=1, end_row=inicio_sr + 2, end_column=6)
+        fin_sr = inicio_sr + 3
 
     # ── Tabla de transparencia CBR ──
-    if max_row > 1:
-        inicio_excl = max_row + 3  # 2 filas en blanco después de la tabla principal
-    else:
-        inicio_excl = 4
+    inicio_excl = fin_sr + 2
 
     # Título
     cell_tit = ws.cell(row=inicio_excl, column=1, value="PROPIEDADES NUEVAS EXCLUIDAS (dominio >= 2020)")
@@ -280,6 +305,16 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
 # Hoja Resumen
 # ─────────────────────────────────────────────────────────────────
 
+# Lo mismo que muestra ejecutar_mercurio.bat y QUE_HACER_SI_FALLA.txt
+PASOS_SI_FALLA = [
+    "1. Revise que el computador tenga internet (abra cualquier página en el navegador).",
+    "2. Espere unos 10 minutos y vuelva a hacer doble clic en ejecutar_mercurio.bat.",
+    "3. Si dice que la edición no está disponible, el diario aún no la publica. Pruebe más tarde.",
+    "4. Si habla de la inteligencia artificial, puede faltar saldo en la cuenta. Avise a Diego.",
+    "5. Si falla dos veces seguidas, avise a Diego y envíele el archivo más nuevo de la carpeta logs.",
+    "6. Mientras tanto puede revisar los remates en El Mercurio, Clasificados, sección 1616.",
+]
+
 def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: dict | None = None) -> None:
     """Crea la pestaña Resumen con estadísticas de la ejecución."""
     ws = wb.create_sheet("Resumen")
@@ -291,7 +326,7 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
     ws.column_dimensions["B"].width = 14
     ws.column_dimensions["C"].width = 30
 
-    fecha_hoy = datetime.date.today().strftime("%d/%m/%Y")
+    fecha_hoy = fecha_palabras(datetime.date.today().isoformat())
 
     # Contadores
     total = len(causas)
@@ -331,24 +366,46 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
     r += 1
     fila(r, "Fecha de procesamiento:", fecha_hoy)
 
-    r += 1; espacio(r)
-    r += 1; titulo(r, "TOTALES")
-    r += 1; fila(r, "Total causas procesadas",   total)
+    ediciones = metricas.get("ediciones") or []
+    r += 1; fila(r, "Ediciones revisadas:", ", ".join(fecha_palabras(e) for e in ediciones) or "ninguna")
 
     r += 1; espacio(r)
-    r += 1; titulo(r, "MÉTRICAS DE EXTRACCIÓN")
-    tokens_in = metricas.get("tokens_input", 0)
-    tokens_out = metricas.get("tokens_output", 0)
-    tokens_total = tokens_in + tokens_out
-    r += 1; fila(r, "  Tokens entrada", f"{tokens_in:,}")
-    r += 1; fila(r, "  Tokens salida",  f"{tokens_out:,}")
-    r += 1; fila(r, "  Tokens total",   f"{tokens_total:,}")
-    if MODELO_EXTRACCION == "deepseek":
-        costo = (tokens_in / 1e6) * DEEPSEEK_PRECIO_INPUT_USD_POR_1M \
-              + (tokens_out / 1e6) * DEEPSEEK_PRECIO_OUTPUT_USD_POR_1M
-        r += 1; fila(r, "  Costo estimado", f"USD {costo:.4f}")
-    else:
-        r += 1; fila(r, "  Costo estimado", f"no calculado (motor={MODELO_EXTRACCION})")
+    r += 1; titulo(r, "TOTALES")
+    r += 1; fila(r, "Causas nuevas (tabla principal)", total)
+    r += 1; fila(r, "  de ellas, para revisar", sum(1 for c in causas if c.get("revisar")))
+    r += 1; fila(r, "Avisos sin número de rol", len(metricas.get("sin_rol") or []))
+    r += 1; fila(r, "Excluidas por dominio 2020 o posterior", len(metricas.get("excluidos_cbr") or []))
+    r += 1; fila(r, "Descartadas por parámetros", len(metricas.get("descartados") or []))
+    r += 1; fila(r, "Ya informadas antes (historial)", metricas.get("en_historial", 0))
+
+    r += 1; espacio(r)
+    r += 1; titulo(r, "INTELIGENCIA ARTIFICIAL (Claude Haiku, solo direcciones)")
+    ia = metricas.get("ia") or {}
+    r += 1; fila(r, "  Avisos leídos", ia.get("leidos", 0))
+    r += 1; fila(r, "  Consultas nuevas (las repetidas no se cobran)", ia.get("llamadas", 0))
+    r += 1; fila(r, "  Tokens entrada", f"{metricas.get('tokens_input', 0):,}")
+    r += 1; fila(r, "  Tokens salida", f"{metricas.get('tokens_output', 0):,}")
+    r += 1; fila(r, "  Costo estimado", f"USD {metricas.get('costo_usd', 0):.4f}")
+
+    # ── Lectura incompleta. Qué pasó y qué hacer, en palabras simples (decisión de Diego del 17 de Octubre) ──
+    fallos = metricas.get("fallos", []) or []
+    if fallos:
+        r = ws.max_row + 2
+        c = ws.cell(row=r, column=1, value="ATENCIÓN. ESTE INFORME PUEDE ESTAR INCOMPLETO")
+        c.font = Font(bold=True, color="FFFFFF", size=12)
+        c.fill = PatternFill("solid", fgColor="C00000")
+        ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=3)
+        for x in fallos:
+            r += 1; ws.cell(row=r, column=1, value="• " + x)
+        r += 2; ws.cell(row=r, column=1, value="QUÉ HACER").font = _FONT_BOLD
+        for x in PASOS_SI_FALLA:
+            r += 1; ws.cell(row=r, column=1, value=x)
+    otros = metricas.get("avisos_programa", []) or []
+    if otros:
+        r = ws.max_row + 2
+        ws.cell(row=r, column=1, value="Notas de la lectura (no requieren acción)").font = _FONT_BOLD
+        for x in otros:
+            r += 1; ws.cell(row=r, column=1, value=x)
 
 
 
@@ -393,6 +450,10 @@ def actualizar_historial(causas: list[dict]) -> None:
     for c in causas:
         if not str(c.get("rol", "")).strip():
             continue
+        if c.get("revisar"):
+            # Traspaso del 17 de Octubre. Una causa con un dato por revisar no entra al historial, así vuelve a salir
+            # en la próxima publicación hasta quedar completa (decisión de Diego, arregla F7).
+            continue
         clave = _clave_causa(c.get("rol", ""), c.get("año", ""), c.get("tribunal"))
         if clave in roles_existentes:
             continue
@@ -415,6 +476,20 @@ def actualizar_historial(causas: list[dict]) -> None:
 # FUNCIÓN PÚBLICA 2: generar_reporte
 # ─────────────────────────────────────────────────────────────────
 
+def nombre_ediciones(ediciones: list) -> str:
+    """['2026-10-17'] da '17 de octubre del 2026'. Un lote del mismo mes da '14 al 17 de octubre del 2026'.
+    Si cambia el mes, '30 de septiembre al 2 de octubre del 2026' (formato pedido por Diego el 17 de Octubre)."""
+    eds = sorted(ediciones)
+    if len(eds) == 1:
+        return fecha_palabras(eds[0])
+    a, b = fecha_palabras(eds[0]), fecha_palabras(eds[-1])
+    if eds[0][:7] == eds[-1][:7]:
+        return f"{int(eds[0][8:10])} al {b}"
+    if eds[0][:4] == eds[-1][:4]:
+        return f"{a.rsplit(' del ', 1)[0]} al {b}"
+    return f"{a} al {b}"
+
+
 def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     """
     Genera el reporte semanal Reporte_YYYY-MM-DD.xlsx con:
@@ -428,7 +503,10 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
         Ruta del archivo generado.
     """
     metricas = metricas or {}
+    fallos = metricas.get("fallos", []) or []
     log.info(f"Generando reporte — {len(causas)} causa(s)")
+    if fallos:
+        log.error("Reporte INCOMPLETO. %s", " | ".join(fallos))
 
     # Ordenar por corte (Santiago, San Miguel, regiones) y ordinal de tribunal
     regiones = _ordenar_regiones(causas)
@@ -439,7 +517,7 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # quitar hoja vacía por defecto
 
-    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []))
+    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []), sin_rol=metricas.get("sin_rol", []))
     _escribir_hoja_resumen(wb, causas, metricas=metricas)
 
     # Resumen queda al final (la hoja de detalle es la primera pestaña visible)
@@ -451,8 +529,10 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
 
     # Guardar — si el archivo del día ya existe y está bloqueado, agregar hora
     os.makedirs(REPORTES_DIR, exist_ok=True)
-    fecha = datetime.date.today().isoformat()
-    ruta  = os.path.join(REPORTES_DIR, f"Reporte_{fecha}.xlsx")
+    fecha = nombre_ediciones(metricas.get("ediciones") or [datetime.date.today().isoformat()])
+    # Un informe al que le falta algo se nombra distinto, para que se note con solo mirar la carpeta.
+    sufijo = " INCOMPLETO" if fallos else ""
+    ruta  = os.path.join(REPORTES_DIR, f"Reporte {fecha}{sufijo}.xlsx")
     if os.path.exists(ruta):
         try:
             import tempfile, shutil
@@ -461,7 +541,7 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
             shutil.move(tmp, ruta)
         except (PermissionError, OSError):
             hora = datetime.datetime.now().strftime("%H%M")
-            ruta = os.path.join(REPORTES_DIR, f"Reporte_{fecha}_{hora}.xlsx")
+            ruta = os.path.join(REPORTES_DIR, f"Reporte {fecha}{sufijo} {hora}.xlsx")
             wb.save(ruta)
     else:
         wb.save(ruta)

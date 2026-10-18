@@ -18,21 +18,49 @@ if exist ".venv\Scripts\activate.bat" (
     echo.
 )
 
-REM Si se pasa una fecha como argumento, usarla. Si no, usar hoy.
+REM Uso:  doble clic = edicion de hoy
+REM       ejecutar_mercurio.bat 2026-10-17              = una edicion
+REM       ejecutar_mercurio.bat 2026-10-14 2026-10-17   = varias ediciones en un solo Excel
 if "%~1"=="" (
-    REM Obtener fecha de hoy en formato YYYY-MM-DD via Python
-    for /f %%i in ('python -c "from datetime import date; print(date.today())"') do set FECHA=%%i
+    python main.py
+) else if "%~2"=="" (
+    echo   Edicion: %~1
+    python main.py --fecha %~1
 ) else (
-    set FECHA=%~1
+    echo   Ediciones: %~1 al %~2
+    python main.py --fecha %~1 --fecha-fin %~2
 )
-
-echo   Fecha edicion: %FECHA%
-echo.
-python main.py --fecha %FECHA%
+set CODIGO=%ERRORLEVEL%
 
 echo.
-echo ============================================================
-echo   Ejecucion finalizada
-echo ============================================================
+if "%CODIGO%"=="0" (
+    echo ============================================================
+    echo   Ejecucion finalizada. El informe esta en la carpeta "Informe final".
+    echo ============================================================
+) else if "%CODIGO%"=="2" (
+    echo ############################################################
+    echo   LA EDICION DE HOY TODAVIA NO ESTA PUBLICADA
+    echo   Pruebe de nuevo en un rato.
+    echo ############################################################
+) else (
+    echo ############################################################
+    if "%CODIGO%"=="3" echo   ATENCION. NO SE PUDO LEER EL DIARIO. NO HAY INFORME.
+    if "%CODIGO%"=="3" echo   Esto NO significa que hoy no haya remates.
+    if "%CODIGO%"=="4" echo   ATENCION. EL INFORME PUEDE ESTAR INCOMPLETO.
+    if "%CODIGO%"=="4" echo   Su nombre termina en INCOMPLETO. Arriba dice que paso.
+    if "%CODIGO%"=="1" echo   ATENCION. EL PROGRAMA TUVO UN ERROR INESPERADO.
+    echo ############################################################
+    echo   QUE HACER
+    echo   1. Revise que el computador tenga internet.
+    echo   2. Espere unos 10 minutos y vuelva a hacer doble clic en este archivo.
+    echo   3. Si dice que la edicion no esta disponible, pruebe mas tarde.
+    echo   4. Si habla de la inteligencia artificial, puede faltar saldo. Avise a Diego.
+    echo   5. Si falla dos veces seguidas, avise a Diego y enviele el archivo
+    echo      mas nuevo de la carpeta logs.
+    echo   6. Mientras tanto puede revisar los remates en El Mercurio,
+    echo      Clasificados, seccion 1616.
+    echo   Estos pasos tambien estan en QUE_HACER_SI_FALLA.txt
+    echo ############################################################
+)
 echo.
 pause
