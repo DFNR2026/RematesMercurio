@@ -1,0 +1,72 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 2,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Paine",
+     "frase_direccion": "la Parcela 49, resultante de la subdivisión del lote N° 4D, resultante de la Subdivisión del Lote N° 4, el que a su vez resultó de la división de la Hijuela Norte de la Reserva Cora N° 2 del Proyecto de Parcelación Rangue, comuna de Paine",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Paine"
+    },
+    {
+     "tipo": "calle",
+     "calle": "Dir. Ena Silvia Delgado I. Poniente",
+     "numero": "7541",
+     "unidad": null,
+     "comuna": "Cerrillos",
+     "frase_direccion": "inmueble de calle Dir. Ena Silvia Delgado I. Poniente número 7541",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Cerrillos"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "sin_calle",
+     "calle": null,
+     "numero": null,
+     "unidad": null,
+     "comuna": "Paine",
+     "frase_direccion": "la Parcela 49, resultante de la subdivisión del lote N° 4D, resultante de la Subdivisión del Lote N° 4, el que a su vez resultó de la división de la Hijuela Norte de la Reserva Cora N° 2 del Proyecto de Parcelación Rangue, comuna de Paine",
+     "frase_unidad": null,
+     "frase_comuna": "comuna de Paine"
+    },
+    {
+     "tipo": "calle",
+     "calle": "Dir. Ena Silvia Delgado I. Poniente",
+     "numero": "7541",
+     "unidad": null,
+     "comuna": "Cerrillos",
+     "frase_direccion": "inmueble de calle Dir. Ena Silvia Delgado I. Poniente número 7541",
+     "frase_unidad": null,
+     "frase_comuna": "Comuna de Cerrillos"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 1988,
+   "salida": 330,
+   "cache_lectura": 0,
+   "cache_escritura": 2388,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 1988,
+   "salida": 330,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}

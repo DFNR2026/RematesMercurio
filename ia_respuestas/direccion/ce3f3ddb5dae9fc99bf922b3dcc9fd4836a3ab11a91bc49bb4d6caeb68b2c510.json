@@ -1,0 +1,52 @@
+{
+ "modelo": "claude-haiku-5-5",
+ "version": "dir-2",
+ "n_remates": 1,
+ "lecturas": [
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Iván Cortez Cruz",
+     "numero": "1063",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "ubicado en calle Iván Cortez Cruz número mil sesenta y tres",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Buin"
+    }
+   ]
+  },
+  {
+   "inmuebles": [
+    {
+     "tipo": "calle",
+     "calle": "calle Iván Cortez Cruz",
+     "numero": "1063",
+     "unidad": null,
+     "comuna": "Buin",
+     "frase_direccion": "ubicado en calle Iván Cortez Cruz número mil sesenta y tres",
+     "frase_unidad": null,
+     "frase_comuna": "de la comuna de Buin"
+    }
+   ]
+  }
+ ],
+ "uso": [
+  {
+   "entrada": 830,
+   "salida": 129,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  },
+  {
+   "entrada": 830,
+   "salida": 129,
+   "cache_lectura": 2388,
+   "cache_escritura": 0,
+   "stop": "end_turn"
+  }
+ ],
+ "errores": []
+}
