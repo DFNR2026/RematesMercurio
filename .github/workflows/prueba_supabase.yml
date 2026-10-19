@@ -1,0 +1,55 @@
+# Prueba de Supabase desde un servidor de GitHub (18 de Octubre de 2026).
+# Baja estado/causas_ojv.xlsx y estado/ia_respuestas.zip del bucket privado "mercurio", revisa que llegaron
+# intactos y sube una copia a pruebas/. No modifica nada en estado/. No lee el Mercurio ni llama a Haiku.
+# La dirección y la clave de Supabase vienen de los secretos SUPABASE_URL y SUPABASE_KEY.
+name: Prueba de Supabase
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prueba:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      TZ: America/Santiago
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+    steps:
+      - name: Bajar los dos archivos de estado/
+        run: |
+          mkdir -p bajado
+          for f in causas_ojv.xlsx ia_respuestas.zip; do
+            code=$(curl -sS -o "bajado/$f" -w "%{http_code}" \
+              -H "apikey: $SUPABASE_KEY" -H "Authorization: Bearer $SUPABASE_KEY" \
+              "$SUPABASE_URL/storage/v1/object/mercurio/estado/$f")
+            echo "$f con las dos cabeceras. Respuesta $code"
+            if [ "$code" != "200" ]; then
+              code=$(curl -sS -o "bajado/$f" -w "%{http_code}" -H "apikey: $SUPABASE_KEY" \
+                "$SUPABASE_URL/storage/v1/object/mercurio/estado/$f")
+              echo "$f solo con apikey. Respuesta $code"
+            fi
+            if [ "$code" != "200" ]; then echo "No se pudo bajar $f. Lo que respondió Supabase"; head -c 400 "bajado/$f"; echo; exit 1; fi
+          done
+
+      - name: Revisar que llegaron intactos
+        run: |
+          python3 -m pip install -q --break-system-packages openpyxl==3.1.5
+          sha256sum bajado/causas_ojv.xlsx
+          python3 -c "
+          import openpyxl
+          wb = openpyxl.load_workbook('bajado/causas_ojv.xlsx', read_only=True)
+          for ws in wb.worksheets: print('Hoja', ws.title, 'filas sin encabezado', ws.max_row - 1)
+          "
+          echo "Archivos json en el zip $(unzip -l bajado/ia_respuestas.zip | grep -c 'direccion/.*\.json')"
+
+      - name: Subir una copia a pruebas/ (sin tocar estado/)
+        run: |
+          code=$(curl -sS -o respuesta.txt -w "%{http_code}" -X POST \
+            -H "apikey: $SUPABASE_KEY" -H "Authorization: Bearer $SUPABASE_KEY" -H "x-upsert: true" \
+            -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
+            --data-binary @bajado/causas_ojv.xlsx \
+            "$SUPABASE_URL/storage/v1/object/mercurio/pruebas/causas_ojv_desde_github.xlsx")
+          echo "Subida a pruebas/. Respuesta $code"
+          cat respuesta.txt; echo
+          if [ "$code" != "200" ]; then exit 1; fi
