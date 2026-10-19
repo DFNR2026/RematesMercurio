@@ -5,6 +5,10 @@
 # GitHub usa hora universal (UTC) y Chile cambia de hora (UTC-3 en verano, UTC-4 en invierno).
 # Por eso los horarios cubren las dos horas y el primer paso se salta cualquier intento fuera de 5:00 a 7:10 de Chile.
 # A mano (Run workflow) corre por defecto en modo ensayo, que manda el correo solo a CORREO_DIEGO.
+# Despertador principal (19 de Octubre). cron-job.org llama a la API de GitHub (workflow_dispatch) con
+# origen=automatico y modo=real en los mismos horarios. Esa corrida se trata igual que un horario de GitHub
+# (ventana de 5:00 a 7:10 y último intento desde las 7:00). El horario de GitHub queda de respaldo, porque
+# desde fines de Agosto de 2026 GitHub atrasa o no dispara los horarios en muchos repositorios.
 name: Corrida diaria del Mercurio
 
 on:
@@ -25,6 +29,12 @@ on:
         description: "Edición AAAA-MM-DD (vacío es hoy)"
         required: false
         default: ""
+      origen:
+        description: "manual (botón) o automatico (lo usa cron-job.org)"
+        required: false
+        default: "manual"
+        type: choice
+        options: [manual, automatico]
 
 concurrency:
   group: corrida-diaria
@@ -38,14 +48,16 @@ jobs:
       TZ: America/Santiago
       MODO: ${{ github.event_name == 'schedule' && 'real' || inputs.modo }}
       FECHA: ${{ inputs.fecha }}
-      INTENTO_FINAL: ${{ github.event_name != 'schedule' && '1' || '' }}
+      AUTOMATICO: ${{ (github.event_name == 'schedule' || inputs.origen == 'automatico') && 'si' || 'no' }}
+      INTENTO_FINAL: ${{ (github.event_name == 'schedule' || inputs.origen == 'automatico') && '' || '1' }}
     steps:
       - name: Revisar la hora de Chile (fuera de 5:00 a 7:10 no se intenta)
         id: hora
         run: |
           hm=$(date +%H%M)
           echo "Hora de Chile $(date '+%H:%M')"
-          if [ "${{ github.event_name }}" = "schedule" ] && { [ "$hm" -lt 0500 ] || [ "$hm" -gt 0710 ]; }; then
+          echo "Origen ${{ github.event_name }} / ${{ inputs.origen }}. Automático $AUTOMATICO. Modo $MODO"
+          if [ "$AUTOMATICO" = "si" ] && [ "$MODO" = "real" ] && { [ "$hm" -lt 0500 ] || [ "$hm" -gt 0710 ]; }; then
             echo "Fuera de la ventana. Este intento no hace nada."
             echo "seguir=no" >> "$GITHUB_OUTPUT"
           else
