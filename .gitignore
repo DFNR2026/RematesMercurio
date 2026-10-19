@@ -65,3 +65,6 @@ backup_*/
 # Archivo de limpieza y reportes de agentes (no van al repositorio)
 _archivo_*/
 MD_Cline/
+
+# Logs de corridas de GitHub bajados para auditar (19 de Octubre de 2026)
+Testeo_GitHub/
