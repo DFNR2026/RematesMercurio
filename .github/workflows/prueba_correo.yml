@@ -1,0 +1,50 @@
+# Prueba del correo desde un servidor de GitHub (19 de Octubre de 2026).
+# Baja de Supabase pruebas/Reporte 18 de octubre del 2026.xlsx y lo manda por Gmail SOLO a CORREO_DIEGO.
+# No lee el Mercurio, no llama a Haiku y no toca estado/. No le escribe al abogado.
+name: Prueba del correo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prueba:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      TZ: America/Santiago
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      ARCHIVO: "Reporte 18 de octubre del 2026.xlsx"
+    steps:
+      - name: Bajar el código
+        uses: actions/checkout@v4
+
+      - name: Bajar el Excel de prueba desde Supabase
+        run: |
+          ruta=$(python3 -c "import os,urllib.parse;print(urllib.parse.quote(os.environ['ARCHIVO']))")
+          code=$(curl -sS -o "$ARCHIVO" -w "%{http_code}" \
+            -H "apikey: $SUPABASE_KEY" -H "Authorization: Bearer $SUPABASE_KEY" \
+            "$SUPABASE_URL/storage/v1/object/mercurio/pruebas/$ruta")
+          echo "Bajada del Excel. Respuesta $code"
+          if [ "$code" != "200" ]; then head -c 400 "$ARCHIVO"; echo; exit 1; fi
+          ls -l "$ARCHIVO"
+          sha256sum "$ARCHIVO"
+
+      - name: Mandar el correo solo a CORREO_DIEGO
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          CORREO_DIEGO: ${{ secrets.CORREO_DIEGO }}
+        run: |
+          cat > cuerpo.txt <<'TXT'
+          Buenos días.
+
+          Se adjunta el reporte de remates de propiedades de El Mercurio del domingo 18 de octubre del 2026.
+
+          Este correo es una PRUEBA del envío automático. Solo le llega a Diego.
+
+          Este correo lo envía un programa automático. No es necesario responderlo.
+          TXT
+          python3 -m servidor.correo --para "$CORREO_DIEGO" \
+            --asunto "PRUEBA. Remates El Mercurio, 18 de octubre del 2026" \
+            --cuerpo-archivo cuerpo.txt --adjunto "$ARCHIVO"
