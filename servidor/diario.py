@@ -9,18 +9,19 @@ Pasos.
    0 o 4 con Excel  respaldo del historial viejo, historial nuevo, respuestas y Excel a Supabase. Correo con el Excel.
    0 sin Excel      no hubo causas nuevas. Guarda las respuestas. Correo que lo dice.
    otro caso        no se sube el historial. Si no es el último intento, sale para que el siguiente reintente.
-                    En el último intento manda un aviso simple al abogado y otro con detalle a Diego.
+                    Desde las 6:00, una sola vez, avisa que todavía no hay informe y que el último intento es a las 7:05.
+                    En el último intento (desde las 7:00) avisa cuántos intentos se hicieron y que no se intenta más.
 
 Variables de entorno.
     MODO            real (por defecto) o ensayo. En ensayo el correo va solo a CORREO_DIEGO,
                     lo que se guarda va a pruebas/ensayo/ y no se mira la marca de enviado.
     FECHA           AAAA-MM-DD. Por defecto hoy en hora de Chile (TZ=America/Santiago).
-    INTENTO_FINAL   1 si es el último intento del día (manda los avisos de falla).
+    INTENTO_FINAL   1 fuerza el último intento (corridas a mano). Si no viene, es último desde las 7:00 de Chile.
     SUPABASE_URL, SUPABASE_KEY, GMAIL_USER, GMAIL_APP_PASSWORD, CORREO_ABOGADO, CORREO_DIEGO.
 """
 from __future__ import annotations
 import os, re, shutil, subprocess, sys, time, traceback, zipfile
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -32,9 +33,16 @@ from servidor.correo import enviar  # noqa: E402
 
 MODO = os.environ.get("MODO", "real").strip() or "real"
 FECHA = (os.environ.get("FECHA") or "").strip() or date.today().isoformat()
-FINAL = os.environ.get("INTENTO_FINAL", "1").strip() == "1"
+AHORA = datetime.now()  # hora de Chile, porque el flujo fija TZ=America/Santiago
+_forzado = os.environ.get("INTENTO_FINAL", "").strip()
+FINAL = _forzado == "1" or (not _forzado and AHORA.hour >= 7)
+HORA_AVISO = 6        # desde esta hora, un aviso de que todavía no hay informe
+ULTIMO_INTENTO = "7:05"
 P = "" if MODO == "real" else "pruebas/ensayo/"
 MARCA = f"{P}enviados/{FECHA}.txt"
+MARCA_6AM = f"{P}avisos/{FECHA}_todavia_no.txt"
+MARCA_FINAL = f"{P}avisos/{FECHA}_sin_informe.txt"
+CONTADOR = f"{P}intentos/{FECHA}.txt"
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 INFORMES = RAIZ / "Informe final"
 CARPETA_IA = RAIZ / "ia_respuestas"
@@ -128,16 +136,36 @@ def correo_sin_causas(con_fallos: bool) -> None:
     log("Correo sin causas nuevas enviado")
 
 
-def avisos_de_falla(codigo: int, salida: str, solo_diego: bool = False) -> None:
+def motivo_simple(codigo: int) -> str:
     ft = fecha_texto()
-    simple = {
-        2: (f"A las 5:40 de la mañana El Mercurio Digital todavía no publicaba la edición del {ft}.\n"
+    return {
+        2: (f"El Mercurio Digital todavía no publica la edición del {ft}.\n"
             "Por eso no hay informe de hoy. No es un problema de su computador."),
         3: (f"El programa no pudo leer El Mercurio del {ft}.\n"
             "Esto NO significa que no haya remates. Significa que el programa no logró entrar al diario.\n"
             "No es un problema de su computador."),
     }.get(codigo, (f"El programa tuvo un error y no generó el informe del {ft}.\n"
                    "No es un problema de su computador ni de su internet."))
+
+
+def aviso_todavia_no(codigo: int) -> None:
+    """Desde las 6:00, una sola vez por día. Va al abogado y a Diego."""
+    ft = fecha_texto()
+    texto = (f"Todavía no es posible hacer el informe de remates del {ft}.\n"
+             f"{motivo_simple(codigo).replace('Por eso no hay informe de hoy. ', '')}\n"
+             f"El programa lo seguirá intentando solo. El último intento será a las {ULTIMO_INTENTO} de la mañana.\n"
+             "Si sale bien antes, le llegará el informe como siempre.")
+    pref = "ENSAYO. " if MODO != "real" else ""
+    enviar(para_todos(), f"{pref}Remates El Mercurio, {ft}. Todavía no hay informe", f"Buenos días.\n\n{texto}\n\n{PIE}")
+    log("Aviso de las 6 enviado")
+
+
+def avisos_de_falla(codigo: int, salida: str, solo_diego: bool = False, intentos: int = 0) -> None:
+    ft = fecha_texto()
+    simple = motivo_simple(codigo)
+    if intentos:
+        simple = (f"Se hicieron {intentos} intento(s) entre las 5 y las {ULTIMO_INTENTO} de la mañana y el problema sigue. "
+                  "No se intentará más por hoy.\n" + simple)
     simple += ("\nDiego ya fue avisado.\n"
                "Mientras tanto puede revisar los remates en El Mercurio, Clasificados, sección 1616.")
     abogado = [x for x in para_todos() if x != os.environ.get("CORREO_DIEGO", "").strip()]
@@ -153,7 +181,10 @@ def avisos_de_falla(codigo: int, salida: str, solo_diego: bool = False) -> None:
 
 
 def main() -> int:
-    log(f"Edición {FECHA}. Modo {MODO}. Último intento {'sí' if FINAL else 'no'}")
+    log(f"Edición {FECHA}. Modo {MODO}. Hora {AHORA:%H:%M}. Último intento {'sí' if FINAL else 'no'}")
+    if MODO == "real" and not os.environ.get("INTENTO_FINAL") and E.existe(MARCA_FINAL):
+        log("Hoy ya se avisó que no hubo informe. No se intenta más")
+        return 0
     if MODO == "real" and E.existe(MARCA):
         E.bajar(MARCA, RAIZ / "_marca.txt")
         marca = (RAIZ / "_marca.txt").read_text(encoding="utf-8")
@@ -168,6 +199,13 @@ def main() -> int:
             correo_excel(INFORMES / nombre, "", "INCOMPLETO" in nombre)
             E.subir_texto(f"enviado excel={nombre} (reenviado)", MARCA)
             return 0
+
+    intentos = 1
+    if E.existe(CONTADOR):
+        E.bajar(CONTADOR, RAIZ / "_intentos.txt")
+        intentos = int((RAIZ / "_intentos.txt").read_text(encoding="utf-8").strip() or 0) + 1
+    E.subir_texto(str(intentos), CONTADOR)
+    log(f"Intento número {intentos} de hoy")
 
     E.bajar("estado/causas_ojv.xlsx", RAIZ / "causas_ojv.xlsx")
     shutil.copy2(RAIZ / "causas_ojv.xlsx", RAIZ / "_causas_antes.xlsx")
@@ -201,14 +239,19 @@ def main() -> int:
         E.subir_texto("enviado sin causas nuevas", MARCA)
         return 0
     if not FINAL:
+        if AHORA.hour >= HORA_AVISO and not E.existe(MARCA_6AM):
+            aviso_todavia_no(codigo)
+            E.subir_texto(f"avisado a las {AHORA:%H:%M}, código {codigo}", MARCA_6AM)
         log("No salió bien y no es el último intento. El siguiente intento lo vuelve a probar")
         return 0
     if codigo == 4:
         guardar_memoria(con_historial=False)
         correo_sin_causas(con_fallos=True)
-        avisos_de_falla(codigo, salida, solo_diego=True)
+        avisos_de_falla(codigo, salida, solo_diego=True, intentos=intentos)
+        E.subir_texto(f"código {codigo}, {intentos} intentos", MARCA_FINAL)
         return 1
-    avisos_de_falla(codigo, salida)
+    avisos_de_falla(codigo, salida, intentos=intentos)
+    E.subir_texto(f"código {codigo}, {intentos} intentos", MARCA_FINAL)
     return 1
 
 
