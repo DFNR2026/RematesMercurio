@@ -1,0 +1,76 @@
+# Corrida diaria del robot del Mercurio (19 de Octubre de 2026). Ver servidor/diario.py.
+# Tres intentos cada mañana. GitHub usa hora universal (UTC). Con el horario de verano de Chile (UTC-3)
+# corren a las 5:03, 5:23 y 5:43. Con el horario de invierno (UTC-4) corren una hora antes.
+# El primero que sale bien deja una marca en Supabase y los siguientes no hacen nada.
+# Solo el último intento (5:43) manda avisos de falla.
+# A mano (Run workflow) corre por defecto en modo ensayo, que manda el correo solo a CORREO_DIEGO.
+name: Corrida diaria del Mercurio
+
+on:
+  schedule:
+    - cron: "3 8 * * *"
+    - cron: "23 8 * * *"
+    - cron: "43 8 * * *"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "ensayo (correo solo a Diego, guarda en pruebas/ensayo) o real (abogado y estado/)"
+        required: true
+        default: "ensayo"
+        type: choice
+        options: [ensayo, real]
+      fecha:
+        description: "Edición AAAA-MM-DD (vacío es hoy)"
+        required: false
+        default: ""
+
+concurrency:
+  group: corrida-diaria
+  cancel-in-progress: false
+
+jobs:
+  diario:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      TZ: America/Santiago
+      MODO: ${{ github.event_name == 'schedule' && 'real' || inputs.modo }}
+      FECHA: ${{ inputs.fecha }}
+      INTENTO_FINAL: ${{ (github.event_name != 'schedule' || github.event.schedule == '43 8 * * *') && '1' || '0' }}
+    steps:
+      - name: Bajar el código
+        uses: actions/checkout@v4
+
+      - name: Instalar Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Instalar librerías y el navegador Chromium
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Armar config.py desde la plantilla (las claves se leen de los secretos al correr)
+        run: |
+          cp config_template.py config.py
+          cat >> config.py <<'PY'
+
+          # Agregado por el servidor de GitHub. Los valores vienen de los secretos del repositorio.
+          MERCURIO_USER = os.environ.get("MERCURIO_USER", "")
+          MERCURIO_PASS = os.environ.get("MERCURIO_PASS", "")
+          ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+          PY
+
+      - name: Corrida del día
+        env:
+          MERCURIO_USER: ${{ secrets.MERCURIO_USER }}
+          MERCURIO_PASS: ${{ secrets.MERCURIO_PASS }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          CORREO_ABOGADO: ${{ secrets.CORREO_ABOGADO }}
+          CORREO_DIEGO: ${{ secrets.CORREO_DIEGO }}
+        run: python -m servidor.diario
