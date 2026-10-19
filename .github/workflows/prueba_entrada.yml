@@ -1,0 +1,53 @@
+# Prueba de entrada al Mercurio desde un servidor de GitHub (19 de Octubre de 2026).
+# Solo lee el diario en modo de prueba (dry-run). No llama a Haiku, no filtra, no escribe historial ni Excel.
+# Se corre a mano desde la pestaña Actions del repositorio, con el botón "Run workflow".
+# La cuenta del Mercurio viene de los secretos MERCURIO_USER y MERCURIO_PASS. Nunca se escribe en el repositorio.
+name: Prueba de entrada al Mercurio
+
+on:
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Edición a leer (AAAA-MM-DD)"
+        required: true
+        default: "2026-10-18"
+
+jobs:
+  prueba:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: America/Santiago
+    steps:
+      - name: Bajar el código
+        uses: actions/checkout@v4
+
+      - name: Instalar Python 3.14 (la misma versión del PC de Diego)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Instalar librerías y el navegador Chromium
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Armar config.py desde la plantilla (las claves se leen de los secretos al correr, no quedan escritas)
+        run: |
+          cp config_template.py config.py
+          cat >> config.py <<'PY'
+
+          # Agregado por el servidor de GitHub. Los valores vienen de los secretos del repositorio.
+          MERCURIO_USER = os.environ.get("MERCURIO_USER", "")
+          MERCURIO_PASS = os.environ.get("MERCURIO_PASS", "")
+          ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+          PY
+
+      - name: Mostrar la IP de salida del servidor (sirve si el Mercurio bloquea)
+        run: curl -s https://api.ipify.org || echo "no se pudo consultar la IP"
+
+      - name: Leer la edición en modo de prueba
+        env:
+          MERCURIO_USER: ${{ secrets.MERCURIO_USER }}
+          MERCURIO_PASS: ${{ secrets.MERCURIO_PASS }}
+        run: python modulo1_mercurio.py --fecha "${{ inputs.fecha }}" --dry-run
