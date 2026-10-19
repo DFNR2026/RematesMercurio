@@ -37,6 +37,13 @@ def avance(msg: str) -> None:
 
 LETRAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+# Cuerpos que se listan pero no se leen (decisión de Diego, 18 de Octubre de 2026).
+# En las 11 ediciones guardadas (1 de Septiembre al 18 de Octubre) ninguno trajo remates.
+# A 0 de 11, E 0 de 2, R 0 de 2, T 0 de 1. Los remates salieron en B, C, D, F y G.
+# El cuerpo A se sigue usando para el login y para activar el modo HD, solo no se leen sus páginas.
+# Si una flecha de remates apunta a uno de estos cuerpos, navegacion_logica.ordenar levanta una alarma.
+CUERPOS_SIN_LECTURA = frozenset("AERT")
+
 # Funciones que corren DENTRO de la página del visor. Mismo método probado en Chrome el 2026-10-14.
 JS_LISTAR_CUERPOS = r"""
 async ([d, letras]) => {
@@ -181,6 +188,10 @@ async def leer_edicion(fecha: date, visible: bool = False, union: str = "salto",
             if info["fe"].replace("/", "") != d.replace("/", ""):
                 notas.append(f"Cuerpo {s} trae la edición {info['fe'] or 'sin fecha'}, no la del {d}. No se lee")
                 continue
+            if s in CUERPOS_SIN_LECTURA:
+                avance(f"Cuerpo {s} no se lee ({len(info['ids'])} págs). Está en la lista de cuerpos sin remates")
+                notas.append(f"Cuerpo {s} no se lee. Está en la lista de cuerpos sin remates")
+                continue
             rutas = [f"/{d}/{s}/{pid}" for pid, _ in info["ids"]]
             res = []
             for k in range(0, len(rutas), paralelo):
@@ -206,7 +217,7 @@ async def leer_edicion(fecha: date, visible: bool = False, union: str = "salto",
         await ctx.close()
 
     avance(f"Navegador cerrado. {len(paginas)} páginas leídas. Ordenando")
-    resultado = ordenar(paginas)
+    resultado = ordenar(paginas, sin_leer=CUERPOS_SIN_LECTURA)
     carpeta = CAPTURAS / fecha.isoformat()
     carpeta.mkdir(parents=True, exist_ok=True)
     resumen_paginas = []

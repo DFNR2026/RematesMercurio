@@ -59,7 +59,9 @@ class Resultado:
     notas: list             # hechos normales que conviene registrar (ej. cuerpos paralelos)
 
 
-def ordenar(paginas: list[Pagina]) -> Resultado:
+def ordenar(paginas: list[Pagina], sin_leer: frozenset = frozenset()) -> Resultado:
+    """sin_leer son las letras de los cuerpos que el lector no lee a propósito (lector_mercurio.CUERPOS_SIN_LECTURA).
+    Una flecha hacia ellos no se pierde en silencio. Levanta una alarma que lo dice con claridad."""
     por_clave = {p.clave: p for p in paginas}
     alarmas, notas = [], []
     con_cornisa = {p.clave for p in paginas if p.cornisas > 0}
@@ -70,7 +72,11 @@ def ordenar(paginas: list[Pagina]) -> Resultado:
     for p in paginas:
         for destino in p.salidas:
             if destino not in por_clave:
-                alarmas.append(f"{p.nombre} dice que siguen avisos en {destino[0]}{destino[1]}, pero esa página no existe en la edición")
+                if destino[0] in sin_leer:
+                    alarmas.append(f"{p.nombre} dice que siguen avisos en {destino[0]}{destino[1]}, que está en el cuerpo {destino[0]}. "
+                                   f"Ese cuerpo no se lee porque nunca había traído remates. Avise a Diego para volver a leerlo")
+                else:
+                    alarmas.append(f"{p.nombre} dice que siguen avisos en {destino[0]}{destino[1]}, pero esa página no existe en la edición")
                 continue
             d = por_clave[destino]
             if destino not in con_cornisa:
@@ -83,7 +89,11 @@ def ordenar(paginas: list[Pagina]) -> Resultado:
     for p in paginas:
         for origen in p.entradas:
             if origen not in por_clave:
-                alarmas.append(f"{p.nombre} dice que vienen avisos de {origen[0]}{origen[1]}, pero esa página no existe en la edición")
+                if origen[0] in sin_leer:
+                    alarmas.append(f"{p.nombre} dice que vienen avisos de {origen[0]}{origen[1]}, que está en el cuerpo {origen[0]}. "
+                                   f"Ese cuerpo no se lee porque nunca había traído remates. Avise a Diego para volver a leerlo")
+                else:
+                    alarmas.append(f"{p.nombre} dice que vienen avisos de {origen[0]}{origen[1]}, pero esa página no existe en la edición")
                 continue
             if siguiente.get(origen) != p.clave:
                 alarmas.append(f"{p.nombre} dice que vienen avisos de {por_clave[origen].nombre}, pero esa página no lo anuncia")
