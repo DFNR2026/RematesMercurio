@@ -180,7 +180,8 @@ def main() -> None:
             metricas = obtener_metricas()
             sin_rol = metricas.get("sin_rol") or []
             print(f"  Causas nuevas {len(causas)}. Avisos sin rol {len(sin_rol)}. "
-                  f"Excluidas por dominio {len(metricas.get('excluidos_cbr') or [])}. Descartadas {len(metricas.get('descartados') or [])}.")
+                  f"Excluidas por dominio {len(metricas.get('excluidos_cbr') or [])}. Descartadas {len(metricas.get('descartados') or [])}. "
+                  f"Ya informadas en los últimos 4 días {len(metricas.get('ya_informadas') or [])}.")
             fallos = metricas.get("fallos") or []
             if fallos:
                 _imprimir_fallos(fallos)
@@ -190,6 +191,9 @@ def main() -> None:
                 print("  OJO. Esto NO significa que no haya remates. Significa que el programa no pudo leerlos.")
                 sys.exit(3)
             if not causas and not sin_rol:
+                if metricas.get("ya_informadas"):
+                    # Regla de los 4 días. Aunque no haya causas nuevas, se anota que las repetidas salieron hoy.
+                    actualizar_historial([], metricas["ya_informadas"])
                 print()
                 print("  Sin causas nuevas. La lectura funcionó bien y no hay remates nuevos que cumplan los criterios.")
                 sys.exit(4 if fallos else 0)
@@ -197,7 +201,7 @@ def main() -> None:
             print(f"  Detenido después de la lectura (--hasta {args.hasta}). No se generó Excel.")
             return
         _sep("INFORME EXCEL")
-        actualizar_historial(causas)
+        actualizar_historial(causas, metricas.get("ya_informadas"))
         ruta = generar_reporte(causas, metricas=metricas)
         print(f"  Informe: {ruta}")
         print(f"  Tiempo total: {int(time.time() - t0)} s")

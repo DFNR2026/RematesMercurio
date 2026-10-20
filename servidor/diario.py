@@ -7,7 +7,8 @@ Pasos.
 3. Corre main.py --fecha HOY, el mismo programa del PC.
 4. Según el código de salida de main.py guarda la memoria nueva y manda el correo.
    0 o 4 con Excel  respaldo del historial viejo, historial nuevo, respuestas y Excel a Supabase. Correo con el Excel.
-   0 sin Excel      no hubo causas nuevas. Guarda las respuestas. Correo que lo dice.
+   0 sin Excel      no hubo causas nuevas. Guarda las respuestas, y el historial si cambió (regla de los 4 días).
+                    Correo que lo dice.
    otro caso        no se sube el historial. Si no es el último intento, sale para que el siguiente reintente.
                     Desde las 6:00, una sola vez, avisa que todavía no hay informe y que el último intento es a las 7:05.
                     En el último intento (desde las 7:00) avisa cuántos intentos se hicieron y que no se intenta más.
@@ -234,7 +235,10 @@ def main() -> int:
         E.subir_texto(f"enviado excel={excel.name}", MARCA)
         return 0
     if codigo == 0:
-        guardar_memoria(con_historial=False)
+        # Regla de los 4 días. Sin causas nuevas, main.py igual anota las causas repetidas del día. Si el historial cambió,
+        # se sube, para que el trencito de 4 días no pierda ese día.
+        cambio = (RAIZ / "causas_ojv.xlsx").read_bytes() != (RAIZ / "_causas_antes.xlsx").read_bytes()
+        guardar_memoria(con_historial=cambio)
         correo_sin_causas(con_fallos=False)
         E.subir_texto("enviado sin causas nuevas", MARCA)
         return 0

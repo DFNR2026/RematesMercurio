@@ -33,8 +33,9 @@ def causa(rol, anio, tribunal, avisos, caratula="Banco de Chile con Pérez", ale
     return {"clave": _clave_causa(rol, anio, tribunal), "rol": rol, "año": anio, "tribunal": tribunal, "caratula": caratula,
             "avisos": avisos, "n_propiedades": sum(a["n_remates"] for a in avisos), "alertas": alertas or []}
 
-def correr(causas, historico=frozenset(), sin_rol=()):
-    return F.aplicar([{"fecha": "2026-10-14", "causas": causas, "sin_rol": list(sin_rol)}], set(historico), corte_de)
+def correr(causas, historico=None, sin_rol=()):
+    """historico = {llave: [fechas en que se informó]} (regla de los 4 días, 20 de Octubre de 2026)."""
+    return F.aplicar([{"fecha": "2026-10-14", "causas": causas, "sin_rol": list(sin_rol)}], dict(historico or {}), corte_de)
 
 def donde(r, rol):
     for tabla in ("principal", "excluidas_cbr", "descartados"):
@@ -64,7 +65,7 @@ txt = "texto republicado del rol dieciseis"
 casos.append(causa("16", "2020", T, [aviso([("Calle P 1", "Maipú", 2010)], texto=txt), aviso([("Calle P 1", "Maipú", 2010)], texto=txt, fecha="2026-10-15")]))
 casos.append(causa("17", "2020", T, [aviso([("Calle Q 1", "Maipú", 2010)])]))
 casos.append(causa("18", "2020", T, [aviso([("Calle R 1", "Maipú", 2010)])]))
-r = correr(casos, historico={_clave_causa("11", "2020", T)})
+r = correr(casos, historico={_clave_causa("11", "2020", T): ["2026-10-13"]})
 
 t, x = donde(r, "1"); revisar("1. 26 propiedades a la principal sin filtro de dominio", t == "principal" and x["direccion"].count(" / ") == 25 and "No se aplicó el filtro de dominio" in x["observaciones"], (t, x and x["observaciones"]))
 t, x = donde(r, "2"); revisar("2. 4 propiedades, 1 excluida por dominio", t == "principal" and x["direccion"].count(" / ") == 2 and "1 propiedad excluida" in x["observaciones"] and "2022" in x["observaciones"], (t, x))
@@ -76,7 +77,9 @@ t, x = donde(r, "7"); revisar("7. sin tribunal a principal, revisar", t == "prin
 t, x = donde(r, "8"); revisar("8. Antofagasta a descartadas Solo RM", t == "descartados" and x["motivo"] == "Solo RM", (t, x))
 t, x = donde(r, "9"); revisar("9. Banco del Estado a descartadas", t == "descartados" and x["motivo"] == "Banco Estado", (t, x))
 t, x = donde(r, "10"); revisar("10. rol 2015 a descartadas Pre-2018", t == "descartados" and x["motivo"] == "Pre-2018", (t, x))
-t, x = donde(r, "11"); revisar("11. en historial no aparece", t is None and r["en_historial"] == 1, (t, r["en_historial"]))
+t, x = donde(r, "11"); revisar("11. informada ayer no aparece en las tablas de siempre", t is None and r["en_historial"] == 1, (t, r["en_historial"]))
+y = [z for z in r["ya_informadas"] if z["rol"] == "11"]
+revisar("21. informada ayer va a Ya informadas con sus días", len(y) == 1 and y[0]["publicado"] == "Este aviso ha salido en El Mercurio los días 13 y 14 de octubre del 2026" and y[0]["ediciones"] == ["2026-10-14"], y)
 t, x = donde(r, "12"); revisar("12. 6 propiedades, 1 en RM, entran las 6", t == "principal" and x["direccion"].count(" / ") == 5, (t, x))
 t, x = donde(r, "13"); revisar("13. 6 propiedades fuera de la RM a descartadas", t == "descartados", (t, x))
 t, x = donde(r, "14"); revisar("14. Estación Central a descartadas", t == "descartados" and x["motivo"] == "Estación Central", (t, x))
@@ -92,10 +95,24 @@ r20 = correr([pegado])
 t, x = donde(r20, "1442")
 revisar("20. trozo con dos roles sin separar no se descarta y nombra los dos roles", t == "principal" and x["revisar"] and "1177-2025" in x["observaciones"], (t, x and x["observaciones"]))
 
+# Regla de los 4 días (20 de Octubre de 2026). Edición del 14 de Octubre.
+def una(rol, fechas):
+    c = causa(rol, "2020", T, [aviso([(f"Calle {rol}", "Maipú", 2010)])])
+    rr = correr([c], historico={_clave_causa(rol, "2020", T): fechas})
+    return donde(rr, rol)[0] or ("ya_informadas" if rr["ya_informadas"] else None)
+revisar("22. informada hace meses vuelve como nueva", una("31", ["2026-08-06"]) == "principal")
+revisar("23. informada hace 4 días es ya informada", una("32", ["2026-10-10"]) == "ya_informadas")
+revisar("24. informada hace 5 días vuelve como nueva", una("33", ["2026-10-09"]) == "principal")
+revisar("25. fila sin fecha en la memoria no esconde la causa", una("34", []) == "principal")
+revisar("26. informada el mismo día (se rehace la edición) es ya informada", una("35", ["2026-10-14"]) == "ya_informadas")
+revisar("27. la racha no lista un remate de hace meses", F.racha(["2026-03-13", "2026-10-13", "2026-10-14"]) == ["2026-10-13", "2026-10-14"])
+revisar("28. días con cambio de mes", F.dias_en_palabras(["2026-10-30", "2026-10-31", "2026-11-01"]) == "los días 30 y 31 de octubre y 1 de noviembre del 2026", F.dias_en_palabras(["2026-10-30", "2026-10-31", "2026-11-01"]))
+revisar("29. un solo día", F.dias_en_palabras(["2026-10-18"]) == "el 18 de octubre del 2026")
+
 # Cuadre sobre el banco del 14 de Octubre, historial vacío
 B = RAIZ / "banco_pruebas" / "2026-10-14"
 res = procesar([[("B11", leer_pagina(B / "mercurio_2026-10-14_B11.txt")), ("C8", leer_pagina(B / "mercurio_2026-10-14_C8.txt"))]], "2026-10-14", cliente=None)
-r = F.aplicar([res], set())
+r = F.aplicar([res], {})
 tot = len(r["principal"]) + len(r["excluidas_cbr"]) + len(r["descartados"])
 revisar("18. las 57 causas del 14 de Octubre en exactamente una tabla", tot == 57 and len({x["rol"] + x["año"] + x["tribunal"] for t in ("principal", "excluidas_cbr", "descartados") for x in r[t]}) == 57,
         f"principal {len(r['principal'])}, excluidas {len(r['excluidas_cbr'])}, descartadas {len(r['descartados'])}")

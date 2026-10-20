@@ -2,7 +2,7 @@
 Módulo 5: Reporte Final
 
 Expone dos funciones públicas:
-  actualizar_historial(causas) → APPEND a hoja CAUSAS de causas_ojv.xlsx
+  actualizar_historial(causas, ya_informadas) → APPEND a hoja CAUSAS, una fila por causa y edición (regla de 4 días)
   generar_reporte(causas)      → crea Reporte_YYYY-MM-DD.xlsx
 
 Input:  lista de causas con los campos del contrato M1 (incluye datos CBR)
@@ -135,7 +135,7 @@ _COLUMNAS = [
 # Escritura de hoja de datos
 # ─────────────────────────────────────────────────────────────────
 
-def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None, descartados: list | None = None, sin_rol: list | None = None) -> None:
+def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None, descartados: list | None = None, sin_rol: list | None = None, ya_informadas: list | None = None) -> None:
     """
     Crea una hoja con la lista de causas ordenadas, headers y formato condicional.
     """
@@ -214,8 +214,37 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
         ws.merge_cells(start_row=inicio_sr + 2, start_column=1, end_row=inicio_sr + 2, end_column=6)
         fin_sr = inicio_sr + 3
 
+    # ── Ya informadas en los últimos 4 días (regla del 20 de Octubre de 2026). Van después de los avisos sin rol y antes
+    #    de las excluidas por dominio (decisión de Diego). Es el mismo aviso republicado, no un remate nuevo.
+    ya_informadas = ya_informadas or []
+    inicio_ya = fin_sr + 2
+    cell_ya = ws.cell(row=inicio_ya, column=1, value="YA INFORMADAS EN LOS ÚLTIMOS 4 DÍAS")
+    cell_ya.font = Font(bold=True, color="FFFFFF", size=11)
+    cell_ya.fill = PatternFill("solid", fgColor="595959")
+    ws.merge_cells(start_row=inicio_ya, start_column=1, end_row=inicio_ya, end_column=5)
+    ws.row_dimensions[inicio_ya].height = 20
+    for ci, h in enumerate(["Tribunal", "ROL", "Año", "Dirección", "Publicado en El Mercurio"], 1):
+        cell = ws.cell(row=inicio_ya + 1, column=ci, value=h)
+        cell.font = Font(bold=True, color="FFFFFF", size=10)
+        cell.fill = PatternFill("solid", fgColor="1F4E79")
+        cell.alignment = _ALIGN_CENTER
+        cell.border = _BORDER_THIN
+    if ya_informadas:
+        for fi, y in enumerate(_ordenar_regiones(ya_informadas)):
+            r_y = inicio_ya + 2 + fi
+            for ci, campo in enumerate(["tribunal", "rol", "año", "direccion", "publicado"], 1):
+                c = ws.cell(row=r_y, column=ci, value=y.get(campo, "") or "")
+                c.font = _FONT_BODY
+                c.border = _BORDER_THIN
+        fin_ya = inicio_ya + 2 + len(ya_informadas)
+    else:
+        c = ws.cell(row=inicio_ya + 2, column=1, value="Ninguna causa repetida de los últimos 4 días")
+        c.font = _FONT_BODY
+        ws.merge_cells(start_row=inicio_ya + 2, start_column=1, end_row=inicio_ya + 2, end_column=5)
+        fin_ya = inicio_ya + 3
+
     # ── Tabla de transparencia CBR ──
-    inicio_excl = fin_sr + 2
+    inicio_excl = fin_ya + 2
 
     # Título
     cell_tit = ws.cell(row=inicio_excl, column=1, value="PROPIEDADES NUEVAS EXCLUIDAS (dominio >= 2020)")
@@ -376,7 +405,7 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
     r += 1; fila(r, "Avisos sin número de rol", len(metricas.get("sin_rol") or []))
     r += 1; fila(r, "Excluidas por dominio 2020 o posterior", len(metricas.get("excluidos_cbr") or []))
     r += 1; fila(r, "Descartadas por parámetros", len(metricas.get("descartados") or []))
-    r += 1; fila(r, "Ya informadas antes (historial)", metricas.get("en_historial", 0))
+    r += 1; fila(r, "Ya informadas en los últimos 4 días", len(metricas.get("ya_informadas") or []))
 
     r += 1; espacio(r)
     r += 1; titulo(r, "INTELIGENCIA ARTIFICIAL (Claude Haiku, solo direcciones)")
@@ -413,18 +442,20 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
 # FUNCIÓN PÚBLICA 1: actualizar_historial
 # ─────────────────────────────────────────────────────────────────
 
-def actualizar_historial(causas: list[dict]) -> None:
+def actualizar_historial(causas: list[dict], ya_informadas: list[dict] | None = None) -> None:
     """
-    Agrega las causas procesadas esta semana al historial acumulativo
-    en la hoja CAUSAS de causas_ojv.xlsx.
+    Anota en la hoja CAUSAS de causas_ojv.xlsx cada día en que una causa salió en El Mercurio.
 
-    Solo hace APPEND — nunca borra filas existentes.
-    Evita duplicar causas ya presentes (llave rol-año|tribunal).
+    Solo hace APPEND, nunca borra ni cambia filas. Regla de los 4 días (20 de Octubre de 2026). Se agrega una fila por
+    causa y por edición, con la fecha de la edición en FECHA_PROCESADO, tanto para las causas nuevas como para las ya
+    informadas. No se repite la misma causa con la misma fecha (llave rol-año|tribunal más fecha).
 
     Args:
-        causas: lista de dicts (output del pipeline completo)
+        causas: tabla principal (las que tienen algo por revisar no se anotan)
+        ya_informadas: causas republicadas dentro de los 4 días
     """
-    log.info(f"Actualizando historial — {len(causas)} causa(s)")
+    ya_informadas = ya_informadas or []
+    log.info(f"Actualizando historial — {len(causas)} causa(s) nuevas y {len(ya_informadas)} ya informadas")
 
     wb = openpyxl.load_workbook(CAUSAS_XLSX)
 
@@ -438,16 +469,18 @@ def actualizar_historial(causas: list[dict]) -> None:
         if ws.cell(1, 5).value != "FECHA_PROCESADO":
             ws.cell(1, 5).value = "FECHA_PROCESADO"
 
-    # Leer llaves ya existentes para evitar duplicados
-    roles_existentes: set[str] = set()
+    # Pares (llave, fecha) ya anotados, para no repetir el mismo día
+    ya_anotados: set[tuple[str, str]] = set()
     for row in ws.iter_rows(min_row=2, values_only=True):
         if row[0] and row[1]:
-            roles_existentes.add(_clave_causa(row[0], row[1], row[3] if len(row) > 3 else None))
+            f = row[4] if len(row) > 4 else None
+            f = f.date().isoformat() if isinstance(f, datetime.datetime) else (f.isoformat() if isinstance(f, datetime.date) else str(f or "")[:10])
+            ya_anotados.add((_clave_causa(row[0], row[1], row[3] if len(row) > 3 else None), f))
 
     fecha_hoy = datetime.date.today().isoformat()
     agregados = 0
 
-    for c in causas:
+    for c in list(causas) + list(ya_informadas):
         if not str(c.get("rol", "")).strip():
             continue
         if c.get("revisar"):
@@ -455,21 +488,21 @@ def actualizar_historial(causas: list[dict]) -> None:
             # en la próxima publicación hasta quedar completa (decisión de Diego, arregla F7).
             continue
         clave = _clave_causa(c.get("rol", ""), c.get("año", ""), c.get("tribunal"))
-        if clave in roles_existentes:
-            continue
-
-        ws.append([
-            c.get("rol", ""),
-            c.get("año", ""),
-            c.get("corte", ""),
-            c.get("tribunal", ""),
-            fecha_hoy,
-        ])
-        roles_existentes.add(clave)
-        agregados += 1
+        for fecha in (c.get("ediciones") or [fecha_hoy]):
+            if (clave, fecha) in ya_anotados:
+                continue
+            ws.append([
+                c.get("rol", ""),
+                c.get("año", ""),
+                c.get("corte", ""),
+                c.get("tribunal", ""),
+                fecha,
+            ])
+            ya_anotados.add((clave, fecha))
+            agregados += 1
 
     wb.save(CAUSAS_XLSX)
-    log.info(f"Historial actualizado: {agregados} causas nuevas agregadas")
+    log.info(f"Historial actualizado: {agregados} fila(s) agregadas")
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -517,7 +550,7 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # quitar hoja vacía por defecto
 
-    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []), sin_rol=metricas.get("sin_rol", []))
+    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []), sin_rol=metricas.get("sin_rol", []), ya_informadas=metricas.get("ya_informadas", []))
     _escribir_hoja_resumen(wb, causas, metricas=metricas)
 
     # Resumen queda al final (la hoja de detalle es la primera pestaña visible)

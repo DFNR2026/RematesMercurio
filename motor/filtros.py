@@ -16,6 +16,7 @@ from __future__ import annotations
 import logging
 import re
 import unicodedata
+from datetime import date, timedelta
 from pathlib import Path
 
 import openpyxl
@@ -448,9 +449,65 @@ def _unir(textos):
 
 
 # --- Reparto en las tablas del Excel ------------------------------------------------------------------------------------
-def aplicar(resultados: list, historico: set, corte_de=None) -> dict:
-    """resultados = salidas de motor.edicion.procesar() (una por edición). historico = llaves de la hoja CAUSAS.
-    Devuelve {principal, excluidas_cbr, descartados, sin_rol, en_historial} con el formato que espera M5."""
+# --- Regla de los 4 días (decisión de Diego del 20 de Octubre de 2026) ---------------------------------------------------
+# Un remate que no se hace y se vuelve a pedir tarda como mínimo 2 meses en reaparecer. Por eso, si una causa ya se informó
+# en alguno de los 4 días anteriores a la edición, es el mismo aviso republicado y va a la tabla "Ya informadas en los
+# últimos 4 días". Si se informó hace más de 4 días, es un nuevo intento de remate y entra como nueva.
+DIAS_YA_INFORMADA = 4
+
+
+def _dia(f: str) -> date:
+    return date.fromisoformat(str(f)[:10])
+
+
+def racha(fechas) -> list:
+    """Días seguidos de publicación que terminan en el más reciente. Se corta en un hueco de más de 4 días, para no listar
+    las apariciones de un remate anterior de hace meses."""
+    dias = sorted({_dia(f) for f in fechas if f})
+    if not dias:
+        return []
+    out = [dias[-1]]
+    for d in reversed(dias[:-1]):
+        if (out[0] - d).days > DIAS_YA_INFORMADA:
+            break
+        out.insert(0, d)
+    return [d.isoformat() for d in out]
+
+
+def dias_en_palabras(fechas) -> str:
+    """['2026-10-17', '2026-10-18'] da 'los días 17 y 18 de octubre del 2026'. Si cambia el mes,
+    'los días 30 y 31 de octubre y 1 de noviembre del 2026'. Un solo día da 'el 18 de octubre del 2026'."""
+    dias = [_dia(f) for f in sorted(set(fechas))]
+    if len(dias) == 1:
+        return "el " + fecha_palabras(dias[0].isoformat())
+    grupos = []
+    for d in dias:
+        if grupos and (grupos[-1][0].year, grupos[-1][0].month) == (d.year, d.month):
+            grupos[-1].append(d)
+        else:
+            grupos.append([d])
+    un_anio = len({d.year for d in dias}) == 1
+    trozos = []
+    for g in grupos:
+        nums = [str(d.day) for d in g]
+        t = (", ".join(nums[:-1]) + " y " + nums[-1]) if len(nums) > 1 else nums[0]
+        t += f" de {_MESES[g[0].month - 1]}"
+        if not un_anio:
+            t += f" del {g[0].year}"
+        trozos.append(t)
+    texto = (", ".join(trozos[:-1]) + " y " + trozos[-1]) if len(trozos) > 1 else trozos[0]
+    return "los días " + texto + (f" del {dias[0].year}" if un_anio else "")
+
+
+def _ya_informada(fechas_memoria, edicion: str) -> bool:
+    """True si la causa se informó desde 4 días antes de la edición en adelante (incluye el mismo día, por si se rehace)."""
+    desde = _dia(edicion) - timedelta(days=DIAS_YA_INFORMADA)
+    return any(f and _dia(f) >= desde for f in fechas_memoria)
+
+
+def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
+    """resultados = salidas de motor.edicion.procesar() (una por edición). historico = {llave: [fechas en que se informó]}
+    de la hoja CAUSAS. Devuelve {principal, excluidas_cbr, descartados, sin_rol, ya_informadas, en_historial}."""
     corte_de = corte_de or buscar_corte
     causas = {}
     for res in resultados:
@@ -459,11 +516,20 @@ def aplicar(resultados: list, historico: set, corte_de=None) -> dict:
             u["avisos"] += c["avisos"]
             u["caratula"] = u.get("caratula") or c.get("caratula")
             u["alertas"] += [a for a in c["alertas"] if a not in u["alertas"]]
-    principal, excluidas, descartados, en_historial = [], [], [], 0
+    principal, excluidas, descartados, ya_informadas = [], [], [], []
+    fecha_lote = min((r["fecha"] for r in resultados), default=date.today().isoformat())
     for c in causas.values():
-        if c["clave"] in historico:
-            en_historial += 1
-            log.debug("  Ya en historial: ROL %s-%s — %s", c["rol"], c["año"], c["tribunal"])
+        eds = sorted({av.get("edicion", "") for av in c["avisos"]} - {""})
+        memoria = historico.get(c["clave"]) or []
+        if memoria and _ya_informada(memoria, eds[0] if eds else fecha_lote):
+            props = propiedades(c)
+            dias = racha(list(memoria) + eds)
+            ya_informadas.append({"rol": c["rol"], "año": c["año"], "tribunal": c["tribunal"],
+                                  "corte": (corte_de(c["tribunal"]) or "") if c["tribunal"] else "",
+                                  "direccion": _unir(p["direccion"] for p in props),
+                                  "publicado": f"Este aviso ha salido en El Mercurio {dias_en_palabras(dias)}",
+                                  "ediciones": eds})
+            log.debug("  Ya informada en los últimos %d días: ROL %s-%s — %s", DIAS_YA_INFORMADA, c["rol"], c["año"], c["tribunal"])
             continue
         rol, anio, tribunal = c["rol"], c["año"], c["tribunal"]
         base = {"rol": rol, "año": anio, "tribunal": tribunal}
@@ -568,4 +634,4 @@ def aplicar(resultados: list, historico: set, corte_de=None) -> dict:
         if otras:
             s["pagina"] += ". Se repite el " + ", ".join(fecha_palabras(f) for f in otras)
     return {"principal": principal, "excluidas_cbr": excluidas, "descartados": descartados, "sin_rol": sin_rol,
-            "en_historial": en_historial}
+            "ya_informadas": ya_informadas, "en_historial": len(ya_informadas)}

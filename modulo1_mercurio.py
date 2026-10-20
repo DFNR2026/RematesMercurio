@@ -93,29 +93,31 @@ def _setup_logging() -> Path:
     return log_file
 
 
-def _cargar_causas_historico() -> set[str]:
+def _cargar_causas_historico() -> dict[str, list[str]]:
     """
     Lee la hoja CAUSAS de causas_ojv.xlsx.
-    Retorna set de llaves ya procesadas (formato "ROL-AÑO|tribunal").
+    Retorna {llave "ROL-AÑO|tribunal": [fechas AAAA-MM-DD en que se informó]}. La regla de los 4 días (20 de Octubre de
+    2026) usa esas fechas. Una fila sin fecha queda con la llave y sin fecha, y la causa se trata como informada hace más
+    de 4 días (vuelve a salir, nunca se esconde).
     """
     try:
         wb = openpyxl.load_workbook(CAUSAS_XLSX, read_only=True, data_only=True)
     except FileNotFoundError:
-        return set()
+        return {}
 
     if "CAUSAS" not in wb.sheetnames:
         wb.close()
-        return set()
+        return {}
 
     ws = wb["CAUSAS"]
     rows = list(ws.iter_rows(values_only=True))
     wb.close()
 
     if not rows:
-        return set()
+        return {}
 
     header = [str(c).lower().strip() if c else "" for c in rows[0]]
-    col_rol = col_anio = col_trib = None
+    col_rol = col_anio = col_trib = col_fecha = None
     for i, h in enumerate(header):
         if "rol" in h and col_rol is None:
             col_rol = i
@@ -123,19 +125,25 @@ def _cargar_causas_historico() -> set[str]:
             col_anio = i
         if "tribunal" in h and col_trib is None:
             col_trib = i
+        if "fecha" in h and col_fecha is None:
+            col_fecha = i
 
     if col_rol is None:
         col_rol = 0
     if col_anio is None:
         col_anio = 1
 
-    historico: set[str] = set()
+    historico: dict[str, list[str]] = {}
     for fila in rows[1:]:
         rol = fila[col_rol] if len(fila) > col_rol else None
         anio = fila[col_anio] if len(fila) > col_anio else None
         tribunal = fila[col_trib] if col_trib is not None and len(fila) > col_trib else None
+        fecha = fila[col_fecha] if col_fecha is not None and len(fila) > col_fecha else None
         if rol:
-            historico.add(_clave_causa(rol, anio, tribunal))
+            fechas = historico.setdefault(_clave_causa(rol, anio, tribunal), [])
+            f = fecha.date().isoformat() if isinstance(fecha, datetime) else (fecha.isoformat() if isinstance(fecha, date) else str(fecha or "")[:10])
+            if len(f) == 10 and f[4] == "-" and f[7] == "-":
+                fechas.append(f)
 
     log.debug("Histórico CAUSAS: %d entradas", len(historico))
     return historico
@@ -257,7 +265,7 @@ def extraer_mercurio(fecha=None, *, dry_run: bool = False, usar_captura: bool = 
         "ediciones": leidas, "tokens_input": ia["tokens_entrada"], "tokens_output": ia["tokens_salida"],
         "costo_usd": ia["costo_usd"], "ia": ia,
         "excluidos_cbr": tabla["excluidas_cbr"], "descartados": tabla["descartados"], "sin_rol": tabla["sin_rol"],
-        "en_historial": tabla["en_historial"], "fallos": fallos, "avisos_programa": avisos_programa,
+        "en_historial": tabla["en_historial"], "ya_informadas": tabla["ya_informadas"], "fallos": fallos, "avisos_programa": avisos_programa,
         "avisos_cortados": sum(r["avisos_cortados"] for r in resultados),
         "partidores": sum(len(r["partidores"]) for r in resultados),
     }
@@ -269,7 +277,7 @@ def extraer_mercurio(fecha=None, *, dry_run: bool = False, usar_captura: bool = 
     log.info("  Sin rol                 : %d", len(tabla["sin_rol"]))
     log.info("  Excluidas por dominio   : %d", len(tabla["excluidas_cbr"]))
     log.info("  Descartadas             : %d", len(tabla["descartados"]))
-    log.info("  Ya en historial         : %d", tabla["en_historial"])
+    log.info("  Ya informadas (4 días)  : %d", len(tabla["ya_informadas"]))
     log.info("  IA (Haiku)              : %d leídos, %d llamadas nuevas, %d sin respuesta, USD %.4f", ia["leidos"], ia["llamadas"], ia["sin_ia"], ia["costo_usd"])
     for x in fallos:
         log.error("  FALLO: %s", x)
