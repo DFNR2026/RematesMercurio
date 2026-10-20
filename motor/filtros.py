@@ -8,7 +8,8 @@ Segunda parte. aplicar(), con las reglas de Diego del 17 de Octubre.
 - 5 o menos. Cada propiedad pasa si su comuna está en la RM (y no es Estación Central) y su dominio es anterior a 2020.
   El rol se descarta solo si TODAS fallan. Si algunas pasan, entran solo esas y las otras se anotan en Observaciones.
 - Salvaguarda. Un dato que no se pudo leer nunca descarta. La causa queda en la tabla principal con su observación, marcada
-  para revisar, y no se escribe en el historial CAUSAS (así vuelve a salir hasta quedar completa).
+  para revisar. Igual se anota en el historial CAUSAS, porque la causa existe y salió en el diario (decisión de Diego del
+  20 de Octubre, reemplaza la del 17). Si se republica dentro de 4 días va a "Ya informadas".
 - Observaciones en palabras simples, para que el abogado entienda qué pasó sin tecnicismos.
 """
 from __future__ import annotations

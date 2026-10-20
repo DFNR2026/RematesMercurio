@@ -451,7 +451,8 @@ def actualizar_historial(causas: list[dict], ya_informadas: list[dict] | None = 
     informadas. No se repite la misma causa con la misma fecha (llave rol-año|tribunal más fecha).
 
     Args:
-        causas: tabla principal (las que tienen algo por revisar no se anotan)
+        causas: tabla principal completa. Las que tienen algo por revisar también se anotan, porque la causa existe y salió
+                en el diario (decisión de Diego del 20 de Octubre, reemplaza la del 17 de Octubre)
         ya_informadas: causas republicadas dentro de los 4 días
     """
     ya_informadas = ya_informadas or []
@@ -482,10 +483,6 @@ def actualizar_historial(causas: list[dict], ya_informadas: list[dict] | None = 
 
     for c in list(causas) + list(ya_informadas):
         if not str(c.get("rol", "")).strip():
-            continue
-        if c.get("revisar"):
-            # Traspaso del 17 de Octubre. Una causa con un dato por revisar no entra al historial, así vuelve a salir
-            # en la próxima publicación hasta quedar completa (decisión de Diego, arregla F7).
             continue
         clave = _clave_causa(c.get("rol", ""), c.get("año", ""), c.get("tribunal"))
         for fecha in (c.get("ediciones") or [fecha_hoy]):
