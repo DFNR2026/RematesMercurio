@@ -1,7 +1,7 @@
 # Prompt Maestro. Extractor El Mercurio Digital (RM)
 # Versión 4.0, aprobada por Diego el 21 de Octubre de 2026
 
-> Reemplaza a PROMPT_MAESTRO_MERCURIO_v3_1.md (de Julio, ahora en documentos/historia). Ante cualquier diferencia con el código, el árbitro es el código.
+> Uno de los dos documentos base del proyecto. Este dice cómo funciona el programa y sus reglas, y cambia poco. ESTADO_PROYECTO.md (en D:\Mercurio, fuera de git) dice en qué estamos, las decisiones y los pendientes. Reemplaza a PROMPT_MAESTRO_MERCURIO_v3_1.md (de Julio, ahora en documentos/historia). Ante cualquier diferencia con el código, el árbitro es el código.
 
 ## Qué es
 
@@ -86,12 +86,12 @@ Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. 
 ## Git y GitHub
 
 - El código lo escribe Claude directo en D:\Mercurio con el PC de Diego vinculado, primero en una copia de prueba. Cline no se usa.
-- Todo lo que toque GitHub (commit, push, revisar corridas) lo hace Claude Code en el PC de Diego, con un texto que Claude prepara y que termina en un reporte .md en D:\Mercurio\MD_Cline. Nunca desde el chat ni desde PowerShell.
+- Todo lo que toque GitHub (commit, push, revisar corridas) lo hace Claude Code en el PC de Diego, con un texto que Claude prepara y que termina en un reporte .md en D:\Mercurio\Reportes_Claude_Code. Nunca desde el chat ni desde PowerShell.
 - Un cambio nuevo por noche. No se publica otro cambio de código hasta que el anterior pasó su primera corrida real de las 5:03.
 - git status --short antes de cada commit. Agregar archivo por archivo. Prohibido git add ., git add -A, git commit -am, git reset --hard, git clean y git pull fuera del guion.
 - Push solo con el "apruebo push" de Diego. Pegar el texto en Claude Code cuenta como aprobación.
 - Un commit es una sola historia. Las cifras esperadas se fijan antes de correr.
-- Los logs de cada corrida se descargan a D:\Mercurio\Testeo_GitHub para auditarlos desde el disco.
+- Los logs de cada corrida se descargan a D:\Mercurio\Logs_GitHub para auditarlos desde el disco.
 
 ## Pruebas manuales en GitHub
 

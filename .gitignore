@@ -62,9 +62,15 @@ backup_*/
 
 # Tessdata
 .tessdata/
-# Archivo de limpieza y reportes de agentes (no van al repositorio)
+# Archivo de limpieza y reportes de Claude Code (no van al repositorio)
 _archivo_*/
-MD_Cline/
+Reportes_Claude_Code/
 
 # Logs de corridas de GitHub bajados para auditar (19 de Octubre de 2026)
-Testeo_GitHub/
+Logs_GitHub/
+
+# Estado del proyecto. Fuera de git porque el repositorio es público (21 de Octubre de 2026)
+ESTADO_PROYECTO.md
+
+# Respuestas nuevas de Haiku. Viven en Supabase (estado/ia_respuestas.zip). Las 309 que ya estaban en git se quedan
+ia_respuestas/
