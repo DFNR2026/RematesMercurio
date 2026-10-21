@@ -49,7 +49,10 @@ jobs:
       MODO: ${{ github.event_name == 'schedule' && 'real' || inputs.modo }}
       FECHA: ${{ inputs.fecha }}
       AUTOMATICO: ${{ (github.event_name == 'schedule' || inputs.origen == 'automatico') && 'si' || 'no' }}
-      INTENTO_FINAL: ${{ (github.event_name == 'schedule' || inputs.origen == 'automatico') && '' || '1' }}
+      # El "si no" de GitHub (a && b || c) no puede devolver un texto vacío en el medio, porque lo toma como falso y salta
+      # al último valor. Por eso la condición va al revés. A mano da 1 (último intento forzado). Horario o cron-job.org dan
+      # vacío, y diario.py decide por la hora (último intento desde las 7:00). Corregido el 21 de Octubre de 2026.
+      INTENTO_FINAL: ${{ (github.event_name != 'schedule' && inputs.origen != 'automatico') && '1' || '' }}
     steps:
       - name: Revisar la hora de Chile (fuera de 5:00 a 7:10 no se intenta)
         id: hora
