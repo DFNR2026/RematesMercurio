@@ -69,7 +69,7 @@ Memoria (hoja CAUSAS). Se anota una fila por causa y por edición en que salió,
 
 ## Excel (modulo5_reporte.py)
 
-Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. Primera hoja con la tabla principal (ROL, Año, Corte, Tribunal, Demandante, Demandado, Dirección, Comuna, Fs., Observaciones), luego sin rol, ya informadas en los últimos 4 días (Tribunal, ROL, Año, Dirección, Publicado en El Mercurio), excluidas por dominio y descartadas. La hoja se llama todavía "Regiones" por un nombre heredado, pendiente cambiarlo a "Remates". Hoja Resumen al final, con recuadro rojo si está incompleto. Fechas con el mes en palabras.
+Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. Primera hoja, llamada "Remates", con la tabla principal (ROL, Año, Corte, Tribunal, Demandante, Demandado, Dirección, Comuna, Fs., Observaciones), luego sin rol, ya informadas en los últimos 4 días (Tribunal, ROL, Año, Dirección, Publicado en El Mercurio), excluidas por dominio y descartadas. Hoja Resumen al final, con recuadro rojo si está incompleto y un "QUÉ HACER" para el abogado (PASOS_SI_FALLA) que le dice que no tiene que ejecutar nada y que puede revisar El Mercurio, Clasificados, sección 1616. Fechas con el mes en palabras.
 
 ## Reglas inamovibles
 

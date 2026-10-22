@@ -334,14 +334,13 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
 # Hoja Resumen
 # ─────────────────────────────────────────────────────────────────
 
-# Lo mismo que muestra ejecutar_mercurio.bat y QUE_HACER_SI_FALLA.txt
+# Lo que lee el abogado en la hoja Resumen cuando el informe puede estar incompleto.
+# El programa corre solo en un servidor de internet, no en su computador.
 PASOS_SI_FALLA = [
-    "1. Revise que el computador tenga internet (abra cualquier página en el navegador).",
-    "2. Espere unos 10 minutos y vuelva a hacer doble clic en ejecutar_mercurio.bat.",
-    "3. Si dice que la edición no está disponible, el diario aún no la publica. Pruebe más tarde.",
-    "4. Si habla de la inteligencia artificial, puede faltar saldo en la cuenta. Avise a Diego.",
-    "5. Si falla dos veces seguidas, avise a Diego y envíele el archivo más nuevo de la carpeta logs.",
-    "6. Mientras tanto puede revisar los remates en El Mercurio, Clasificados, sección 1616.",
+    "1. Este informe lo hace un programa que funciona solo en internet. Usted no tiene que ejecutar nada en su computador.",
+    "2. Arriba dice qué parte no se pudo leer y por qué.",
+    "3. Esa parte la puede revisar directamente en El Mercurio, Clasificados, sección 1616.",
+    "4. Diego recibe este mismo correo y revisa qué pasó. Si tiene dudas, escríbale.",
 ]
 
 def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: dict | None = None) -> None:
@@ -523,7 +522,7 @@ def nombre_ediciones(ediciones: list) -> str:
 def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     """
     Genera el reporte semanal Reporte_YYYY-MM-DD.xlsx con:
-      - Pestaña "Regiones" (todas las causas, ordenadas geográficamente por ratio)
+      - Pestaña "Remates" (todas las causas, ordenadas por corte y tribunal)
       - Pestaña "Resumen"  (estadísticas y notas)
 
     Args:
@@ -541,17 +540,17 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     # Ordenar por corte (Santiago, San Miguel, regiones) y ordinal de tribunal
     regiones = _ordenar_regiones(causas)
 
-    log.info(f"  Regiones: {len(regiones)}")
+    log.info(f"  Remates: {len(regiones)}")
 
     # Crear workbook
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # quitar hoja vacía por defecto
 
-    _escribir_hoja_datos(wb, regiones, "Regiones", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []), sin_rol=metricas.get("sin_rol", []), ya_informadas=metricas.get("ya_informadas", []))
+    _escribir_hoja_datos(wb, regiones, "Remates", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []), sin_rol=metricas.get("sin_rol", []), ya_informadas=metricas.get("ya_informadas", []))
     _escribir_hoja_resumen(wb, causas, metricas=metricas)
 
     # Resumen queda al final (la hoja de detalle es la primera pestaña visible)
-    # Resumen ya se creó después de Regiones, así que ya está al final.
+    # Resumen ya se creó después de Remates, así que ya está al final.
     # Si hubiera más hojas, mover explícitamente:
     idx_resumen = wb.sheetnames.index("Resumen")
     if idx_resumen != len(wb.sheetnames) - 1:
