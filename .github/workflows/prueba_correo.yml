@@ -17,7 +17,7 @@ jobs:
       ARCHIVO: "Reporte 18 de octubre del 2026.xlsx"
     steps:
       - name: Bajar el código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Bajar el Excel de prueba desde Supabase
         run: |
