@@ -446,11 +446,38 @@ _COMILLA_A, _COMILLA_C = "‘’'“”\"«", "’'”\"»‘“"
 _SEP = r"(?:\s[Cc][Oo][Nn]\s|/|\s[Cc]ontra\s)"
 _CAR_COMILLAS = re.compile(rf"[{_COMILLA_A}]\s*([^{_COMILLA_A}»\n]{{2,150}}?{_SEP}[^{_COMILLA_A}»\n]{{1,150}}?)\s*[{_COMILLA_C}]")
 _CAR_ANTES = re.compile(r"caratulad\w*|juicio|autos|expediente|causa|\brol\b|\brit\b|\bruc\b|antecedentes|virtual", re.I)
-_CAR_SIN = re.compile(rf"[Cc][Aa][Rr][Aa][Tt][Uu][Ll][Aa][Dd]\w*\s*:?\s*([A-Z0-9ÁÉÍÓÚÑ][^{_COMILLA_A};\n]{{2,150}}?{_SEP}[^{_COMILLA_A};\n]{{1,150}}?)"
+# Auditoría 30-10, tipo C5. "caratulada,,Cooperativa De Ahorro Y Crédito Coopeuch/ Castillo" (doble coma en vez de comilla).
+_CAR_SIN = re.compile(rf"[Cc][Aa][Rr][Aa][Tt][Uu][Ll][Aa][Dd]\w*\s*(?::|,,)?\s*([A-Z0-9ÁÉÍÓÚÑ][^{_COMILLA_A};\n]{{2,150}}?{_SEP}[^{_COMILLA_A};\n]{{1,150}}?)"
                       # Arreglo 2 del ajuste (14-10 avisos 6, 28, 39 y 46). El final se busca sin comerse antes el punto o la coma.
-                      r"(?=\s*(?:[’'”\"]|,\s*(?:Rol|rol|Juicio|juicio|v[ií]a|Ejecutivo|ejecutivo)\b|\.\s+[A-ZÁÉÍÓÚ]|\.?\s*$))")
+                      r"(?=\s*(?:[’'”\"]|,\s*(?:Rol|rol|Juicio|juicio|v[ií]a|Ejecutivo|ejecutivo)\b|\.\s+[A-ZÁÉÍÓÚ]|\.?\s*$)"
+                      # Auditoría 30-10, tipo C4. "Caratulado: Banco Itaú Chile SA./ Bosque Petreles S.A decretó la subasta",
+                      # sin puntuación entre la carátula y el verbo del tribunal.
+                      r"|\s+(?:decret[óo]|fij[óo]|orden[óo]|se\s+rematar[áa]|rematar[áa])\b)")
 # Arreglo 2 (14-10 aviso 49). La primera parte acepta el punto de "S.A." ("causa Banco Itaú Chile S.A./ Rubilar, juicio").
 _CAR_CAUSA = re.compile(rf"\bcausa\s+(?!rol\b|n[°º]|sobre\b|hipotecari)([A-ZÁÉÍÓÚÑ][^,;\n]{{2,100}}?{_SEP}[^,;\n]{{1,80}}?),\s+juicio", re.I)
+# Auditoría 30-10. Un trozo de carátula sin comillas. No cruza coma, punto y coma, dos puntos, comillas ni un punto seguido
+# (salvo el de "S.A. Con", donde lo que sigue al punto es el "Con" que separa las partes).
+_TRAMO = rf"(?:(?!\.\s+(?![Cc][Oo][Nn]\s))[^,;:\n{_COMILLA_A}»])"
+# Auditoría 30-10, tipo C1. Carátula sin comillas después de "autos" o de "autos rol N". "Mayores antecedentes autos
+# Banco Santander-Chile S.A. Con Unanue Rol C-4567-2026", "los autos rol c-8167-2024 Banco De Chile Con Covarrubias. Juicio".
+# La primera letra va en mayúscula sin re.I (así "autos sobre interdicción ... con certificado" no entra). Termina en "Rol",
+# en ", Rol" o ", Juicio", o en punto seguido.
+_CAR_AUTOS = re.compile(rf"\b(?i:autos)\s+(?:(?i:rol)\s+(?:N[°º]\s*)?[A-Za-z]{{1,2}}-[\d.]+-\d{{4}}\s+)?"
+                        r"(?!(?i:rol|caratulad\w*|sobre|juicio|ejecutivos?)\b)"
+                        rf"([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,100}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)"
+                        r"(?=\s+[Rr][Oo][Ll]\b|,\s*(?:[Rr]ol|[Jj]uicio)\b|\.\s+[A-ZÁÉÍÓÚ]|\.?\s*$)")
+# Auditoría 30-10, tipo C3. Carátula después de "antecedentes" con una sola comilla o sin ninguna, cerrada por ", rol N" o
+# ", c-N". "Demás antecedentes Aval Chile S.A.G.R./ Torres, c-26036-2016’", "Demás antecedentes ‘Avla Seguros de Crédito y
+# Garantía S.A./ Pozo, rol c-18954-2024". El rol al final es lo que la ancla.
+_CAR_ANTECEDENTES = re.compile(rf"\b(?i:antecedentes)\s+[{_COMILLA_A}]?\s*"
+                               r"(?!(?i:en|de|del|y|e|bases|juicio|autos|causa|expediente|rol|caratulad\w*)\b)"
+                               rf"([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,100}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)\s*,\s+(?:(?i:rol)\s+(?:N[°º]\s*)?)?[A-Za-z]{{1,2}}-\d")
+# Auditoría 30-10, tipo C2b. Carátula sin comillas justo después del rol y su coma. "Rol N° C-4079-2023, Bravo con Bravo.
+# Juez árbitro partidor". Termina solo en punto seguido o al final del aviso. No empieza con un cargo ni con una palabra de frase.
+_CAR_TRAS_ROL = re.compile(rf"\b(?i:rol)\s+(?:N[°º]\s*)?[A-Za-z]{{1,2}}-[\d.]+-\d{{4}},\s+"
+                           r"(?!(?:Juez|Juzgado|Tribunal|Secretar\w*|Notar\w*|Actuari\w*|Martiller\w*|Ministr\w*|Receptor\w*|"
+                           r"El|La|Los|Las|En|Por|Se|Con|Ruc|Rit|Rol|Caratulad\w*|Juicio|Causa|Autos|Expediente)\b)"
+                           rf"([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,80}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)(?=\.\s+[A-ZÁÉÍÓÚ]|\.?\s*$)")
 _SUFIJOS = {"s", "a", "sa", "spa", "ltda", "limitada", "cia", "con", "y"}
 
 
@@ -478,7 +505,7 @@ def caratula(texto: str) -> dict:
             continue
         if _CAR_ANTES.search(texto[max(0, m.start() - 80):m.start()]):
             hallados.append((m.start(1), v))
-    for patron in (_CAR_SIN, _CAR_CAUSA):
+    for patron in (_CAR_SIN, _CAR_CAUSA, _CAR_TRAS_ROL, _CAR_ANTECEDENTES, _CAR_AUTOS):
         for m in patron.finditer(texto):
             hallados.append((m.start(1), m.group(1).strip().rstrip(",")))
     distintos = []
