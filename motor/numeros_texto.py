@@ -18,6 +18,10 @@ _CENTENAS = {"cien": 100, "ciento": 100, "doscientos": 200, "doscientas": 200, "
              "seiscientas": 600, "setecientos": 700, "setecientas": 700, "ochocientos": 800, "ochocientas": 800,
              "novecientos": 900, "novecientas": 900, "trecientos": 300}      # "trecientos" con error de escritura, 06-10 aviso 92
 PALABRAS = set(_UNIDADES) | set(_CENTENAS) | {"mil", "y"}
+# Auditoría 30-10, tipo D1. La "y" solo une una decena con una unidad ("treinta y dos"). Cualquier otra "y" separa dos números
+# ("doscientos treinta y dos y doscientos treinta y cuatro" son 232 y 234, no 466).
+_DECENAS_Y = {"treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"}
+_UNO_A_NUEVE = {"un", "uno", "una", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"}
 _TOKEN = re.compile(r"[a-zñ]+")
 
 
@@ -56,6 +60,9 @@ def numeros_en(frase: str) -> set:
             # el número sigue mientras las palabras vengan separadas solo por espacios ("noventa/ seis mil" son dos números,
             # 06-10 aviso 102)
             while j + 1 < len(toks) and toks[j + 1].group(0) in PALABRAS and not base[toks[j].end():toks[j + 1].start()].strip():
+                if toks[j + 1].group(0) == "y" and not (toks[j].group(0) in _DECENAS_Y and j + 2 < len(toks)
+                                                         and toks[j + 2].group(0) in _UNO_A_NUEVE):
+                    break
                 j += 1
             while j > i and toks[j].group(0) == "y":
                 j -= 1

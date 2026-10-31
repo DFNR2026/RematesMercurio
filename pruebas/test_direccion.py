@@ -88,6 +88,10 @@ revisar("la unidad en plural en su frase (14-10 aviso 3)", D.resolver([{"inmuebl
 revisar("números en palabras", [palabras_a_numero(x) for x in ("ochocientos sesenta y uno", "veintiún mil quinientos", "cero ciento ochenta y uno", "trecientos once")]
         == ["861", "21500", "0181", "311"])
 revisar("dos números separados por barra", {"6590", "6594"} <= numeros_en("número seis mil quinientos noventa/ seis mil quinientos noventa y cuatro"))
+revisar("dos números en palabras unidos por y no se suman (auditoría 30-10, 15° Civil rol 20862-2024)",
+        {"232", "234"} <= numeros_en("calle Santa Lucía números doscientos treinta y dos y doscientos treinta y cuatro")
+        and "466" not in numeros_en("calle Santa Lucía números doscientos treinta y dos y doscientos treinta y cuatro"))
+revisar("la y entre decena y unidad sigue uniendo", numeros_en("número cuatrocientos noventa y uno") == {"491"} and {"575", "577"} <= numeros_en("quinientos setenta y cinco y quinientos setenta y siete"))
 revisar("palabras a cifras dentro de un texto", palabras_a_cifras("departamento A trescientos nueve") == "departamento A 309")
 
 despues = sorted(p.name for p in (RAIZ / "ia_respuestas").rglob("*.json"))
