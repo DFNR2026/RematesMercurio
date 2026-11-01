@@ -19,6 +19,7 @@ Desde el 19 de Octubre corre solo en un servidor de GitHub Actions todos los dí
 | Respuestas guardadas de Haiku | Supabase, estado/ia_respuestas.zip | Caché por huella. Si se pierde, solo cuesta un poco más |
 | Respaldos diarios del historial | Supabase, respaldos/causas_ojv_antes_FECHA.xlsx | Uno por día con Excel |
 | Excel de cada día | Supabase, informes/ | Copia por si se pierde un correo |
+| Captura de cada día | Supabase, capturas/FECHA.zip | Texto de las páginas de remates que leyó el lector, su navegacion.json y la salida de main.py. Permite rehacer cualquier día en el PC sin el diario (desde el 1 de Noviembre de 2026) |
 | Marcas del día | Supabase, enviados/, intentos/, avisos/ | Evitan correos repetidos y llevan el número de intentos |
 | Claves | Secretos de GitHub (9) | MERCURIO_USER, MERCURIO_PASS, ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_KEY, GMAIL_USER, GMAIL_APP_PASSWORD, CORREO_ABOGADO, CORREO_DIEGO |
 | Correo | Gmail personal nueva del robot, con contraseña de aplicación | CORREO_DIEGO es la misma cuenta del robot (decisión de Diego) |

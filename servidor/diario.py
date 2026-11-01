@@ -102,6 +102,30 @@ def guardar_memoria(con_historial: bool) -> None:
     log(f"Respuestas de Haiku guardadas en Supabase ({n} archivos)")
 
 
+def guardar_captura(salida: str) -> None:
+    """Sube a Supabase el texto de las páginas de remates que leyó el lector hoy (carpeta capturas/FECHA, con su
+    navegacion.json) y la salida de main.py, en capturas/FECHA.zip. Sirve para revisar después cualquier aviso en el PC
+    con las respuestas guardadas de Haiku (decisión de Diego del 1 de Noviembre, mejora continua). Nunca detiene la
+    corrida. Si algo falla, solo deja la línea en el log."""
+    try:
+        carpeta = next((c / FECHA for c in (RAIZ / "capturas", RAIZ / "Capturas") if (c / FECHA).is_dir()), None)
+        if carpeta is None:
+            log("No hay captura del día para guardar (el lector no alcanzó a leer el diario)")
+            return
+        destino = RAIZ / "_captura.zip"
+        n = 0
+        with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as z:
+            for f in sorted(carpeta.iterdir()):
+                if f.is_file():
+                    z.write(f, f"{FECHA}/{f.name}")
+                    n += 1
+            z.writestr(f"{FECHA}/salida_main.txt", salida)
+        E.subir(destino, f"{P}capturas/{FECHA}.zip", "application/zip")
+        log(f"Captura del día guardada en Supabase ({n} archivos, {destino.stat().st_size // 1024} KB)")
+    except Exception as e:
+        log(f"No se pudo guardar la captura del día ({type(e).__name__}). La corrida sigue")
+
+
 def correo_excel(excel: Path, salida: str, incompleto: bool) -> None:
     m = re.search(r"Causas nuevas (\d+)\. Avisos sin rol (\d+)", salida)
     n, sin_rol = (int(m.group(1)), int(m.group(2))) if m else (None, 0)
@@ -225,6 +249,7 @@ def main() -> int:
                     key=lambda p: p.stat().st_mtime)
     excel = excels[-1] if excels else None
     log(f"main.py terminó con código {codigo}. Excel {excel.name if excel else 'ninguno'}")
+    guardar_captura(salida)
 
     if codigo in (0, 4) and excel:
         guardar_memoria(con_historial=True)
