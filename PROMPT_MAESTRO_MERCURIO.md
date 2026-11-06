@@ -1,7 +1,7 @@
 # Prompt Maestro. Extractor El Mercurio Digital (RM)
 # Versión 4.0, aprobada por Diego el 21 de Octubre de 2026
 
-> Uno de los dos documentos base del proyecto. Este dice cómo funciona el programa y sus reglas, y cambia poco. ESTADO_PROYECTO.md (en D:\Mercurio, fuera de git) dice en qué estamos, las decisiones y los pendientes. Reemplaza a PROMPT_MAESTRO_MERCURIO_v3_1.md (de Julio, ahora en documentos/historia). Ante cualquier diferencia con el código, el árbitro es el código.
+> Uno de los dos documentos base del proyecto. Este dice cómo funciona el programa y sus reglas, y cambia poco. ESTADO_PROYECTO.md (en D:\Mercurio, fuera de git) dice en qué estamos, las decisiones y los pendientes. Reemplaza a PROMPT_MAESTRO_MERCURIO_v3_1.md (de Julio, borrado el 6 de Noviembre de 2026 con el resto de documentos/historia, queda en el historial de git). La experiencia para mejorar la lectura de dirección y carátula está en Mejora_continua/GUIA_MEJORA_LECTURA.md. Ante cualquier diferencia con el código, el árbitro es el código.
 
 ## Qué es
 
