@@ -1,0 +1,39 @@
+# Prueba de la clave de Anthropic desde un servidor de GitHub (8 de Noviembre de 2026).
+# Usa el secreto ANTHROPIC_API_KEY tal como lo usa el robot (sin recortar espacios) y hace una llamada mínima a Haiku
+# con el mismo modelo que motor/ia_comun.py. Solo imprime OK o el tipo de error. Nunca imprime la clave.
+# No lee el Mercurio, no toca Supabase ni manda correos.
+name: Prueba de la clave de IA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  prueba:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - name: Llamada mínima a Haiku con el secreto
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, sys, urllib.request, urllib.error
+          k = os.environ.get("ANTHROPIC_API_KEY", "")
+          modelo = re.search(r'^MODELO\s*=\s*"([^"]+)"', open("motor/ia_comun.py", encoding="utf-8").read(), re.M).group(1)
+          print("Secreto presente:", bool(k), "| espacios o saltos sobrantes:", k != k.strip())
+          cuerpo = json.dumps({"model": modelo, "max_tokens": 5, "messages": [{"role": "user", "content": "di ok"}]}).encode()
+          req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=cuerpo, method="POST",
+                                       headers={"x-api-key": k, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+          try:
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  d = json.load(r)
+              print(f"OK. Haiku respondió con el modelo {d.get('model')} (respuesta {r.status})")
+          except urllib.error.HTTPError as e:
+              try:
+                  err = json.load(e).get("error", {})
+              except Exception:
+                  err = {}
+              print(f"FALLA. Respuesta {e.code}. {err.get('type')} {err.get('message')}")
+              sys.exit(1)
+          PY
