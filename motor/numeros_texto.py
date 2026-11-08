@@ -81,12 +81,19 @@ def palabras_a_cifras(texto: str | None) -> str | None:
     otras en cifras)."""
     if not texto:
         return texto
-    partes = re.split(r"(\s+)", texto)
+    # Ciclo 2 de mejora, tipo D10 (8 de Noviembre de 2026). "cuatro-A" es "4-A". El guion pegado a una letra sola separa el
+    # número de la letra (rol 4294-2025, "la vivienda número cuatro-A").
+    partes = re.split(r"(\s+|-(?=[A-Za-z]\b))", texto)
     out, i = [], 0
     while i < len(partes):
         if partes[i] and _sin_tildes(partes[i]) in PALABRAS and _sin_tildes(partes[i]) != "y":
             j = i
             while j + 2 < len(partes) and _sin_tildes(partes[j + 2]) in PALABRAS:
+                # Ciclo 2 de mejora, tipo D1b (8 de Noviembre de 2026). La misma regla de D1. La "y" solo une una decena con
+                # una unidad. "Parcela número cuatro y un 6,25%" daba "Parcela número 5" (rol 6004-2023).
+                if _sin_tildes(partes[j + 2]) == "y" and not (_sin_tildes(partes[j]) in _DECENAS_Y and j + 4 < len(partes)
+                                                             and _sin_tildes(partes[j + 4]) in _UNO_A_NUEVE):
+                    break
                 j += 2
             while j > i and _sin_tildes(partes[j]) == "y":
                 j -= 2

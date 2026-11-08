@@ -187,8 +187,27 @@ def minimo_y_costas(texto: str) -> dict:
         etiqueta = _ETIQUETA.search(texto, a.start(), m.start())
         if not etiqueta:
             etiqueta = _ETIQUETA.search(texto, hallados[-1]["fin"] if hallados else 0, a.start())
+        # Ciclo 2 de mejora, tipo D5c (8 de Noviembre de 2026). Una sola palabra "mínimo" seguida de una lista con letras
+        # ("Mínimo posturas a) departamento N° 205C $46.847.342, b) Propiedad ubicada en Pasaje Goya Sur N° 1530 $95.286.918",
+        # rol 8467-2025). Cada letra con su monto es un remate. Si la letra no nombra un lote o departamento, la letra es la etiqueta.
+        marca = re.search(r"(?<!\w)([a-hA-H])\)\s", texto[a.end():m.start()])
         hallados.append({"monto": monto, "moneda": moneda, "cita": texto[a.start():m.end()], "fin": m.end(),
-                         "inmueble": f"{etiqueta.group(1).lower()} {etiqueta.group(2)}" if etiqueta else None})
+                         "inmueble": f"{etiqueta.group(1).lower()} {etiqueta.group(2)}" if etiqueta else (f"{marca.group(1).lower()})" if marca else None)})
+        if marca:
+            letra, pos = marca.group(1), m.end()
+            while True:
+                letra = chr(ord(letra) + 1)
+                mk = re.compile(rf"(?<!\w){letra}\)\s").search(texto, pos, pos + 250)
+                if not mk:
+                    break
+                mm = MONTO.search(texto, mk.end(), mk.end() + 200)
+                if not mm or re.search(r"%|garant[ií]a|cauci[oó]n|(?<!\w)[a-hA-H]\)\s", texto[mk.end():mm.start()], re.I):
+                    break
+                mo, mon, raro = _a_numero(mm)
+                et = _ETIQUETA.search(texto, mk.end(), mm.start())
+                hallados.append({"monto": mo, "moneda": mon, "cita": texto[mk.start():mm.end()], "fin": mm.end(),
+                                 "inmueble": f"{et.group(1).lower()} {et.group(2)}" if et else f"{letra.lower()})"})
+                pos = mm.end()
     vacio = {"monto": None, "moneda": None, "costas_clp": None, "cita": None}
     if not hallados:
         alertas.append(("revisar_lectura", "No se encontró el mínimo del remate."))

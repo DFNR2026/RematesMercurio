@@ -93,10 +93,18 @@ def numeros_clave(t: str | None) -> tuple:
 # También en plural (arreglo 2 del ajuste, 14-10 aviso 3, "las oficinas números 602 y 603")
 _UNIDAD = re.compile(r"\b(departamento|depto|dpto|casa|oficina|local|vivienda|unidad|bodega|estacionamiento|lote|sitio|parcela)(?:s|es)?\b", re.I)
 
+# Ciclo 2 de mejora, tipo D9 (8 de Noviembre de 2026). "departamento 2.708" es el 2708 y no el 2 (rol 14652-2025).
+_MILES = re.compile(r"(?<=\d)\.(?=\d{3}(?!\d))")
+
+def unidad_en_cifras(t: str | None) -> str | None:
+    """La unidad con los números en cifras y sin puntos de miles."""
+    t = palabras_a_cifras(t)
+    return _MILES.sub("", t) if t else t
+
 def unidad_clave(t: str | None) -> tuple | None:
     if not t:
         return None
-    t = norm(palabras_a_cifras(t))      # "departamento trescientos dos D" y "departamento 302 D" son la misma unidad
+    t = norm(unidad_en_cifras(t))      # "departamento trescientos dos D" y "departamento 302 D" son la misma unidad
     m = _UNIDAD.search(t)
     tipo = m.group(1) if m else ""
     tipo = {"depto": "departamento", "dpto": "departamento"}.get(tipo, tipo)
@@ -133,6 +141,21 @@ _SENALES = re.compile(r"ubicad[oa]\s+en|con\s+acceso|acceso\s+(?:principal|gener
                       r"|\bcalle\s+[A-ZÁÉÍÓÚÑ]|\bavenida\s+[A-ZÁÉÍÓÚÑ]|\bpasaje\s+[A-ZÁÉÍÓÚÑ]|\bcomuna\s+(?:de\s+)?[A-ZÁÉÍÓÚÑ]", re.I)
 
 
+# Ciclo 2 de mejora, tipo D6 (decisión de Diego del 8 de Noviembre de 2026). Una unidad con letra y sin número ("Casa H",
+# rol 4485-2024) se acepta si en su frase la letra va pegada al tipo ("Casa H, del Condominio"). Una "a" suelta no cuenta.
+_LETRA = re.compile(r"^\s*(?:el|la)?\s*(departamento|depto|dpto|casa|oficina|local|vivienda|unidad|bodega|estacionamiento|lote|sitio|parcela)"
+                    r"\s+(?:N[°º.]?\s*|n[uú]mero\s+)?([A-Z]{1,2})\s*$", re.I)
+_MARCA_NUMERO = re.compile(r"\bn[°º]|\bn[uú]mero\b|\bnros?\b|\bnum\.", re.I)
+
+
+def _unidad_con_letra(unidad: str, fu: str | None) -> bool:
+    m = _LETRA.match(unidad or "")
+    if not m or not fu or not m.group(2).isupper():
+        return False
+    # el tipo sin distinguir mayúsculas, la letra exacta y en mayúscula
+    return re.search(rf"\b(?i:{m.group(1)})s?\s+(?:N[°º.]?\s*|(?i:n[uú]mero)\s+)?['‘’]?{m.group(2).upper()}['‘’]?(?![\wÁÉÍÓÚÑáéíóúñ])", fu) is not None
+
+
 def verificar_inmueble(x: dict, texto: str) -> dict:
     """Revisa un inmueble de la respuesta. Devuelve {ok, motivos, direccion, comuna, cita, citas_extra} con lo que se
     guardaría (el número tal como está en el aviso y las frases tal como están en el aviso)."""
@@ -158,21 +181,23 @@ def verificar_inmueble(x: dict, texto: str) -> dict:
             motivos.append("La calle que dio la IA no está en la frase de la dirección.")
         en_frase = numeros_en(frase)
         pedidos = re.findall(r"\d+", x.get("numero") or "")
-        if not pedidos:
+        if not pedidos and _MARCA_NUMERO.search(frase):
+            # Ciclo 2, tipo D5a (decisión de Diego del 8 de Noviembre de 2026). Calle sin número solo si la frase no trae
+            # ninguna marca de número ("s/n", "pasaje 18 Norte ’C’" de Talca). Si dice "N°" o "número" falta el número.
             motivos.append("La IA no dio el número de la calle.")
         for n in pedidos:
             iguales = [f for f in en_frase if (f.lstrip("0") or "0") == (n.lstrip("0") or "0")]
             if not iguales:
                 motivos.append(f"El número {n} no está en la frase de la dirección.")
-        if not motivos:
+        if not motivos and pedidos:
             # el número que se guarda es el que está en el aviso (con su cero inicial), no el que copió la IA
             partes = re.split(r"(\d+)", x["numero"])
             numero = "".join(next((f for f in en_frase if (f.lstrip("0") or "0") == (p.lstrip("0") or "0")), p) if p.isdigit() else p for p in partes)
-    unidad = palabras_a_cifras(x.get("unidad"))          # se guarda en cifras (arreglo 1 del ajuste, 14-10 avisos 16 y 42)
+    unidad = unidad_en_cifras(x.get("unidad"))          # se guarda en cifras (arreglo 1 del ajuste, 14-10 avisos 16 y 42) y sin puntos de miles (D9)
     if unidad:
-        if not re.search(r"\d", unidad):
-            motivos.append("La unidad que dio la IA no trae número.")
         fu = buscar_frase(x.get("frase_unidad"), texto)
+        if not re.search(r"\d", unidad) and not _unidad_con_letra(unidad, fu):
+            motivos.append("La unidad que dio la IA no trae número.")
         if fu is None:
             motivos.append("La frase de la unidad no está en el aviso.")
         else:
@@ -198,10 +223,40 @@ def verificar_inmueble(x: dict, texto: str) -> dict:
     if motivos:
         return {"ok": False, "motivos": motivos}
     if tipo == "calle":
-        direccion = f"{x['calle'].strip()} {numero}" + (f", {unidad.strip()}" if unidad else "")
+        sn = " s/n" if not numero and re.search(r"s/n|sin\s+n[uú]mero", frase, re.I) and "s/n" not in x["calle"].lower() else ""
+        direccion = (f"{x['calle'].strip()} {numero}" if numero else f"{x['calle'].strip()}{sn}") + (f", {unidad.strip()}" if unidad else "")
     else:
-        direccion = frase[:200] + (f", {unidad.strip()}" if unidad and norm(unidad) not in norm(frase) else "")
+        direccion = frase[:200] + (f", {unidad.strip()}" if unidad and norm(unidad) not in norm(frase) and unidad_clave(unidad) != unidad_clave(frase) else "")
     return {"ok": True, "motivos": [], "direccion": direccion, "comuna": comuna.strip() if comuna else None, "cita": frase, "citas_extra": citas_extra}
+
+
+def _nums(x: dict) -> list:
+    return [(n.lstrip("0") or "0") for n in re.findall(r"\d+", x.get("numero") or "")]
+
+
+def _par(x: dict, y: dict):
+    """Ciclo 2 de mejora (decisiones de Diego del 8 de Noviembre de 2026). Une dos lecturas de un mismo inmueble.
+    Devuelve (principal, otra, modo) o None si no coinciden. La principal es la que se guarda si las dos se comprueban.
+    - iguales. Misma clave (lo de siempre).
+    - D4a. Misma calle, unidad y comuna, y una lectura trae números de acceso de más ("Carmen 660" y "Carmen 660 y 650").
+      Vale solo si los números de una están todos en la otra y el primero es el mismo. Queda la que trae menos.
+    - D4b. Todo igual salvo que una lectura trae unidad y la otra no. Queda la que trae unidad si su unidad se comprueba,
+      si no, la dirección sin unidad (lo decide resolver)."""
+    if clave_inmueble(x) == clave_inmueble(y):
+        return (x, y, "iguales")
+    kx, ky = clave_inmueble(x), clave_inmueble(y)
+    if x.get("tipo") == y.get("tipo") == "calle" and kx[1] == ky[1] and kx[3] == ky[3] and kx[4] == ky[4]:
+        nx, ny = _nums(x), _nums(y)
+        if nx and ny and nx[0] == ny[0] and set(nx) != set(ny):
+            if set(nx) < set(ny):
+                return (x, y, "acceso")
+            if set(ny) < set(nx):
+                return (y, x, "acceso")
+    if x.get("tipo") == y.get("tipo") and bool(x.get("unidad")) != bool(y.get("unidad")):
+        sin_u = lambda k: k[:3] + k[4:] if k[0] == "calle" else (k[0], k[2])
+        if sin_u(kx) == sin_u(ky):
+            return (x, y, "unidad") if x.get("unidad") else (y, x, "unidad")
+    return None
 
 
 def resolver(lecturas: list, texto: str, n_remates: int) -> dict:
@@ -216,16 +271,20 @@ def resolver(lecturas: list, texto: str, n_remates: int) -> dict:
     base["frase"] = primera
     if len(a) != n_remates or len(b) != n_remates:
         base["motivos"].append(f"La IA entregó {len(a)} y {len(b)} direcciones y el aviso trae {n_remates} remates."); return base
-    if [clave_inmueble(x) for x in a] != [clave_inmueble(x) for x in b]:
+    pares = [_par(x, y) for x, y in zip(a, b)]
+    if any(p is None for p in pares):
         base["motivos"].append("Las dos lecturas de la IA no coinciden."); return base
     if all(x.get("tipo") == "sin_dato" for x in a):
         s = _SENALES.search(texto)
         if s:
             base["motivos"].append(f"La IA no encontró la dirección, pero el aviso parece darla ({texto[s.start():s.start() + 80]})."); return base
         base["color"] = "sin_dato"; return base
-    for k, (x, y) in enumerate(zip(a, b), start=1):
+    for k, (x, y, modo) in enumerate(pares, start=1):
         v, v2 = verificar_inmueble(x, texto), verificar_inmueble(y, texto)
         pre = f"Remate {k}. " if n_remates > 1 else ""
+        if modo == "unidad" and not v["ok"] and v2["ok"]:
+            # D4b. La unidad de la lectura que la trae no se comprobó. Queda la dirección sin unidad de la otra lectura.
+            v = v2
         if not v["ok"]:
             base["motivos"] += [pre + m for m in v["motivos"]]
         elif not v2["ok"]:

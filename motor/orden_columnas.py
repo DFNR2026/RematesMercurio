@@ -35,8 +35,11 @@ def texto_por_posicion(geo: dict) -> str | None:
                    and i[2] < y_cornisa - 5 and min(abs(i[1] - b) for b in bordes) <= 3]
     cortes = []
     for a in sorted(secundarias, key=lambda a: -a[2]):
-        fila = [b for b in secundarias if abs(b[2] - a[2]) <= 3]
-        if len({min(bordes, key=lambda x: abs(x - b[1])) for b in fila}) >= 2:
+        # Ciclo 2 de mejora, tipo D8 (8 de Noviembre de 2026). Una franja verdadera repite el MISMO número de sección en 3
+        # columnas o más (las 3 reales guardadas, "1309" en 5 y 6 columnas). Dos secciones distintas que empiezan a la misma
+        # altura en dos columnas ("1612" y "1616", B09 del 5 de Noviembre) son el flujo normal del diario y no se cortan.
+        fila = [b for b in secundarias if abs(b[2] - a[2]) <= 3 and str(b[0]).strip() == str(a[0]).strip()]
+        if len({min(bordes, key=lambda x: abs(x - b[1])) for b in fila}) >= 3:
             techo = max(b[2] + b[4] for b in fila) + 2
             # Un título ancho (dos columnas o más) justo encima de esa fila pertenece a la franja nueva
             # (ej. "MUNDO LABORAL - CLASIFICADOS EMPLEO Y CAPACITACIÓN", 4 columnas de ancho).
