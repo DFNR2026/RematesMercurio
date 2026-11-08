@@ -10,6 +10,8 @@ La carátula (demandante con demandado) la lee SOLO el código, con expresiones 
 
 La dirección la lee Claude Haiku dos veces por aviso (motor/direccion.py). Cada lectura trae la calle, el número, la unidad, la comuna y la frase exacta del aviso de donde sacó cada dato. Después el código comprueba todo contra el texto. La frase debe estar en el aviso (motor/ia_comun.py buscar_frase, que solo perdona diferencias de espacios), el número debe estar en su frase en cifras o en palabras (motor/numeros_texto.py), y las dos lecturas deben coincidir. Si todo calza queda en verde. Si algo no calza queda en rojo, sin dirección.
 
+Cambios del ciclo 2, tanda 1 (8 de Noviembre). buscar_frase perdona también la diferencia entre comillas rectas y curvas, no las mayúsculas. Las dos lecturas se unen con direccion._par(), que además de la coincidencia exacta acepta dos casos. Uno es cuando una lectura trae números de acceso de más y el primero es el mismo (queda el común). El otro es cuando solo difiere la unidad y una lectura no la trae (queda la unidad si su frase se comprueba, si no la dirección sin unidad). Se aceptan la unidad con letra sin número ("Casa H") y la calle sin número si la frase no trae ninguna marca de número. El orden de columnas ya no corta la página cuando dos secciones distintas empiezan a la misma altura.
+
 Las respuestas de Haiku se guardan por huella (modelo, versión de las instrucciones, cantidad de remates y texto del aviso). Si el mismo aviso vuelve otro día no se le pregunta de nuevo. Cambiar INSTRUCCIONES o VERSION_INSTRUCCIONES invalida todas las respuestas guardadas y obliga a pagar de nuevo.
 
 En el Excel el abogado no ve el motivo del rojo. motor/filtros.py traduce cualquier rojo a "No se pudo comprobar la dirección" y cualquier falla de carátula a "No se pudo leer la carátula". El motivo de fondo solo se ve reproduciendo el aviso (sección 3).
@@ -21,7 +23,7 @@ En el Excel el abogado no ve el motivo del rojo. motor/filtros.py traduce cualqu
 3. La Observación no va a desaparecer nunca del todo. Es la red de seguridad. Lo que se arregla son los fallos del programa. Los fallos de la IA y los avisos mal escritos van a seguir llegando a esa red, y está bien.
 4. Concluir del total y nunca del último caso. Cada tipo de fallo lleva su n y se suma a la bitácora sin borrar lo anterior. Si un registro estaba mal, se anota la corrección.
 5. Separar lo verificado de lo supuesto en cada afirmación.
-6. Una variable por prueba, y un cambio de código por noche después de que el anterior pasó su corrida real.
+6. Una variable por prueba, y un cambio de código por noche después de que el anterior pasó su corrida real. Corregido el 8 de Noviembre por decisión de Diego. Los arreglos van por tandas. Cada arreglo se mide por separado en la copia (una variable por prueba) y la tanda se publica junta, con una corrida real antes de la tanda siguiente.
 
 ## 3. El ciclo, paso a paso
 
@@ -32,7 +34,7 @@ En el Excel el abogado no ve el motivo del rojo. motor/filtros.py traduce cualqu
 5. Elegir qué arreglar por frecuencia. Primero lo del programa que más se repite. Lo de la IA se decide aparte, porque casi siempre significa aflojar una comprobación.
 6. Auditoría independiente. Se arma un paquete con un encargo .md, los casos en JSON (texto completo del aviso, lecturas de la IA, lo que da hoy y lo que debería dar, más casos negativos que deben seguir vacíos) y una copia del código. Lo revisa un agente que no vio el trabajo previo. Sus hallazgos no se aceptan a ciegas.
 7. Pesar contra datos reales. Correr las pruebas completas del proyecto con el código arreglado y hacer la regresión con todas las capturas guardadas, antes y después (scripts/regre.py y scripts/comparar.py). Criterio de aceptación, cero carátulas perdidas o cambiadas y cero direcciones que empeoren, salvo las que el arreglo busca.
-8. Publicar. Aplicar en D:\Mercurio, agregar pruebas en pruebas/, fijar por escrito las cifras esperadas en ESTADO_PROYECTO.md y pasar el texto cerrado a Claude Code (commit y push, con reporte .md). Un cambio por noche.
+8. Publicar. Aplicar en D:\Mercurio, agregar pruebas en pruebas/, fijar por escrito las cifras esperadas en ESTADO_PROYECTO.md y pasar el texto cerrado a Claude Code (commit y push, con reporte .md). Un cambio por noche (desde el 8 de Noviembre, una tanda por corrida real, ver principio 6). Si se trabaja desde la nube sin terminal en el PC, conviene que Claude Code repita la medición completa en una copia antes de publicar, como en la tanda 1 del ciclo 2.
 9. Comprobar la corrida real del día siguiente. En Supabase (marcas, Excel, captura) y en el log que baja Diego. Los colores de la IA deben sumar los avisos leídos, las causas deben cuadrar con las tablas y las filas agregadas a la memoria con principal más ya informadas.
 10. Anotar el ciclo en la sección 7 de esta guía y en BANCO_FALLOS.md.
 
@@ -71,6 +73,28 @@ En el Excel el abogado no ve el motivo del rojo. motor/filtros.py traduce cualqu
 | C7 | No aplica | Avisos que no son juicios (interdicción, remate privado) | 2 sin rol | Correcto que quede vacía |
 | D? | Sin clasificar | Dirección en rojo, caso nuevo | rol 12688-2023 del 20° Civil, 1 de Noviembre | Pendiente, ahora se puede ver con ia_respuestas.zip |
 
+Actualización del ciclo 2 (8 de Noviembre). Lo de arriba queda como estaba. El n de cada tipo es de causas con evidencia, ciclo 1 más ciclo 2.
+
+| Tipo | Origen | Qué pasa | Ejemplo real | n | Estado |
+|---|---|---|---|---|---|
+| D? | IA | El 12688-2023 era D3 | comillas rectas en vez de curvas | | Cerrado |
+| D1b | Programa | "cuatro y un" sumaba 5 en palabras_a_cifras | "Parcela número cuatro y un 6,25%" (rol 6004-2023) | 1 | Arreglado, tanda 1 ciclo 2 |
+| D3 | IA | Comilla recta en vez de curva, o una palabra agregada | 12688-2023, 1131-2026, 973-2025, 27029-2019 | 7 | Comillas arregladas en tanda 1 ciclo 2. Mayúsculas y palabras siguen en rojo |
+| D4a | IA | Una lectura agrega el número del acceso vehicular | "Carmen 660" contra "Carmen 660 y 650" (rol 9124-2023) | 5 | Arreglado, tanda 1 ciclo 2 |
+| D4b | IA | La unidad en una lectura sí y en la otra no | sitio 54, parcela 4, casa 1 | 4 | Arreglado, tanda 1 ciclo 2 (19929-2024 sigue, las dos traen unidad con distinto tipo) |
+| D4c | IA | Tipo distinto entre lecturas (calle, sin calle, sin dato) | 17699-2020, 15867-2024 | 2 | Sin arreglo |
+| D4d | IA | Dos accesos de calles distintas y cada lectura eligió uno | 11149-2025 | 1 | Sin arreglo, lo resuelve la tanda 2 de condominios |
+| D5a | Programa | Calle sin número | 5633-2024, 17716-2024 | 2 | Arreglado, tanda 1 ciclo 2. 5633 sale con el acceso del condominio hasta la tanda 2 |
+| D5b | Programa | Corrección. El espacio del monto no era la causa en 8467-2025, _PESOS ya acepta "$95. 286.918". Queda en duda también 28-2025 | rol 28-2025 | 1 | Sin revisar |
+| D5c | Programa | Una sola palabra "mínimo" seguida de una lista a) b) | rol 8467-2025 | 1 | Arreglado, tanda 1 ciclo 2 |
+| D6 | Programa | Unidad con letra sin número, aviso visto | "Casa H" (rol 4485-2024) | 1 | Arreglado, tanda 1 ciclo 2 |
+| D8 | Programa | Dos secciones distintas a la misma altura cortaban la página como franja y revolvían avisos | B09 del 5 de Noviembre, 4510-2025 informada sin deber y 7 avisos que no eran remates en el Excel | 1 edición | Arreglado, tanda 1 ciclo 2 |
+| D9 | Programa | Unidad con punto de miles | "departamento 2.708" daba 2 (rol 14652-2025) | 1 | Arreglado, tanda 1 ciclo 2 |
+| D10 | Programa | Unidad en palabras con letra | "vivienda número cuatro-A" (rol 4294-2025) | 1 | Arreglado, tanda 1 ciclo 2 |
+| D11 | IA | Eligió la frase "la unidad N° 191" para "casa 191" | rol 9353-2023 | 1 | Sin arreglo |
+| A1 | Aviso | El diario imprime "General K .. orner" | rol 3251-2021 | 1 | No aplica |
+| N2 | Programa | Corrección. No era un tipo aparte, eran avisos que no son remates metidos por D8 | 13857-2022, 1504-2025 | | Cerrado con D8 |
+
 ## 6. Lecciones aprendidas
 
 1. Sin el texto del aviso no hay diagnóstico. En el ciclo 1 solo 8 de 27 causas con Observación tenían evidencia. Por eso desde el 2 de Noviembre se guarda la captura diaria. En GitHub Actions lo que el programa escribe en disco se pierde al terminar la corrida.
@@ -82,6 +106,9 @@ En el Excel el abogado no ve el motivo del rojo. motor/filtros.py traduce cualqu
 7. La regresión con todas las capturas es la prueba más fuerte. En el ciclo 1, 1.145 avisos de 12 ediciones mostraron cero pérdidas, y eso permitió publicar cinco patrones de carátula en una sola noche.
 8. Medir la mejora en el total y no solo en la tabla principal. Los rojos de la IA sobre todos los avisos leídos son la cifra comparable entre días (log, línea "colores").
 9. Explicar desde el principio que la Observación no desaparece. Al ver todavía Observaciones el 1 de Noviembre parecía que los arreglos no habían servido, cuando habían bajado de 13% a 1 de 6 filas.
+10. (Ciclo 2) Un hallazgo puede esconder otro más grave. D8 empezó como dos direcciones en rojo y resultó ser una página revuelta que metió 7 avisos que no eran remates en el Excel del 5 de Noviembre, sin alarma de cuadre.
+11. (Ciclo 2) Comprobar el mecanismo antes de reusar un tipo viejo. El 8467-2025 parecía D5b (monto con espacio) y la causa era otra (lista a) b) de mínimos).
+12. (Ciclo 2) La copia de prueba en la máquina virtual se puede perder si cambia la sesión. Dejar los arreglos como un script que exige el texto original exacto (Mejora_continua/ciclo2_tanda1/aplicar_tanda1.py) permite rehacerlos y comprobar que quedan idénticos.
 
 ## 7. Bitácora de ciclos
 
@@ -89,3 +116,4 @@ En el Excel el abogado no ve el motivo del rojo. motor/filtros.py traduce cualqu
 |---|---|---|---|---|
 | 1 | 30 de Octubre al 1 de Noviembre de 2026 | 12 Excel (19 al 30 de Octubre), capturas del 14 al 18 de Octubre, banco del 14 de Octubre | D1 (b652f2f), C1 C2b C3 C4 C5 (03a77dd), captura diaria (4c00652) | En 1.145 avisos, 10 carátulas y 2 direcciones recuperadas y cero pérdidas. Corridas reales del 31 de Octubre (rojos 4 de 100) y del 1 de Noviembre (rojos 5 de 94, Observaciones en la tabla principal 1 de dirección y 1 de carátula de 6 filas) |
 | 2 | Desde cerca del 8 de Noviembre | Capturas del 2 al 8 de Noviembre | | |
+| 2, tanda 1 | 8 de Noviembre de 2026 | Capturas del 2 al 8 de Noviembre, 999 respuestas guardadas, 21 Excel. Banco en Storage_supabase/Banco_ciclo2 | D8, D3, D10, D1b, D9, D6, D5a, D4a, D4b y D5c (commit en el reporte de Claude Code del 8 de Noviembre) | En 1.849 avisos de 19 ediciones, 21 direcciones recuperadas, cero de verde a rojo y cero carátulas perdidas. Corrida real del 9 de Noviembre por revisar |
