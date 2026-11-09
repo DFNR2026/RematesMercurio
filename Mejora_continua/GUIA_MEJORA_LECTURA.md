@@ -12,6 +12,8 @@ La dirección la lee Claude Haiku dos veces por aviso (motor/direccion.py). Cada
 
 Cambios del ciclo 2, tanda 1 (8 de Noviembre). buscar_frase perdona también la diferencia entre comillas rectas y curvas, no las mayúsculas. Las dos lecturas se unen con direccion._par(), que además de la coincidencia exacta acepta dos casos. Uno es cuando una lectura trae números de acceso de más y el primero es el mismo (queda el común). El otro es cuando solo difiere la unidad y una lectura no la trae (queda la unidad si su frase se comprueba, si no la dirección sin unidad). Se aceptan la unidad con letra sin número ("Casa H") y la calle sin número si la frase no trae ninguna marca de número. El orden de columnas ya no corta la página cuando dos secciones distintas empiezan a la misma altura.
 
+Cambios del ciclo 2, tanda 2 (formato de condominios, decisión de Diego del 8 de Noviembre). Cuando la dirección sale en verde, el aviso trae un remate y dice condominio o edificio, motor/conjunto.py arma la celda Dirección con el tipo (condominio de departamentos, de casas, solo condominio, o edificio) y su nombre, la dirección comprobada por la IA, la calle interior si la hay, los estacionamientos y bodegas, y la entrada si es otra calle. Todo sale por código del texto del aviso, sin IA, así que no cambian las instrucciones de Haiku ni las respuestas guardadas. No cambia ningún color. "Conjunto habitacional" no cuenta como condominio.
+
 Las respuestas de Haiku se guardan por huella (modelo, versión de las instrucciones, cantidad de remates y texto del aviso). Si el mismo aviso vuelve otro día no se le pregunta de nuevo. Cambiar INSTRUCCIONES o VERSION_INSTRUCCIONES invalida todas las respuestas guardadas y obliga a pagar de nuevo.
 
 En el Excel el abogado no ve el motivo del rojo. motor/filtros.py traduce cualquier rojo a "No se pudo comprobar la dirección" y cualquier falla de carátula a "No se pudo leer la carátula". El motivo de fondo solo se ve reproduciendo el aviso (sección 3).
@@ -77,6 +79,7 @@ Actualización del ciclo 2 (8 de Noviembre). Lo de arriba queda como estaba. El 
 
 | Tipo | Origen | Qué pasa | Ejemplo real | n | Estado |
 |---|---|---|---|---|---|
+| F1 | Programa (formato) | Condominios y edificios salían como calle, número y unidad, sin la calle interior, la entrada ni el estacionamiento | 5633-2024 (calle interior Canal Baker y entrada por Infante Larraín), 13112-2023 (entrada por otra calle) | 289 avisos | Arreglado, tanda 2 ciclo 2 |
 | D? | IA | El 12688-2023 era D3 | comillas rectas en vez de curvas | | Cerrado |
 | D1b | Programa | "cuatro y un" sumaba 5 en palabras_a_cifras | "Parcela número cuatro y un 6,25%" (rol 6004-2023) | 1 | Arreglado, tanda 1 ciclo 2 |
 | D3 | IA | Comilla recta en vez de curva, o una palabra agregada | 12688-2023, 1131-2026, 973-2025, 27029-2019 | 7 | Comillas arregladas en tanda 1 ciclo 2. Mayúsculas y palabras siguen en rojo |
@@ -109,6 +112,7 @@ Actualización del ciclo 2 (8 de Noviembre). Lo de arriba queda como estaba. El 
 10. (Ciclo 2) Un hallazgo puede esconder otro más grave. D8 empezó como dos direcciones en rojo y resultó ser una página revuelta que metió 7 avisos que no eran remates en el Excel del 5 de Noviembre, sin alarma de cuadre.
 11. (Ciclo 2) Comprobar el mecanismo antes de reusar un tipo viejo. El 8467-2025 parecía D5b (monto con espacio) y la causa era otra (lista a) b) de mínimos).
 12. (Ciclo 2) La copia de prueba en la máquina virtual se puede perder si cambia la sesión. Dejar los arreglos como un script que exige el texto original exacto (Mejora_continua/ciclo2_tanda1/aplicar_tanda1.py) permite rehacerlos y comprobar que quedan idénticos.
+13. (Ciclo 2) Un formato nuevo se revisa aviso por aviso y no solo por conteo. En la tanda 2 los conteos daban cero pérdidas y la revisión de las 289 celdas igual encontró 4 errores de texto (estacionamientos que faltaban o se repetían).
 
 ## 7. Bitácora de ciclos
 
@@ -116,4 +120,5 @@ Actualización del ciclo 2 (8 de Noviembre). Lo de arriba queda como estaba. El 
 |---|---|---|---|---|
 | 1 | 30 de Octubre al 1 de Noviembre de 2026 | 12 Excel (19 al 30 de Octubre), capturas del 14 al 18 de Octubre, banco del 14 de Octubre | D1 (b652f2f), C1 C2b C3 C4 C5 (03a77dd), captura diaria (4c00652) | En 1.145 avisos, 10 carátulas y 2 direcciones recuperadas y cero pérdidas. Corridas reales del 31 de Octubre (rojos 4 de 100) y del 1 de Noviembre (rojos 5 de 94, Observaciones en la tabla principal 1 de dirección y 1 de carátula de 6 filas) |
 | 2 | Desde cerca del 8 de Noviembre | Capturas del 2 al 8 de Noviembre | | |
-| 2, tanda 1 | 8 de Noviembre de 2026 | Capturas del 2 al 8 de Noviembre, 999 respuestas guardadas, 21 Excel. Banco en Storage_supabase/Banco_ciclo2 | D8, D3, D10, D1b, D9, D6, D5a, D4a, D4b y D5c (commit en el reporte de Claude Code del 8 de Noviembre) | En 1.849 avisos de 19 ediciones, 21 direcciones recuperadas, cero de verde a rojo y cero carátulas perdidas. Corrida real del 9 de Noviembre por revisar |
+| 2, tanda 1 | 8 de Noviembre de 2026 | Capturas del 2 al 8 de Noviembre, 999 respuestas guardadas, 21 Excel. Banco en Storage_supabase/Banco_ciclo2 | D8, D3, D10, D1b, D9, D6, D5a, D4a, D4b y D5c (cc8f5c1) | En 1.849 avisos de 19 ediciones, 21 direcciones recuperadas, cero de verde a rojo y cero carátulas perdidas. Corrida real del 9 de Noviembre, rojos 5 de 109 (4,6%), la semana anterior 67 de 709 (9,4%) |
+| 2, tanda 2 | 8 y 9 de Noviembre de 2026 | Las mismas 19 ediciones (1.849 avisos) y las 999 respuestas guardadas. 289 direcciones revisadas una por una | Formato de condominios y edificios (motor/conjunto.py) | 289 direcciones cambian solo de texto, cero colores, carátulas o remates movidos. La revisión encontró 4 errores del formato (listas de estacionamientos, un piso tomado como estacionamiento, unidad y "Edificio" repetidos), arreglados antes de publicar. Corrida real por revisar |

@@ -1,5 +1,5 @@
 # Prompt Maestro. Extractor El Mercurio Digital (RM)
-# Versión 4.1 (8 de Noviembre de 2026). Versión 4.0 aprobada por Diego el 21 de Octubre de 2026
+# Versión 4.2 (9 de Noviembre de 2026). Versión 4.0 aprobada por Diego el 21 de Octubre de 2026
 
 > Uno de los dos documentos base del proyecto. Este dice cómo funciona el programa y sus reglas, y cambia poco. ESTADO_PROYECTO.md (en D:\Mercurio, fuera de git) dice en qué estamos, las decisiones y los pendientes. Reemplaza a PROMPT_MAESTRO_MERCURIO_v3_1.md (de Julio, borrado el 6 de Noviembre de 2026 con el resto de documentos/historia, queda en el historial de git). La experiencia para mejorar la lectura de dirección y carátula está en Mejora_continua/GUIA_MEJORA_LECTURA.md. Ante cualquier diferencia con el código, el árbitro es el código.
 
@@ -58,7 +58,8 @@ Motor traído de Agendar_Remates el 17 de Octubre (etapas A a F del traspaso).
 1. motor/lector_mercurio.py. Entra al diario con la cuenta del Mercurio, activa el modo HD (canvas de más de 1800 de ancho) con la primera página del cuerpo A, lista todos los cuerpos del día y lee el texto de cada página. No lee los cuerpos A, E, R y T (decisión de Diego del 18 de Octubre, 0 remates en 11 ediciones guardadas). Los remates han salido en B (días hábiles), C, D (sábados), F (domingos) y G (viernes).
 2. motor/navegacion_logica.py. Elige las páginas con la cornisa "1616 Remates de propiedades", las encadena y sigue las flechas "MÁS AVISOS... EN PÁG.". Una flecha hacia un cuerpo que no se lee levanta una alarma clara.
 3. motor/edicion.py, cortador.py, orden_columnas.py, extraccion.py, partidor.py, direccion.py. Une las páginas en un solo rollo, ordena las columnas por posición, corta por aviso con código, elimina los remates de partidor, extrae tribunal, inscripción y carátula por código, y pide a Haiku solo la dirección y la comuna, con dos lecturas y cita exacta verificada. La cita perdona solo espacios y la diferencia entre comillas rectas y curvas. Cuando las dos lecturas difieren solo en un número de acceso de más o en una unidad que una no trae, el código se queda con la parte común comprobada (ciclo 2 de mejora, 8 de Noviembre, detalle en Mejora_continua/GUIA_MEJORA_LECTURA.md).
-4. motor/filtros.py. Reglas de negocio y tablas del Excel.
+4. motor/conjunto.py. Si la dirección quedó comprobada, el aviso trae un remate y dice condominio o edificio, arma la celda Dirección con el tipo y nombre del condominio o edificio, la dirección, la calle interior, los estacionamientos y bodegas, y la entrada si es otra calle. Solo código, sin IA (desde el 9 de Noviembre).
+5. motor/filtros.py. Reglas de negocio y tablas del Excel.
 
 ## Reglas de negocio vigentes
 
@@ -108,5 +109,6 @@ Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. 
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 3.1 | 5 de Julio de 2026 | DeepSeek, lectura vieja, llave de dedup con tribunal, despliegue en E:\Mercurio |
+| 4.2 | 9 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 2. Formato de condominios y edificios en la columna Dirección (motor/conjunto.py) |
 | 4.1 | 8 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 1 (orden de columnas, comillas, unión de lecturas, unidad con letra o con punto de miles, calle sin número, lista de mínimos). Publicación por tandas |
 | 4.0 | 19 al 21 de Octubre de 2026 (borrador) | Motor de Agendar_Remates con Haiku (commits 7996493 a bd67a06). Cuerpos A, E, R y T sin lectura (59fd135). Servidor en GitHub Actions con Supabase y Gmail (add4b51 a f8c49eb). cron-job.org como despertador (802fab7). Regla de los 4 días (739e00c) y causas para revisar anotadas en la memoria (2a6100b). Último intento arreglado en las corridas automáticas (145cd2d) |
