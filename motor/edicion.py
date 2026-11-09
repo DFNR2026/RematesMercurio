@@ -27,6 +27,7 @@ from motor.extraccion import tribunal as leer_tribunal, inscripcion, caratula, m
 from motor.partidor import es_partidor
 from motor.clave import _clave_causa
 from motor import direccion as DR
+from motor import conjunto as CJ
 
 # Dólares por millón de tokens de Claude Haiku 5.5, verificados por Agendar_Remates el 16 de Octubre de 2026
 # (pruebas\\medir_direccion.py). Solo para la hoja Resumen.
@@ -150,7 +151,9 @@ def _direccion(texto: str, n: int, cliente, ia: dict) -> tuple:
     ia["leidos"] += 1
     ia["colores"][res["color"]] = ia["colores"].get(res["color"], 0) + 1
     if res["color"] == "verde":
-        return [{"direccion": i["direccion"], "comuna": i["comuna"]} for i in res["inmuebles"]], "verde", []
+        # Tanda 2 del ciclo 2. Con un remate, si el aviso habla de condominio o edificio, la dirección va en ese formato.
+        return [{"direccion": CJ.describir(texto, i["direccion"], i.get("calle")) if n == 1 else i["direccion"],
+                 "comuna": i["comuna"]} for i in res["inmuebles"]], "verde", []
     if res["color"] == "sin_dato":
         return [], "sin_dato", [DR.NO_ENCONTRADA]
     return None, "rojo", [DR.texto_rojo(res)]
