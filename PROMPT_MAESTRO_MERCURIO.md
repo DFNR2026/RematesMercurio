@@ -1,5 +1,5 @@
 # Prompt Maestro. Extractor El Mercurio Digital (RM)
-# Versión 4.2 (9 de Noviembre de 2026). Versión 4.0 aprobada por Diego el 21 de Octubre de 2026
+# Versión 4.3 (10 de Noviembre de 2026). Versión 4.0 aprobada por Diego el 21 de Octubre de 2026
 
 > Uno de los dos documentos base del proyecto. Este dice cómo funciona el programa y sus reglas, y cambia poco. ESTADO_PROYECTO.md (en D:\Mercurio, fuera de git) dice en qué estamos, las decisiones y los pendientes. Reemplaza a PROMPT_MAESTRO_MERCURIO_v3_1.md (de Julio, borrado el 6 de Noviembre de 2026 con el resto de documentos/historia, queda en el historial de git). La experiencia para mejorar la lectura de dirección y carátula está en Mejora_continua/GUIA_MEJORA_LECTURA.md. Ante cualquier diferencia con el código, el árbitro es el código.
 
@@ -57,13 +57,13 @@ Motor traído de Agendar_Remates el 17 de Octubre (etapas A a F del traspaso).
 
 1. motor/lector_mercurio.py. Entra al diario con la cuenta del Mercurio, activa el modo HD (canvas de más de 1800 de ancho) con la primera página del cuerpo A, lista todos los cuerpos del día y lee el texto de cada página. No lee los cuerpos A, E, R y T (decisión de Diego del 18 de Octubre, 0 remates en 11 ediciones guardadas). Los remates han salido en B (días hábiles), C, D (sábados), F (domingos) y G (viernes).
 2. motor/navegacion_logica.py. Elige las páginas con la cornisa "1616 Remates de propiedades", las encadena y sigue las flechas "MÁS AVISOS... EN PÁG.". Una flecha hacia un cuerpo que no se lee levanta una alarma clara.
-3. motor/edicion.py, cortador.py, orden_columnas.py, extraccion.py, partidor.py, direccion.py. Une las páginas en un solo rollo, ordena las columnas por posición, corta por aviso con código, elimina los remates de partidor, extrae tribunal, inscripción y carátula por código, y pide a Haiku solo la dirección y la comuna, con dos lecturas y cita exacta verificada. La cita perdona solo espacios y la diferencia entre comillas rectas y curvas. Cuando las dos lecturas difieren solo en un número de acceso de más o en una unidad que una no trae, el código se queda con la parte común comprobada (ciclo 2 de mejora, 8 de Noviembre, detalle en Mejora_continua/GUIA_MEJORA_LECTURA.md).
+3. motor/edicion.py, cortador.py, orden_columnas.py, extraccion.py, partidor.py, direccion.py. Une las páginas en un solo rollo, ordena las columnas por posición, corta por aviso con código, elimina los remates de partidor, extrae tribunal, inscripción y carátula por código, y pide a Haiku solo la dirección y la comuna, con dos lecturas y cita exacta verificada. La cita perdona solo espacios y la diferencia entre comillas rectas y curvas. Cuando las dos lecturas difieren solo en un número de acceso de más o en una unidad que una no trae, el código se queda con la parte común comprobada (ciclo 2 de mejora, 8 de Noviembre, detalle en Mejora_continua/GUIA_MEJORA_LECTURA.md). Desde la tanda 3 del ciclo 2 (10 de Noviembre) la inscripción se lee también cuando el aviso escribe "Fs.", "fs", "fjs" o "f." en vez de fojas, "números" en plural o la letra F junto a las fojas, y la carátula se lee en más formas (después de "expediente", con barra antes del rol, con la comilla sin cerrar y con tres errores de tipeo del diario).
 4. motor/conjunto.py. Si la dirección quedó comprobada, el aviso trae un remate y dice condominio o edificio, arma la celda Dirección con el tipo y nombre del condominio o edificio, la dirección, la calle interior, los estacionamientos y bodegas, y la entrada si es otra calle. Solo código, sin IA (desde el 9 de Noviembre).
 5. motor/filtros.py. Reglas de negocio y tablas del Excel.
 
 ## Reglas de negocio vigentes
 
-Solo RM por comuna de la propiedad. No BancoEstado (mira la carátula entera). No Estación Central. Año del rol desde 2018. Dominio CBR anterior a 2020, con el año de la inscripción que lee el código. Año vacío va a REVISAR. Un rol con más de 5 propiedades no pasa por el filtro CBR y entra si al menos una está en la RM. Con 5 o menos, cada propiedad se filtra y el rol se descarta solo si todas fallan. Una fila por rol. Los avisos sin rol y de año ilegible van en su propia tabla. Los partidores no aparecen en ninguna tabla.
+Solo RM por comuna de la propiedad. No BancoEstado (mira la carátula entera, y si la carátula no se pudo leer, busca el nombre del banco en el aviso fuera de las frases de pago, desde el 10 de Noviembre). No Estación Central. Año del rol desde 2018. Dominio CBR anterior a 2020, con el año de la inscripción que lee el código. Año vacío va a REVISAR. Un rol con más de 5 propiedades no pasa por el filtro CBR y entra si al menos una está en la RM. Con 5 o menos, cada propiedad se filtra y el rol se descarta solo si todas fallan. Una fila por rol. Los avisos sin rol y de año ilegible van en su propia tabla. Los partidores no aparecen en ninguna tabla.
 
 Regla de los 4 días (decisión de Diego del 20 de Octubre). Un remate que no se hace y se vuelve a pedir tarda como mínimo 2 meses en reaparecer en el diario. Una causa que salió en alguno de los 4 días anteriores a la edición (el día anterior y 3 más atrás, como un trencito) es el mismo aviso republicado y va a la tabla "Ya informadas en los últimos 4 días", con la frase "Este aviso ha salido en El Mercurio los días ...". Si salió hace más de 4 días entra como nueva y pasa por los filtros, porque es un nuevo intento de remate. Un día con solo causas repetidas no genera Excel y manda el correo "Sin causas nuevas".
 
@@ -93,7 +93,7 @@ Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. 
 - git status --short antes de cada commit. Agregar archivo por archivo. Prohibido git add ., git add -A, git commit -am, git reset --hard, git clean y git pull fuera del guion.
 - Push solo con el "apruebo push" de Diego. Pegar el texto en Claude Code cuenta como aprobación.
 - Un commit es una sola historia. Las cifras esperadas se fijan antes de correr.
-- Los logs de cada corrida se descargan a D:\Mercurio\Logs_GitHub para auditarlos desde el disco.
+- Los logs de cada corrida se descargan a D:\Mercurio\INFORMES_REPORTES\Logs_GitHub (hasta el 10 de Noviembre, D:\Mercurio\Logs_GitHub) para auditarlos desde el disco.
 
 ## Pruebas manuales en GitHub
 
@@ -109,6 +109,7 @@ Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. 
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 3.1 | 5 de Julio de 2026 | DeepSeek, lectura vieja, llave de dedup con tribunal, despliegue en E:\Mercurio |
+| 4.3 | 10 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 3. Carátulas y fojas (motor/extraccion.py) y BancoEstado en el aviso cuando la carátula queda vacía (motor/filtros.py). Logs_GitHub y Storage_supabase pasan a D:\Mercurio\INFORMES_REPORTES |
 | 4.2 | 9 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 2. Formato de condominios y edificios en la columna Dirección (motor/conjunto.py) |
 | 4.1 | 8 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 1 (orden de columnas, comillas, unión de lecturas, unidad con letra o con punto de miles, calle sin número, lista de mínimos). Publicación por tandas |
 | 4.0 | 19 al 21 de Octubre de 2026 (borrador) | Motor de Agendar_Remates con Haiku (commits 7996493 a bd67a06). Cuerpos A, E, R y T sin lectura (59fd135). Servidor en GitHub Actions con Supabase y Gmail (add4b51 a f8c49eb). cron-job.org como despertador (802fab7). Regla de los 4 días (739e00c) y causas para revisar anotadas en la memoria (2a6100b). Último intento arreglado en las corridas automáticas (145cd2d) |
