@@ -418,8 +418,8 @@ def tribunal(texto: str) -> dict:
 # Formas vistas en las 7 ediciones capturadas (17 de Octubre). "5914v N° 6254", "3242V N° 5292", "No. 38.549", "No 4.989",
 # "fojas 14. 515 N° 13.762", "fojas. 2412 número 3376", "fojas Fs. 76060 N° 106266".
 _NUM_INS = r"(\d{1,3}(?:\.\s?\d{3})+|\d+)"
-_FOJAS = re.compile(rf"\bfojas?\.?\s+(?:fs\.?\s*)?{_NUM_INS}\s*(?:vuelta|vta\.?|v(?![a-záéíóúñ]))?\s*,?\s*(?:y\s+)?(?:bajo\s+(?:el\s+)?)?"
-                    rf"(?:n[uú]mero|nro\.?|n\s*[°º]|no\.?(?=\s*\d)|N(?=\d))\s*{_NUM_INS}", re.I)
+_FOJAS = re.compile(rf"\b(?:f\.\s*|(?:fojas?\.?\s+(?:fs\.?\s*)?|fj?s\.?\s*)){_NUM_INS}\s*(?:vuelta|vta\.?|v(?![a-záéíóúñ])|f(?![a-záéíóúñ]))?\s*,?\s*(?:y\s+)?(?:bajo\s+(?:el\s+)?)?"
+                    rf"(?:n[uú]meros?|nro\.?|n\.?\s*[°º]|no\.?(?=\s*\d)|N(?=\d))\s*{_NUM_INS}", re.I)
 # "del año 2009", "de 2011", "del 2021", "Propiedad 2018", "Santiago, 2005", "año 2.007"
 _ANIO_INS = re.compile(r"(?:\ba[ñn]o|\bdel?|\bpropiedad|,)\s+((?:19|20)\d\d|[12]\.\d{3})(?!\d)", re.I)
 _CBR = re.compile(r"Conservador\s+(?:de\s+)?Bienes\s+Ra[íi]ces\s+(?:de\s+|del\s+)?([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+|del\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)?)")
@@ -437,7 +437,7 @@ def inscripcion(texto: str, fecha_edicion: str | None = None) -> dict:
         # el dato termina donde empieza la frase siguiente (punto y mayúscula). Si vienen varias inscripciones seguidas,
         # comparten el año y el conservador que van al final ("fojas 79793, n° 112451, fojas 79794 n° 112452 ... todas del
         # registro de propiedad del año 2020", 06-10 aviso 53).
-        corte = re.search(r"M[íi]nimo|\.\s+[A-ZÁÉÍÓÚ]", resto)
+        corte = re.search(r"M[íi]nimo|(?<!\bReg)(?<!\bProp)\.\s+[A-ZÁÉÍÓÚ]", resto)
         resto = resto[:corte.start()] if corte else resto
         if _HIPOTECA.search(texto[max(0, m.start() - 60):m.start()] + resto[:90]) and not re.search(r"propiedad|dominio", resto[:90], re.I):
             continue
@@ -481,7 +481,7 @@ _TRAMO = rf"(?:(?!\.\s+(?![Cc][Oo][Nn]\s))[^,;:\n{_COMILLA_A}»])"
 # Banco Santander-Chile S.A. Con Unanue Rol C-4567-2026", "los autos rol c-8167-2024 Banco De Chile Con Covarrubias. Juicio".
 # La primera letra va en mayúscula sin re.I (así "autos sobre interdicción ... con certificado" no entra). Termina en "Rol",
 # en ", Rol" o ", Juicio", o en punto seguido.
-_CAR_AUTOS = re.compile(rf"\b(?i:autos)\s+(?:(?i:rol)\s+(?:N[°º]\s*)?[A-Za-z]{{1,2}}-[\d.]+-\d{{4}}\s+)?"
+_CAR_AUTOS = re.compile(rf"\b(?i:autos|expediente)\s+(?:(?i:rol)\s+(?:N[°º]\s*)?[A-Za-z]{{1,2}}-[\d.]+-\d{{4}}\s+)?"
                         r"(?!(?i:rol|caratulad\w*|sobre|juicio|ejecutivos?)\b)"
                         rf"([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,100}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)"
                         r"(?=\s+[Rr][Oo][Ll]\b|,\s*(?:[Rr]ol|[Jj]uicio)\b|\.\s+[A-ZÁÉÍÓÚ]|\.?\s*$)")
@@ -493,10 +493,21 @@ _CAR_ANTECEDENTES = re.compile(rf"\b(?i:antecedentes)\s+[{_COMILLA_A}]?\s*"
                                rf"([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,100}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)\s*,\s+(?:(?i:rol)\s+(?:N[°º]\s*)?)?[A-Za-z]{{1,2}}-\d")
 # Auditoría 30-10, tipo C2b. Carátula sin comillas justo después del rol y su coma. "Rol N° C-4079-2023, Bravo con Bravo.
 # Juez árbitro partidor". Termina solo en punto seguido o al final del aviso. No empieza con un cargo ni con una palabra de frase.
-_CAR_TRAS_ROL = re.compile(rf"\b(?i:rol)\s+(?:N[°º]\s*)?[A-Za-z]{{1,2}}-[\d.]+-\d{{4}},\s+"
+_CAR_TRAS_ROL = re.compile(rf"\b(?i:rol)\s+(?:N[°º]\s*)?[A-Za-z]{{1,2}}-?[\d.]+-\s?\d{{4}},\s+"
                            r"(?!(?:Juez|Juzgado|Tribunal|Secretar\w*|Notar\w*|Actuari\w*|Martiller\w*|Ministr\w*|Receptor\w*|"
                            r"El|La|Los|Las|En|Por|Se|Con|Ruc|Rit|Rol|Caratulad\w*|Juicio|Causa|Autos|Expediente)\b)"
-                           rf"([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,80}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)(?=\.\s+[A-ZÁÉÍÓÚ]|\.?\s*$)")
+                           rf"([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,80}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)(?=\.\s+[A-ZÁÉÍÓÚ]|\.?\s*$|,\s+(?:se\s+)?rem[aá]t\w*\b)")
+# Ciclo 2, tanda 3, tipo C3b. Comilla de apertura sin cierre y la carátula termina en coma. "caratulados ‘Banco de Chile
+# con Guzmán, remátese" (5567-2024). El contenido no puede traer ninguna comilla.
+_CAR_ABIERTA = re.compile(rf"[Cc][Aa][Rr][Aa][Tt][Uu][Ll][Aa][Dd]\w*\s*[{_COMILLA_A}]\s*([A-Z0-9ÁÉÍÓÚÑ][^{_COMILLA_A}{_COMILLA_C};\n]{{2,150}}?{_SEP}[^{_COMILLA_A}{_COMILLA_C};,\n]{{1,150}}?),\s*(?:rem[aá]t\w*|[Rr]ol)\b")
+# Ciclo 2, tanda 3, tipo C12. Carátula sola antes del rol, con barra, al empezar una frase. "conexión. Avla S.A.G.R./Inversiones
+# y Servicios Calafquen S.A. Rol C-9252-2022."
+_CAR_ANTES_ROL = re.compile(rf"(?<=\.\s)([A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,100}}?/\s?(?=[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)\.?\s+[Rr][Oo][Ll]\s+[A-Za-z]{{1,2}}-\d")
+# Ciclo 2, tanda 3, tipo C5b. Punto y coma en vez de la comilla de apertura. "expediente; Banco Santander-Chile con Lobos’".
+_CAR_PUNTO_COMA = re.compile(rf"\b(?i:expediente|caratulad\w*|autos|causa|juicio)\s*;\s*([A-ZÁÉÍÓÚÑ][^{_COMILLA_A};\n]{{2,150}}?{_SEP}[^{_COMILLA_A};\n]{{1,150}}?)\s*[{_COMILLA_C}]")
+# Ciclo 2, tanda 3, tipo C14. "expediente cat. Administradora de Tarjetas S.A./Díaz, Rol C-17716-2024". Una abreviatura
+# corta en minúscula antes de la carátula, y la carátula termina en ", Rol".
+_CAR_EXP_ABREV = re.compile(rf"\b(?i:expediente)\s+([a-záéíóúñ]{{1,4}}\.\s+[A-ZÁÉÍÓÚÑ]{_TRAMO}{{1,100}}?{_SEP}(?=\s*[A-ZÁÉÍÓÚÑ]){_TRAMO}{{1,80}}?)(?=,\s*[Rr]ol\b)")
 _SUFIJOS = {"s", "a", "sa", "spa", "ltda", "limitada", "cia", "con", "y"}
 
 
@@ -512,7 +523,9 @@ def caratula(texto: str) -> dict:
     """Devuelve {'caratula': {valor, cita}, 'alertas': [...]}. Si hay dos carátulas distintas de verdad, no elige y deja
     duda de lectura. Si no encuentra ninguna, deja el dato faltante."""
     hallados = []
-    for m in _CAR_COMILLAS.finditer(texto):
+    # Ciclo 2, tanda 3, tipo C11. Se prueba desde cada comilla, así una comilla anterior del aviso no se come la de
+    # apertura de la carátula (11560-2013).
+    for m in (x for x in (_CAR_COMILLAS.match(texto, i) for i, ch in enumerate(texto) if ch in _COMILLA_A) if x):
         v = m.group(1).strip()
         # Arreglo 1 del ajuste (14-10 avisos 30, 31, 32 y 39). Entre la comilla de cierre de "‘Audiencia de remates’" y la de
         # apertura de "‘Mis Remates’" quedaba "dispuesto para tal efecto. Una vez que el postor...". Una carátula empieza con
@@ -520,13 +533,17 @@ def caratula(texto: str) -> dict:
         # (salvo "S.A. Con Quiroga", 14-10 aviso 52, donde lo que sigue al punto es el "Con" que separa las partes)
         # El punto cuenta como fin de frase solo si sigue a una palabra de 5 letras o más, así "Cía. Ltda" no corta (06-10
         # aviso 68). Aplicado con la aprobación de Diego del 17 de Octubre, después de la validación.
+        # Ciclo 2, tanda 3, tipo C13. Minúscula al inicio, solo justo después de "caratulado" (11870-2025).
+        if re.match(r"[a-záéíóúñ]", v) and re.search(r"caratulad\w*\s*$", texto[max(0, m.start() - 30):m.start()], re.I):
+            v = v[:1].upper() + v[1:]
         if not re.match(r"[A-Z0-9ÁÉÍÓÚÑ]", v) or re.search(r"(?:^|\s)[^\s.]{5,}\.\s+(?![Cc][Oo][Nn]\s)[A-ZÁÉÍÓÚ]", v) or len(v) > 130:
             continue
         if _CAR_ANTES.search(texto[max(0, m.start() - 80):m.start()]):
             hallados.append((m.start(1), v))
-    for patron in (_CAR_SIN, _CAR_CAUSA, _CAR_TRAS_ROL, _CAR_ANTECEDENTES, _CAR_AUTOS):
+    for patron in (_CAR_SIN, _CAR_CAUSA, _CAR_TRAS_ROL, _CAR_ANTECEDENTES, _CAR_AUTOS, _CAR_EXP_ABREV, _CAR_PUNTO_COMA, _CAR_ANTES_ROL, _CAR_ABIERTA):
         for m in patron.finditer(texto):
-            hallados.append((m.start(1), m.group(1).strip().rstrip(",")))
+            v = m.group(1).strip().rstrip(",")
+            hallados.append((m.start(1), v[:1].upper() + v[1:]))
     distintos = []
     for ini, v in sorted(hallados):
         k = clave_caratula(v)

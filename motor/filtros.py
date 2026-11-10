@@ -38,7 +38,20 @@ except Exception:                                     # pruebas sin config.py
 # =====================================================================================================================
 _UMBRAL_FUZZY_TRIBUNAL: int = 80          # RapidFuzz token_set_ratio threshold
 _CORTES_RM = {"C.A. de Santiago", "C.A. de San Miguel"}
-_BANCOS_ESTADO = {"banco estado", "banco del estado"}
+_BANCOS_ESTADO = {"banco estado", "banco del estado", "banco de estado", "bancoestado"}
+# Ciclo 2, tanda 3 (decisión de Diego del 9 de Noviembre). Si la carátula no se leyó, se busca el banco en el aviso, pero
+# no en las frases de pago, donde casi todos los avisos lo nombran (cupón de pago, cuenta corriente del tribunal).
+_BE_AVISO = re.compile(r"banco\s*(?:del?\s*)?estado", re.I)
+_BE_PAGO = re.compile(r"pago|cuenta|cup[oó]n|dep[oó]sit|vale|consign|tribunal|transferencia|sucursal|endosable|tomad", re.I)
+
+
+def _bancoestado_en_aviso(c: dict) -> bool:
+    for av in c.get("avisos") or []:
+        t = av.get("texto") or ""
+        for m in _BE_AVISO.finditer(t):
+            if not _BE_PAGO.search(t[max(0, m.start() - 60):m.start()] + t[m.end():m.end() + 25]):
+                return True
+    return False
 _COMUNAS_EXCLUIDAS = {"estación central", "estacion central"}
 
 _CBR_ANIO_MIN = 1900
@@ -569,7 +582,7 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
                 descartados.append({**base, "motivo": "Solo RM", "monto": None}); continue
         # 2. Banco Estado, sobre la carátula entera
         caratula = c.get("caratula") or ""
-        if any(b in caratula.lower() for b in _BANCOS_ESTADO):
+        if any(b in caratula.lower() for b in _BANCOS_ESTADO) or (not caratula and _bancoestado_en_aviso(c)):
             descartados.append({**base, "motivo": "Banco Estado", "monto": None}); continue
         # 3. Año del rol desde 2018
         try:
