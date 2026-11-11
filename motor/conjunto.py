@@ -33,6 +33,12 @@ def _nombre(texto: str, desde: int) -> str | None:
         return re.sub(r"\s+", " ", m.group(1)).strip()
     m = re.match(rf"\s+({_PALABRA}(?:\s+(?:{_CONECTOR}\b|{_PALABRA})){{0,6}})", s)
     if not m:
+        # Ciclo 2, tanda 4, arreglo E2. El nombre puede empezar con "de", "del", "la" si sigue una palabra con mayúscula
+        # ("Edificio de La Recoleta Urbano", rol 14456-2025). No vale si lo que sigue es una calle u otra cosa, ni si después viene un número.
+        m = re.match(rf"\s+((?:(?:del|de|las|la|los|el)\s+){{1,2}}(?!(?:Calle|Avenida|Av|Avda|Pasaje|Camino|Comuna|Ciudad|Propiedad|Condominio|Conjunto|Proyecto|Edificio|Departamentos?|Oficinas?|Estacionamientos?|Bodegas?|Subterr[aá]neo|Piso|Loteo|Rol)\b){_PALABRA}(?:\s+(?:{_CONECTOR}\b|{_PALABRA})){{0,6}})", s)
+        if m and re.match(r"\s*(?:N[°º.]?\s*|n[uú]mero\s+)?\d", palabras_a_cifras(s[m.end():]) or ""):
+            m = None      # "edificio de Moneda tres mil setenta y cuatro" es una dirección, no un nombre (207-2026)
+    if not m:
         return None
     n = re.split(r"\s+(?:N[°º.]?|n[uú]mero|N[uú]mero)(?:\s|$)", m.group(1))[0]   # el nombre termina donde empieza el número de la calle
     n = re.sub(rf"(?:\s+{_CONECTOR})+$", "", n).strip(" .-")
@@ -49,7 +55,9 @@ def _es_subdivision(nombre: str | None) -> bool:
     del condominio, no su nombre."""
     if not nombre:
         return False
-    return (re.fullmatch(rf"[A-Z0-9\-]{{1,4}}(?:\s+(?:[A-Z0-9]{{1,2}}|{_NUMERO_PALABRA}))?|[IVXL]+|{_NUMERO_PALABRA}|norte|sur|oriente|poniente", nombre, re.I) is not None
+    # Ciclo 2, tanda 4, arreglo E1. Subdivisión es una o dos letras ("B", "AB") o un código con algún número ("5", "B2",
+    # "A-1"). Una palabra de 3 o 4 letras es un nombre ("Edificio ONIX", rol 755-2023).
+    return (re.fullmatch(rf"(?:[A-Z]{{1,2}}|(?=[A-Z\-]*\d)[A-Z0-9\-]{{1,4}})(?:\s+(?:[A-Z0-9]{{1,2}}|{_NUMERO_PALABRA}))?|[IVXL]+|{_NUMERO_PALABRA}|norte|sur|oriente|poniente", nombre, re.I) is not None
             or re.search(r"\bdel?\s+(?:condominio|conjunto|proyecto)\b", nombre, re.I) is not None
             or re.match(r"(?:primera|segunda|tercera|cuarta)\s+etapa\b", nombre, re.I) is not None)
 

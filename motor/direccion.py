@@ -231,6 +231,31 @@ def verificar_inmueble(x: dict, texto: str) -> dict:
             "calle": x.get("calle") if tipo == "calle" else None}     # la usa motor/conjunto.py (tanda 2 del ciclo 2)
 
 
+def _comuna_comprobada(x: dict, texto: str):
+    """La comuna de una lectura si su frase está en el aviso y la trae. Las mismas reglas de verificar_inmueble."""
+    c, fc0 = x.get("comuna"), x.get("frase_comuna") or ""
+    if not c or (re.search(r"conservador|\bCBR\b|registro", fc0, re.I) and not re.search(r"comuna", fc0, re.I)):
+        return None
+    fc = buscar_frase(fc0, texto)
+    return c.strip() if fc is not None and norm(c) in norm(fc) else None
+
+
+def comunas_del_rojo(lecturas: list, texto: str, n_remates: int) -> list:
+    """Ciclo 2, tanda 4, arreglo T4a (decisión de Diego del 10 de Noviembre de 2026). Cuando la dirección queda en rojo, la
+    comuna de cada remate se conserva si las dos lecturas dan la misma y cada una se comprueba en el aviso. Si no, None
+    para ese remate. Nunca devuelve una dirección. Sirve para que un inmueble de Talca no pase como RM (1267-2019)."""
+    if len(lecturas) < 2:
+        return []
+    a, b = (l.get("inmuebles") or [] for l in lecturas[:2])
+    if len(a) != n_remates or len(b) != n_remates:
+        return []
+    out = []
+    for x, y in zip(a, b):
+        cx, cy = _comuna_comprobada(x, texto), _comuna_comprobada(y, texto)
+        out.append(cx if cx and cy and norm(cx) == norm(cy) else None)
+    return out
+
+
 def _nums(x: dict) -> list:
     return [(n.lstrip("0") or "0") for n in re.findall(r"\d+", x.get("numero") or "")]
 
@@ -253,6 +278,13 @@ def _par(x: dict, y: dict):
                 return (x, y, "acceso")
             if set(ny) < set(nx):
                 return (y, x, "acceso")
+    if x.get("tipo") == y.get("tipo") == "calle" and kx[1] and ky[1] and kx[1] != ky[1] and kx[2:] == ky[2:]:
+        # Ciclo 2, tanda 4, tipo D4e. Mismo número, unidad y comuna, y una lectura agrega la esquina a la calle
+        # ("calle 6 Oriente" y "calle 6 Oriente esquina 5 Norte", rol 1267-2019). Queda la que trae solo la calle.
+        if re.match(re.escape(kx[1]) + r"\s+(?:esquina|esq)\b", ky[1]):
+            return (x, y, "esquina")
+        if re.match(re.escape(ky[1]) + r"\s+(?:esquina|esq)\b", kx[1]):
+            return (y, x, "esquina")
     if x.get("tipo") == y.get("tipo") and bool(x.get("unidad")) != bool(y.get("unidad")):
         sin_u = lambda k: k[:3] + k[4:] if k[0] == "calle" else (k[0], k[2])
         if sin_u(kx) == sin_u(ky):

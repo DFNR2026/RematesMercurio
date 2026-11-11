@@ -156,6 +156,11 @@ def _direccion(texto: str, n: int, cliente, ia: dict) -> tuple:
                  "comuna": i["comuna"]} for i in res["inmuebles"]], "verde", []
     if res["color"] == "sin_dato":
         return [], "sin_dato", [DR.NO_ENCONTRADA]
+    # Ciclo 2, tanda 4, arreglo T4a. El rojo no da dirección, pero conserva la comuna si las dos lecturas coinciden y se
+    # comprueba en el aviso. Así el filtro de la RM puede descartar un inmueble de otra región.
+    comunas = DR.comunas_del_rojo(g["lecturas"], texto, n)
+    if any(comunas):
+        return [{"direccion": None, "comuna": c} for c in comunas], "rojo", [DR.texto_rojo(res)]
     return None, "rojo", [DR.texto_rojo(res)]
 
 

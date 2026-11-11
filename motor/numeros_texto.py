@@ -83,7 +83,9 @@ def palabras_a_cifras(texto: str | None) -> str | None:
         return texto
     # Ciclo 2 de mejora, tipo D10 (8 de Noviembre de 2026). "cuatro-A" es "4-A". El guion pegado a una letra sola separa el
     # número de la letra (rol 4294-2025, "la vivienda número cuatro-A").
-    partes = re.split(r"(\s+|-(?=[A-Za-z]\b))", texto)
+    # Ciclo 2, tanda 4, tipo D12 (10 de Noviembre de 2026). La coma, el punto o el punto y coma pegados a la palabra se
+    # separan, para que "Departamento Número Ciento Seis, del Primer Piso" dé 106 y no 100 (rol 12090-2024).
+    partes = re.split(r"(\s+|-(?=[A-Za-z]\b)|(?<=[A-Za-zÁÉÍÓÚÑáéíóúñ])(?=[,;.](?:\s|$)))", texto)
     out, i = [], 0
     while i < len(partes):
         if partes[i] and _sin_tildes(partes[i]) in PALABRAS and _sin_tildes(partes[i]) != "y":
