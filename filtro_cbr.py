@@ -3,14 +3,14 @@ Filtro de Antigüedad CBR
 Heurística para detectar año de inscripción del dominio en el Conservador
 de Bienes Raíces y decidir si excluir, mantener o mandar a revisión manual.
 
-Regla: dominio inscrito >= 2020 -> EXCLUIR
-       dominio inscrito < 2020  -> MANTENER
+Regla: dominio inscrito >= 2019 -> EXCLUIR
+       dominio inscrito < 2019  -> MANTENER
        año no detectado/ambiguo -> REVISAR
 """
 
 import re
 
-_CBR_ANIO_CORTE = 2020
+_CBR_ANIO_CORTE = 2019   # hasta el 10 de Noviembre de 2026 era 2020 (pedido de los abogados, deuda muy cerca del valor comercial)
 _CBR_ANIO_MIN   = 1900
 _CBR_ANIO_MAX   = 2027
 _CBR_VENTANA    = 150

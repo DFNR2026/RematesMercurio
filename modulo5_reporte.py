@@ -247,7 +247,7 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
     inicio_excl = fin_ya + 2
 
     # Título
-    cell_tit = ws.cell(row=inicio_excl, column=1, value="PROPIEDADES NUEVAS EXCLUIDAS (dominio >= 2020)")
+    cell_tit = ws.cell(row=inicio_excl, column=1, value="PROPIEDADES NUEVAS EXCLUIDAS (dominio >= 2019)")
     cell_tit.font = Font(bold=True, color="FFFFFF", size=11)
     cell_tit.fill = PatternFill("solid", fgColor="8B0000")  # rojo oscuro
     ws.merge_cells(start_row=inicio_excl, start_column=1, end_row=inicio_excl, end_column=4)
@@ -402,7 +402,7 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
     r += 1; fila(r, "Causas nuevas (tabla principal)", total)
     r += 1; fila(r, "  de ellas, para revisar", sum(1 for c in causas if c.get("revisar")))
     r += 1; fila(r, "Avisos sin número de rol", len(metricas.get("sin_rol") or []))
-    r += 1; fila(r, "Excluidas por dominio 2020 o posterior", len(metricas.get("excluidos_cbr") or []))
+    r += 1; fila(r, "Excluidas por dominio 2019 o posterior", len(metricas.get("excluidos_cbr") or []))
     r += 1; fila(r, "Descartadas por parámetros", len(metricas.get("descartados") or []))
     r += 1; fila(r, "Ya informadas en los últimos 4 días", len(metricas.get("ya_informadas") or []))
 

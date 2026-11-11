@@ -1,11 +1,11 @@
 """Filtros de negocio del Mercurio sobre las causas del motor nuevo (etapa C del traspaso, 17 de Octubre de 2026).
 
 Primera parte. Funciones movidas SIN cambios de lógica desde modulo1_mercurio.py (corte del tribunal con RapidFuzz 80 y la
-hoja REFERENCIA, comunas de la RM con umbral 88, año de dominio con el corte 2020 de filtro_cbr.py).
+hoja REFERENCIA, comunas de la RM con umbral 88, año de dominio con el corte de filtro_cbr.py, 2019 desde el 10 de Noviembre de 2026 y antes 2020).
 Segunda parte. aplicar(), con las reglas de Diego del 17 de Octubre.
 - Una hilera por causa (rol-año más tribunal). Mismo tribunal y roles distintos son hileras distintas.
 - Más de 5 propiedades en el rol. No se aplica el filtro de dominio. El rol entra si al menos una propiedad está en la RM.
-- 5 o menos. Cada propiedad pasa si su comuna está en la RM (y no es Estación Central) y su dominio es anterior a 2020.
+- 5 o menos. Cada propiedad pasa si su comuna está en la RM (y no es Estación Central) y su dominio es anterior a 2019.
   El rol se descarta solo si TODAS fallan. Si algunas pasan, entran solo esas y las otras se anotan en Observaciones.
 - Salvaguarda. Un dato que no se pudo leer nunca descarta. La causa queda en la tabla principal con su observación, marcada
   para revisar. Igual se anota en el historial CAUSAS, porque la causa existe y salió en el diario (decisión de Diego del
@@ -364,7 +364,7 @@ OBS_CORTE = "No se pudo saber a qué Corte pertenece el tribunal. Revisar."
 OBS_DIRECCION = "No se pudo comprobar la dirección. Revisar el aviso en el diario."
 OBS_SIN_DIRECCION = "El aviso no indica la dirección de la propiedad."
 OBS_CARATULA = "No se pudo leer la carátula (demandante y demandado). Revisar en el diario."
-OBS_DOMINIO = "No se encontró el año de inscripción del dominio. Revisar si es anterior a 2020."
+OBS_DOMINIO = "No se encontró el año de inscripción del dominio. Revisar si es anterior a 2019."
 OBS_COMUNA = "El aviso no indica la comuna de la propiedad. Revisar."
 # (patrón de la alerta técnica, texto para el abogado, ¿obliga a revisar?)
 _TRADUCCION = [
@@ -431,7 +431,7 @@ def propiedades(causa: dict) -> list:
 
 
 def _cbr(p: dict) -> tuple[str, int | None]:
-    """('pasa'|'falla'|'sin_dato', año). Pasa si algún año conocido es anterior a 2020. Falla si todos son 2020 o más."""
+    """('pasa'|'falla'|'sin_dato', año). Pasa si algún año conocido es anterior al corte (2019). Falla si todos son del corte o más."""
     validos = [a for a in p["anios"] if _CBR_ANIO_MIN <= a <= _CBR_ANIO_MAX]
     if not validos:
         return "sin_dato", None
