@@ -390,6 +390,14 @@ def tribunal(texto: str) -> dict:
         alertas.append(("revisar_lectura", "No se encontró el tribunal al comienzo del aviso."))
         return {"tribunal": {"valor": None, "cita": None}, "alertas": alertas}
     num = _ordinal_a_numero(m.group(1), m.group(2)) if (m.group(1) or m.group(2)) else None
+    cita = m.group(0)
+    # Ciclo 2, tanda 5, arreglo G1. El diario imprime a veces el ° como un 3 suelto. "REMATE 2 3 JUZGADO CIVIL" es el
+    # 2° Juzgado y el programa leía el 3° (rol 21355-2023 del 9 de Noviembre de 2026). Si el número leído es un 3 suelto
+    # y justo antes hay otro número de una o dos cifras, el número del tribunal es el anterior.
+    if m.group(1) == "3":
+        previo = re.search(r"(?<![\d.,/-])(\d{1,2})\s$", texto[:m.start()])
+        if previo and 1 <= int(previo.group(1)) <= 40:
+            num, cita = int(previo.group(1)), texto[previo.start():m.end()]
     tipo = re.sub(r"\s+", " ", m.group(3).lower())
     tipo = re.sub(r"^de\s+", "", tipo)
     if "civil" in tipo:
@@ -401,13 +409,13 @@ def tribunal(texto: str) -> dict:
         ciudad = "Santiago" if re.search(r"hu[ée]rfanos", texto[m.end():m.end() + 150], re.I) else None
     if not ciudad:
         alertas.append(("revisar_lectura", "No se encontró la ciudad del tribunal."))
-        return {"tribunal": {"valor": None, "cita": m.group(0)}, "alertas": alertas}
+        return {"tribunal": {"valor": None, "cita": cita}, "alertas": alertas}
     ciudad = _titulo(ciudad)
     if tipo in ("letras", "de letras") and num and ciudad == "Santiago":
         tipo = "civil"                                            # en Santiago los juzgados de letras numerados son los civiles
     tipo = {"civil": "Civil"}.get(tipo, "de " + _titulo(tipo))
     valor = (f"{num}° " if num else "") + f"Juzgado {tipo} de {ciudad}"
-    return {"tribunal": {"valor": valor, "cita": m.group(0)}, "alertas": alertas}
+    return {"tribunal": {"valor": valor, "cita": cita}, "alertas": alertas}
 
 
 # --- Etapa 6. Inscripción en el Conservador (parte 3.7b, 17 de Octubre) ------------------------------------------
@@ -419,7 +427,7 @@ def tribunal(texto: str) -> dict:
 # "fojas 14. 515 N° 13.762", "fojas. 2412 número 3376", "fojas Fs. 76060 N° 106266".
 _NUM_INS = r"(\d{1,3}(?:\.\s?\d{3})+|\d+)"
 _FOJAS = re.compile(rf"\b(?:f\.\s*|(?:fojas?\.?\s+(?:fs\.?\s*)?|fj?s\.?\s*)){_NUM_INS}\s*(?:vuelta|vta\.?|v(?![a-záéíóúñ])|f(?![a-záéíóúñ]))?\s*,?\s*(?:y\s+)?(?:bajo\s+(?:el\s+)?)?"
-                    rf"(?:n[uú]meros?|nro\.?|n\.?\s*[°º]|no\.?(?=\s*\d)|N(?=\d))\s*{_NUM_INS}", re.I)
+                    rf"(?:n[uú]meros?|nro\.?|n\.?\s*[°º]|no\.?(?=\s*\d)|N\s3(?=\s+\d)|N(?=\d))\s*{_NUM_INS}", re.I)
 # "del año 2009", "de 2011", "del 2021", "Propiedad 2018", "Santiago, 2005", "año 2.007"
 _ANIO_INS = re.compile(r"(?:\ba[ñn]o|\bdel?|\bpropiedad|,)\s+((?:19|20)\d\d|[12]\.\d{3})(?!\d)", re.I)
 _CBR = re.compile(r"Conservador\s+(?:de\s+)?Bienes\s+Ra[íi]ces\s+(?:de\s+|del\s+)?([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+(?:de\s+|del\s+)?[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)?)")
