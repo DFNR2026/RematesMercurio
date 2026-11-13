@@ -66,8 +66,8 @@ backup_*/
 _archivo_*/
 Reportes_Claude_Code/
 
-# Logs de corridas de GitHub bajados para auditar (19 de Octubre de 2026)
-Logs_GitHub/
+# Carpeta de paso con lo que Diego baja de GitHub y de Supabase para revisar un día (13 de Noviembre de 2026)
+INFORMES_REPORTES/
 
 # Estado del proyecto. Fuera de git porque el repositorio es público (21 de Octubre de 2026)
 ESTADO_PROYECTO.md

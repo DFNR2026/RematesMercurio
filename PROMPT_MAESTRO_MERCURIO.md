@@ -1,5 +1,5 @@
 # Prompt Maestro. Extractor El Mercurio Digital (RM)
-# Versión 4.5 (12 de Noviembre de 2026). Versión 4.0 aprobada por Diego el 21 de Octubre de 2026
+# Versión 4.6 (13 de Noviembre de 2026). Versión 4.0 aprobada por Diego el 21 de Octubre de 2026
 
 > Uno de los dos documentos base del proyecto. Este dice cómo funciona el programa y sus reglas, y cambia poco. ESTADO_PROYECTO.md (en D:\Mercurio, fuera de git) dice en qué estamos, las decisiones y los pendientes. Reemplaza a PROMPT_MAESTRO_MERCURIO_v3_1.md (de Julio, borrado el 6 de Noviembre de 2026 con el resto de documentos/historia, queda en el historial de git). La experiencia para mejorar la lectura de dirección y carátula está en Mejora_continua/GUIA_MEJORA_LECTURA.md. Todo proceso de mejora continua (Kaizen) se anota tanda por tanda en Mejora_continua/HISTORIAL_TANDAS.md, al publicar y al revisar su corrida real. Ante cualquier diferencia con el código, el árbitro es el código.
 
@@ -16,10 +16,10 @@ Desde el 19 de Octubre corre solo en un servidor de GitHub Actions todos los dí
 | Código | GitHub DFNR2026/RematesMercurio (público), rama main | Copia de trabajo en D:\Mercurio |
 | Servidor | GitHub Actions, flujo .github/workflows/diario.yml | ubuntu-24.04, Python 3.14 |
 | Historial causas_ojv.xlsx | Supabase, proyecto mercurio-robot, bucket privado mercurio, estado/causas_ojv.xlsx | La copia viva. La de D: quedó como respaldo del 18 de Octubre y no se debe correr el programa en el PC |
-| Respuestas guardadas de Haiku | Supabase, estado/ia_respuestas.zip | Caché por huella. Si se pierde, solo cuesta un poco más |
+| Respuestas guardadas de Haiku | Supabase, estado/ia_respuestas.zip | Caché por huella. Si se pierde, solo cuesta un poco más. Si llega dañado, la corrida lo guarda en respaldos/ia_respuestas_danado_FECHA.zip y sigue sin él (desde el 13 de Noviembre) |
 | Respaldos diarios del historial | Supabase, respaldos/causas_ojv_antes_FECHA.xlsx | Uno por día con Excel |
 | Excel de cada día | Supabase, informes/ | Copia por si se pierde un correo |
-| Captura de cada día | Supabase, capturas/FECHA.zip | Texto de las páginas de remates que leyó el lector, su navegacion.json y la salida de main.py. Permite rehacer cualquier día en el PC sin el diario (desde el 1 de Noviembre de 2026) |
+| Captura de cada día | Supabase, capturas/FECHA.zip | Texto de las páginas de remates que leyó el lector, su navegacion.json y la salida de main.py. Permite rehacer cualquier día en el PC sin el diario (desde el 1 de Noviembre de 2026). Desde el 13 de Noviembre trae también las respuestas de Haiku de los avisos de ese día, así el día se rehace solo con este archivo |
 | Marcas del día | Supabase, enviados/, intentos/, avisos/ | Evitan correos repetidos y llevan el número de intentos |
 | Claves | Secretos de GitHub (9) | MERCURIO_USER, MERCURIO_PASS, ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_KEY, GMAIL_USER, GMAIL_APP_PASSWORD, CORREO_ABOGADO, CORREO_DIEGO |
 | Correo | Gmail personal nueva del robot, con contraseña de aplicación | CORREO_DIEGO es la misma cuenta del robot (decisión de Diego) |
@@ -93,7 +93,7 @@ Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. 
 - git status --short antes de cada commit. Agregar archivo por archivo. Prohibido git add ., git add -A, git commit -am, git reset --hard, git clean y git pull fuera del guion.
 - Push solo con el "apruebo push" de Diego. Pegar el texto en Claude Code cuenta como aprobación.
 - Un commit es una sola historia. Las cifras esperadas se fijan antes de correr.
-- Los logs de cada corrida se descargan a D:\Mercurio\INFORMES_REPORTES\Logs_GitHub (hasta el 10 de Noviembre, D:\Mercurio\Logs_GitHub) para auditarlos desde el disco.
+- INFORMES_REPORTES es una carpeta de paso, fuera de git (desde el 13 de Noviembre). Para revisar un día, Diego baja ahí su log de GitHub, su Excel y su captura de Supabase, en una carpeta con la fecha, y después lo puede borrar.
 
 ## Pruebas manuales en GitHub
 
@@ -109,6 +109,7 @@ Nombre "Reporte 19 de octubre del 2026.xlsx", con " INCOMPLETO" si faltó algo. 
 | Versión | Fecha | Cambios |
 |---|---|---|
 | 3.1 | 5 de Julio de 2026 | DeepSeek, lectura vieja, llave de dedup con tribunal, despliegue en E:\Mercurio |
+| 4.6 | 13 de Noviembre de 2026 | Respaldo de las respuestas de Haiku. La captura del día trae las respuestas de sus avisos y la corrida sigue si el archivo de respuestas llega dañado (servidor/diario.py) |
 | 4.5 | 12 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 5. El ° impreso como un 3 suelto en el tribunal y en la inscripción (motor/extraccion.py) |
 | 4.4 | 11 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 4. Comuna comprobada con la dirección en rojo, esquina de más en una lectura y número en palabras pegado a una coma (motor/direccion.py, edicion.py y numeros_texto.py), nombres de edificio (motor/conjunto.py). Corte del dominio de 2020 a 2019 por pedido de los abogados (filtro_cbr.py, motor/filtros.py y modulo5_reporte.py) |
 | 4.3 | 10 de Noviembre de 2026 | Ciclo 2 de mejora de la lectura, tanda 3. Carátulas y fojas (motor/extraccion.py) y BancoEstado en el aviso cuando la carátula queda vacía (motor/filtros.py). Logs_GitHub y Storage_supabase pasan a D:\Mercurio\INFORMES_REPORTES |

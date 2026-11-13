@@ -110,16 +110,34 @@ Cómo leer cada cambio. El código entre paréntesis es el tipo de fallo del cat
 
 **Qué no arregla.** El 3 suelto dentro de la dirección ("Avenida Ecuador N 3 3866"), donde lee Haiku y el programa comprueba contra el aviso. La fila vieja de la memoria con el 3° se deja como está (decisión de Diego).
 
-**Corrida real.** 13 de Noviembre a las 5:03, pendiente de revisar.
+**Corrida real.** 13 de Noviembre, log 117492932486. Primer intento, código 0, rojos 5 de 132 (3,8%), sin errores. Pasó. El diario trajo tres bloques de remates (B, C y G) y 38 avisos parecen haber entrado dos veces, con 3 causas sin tribunal. Es del diario y no de esta tanda (G1 no borra tribunales), pendiente de medir. Medido el 13 de Noviembre con la captura del día. La sección siguió de B11 a C8 sin flecha y G la reimprimió entera. Eran 37 avisos repetidos y no 38, y no cambiaron ninguna fila del Excel. El daño fue un solo aviso partido en dos (1445-2024). De las 3 causas sin tribunal, una es ese aviso partido y las otras dos son formas nuevas de escribir el tribunal (6458-2022 y 3127-2024). Detalle en ciclo2_tanda6/MEDICION_TANDA6.md.
 
-**Commits.** Pendientes. Carpeta ciclo2_tanda5.
+**Commits.** 5851cfd (código) y 17572c2 (documentos). Carpeta ciclo2_tanda5.
+
+---
+
+## Respaldo de las respuestas de Haiku (10 y 13 de Noviembre de 2026)
+
+**Qué buscaba arreglar.** Para rehacer un día en una copia hacían falta dos archivos, la captura del día y el archivo grande con todas las respuestas de Haiku (estado/ia_respuestas.zip), que además no tenía respaldo. Si ese archivo llegaba dañado, la corrida se caía antes de leer el diario, en los 7 intentos del día.
+
+**Cambios.**
+- (S1) Antes, capturas/FECHA.zip traía solo el texto de las páginas, navegacion.json y la salida de main.py. Ahora trae también las respuestas de Haiku de los avisos de ese día, así cada día se rehace solo con su captura. Si no se pueden agregar, la captura se sube igual sin ellas.
+- (S2) Antes, si estado/ia_respuestas.zip llegaba dañado, la corrida se caía con un error antes de main.py. Ahora guarda el archivo dañado aparte en respaldos/ y sigue, y Haiku lee de nuevo los avisos del día.
+
+**Resultado medido.** Solo cambia servidor/diario.py. Con la edición del 10 de Noviembre, 96 respuestas para 96 avisos y el zip pasa de 196 a 254 KB. Repetido el 13 de Noviembre con la edición del 13 (la de tres bloques), 99 respuestas, el zip pasa de 392 a 452 KB y el día rehecho solo con el zip da los mismos colores (126 verde, 5 rojo y 1 sin dato). Las 12 pruebas del proyecto y test_respaldo dan TODO OK.
+
+**Corrida real.** Pendiente, la primera después de publicar.
+
+**Commits.** Pendientes. Carpeta respaldo_respuestas.
 
 ---
 
 ## Listas para publicar, todavía sin publicar
 
-**Respaldo de las respuestas de Haiku.** (S1) Ahora capturas/FECHA.zip guarda también las respuestas de Haiku de los avisos del día, así cada día se puede rehacer solo con su captura. (S2) Si estado/ia_respuestas.zip llega dañado, la corrida sigue en vez de caerse. Solo servidor/diario.py. Se publica después de la tanda 5. Carpeta respaldo_respuestas.
+**Tanda 6 (tanda de los sueltos).** Carpeta ciclo2_tanda6. Se publica después de que el respaldo de respuestas pase su corrida real.
+- Medidos y aprobados por Diego el 12 de Noviembre. (V1) Las causas voluntarias, con rol con letra V, se eliminan del todo como los partidores. (F10) Se lee la inscripción con un punto entre el número de fojas y "Número". (RM1) Un remate de un juzgado de otra región entra si la propiedad está en la RM. (K1) Los juzgados 2° y 3° de Antofagasta encuentran su Corte.
+- Medidos el 13 de Noviembre, falta el visto bueno de Diego. (B1) Dos bloques de remates se leen como uno cuando un aviso quedó cortado entre los dos, como el 13 de Noviembre entre B11 y C8. (B2) Un aviso que un tercer bloque reimprime ya no se carga dos veces. (P1) La frase de un terreno sin calle va completa hasta 350 caracteres y ya no se corta a media palabra en 200.
 
-## Por medir (tanda de los sueltos)
+## En espera (n=1 cada uno)
 
-Corte de los juzgados de Antofagasta (empate de nombres en buscar_corte), dirección de parcela cortada a 200 caracteres (8121-2024), causas voluntarias con rol con letra V (se descartan del todo, decisión de Diego), fojas con punto entre el número y "Número" (F10, 2334-2025), e inscripción toda en palabras (F11, 7170-2026). Después los dos mínimos de 28-2025.
+Inscripción toda en palabras (F11, 7170-2026). Dos mínimos de 28-2025, con la causa raíz ya encontrada el 13 de Noviembre (los lotes van con "I.-" y "II.-" y números en palabras, y el código solo asigna un mínimo a un inmueble con número en cifras). Tres formas del tribunal que el código no lee, el tribunal nombrado solo al final del aviso (6458-2022), "JUZGADO DE CIVIL" (3127-2024) y "DÉCIMO SÉPTIMO CIVIL" sin la palabra Juzgado (1455-2023).
