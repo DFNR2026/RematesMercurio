@@ -102,6 +102,28 @@ def guardar_memoria(con_historial: bool) -> None:
     log(f"Respuestas de Haiku guardadas en Supabase ({n} archivos)")
 
 
+def _respuestas_del_dia(z, carpeta: Path) -> int:
+    """Agrega a la captura las respuestas guardadas de Haiku de los avisos de hoy (decisión de Diego del 10 de Noviembre
+    de 2026). Así cada día se puede rehacer solo con su captura, sin bajar estado/ia_respuestas.zip. Rearma los avisos
+    desde la captura, sin internet y sin llamar a Haiku. Nunca detiene la corrida."""
+    try:
+        from motor.edicion import procesar, paginas_desde_captura
+        from motor import direccion as DR
+        rollos, _ = paginas_desde_captura(carpeta)
+        res = procesar(rollos, FECHA, cliente=None)
+        n, vistos = 0, set()
+        for av in [a for c in res["causas"] for a in c["avisos"]] + res["sin_rol"]:
+            f = DR.CARPETA_RESPUESTAS / f"{DR.huella(av['texto'], av['n_remates'])}.json"
+            if f.name not in vistos and f.exists():
+                vistos.add(f.name)
+                z.write(f, f"{FECHA}/ia_respuestas/direccion/{f.name}")
+                n += 1
+        return n
+    except Exception as e:
+        log(f"No se pudieron agregar las respuestas de Haiku a la captura ({type(e).__name__}). La corrida sigue")
+        return 0
+
+
 def guardar_captura(salida: str) -> None:
     """Sube a Supabase el texto de las páginas de remates que leyó el lector hoy (carpeta capturas/FECHA, con su
     navegacion.json) y la salida de main.py, en capturas/FECHA.zip. Sirve para revisar después cualquier aviso en el PC
@@ -120,8 +142,9 @@ def guardar_captura(salida: str) -> None:
                     z.write(f, f"{FECHA}/{f.name}")
                     n += 1
             z.writestr(f"{FECHA}/salida_main.txt", salida)
+            n_ia = _respuestas_del_dia(z, carpeta)
         E.subir(destino, f"{P}capturas/{FECHA}.zip", "application/zip")
-        log(f"Captura del día guardada en Supabase ({n} archivos, {destino.stat().st_size // 1024} KB)")
+        log(f"Captura del día guardada en Supabase ({n} archivos, {n_ia} respuestas de Haiku, {destino.stat().st_size // 1024} KB)")
     except Exception as e:
         log(f"No se pudo guardar la captura del día ({type(e).__name__}). La corrida sigue")
 
@@ -235,8 +258,19 @@ def main() -> int:
     E.bajar("estado/causas_ojv.xlsx", RAIZ / "causas_ojv.xlsx")
     shutil.copy2(RAIZ / "causas_ojv.xlsx", RAIZ / "_causas_antes.xlsx")
     E.bajar("estado/ia_respuestas.zip", RAIZ / "_ia_bajado.zip")
-    with zipfile.ZipFile(RAIZ / "_ia_bajado.zip") as z:
-        z.extractall(CARPETA_IA)
+    try:
+        with zipfile.ZipFile(RAIZ / "_ia_bajado.zip") as z:
+            z.extractall(CARPETA_IA)
+    except zipfile.BadZipFile:
+        # El archivo de respuestas llegó dañado (10 de Noviembre de 2026). Antes la corrida se caía aquí en todos los
+        # intentos y ese día no salía informe. Ahora se guarda el archivo dañado aparte y la corrida sigue. Haiku lee de
+        # nuevo los avisos de hoy, que cuesta centavos. Si lo que falla es la bajada, se reintenta como siempre.
+        (CARPETA_IA / "direccion").mkdir(parents=True, exist_ok=True)
+        try:
+            E.subir(RAIZ / "_ia_bajado.zip", f"{P}respaldos/ia_respuestas_danado_{FECHA}.zip", "application/zip")
+        except Exception:
+            pass
+        log("El archivo de respuestas de Haiku llegó dañado. Se guardó aparte en respaldos/ y la corrida sigue sin él")
     log(f"Memoria bajada de Supabase. Respuestas de Haiku disponibles {contar_ia()}")
 
     inicio = time.time()
