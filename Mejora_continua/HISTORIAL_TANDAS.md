@@ -126,18 +126,36 @@ Cómo leer cada cambio. El código entre paréntesis es el tipo de fallo del cat
 
 **Resultado medido.** Solo cambia servidor/diario.py. Con la edición del 10 de Noviembre, 96 respuestas para 96 avisos y el zip pasa de 196 a 254 KB. Repetido el 13 de Noviembre con la edición del 13 (la de tres bloques), 99 respuestas, el zip pasa de 392 a 452 KB y el día rehecho solo con el zip da los mismos colores (126 verde, 5 rojo y 1 sin dato). Las 12 pruebas del proyecto y test_respaldo dan TODO OK.
 
-**Corrida real.** Pendiente, la primera después de publicar.
+**Corrida real.** 14 de Noviembre, log 117985216553. Primer intento, código 0, correo a las 5:06. La línea del log dice "Captura del día guardada en Supabase (15 archivos, 111 respuestas de Haiku, 297 KB)", con 111 respuestas para 111 avisos leídos. La captura pesó 305.148 bytes, unos 38 KB más que el sábado 7 de Noviembre (267 KB). Las respuestas comprimidas pesan 70 KB, así que la diferencia con lo esperado (50 a 100 KB más) es porque los textos del día eran más cortos. El día rehecho solo con la captura, sin estado/ia_respuestas.zip, da lo mismo que el servidor (117 avisos, 6 partidores, 108 verde y 3 rojo, 109 causas, 0 llamadas a Haiku). Sin la línea del archivo dañado ni la de respuestas que no se pudieron agregar. Pasó.
 
-**Commits.** Pendientes. Carpeta respaldo_respuestas.
+**Commits.** 902c802 (código) y 9f0ae19 (documentos), publicados el 13 de Noviembre a las 16:36. Carpeta respaldo_respuestas.
 
 ---
 
-## Listas para publicar, todavía sin publicar
+## Ciclo 2, tanda 6. Tanda de los sueltos (12 al 14 de Noviembre de 2026)
 
-**Tanda 6 (tanda de los sueltos).** Carpeta ciclo2_tanda6. Se publica después de que el respaldo de respuestas pase su corrida real.
-- Medidos y aprobados por Diego el 12 de Noviembre. (V1) Las causas voluntarias, con rol con letra V, se eliminan del todo como los partidores. (F10) Se lee la inscripción con un punto entre el número de fojas y "Número". (RM1) Un remate de un juzgado de otra región entra si la propiedad está en la RM. (K1) Los juzgados 2° y 3° de Antofagasta encuentran su Corte.
-- Medidos el 13 de Noviembre, falta el visto bueno de Diego. (B1) Dos bloques de remates se leen como uno cuando un aviso quedó cortado entre los dos, como el 13 de Noviembre entre B11 y C8. (B2) Un aviso que un tercer bloque reimprime ya no se carga dos veces. (P1) La frase de un terreno sin calle va completa hasta 350 caracteres y ya no se corta a media palabra en 200.
+**Qué buscaba arreglar.** Fallos sueltos de varios días y el reclamo de los abogados del 13 de Noviembre, que creyeron inventadas dos causas reales porque llegaron sin tribunal. Aparte, tres reglas nuevas pedidas por Diego (causas voluntarias, terrenos sin calle y oficinas, sitios y terrenos).
+
+**Cambios.**
+- (V1) Antes, una causa voluntaria (rol con letra V, como V-238-2025) entraba a las tablas. Ahora se elimina del todo, como los partidores.
+- (F10) Antes, "Fojas 49651. Número 69670" no se leía por el punto. Ahora sí (2334-2025, dominio 2024, va a Excluidas).
+- (RM1) Antes, un remate de un juzgado de otra región se descartaba por Solo RM aunque la propiedad estuviera en la RM. Ahora entra si la propiedad trae una comuna de la RM, con una Observación (9 de 20 causas descartadas así en 23 ediciones).
+- (K1) Antes, el 2° y el 3° Juzgado de Antofagasta no encontraban su Corte por un empate de nombres. Ahora gana el mismo número.
+- (B1) Antes, si la sección seguía en otro cuerpo sin la flecha y un aviso quedaba cortado entre los dos, salían dos filas falsas (1445-2024, 13 de Noviembre). Ahora los dos bloques se leen como uno.
+- (B2) Antes, un aviso que un tercer bloque reimprimía se cargaba dos veces e inflaba el log. Ahora no.
+- (G3) Antes, si el aviso nombraba el tribunal solo al final, la causa llegaba sin tribunal (6458-2022). Ahora se lee el tribunal que va justo después del rol.
+- (T1) Antes, los terrenos sin calle entraban como cualquier propiedad. Ahora desaparecen del todo, salvo que su frase diga casa o vivienda.
+- (T2) Antes, las oficinas, los sitios sin casa y los terrenos con calle iban a la principal. Ahora van a una tabla aparte al final del Excel, solo por si acaso.
+- P1 (frase completa de un terreno sin calle) se midió y no se publicó, porque con T1 esa frase ya no se muestra.
+
+**Resultado medido.** En 13 ediciones, 1.244 avisos a 1.237, cero colores, carátulas o remates cambiados. T1 saca 82 filas (36 causas), T2 aparta 13 (5 causas, todas oficinas), G3 da tribunal a 6458-2022 y coincide en los otros 9 avisos con esa frase. En la edición del 14 de Noviembre la principal pasaría de 40 a 34 filas sin memoria. Las 13 pruebas con TODO OK y test_tanda6 con 54 OK.
+
+**Corrida real.** Pendiente, la primera después de publicar.
+
+**Commits.** Pendientes. Carpeta ciclo2_tanda6.
+
+---
 
 ## En espera (n=1 cada uno)
 
-Inscripción toda en palabras (F11, 7170-2026). Dos mínimos de 28-2025, con la causa raíz ya encontrada el 13 de Noviembre (los lotes van con "I.-" y "II.-" y números en palabras, y el código solo asigna un mínimo a un inmueble con número en cifras). Tres formas del tribunal que el código no lee, el tribunal nombrado solo al final del aviso (6458-2022), "JUZGADO DE CIVIL" (3127-2024) y "DÉCIMO SÉPTIMO CIVIL" sin la palabra Juzgado (1455-2023).
+Inscripción toda en palabras (F11, 7170-2026). Dos mínimos de 28-2025, con la causa raíz ya encontrada el 13 de Noviembre (los lotes van con "I.-" y "II.-" y números en palabras, y el código solo asigna un mínimo a un inmueble con número en cifras). Dos formas del tribunal que el código no lee, "JUZGADO DE CIVIL" (3127-2024) y "DÉCIMO SÉPTIMO CIVIL" sin la palabra Juzgado (1455-2023). La tercera, el tribunal nombrado solo al final (6458-2022), salió de la espera y va en la tanda 6.
