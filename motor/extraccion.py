@@ -381,11 +381,29 @@ def _titulo(txt):
     return " ".join(w if w in _MINUSC else w[:1].upper() + w[1:] for w in txt.lower().split())
 
 
+_ROL_ANTE = re.compile(r"(?:causa|rol|expediente|autos)\b[^.\n]{0,40}?\b[A-Z]{1,2}\s*-\s*\d{1,6}\s*-\s*(?:19|20)\d\d"
+                       r"\s*,?\s+(?:seguid[ao]s?\s+|tramitad[ao]s?\s+)?(?:ante\s+(?:el\s+)?|del\s+|en\s+el\s+)", re.I)
+
+
+def _tribunal_tras_rol(texto: str):
+    """Ciclo 2, tanda 6, arreglo G3. Tribunal nombrado justo después del rol, al final del aviso (6458-2022 del 13 de
+    Noviembre de 2026, \"causa digital C-6458-2022 seguida ante el 13° Juzgado Civil de Santiago\"). Devuelve el match
+    de _TRIBUNAL solo si todas las frases así nombran el mismo tribunal. Si no hay ninguna o no coinciden, None."""
+    hallados = []
+    for a in _ROL_ANTE.finditer(texto):
+        m = _TRIBUNAL.match(texto, a.end())
+        if m:
+            hallados.append(m)
+    if not hallados or len({re.sub(r"\s+", " ", h.group(0)).lower() for h in hallados}) != 1:
+        return None
+    return hallados[0]
+
+
 def tribunal(texto: str) -> dict:
     """Devuelve {'tribunal': {valor, cita}, 'alertas': [...]}. Forma única. '7° Juzgado Civil de Santiago',
     'Juzgado de Letras de Colina', 'Juzgado de Cobranza Laboral y Previsional de Santiago'."""
     alertas = []
-    m = _TRIBUNAL.search(texto[:400])
+    m = _TRIBUNAL.search(texto[:400]) or _tribunal_tras_rol(texto)     # tanda 6, G3
     if not m:
         alertas.append(("revisar_lectura", "No se encontró el tribunal al comienzo del aviso."))
         return {"tribunal": {"valor": None, "cita": None}, "alertas": alertas}
@@ -426,7 +444,7 @@ def tribunal(texto: str) -> dict:
 # Formas vistas en las 7 ediciones capturadas (17 de Octubre). "5914v N° 6254", "3242V N° 5292", "No. 38.549", "No 4.989",
 # "fojas 14. 515 N° 13.762", "fojas. 2412 número 3376", "fojas Fs. 76060 N° 106266".
 _NUM_INS = r"(\d{1,3}(?:\.\s?\d{3})+|\d+)"
-_FOJAS = re.compile(rf"\b(?:f\.\s*|(?:fojas?\.?\s+(?:fs\.?\s*)?|fj?s\.?\s*)){_NUM_INS}\s*(?:vuelta|vta\.?|v(?![a-záéíóúñ])|f(?![a-záéíóúñ]))?\s*,?\s*(?:y\s+)?(?:bajo\s+(?:el\s+)?)?"
+_FOJAS = re.compile(rf"\b(?:f\.\s*|(?:fojas?\.?\s+(?:fs\.?\s*)?|fj?s\.?\s*)){_NUM_INS}\s*(?:vuelta|vta\.?|v(?![a-záéíóúñ])|f(?![a-záéíóúñ]))?\s*[,.]?\s*(?:y\s+)?(?:bajo\s+(?:el\s+)?)?"
                     rf"(?:n[uú]meros?|nro\.?|n\.?\s*[°º]|no\.?(?=\s*\d)|N\s3(?=\s+\d)|N(?=\d))\s*{_NUM_INS}", re.I)
 # "del año 2009", "de 2011", "del 2021", "Propiedad 2018", "Santiago, 2005", "año 2.007"
 _ANIO_INS = re.compile(r"(?:\ba[ñn]o|\bdel?|\bpropiedad|,)\s+((?:19|20)\d\d|[12]\.\d{3})(?!\d)", re.I)

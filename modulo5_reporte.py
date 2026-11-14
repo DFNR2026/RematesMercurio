@@ -135,7 +135,7 @@ _COLUMNAS = [
 # Escritura de hoja de datos
 # ─────────────────────────────────────────────────────────────────
 
-def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None, descartados: list | None = None, sin_rol: list | None = None, ya_informadas: list | None = None) -> None:
+def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str, excluidos: list | None = None, descartados: list | None = None, sin_rol: list | None = None, ya_informadas: list | None = None, apartadas: list | None = None) -> None:
     """
     Crea una hoja con la lista de causas ordenadas, headers y formato condicional.
     """
@@ -329,6 +329,30 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
         ws.merge_cells(start_row=r_d, start_column=1, end_row=r_d, end_column=5)
         ws.row_dimensions[r_d].height = 16
 
+    # ── Tanda 6, T2. Oficinas, sitios sin casa y terrenos, al final y aparte, solo por si acaso (Diego, 13 de Noviembre) ──
+    apartadas = apartadas or []
+    if apartadas:
+        inicio_ap = inicio_desc + 2 + max(len(descartados), 1) + 2
+        cell_ap = ws.cell(row=inicio_ap, column=1, value="OFICINAS, SITIOS Y TERRENOS (APARTE, SOLO POR SI ACASO)")
+        cell_ap.font = Font(bold=True, color="FFFFFF", size=11)
+        cell_ap.fill = PatternFill("solid", fgColor="595959")
+        ws.merge_cells(start_row=inicio_ap, start_column=1, end_row=inicio_ap, end_column=6)
+        ws.row_dimensions[inicio_ap].height = 20
+        for ci, h in enumerate(["Tribunal", "ROL", "Año", "Dirección", "Comuna", "Motivo"], 1):
+            cell = ws.cell(row=inicio_ap + 1, column=ci, value=h)
+            cell.font = Font(bold=True, color="FFFFFF", size=10)
+            cell.fill = PatternFill("solid", fgColor="1F4E79")
+            cell.alignment = _ALIGN_CENTER
+            cell.border = _BORDER_THIN
+        for fi, d in enumerate(apartadas):
+            r_a = inicio_ap + 2 + fi
+            for ci, k in enumerate(["tribunal", "rol", "año", "direccion", "comuna", "motivo"], 1):
+                cell = ws.cell(row=r_a, column=ci, value=d.get(k, "") or "")
+                cell.font = _FONT_BODY
+                cell.border = _BORDER_THIN
+                cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=(k == "direccion"))
+            ws.row_dimensions[r_a].height = 30
+
 
 # ─────────────────────────────────────────────────────────────────
 # Hoja Resumen
@@ -405,6 +429,7 @@ def _escribir_hoja_resumen(wb: openpyxl.Workbook, causas: list[dict], metricas: 
     r += 1; fila(r, "Excluidas por dominio 2019 o posterior", len(metricas.get("excluidos_cbr") or []))
     r += 1; fila(r, "Descartadas por parámetros", len(metricas.get("descartados") or []))
     r += 1; fila(r, "Ya informadas en los últimos 4 días", len(metricas.get("ya_informadas") or []))
+    r += 1; fila(r, "Oficinas, sitios y terrenos (tabla aparte al final)", len(metricas.get("apartadas") or []))
 
     r += 1; espacio(r)
     r += 1; titulo(r, "INTELIGENCIA ARTIFICIAL (Claude Haiku, solo direcciones)")
@@ -546,7 +571,7 @@ def generar_reporte(causas: list[dict], metricas: dict | None = None) -> str:
     wb = openpyxl.Workbook()
     wb.remove(wb.active)  # quitar hoja vacía por defecto
 
-    _escribir_hoja_datos(wb, regiones, "Remates", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []), sin_rol=metricas.get("sin_rol", []), ya_informadas=metricas.get("ya_informadas", []))
+    _escribir_hoja_datos(wb, regiones, "Remates", excluidos=metricas.get("excluidos_cbr", []), descartados=metricas.get("descartados", []), sin_rol=metricas.get("sin_rol", []), ya_informadas=metricas.get("ya_informadas", []), apartadas=metricas.get("apartadas", []))
     _escribir_hoja_resumen(wb, causas, metricas=metricas)
 
     # Resumen queda al final (la hoja de detalle es la primera pestaña visible)

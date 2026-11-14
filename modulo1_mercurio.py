@@ -224,8 +224,8 @@ def extraer_mercurio(fecha=None, *, dry_run: bool = False, usar_captura: bool = 
             continue
         rollos, _al = paginas_desde_captura(CAPTURAS / f.isoformat())
         res = procesar(rollos, f.isoformat(), cliente=cliente)
-        log.info("Edición %s. %d avisos cortados, %d partidores eliminados, %d sin rol, %d causas. IA %s",
-                 f.isoformat(), res["avisos_cortados"], len(res["partidores"]), len(res["sin_rol"]), len(res["causas"]),
+        log.info("Edición %s. %d avisos cortados, %d partidores eliminados, %d voluntarias eliminadas, %d sin rol, %d causas. IA %s",
+                 f.isoformat(), res["avisos_cortados"], len(res["partidores"]), len(res.get("voluntarias") or []), len(res["sin_rol"]), len(res["causas"]),
                  {k: res["ia"][k] for k in ("leidos", "sin_ia", "llamadas", "colores")})
         for e in res["ia"]["errores"][:10]:
             log.warning("IA. %s", e)
@@ -265,6 +265,7 @@ def extraer_mercurio(fecha=None, *, dry_run: bool = False, usar_captura: bool = 
         "ediciones": leidas, "tokens_input": ia["tokens_entrada"], "tokens_output": ia["tokens_salida"],
         "costo_usd": ia["costo_usd"], "ia": ia,
         "excluidos_cbr": tabla["excluidas_cbr"], "descartados": tabla["descartados"], "sin_rol": tabla["sin_rol"],
+        "apartadas": tabla.get("apartadas") or [], "terrenos_eliminados": len(tabla.get("terrenos_eliminados") or []),
         "en_historial": tabla["en_historial"], "ya_informadas": tabla["ya_informadas"], "fallos": fallos, "avisos_programa": avisos_programa,
         "avisos_cortados": sum(r["avisos_cortados"] for r in resultados),
         "partidores": sum(len(r["partidores"]) for r in resultados),
@@ -278,6 +279,8 @@ def extraer_mercurio(fecha=None, *, dry_run: bool = False, usar_captura: bool = 
     log.info("  Excluidas por dominio   : %d", len(tabla["excluidas_cbr"]))
     log.info("  Descartadas             : %d", len(tabla["descartados"]))
     log.info("  Ya informadas (4 días)  : %d", len(tabla["ya_informadas"]))
+    log.info("  Oficinas, sitios y terrenos aparte : %d. Terrenos sin calle eliminados %d",
+             len(tabla.get("apartadas") or []), len(tabla.get("terrenos_eliminados") or []))
     log.info("  IA (Haiku)              : %d leídos, %d llamadas nuevas, %d sin respuesta, USD %.4f", ia["leidos"], ia["llamadas"], ia["sin_ia"], ia["costo_usd"])
     for x in fallos:
         log.error("  FALLO: %s", x)

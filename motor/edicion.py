@@ -53,7 +53,7 @@ def unir_rollos(cortados: list) -> tuple:
     alertas, resumen = {}, []
     for k, otro in enumerate(cortados[1:], start=2):
         libres = {}
-        for a in avisos[:len(cortados[0])]:
+        for a in avisos:                # Tanda 6, B2. El gemelo se busca en todo lo ya cargado, no solo en el primer bloque
             libres.setdefault(huella(a.texto), []).append(a)
         unidos = espacios = 0
         solos = []
@@ -77,6 +77,29 @@ def unir_rollos(cortados: list) -> tuple:
         resumen.append(f"Cuerpo {c2} repite al {c1}. {unidos} de {len(otro)} avisos unidos por huella del texto. "
                        f"{espacios} con diferencias de espacios. {len(solos)} solo en {c2}.")
     return avisos, alertas, resumen
+
+
+def unir_continuaciones(rollos: list) -> tuple:
+    """Ciclo 2, tanda 6, arreglo B1. Si un bloque termina con una palabra cortada y el siguiente empieza en minúscula, el
+    diario siguió la sección en otro cuerpo sin la flecha "MÁS AVISOS" (13 de Noviembre de 2026, B11 sigue en C8 y el
+    aviso 1445-2024 quedó partido en dos). Los dos bloques se leen como uno, solo si al unirlos sale exactamente un aviso
+    menos. Devuelve (rollos, notas)."""
+    out, notas = [], []
+    for paginas in rollos:
+        if not paginas:
+            continue
+        if out:
+            ant, este = cortar(*construir_rollo(out[-1])), cortar(*construir_rollo(paginas))
+            if (ant and este and "termina con una palabra cortada" in ant[-1].revisar
+                    and "empieza en minúscula" in este[0].revisar):
+                juntos = list(out[-1]) + list(paginas)
+                if len(cortar(*construir_rollo(juntos))) == len(ant) + len(este) - 1:
+                    notas.append(f"El bloque que empieza en {paginas[0][0]} continúa al que empieza en {out[-1][0][0]} "
+                                 "(un aviso quedó cortado entre los dos). Se leen como un solo bloque.")
+                    out[-1] = juntos
+                    continue
+        out.append(list(paginas))
+    return out, notas
 
 
 def _n_remates(ex: dict) -> int:
@@ -153,7 +176,7 @@ def _direccion(texto: str, n: int, cliente, ia: dict) -> tuple:
     if res["color"] == "verde":
         # Tanda 2 del ciclo 2. Con un remate, si el aviso habla de condominio o edificio, la dirección va en ese formato.
         return [{"direccion": CJ.describir(texto, i["direccion"], i.get("calle")) if n == 1 else i["direccion"],
-                 "comuna": i["comuna"]} for i in res["inmuebles"]], "verde", []
+                 "comuna": i["comuna"], "tipo": i.get("tipo"), "cita": i.get("cita")} for i in res["inmuebles"]], "verde", []
     if res["color"] == "sin_dato":
         return [], "sin_dato", [DR.NO_ENCONTRADA]
     # Ciclo 2, tanda 4, arreglo T4a. El rojo no da dirección, pero conserva la comuna si las dos lecturas coinciden y se
@@ -164,9 +187,23 @@ def _direccion(texto: str, n: int, cliente, ia: dict) -> tuple:
     return None, "rojo", [DR.texto_rojo(res)]
 
 
+_VOL_ROL = re.compile(r"\bV\s*-?\s*\d")
+_VOL_TEXTO = re.compile(r"(?<![A-Za-z\d-])V\s*-\s*\d{1,6}\s*-\s*(?:19|20)\d\d(?!\d)")
+
+
+def es_voluntaria(rol, rol_impreso, texto: str) -> bool:
+    """Ciclo 2, tanda 6, arreglo V1. Causa voluntaria (rol con letra V, como V-238-2025). Es voluntaria si el rol leído
+    trae la V (\"Rol V-188-2025\"), o si el aviso no tiene rol leído y su texto trae un V-número-año (\"causa V-50-2026\").
+    Un aviso con rol C que trae pegado el extracto de otra causa V (C-12153-2025 del 6 de Octubre) no cuenta."""
+    if rol:
+        return bool(_VOL_ROL.search(rol_impreso or ""))
+    return bool(_VOL_TEXTO.search(texto))
+
+
 def procesar(rollos: list, fecha: str, cliente=None, usar_ia: bool = True) -> dict:
     """rollos = [[(nombre, texto)]] en el orden de la navegación. fecha = AAAA-MM-DD de la edición.
     cliente = cliente de Haiku o None (solo respuestas guardadas). usar_ia=False no lee la dirección."""
+    rollos, continuaciones = unir_continuaciones(rollos)
     cortados, roles_texto = [], set()
     for paginas in rollos:
         if not paginas:
@@ -176,7 +213,7 @@ def procesar(rollos: list, fecha: str, cliente=None, usar_ia: bool = True) -> di
         roles_texto |= {(r[1], r[2]) for r in roles_en(rollo)}
     cortados = [c for c in cortados if c]
     avisos, alertas_union, alarmas = unir_rollos(cortados) if cortados else ([], {}, [])
-    alarmas = list(alarmas)
+    alarmas = continuaciones + list(alarmas)
     if not avisos:
         alarmas.append("La edición no trae avisos de remates de propiedades.")
     linea = alarma_cuadre(roles_texto, avisos)
@@ -185,12 +222,15 @@ def procesar(rollos: list, fecha: str, cliente=None, usar_ia: bool = True) -> di
 
     ia = {"leidos": 0, "sin_ia": 0, "llamadas": 0, "tokens_entrada": 0, "tokens_salida": 0, "costo_usd": 0.0,
           "colores": {}, "errores": []}
-    partidores, sin_rol, con_rol = [], [], []
+    partidores, voluntarias, sin_rol, con_rol = [], [], [], []
     for a in avisos:
         ex = _extraer(a.texto, fecha)
         tribunal = (ex.get("tribunal") or {}).get("valor")
         if es_partidor(tribunal, a.texto):
             partidores.append(a.orden)
+            continue
+        if es_voluntaria(a.rol, a.rol_impreso, a.texto):
+            voluntarias.append(a.orden)
             continue
         alertas = [t for _, t in ex.get("alertas") or []]
         alertas += [t for _, t in alertas_union.get(a.orden, [])]
@@ -222,4 +262,4 @@ def procesar(rollos: list, fecha: str, cliente=None, usar_ia: bool = True) -> di
         c["caratula"] = c["caratula"] or av["caratula"]
         c["alertas"] += [x for x in av["alertas"] if x not in c["alertas"]]
     return {"fecha": fecha, "avisos_cortados": len(avisos), "roles_en_texto": len(roles_texto),
-            "partidores": partidores, "sin_rol": sin_rol, "causas": list(causas.values()), "alarmas": alarmas, "ia": ia}
+            "partidores": partidores, "voluntarias": voluntarias, "sin_rol": sin_rol, "causas": list(causas.values()), "alarmas": alarmas, "ia": ia}

@@ -227,7 +227,7 @@ def verificar_inmueble(x: dict, texto: str) -> dict:
         direccion = (f"{x['calle'].strip()} {numero}" if numero else f"{x['calle'].strip()}{sn}") + (f", {unidad.strip()}" if unidad else "")
     else:
         direccion = frase[:200] + (f", {unidad.strip()}" if unidad and norm(unidad) not in norm(frase) and unidad_clave(unidad) != unidad_clave(frase) else "")
-    return {"ok": True, "motivos": [], "direccion": direccion, "comuna": comuna.strip() if comuna else None, "cita": frase, "citas_extra": citas_extra,
+    return {"ok": True, "motivos": [], "direccion": direccion, "comuna": comuna.strip() if comuna else None, "cita": frase, "citas_extra": citas_extra, "tipo": tipo,
             "calle": x.get("calle") if tipo == "calle" else None}     # la usa motor/conjunto.py (tanda 2 del ciclo 2)
 
 
@@ -323,7 +323,7 @@ def resolver(lecturas: list, texto: str, n_remates: int) -> dict:
         elif not v2["ok"]:
             base["motivos"] += [pre + "Segunda lectura. " + m for m in v2["motivos"]]
         else:
-            base["inmuebles"].append({k2: v.get(k2) for k2 in ("direccion", "comuna", "cita", "citas_extra", "calle")})
+            base["inmuebles"].append({k2: v.get(k2) for k2 in ("direccion", "comuna", "cita", "citas_extra", "calle", "tipo")})
     if base["motivos"]:
         base["inmuebles"] = []; return base
     if any(i["direccion"] is None for i in base["inmuebles"]):      # mezcla de sin_dato y con dirección

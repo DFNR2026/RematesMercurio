@@ -173,7 +173,11 @@ def buscar_corte(nombre_tribunal: str) -> str | None:
 
     for entry in _referencia_cache:
         score = fuzz.token_set_ratio(nombre_limpio.lower(), entry["nombre_tribunal"].lower())
-        if score > mejor_score:
+        # Ciclo 2, tanda 6, arreglo K1. En un empate gana el tribunal con el mismo número (Antofagasta, 548-2025).
+        empate_mejor = (score == mejor_score and ordinal_query is not None and mejor_tribunal is not None
+                        and _extraer_ordinal(mejor_tribunal) != ordinal_query
+                        and _extraer_ordinal(entry["nombre_tribunal"]) == ordinal_query)
+        if score > mejor_score or empate_mejor:
             mejor_score = score
             mejor_corte = entry["corte"]
             mejor_tribunal = entry["nombre_tribunal"]
@@ -366,6 +370,7 @@ OBS_SIN_DIRECCION = "El aviso no indica la dirección de la propiedad."
 OBS_CARATULA = "No se pudo leer la carátula (demandante y demandado). Revisar en el diario."
 OBS_DOMINIO = "No se encontró el año de inscripción del dominio. Revisar si es anterior a 2019."
 OBS_COMUNA = "El aviso no indica la comuna de la propiedad. Revisar."
+OBS_OTRA_REGION = "El remate es en un juzgado de otra región, pero la propiedad está en la Región Metropolitana."
 # (patrón de la alerta técnica, texto para el abogado, ¿obliga a revisar?)
 _TRADUCCION = [
     (r"^Dirección no leída|^Falla de la IA", OBS_DIRECCION, True),
@@ -398,6 +403,17 @@ def _anios(lista: list) -> list:
     return out
 
 
+def _alguna_comuna_rm(causa: dict) -> bool:
+    """Ciclo 2, tanda 6, arreglo RM1. True si alguna propiedad de la causa trae una comuna de la RM, igual a una de las 52
+    (sin coincidencia difusa). Sirve para que un remate de un juzgado de otra región con la propiedad en la RM no se
+    descarte por Solo RM (decisión de Diego del 12 de Noviembre de 2026)."""
+    for p in propiedades(causa):
+        c = (p.get("comuna") or "").strip()
+        if c and _normalizar_comuna(c) in _COMUNAS_RM_NORM:
+            return True
+    return False
+
+
 def propiedades(causa: dict) -> list:
     """Una propiedad por remate de cada aviso, sin repetir las republicaciones (misma huella del texto del aviso).
     Cada una con su dirección y comuna (si Haiku la verificó), los años y las fojas de su inscripción.
@@ -417,7 +433,8 @@ def propiedades(causa: dict) -> list:
             d = dirs[i] if dirs and i < len(dirs) else None
             out.append({"direccion": (d or {}).get("direccion"), "comuna": (d or {}).get("comuna"),
                         "dir_ok": av.get("dir_color") == "verde", "anios": _anios(mia),
-                        "fojas": [x["fojas"] for x in mia if x.get("fojas")], "aviso": av})
+                        "fojas": [x["fojas"] for x in mia if x.get("fojas")], "aviso": av,
+                        "tipo": (d or {}).get("tipo"), "cita": (d or {}).get("cita")})
     # La misma dirección verificada en dos avisos distintos del mismo rol es la misma propiedad
     unicas, dirs_vistas = [], set()
     for p in out:
@@ -428,6 +445,39 @@ def propiedades(causa: dict) -> list:
             dirs_vistas.add(k)
         unicas.append(p)
     return unicas
+
+
+# Ciclo 2, tanda 6, arreglos T1 y T2 (decisiones de Diego del 13 de Noviembre de 2026).
+_CASA = re.compile(r"(?i)\b(?:casas?|viviendas?|edificad[ao]s?|edificaci[oó]n(?:es)?|construcci[oó]n(?:es)?|construid[ao]s?)\b")
+_OFICINA = re.compile(r"(?i)\boficinas?\b")
+_TERRENO = re.compile(r"(?i)\bterrenos?\b")
+_SITIO = re.compile(r"(?i)\bsitios?\b")
+_NOMBRE_CLASE = {"oficina": "oficina", "terreno": "terreno", "sitio": "sitio sin casa"}
+
+
+def clase_inmueble(direccion, tipo, cita, texto="", n_remates=1):
+    """Ciclo 2, tanda 6. None si la propiedad va como siempre. "terreno_sin_calle" si Haiku la dio sin calle y su frase no
+    dice casa (T1, desaparece). "oficina", "terreno" o "sitio" si la dirección comprobada trae esa palabra (T2, tabla
+    aparte). El sitio no se aparta si su frase, o el aviso de un solo remate, dice casa o vivienda. Lote no cuenta."""
+    if not direccion:
+        return None
+    cita = cita or ""
+    if tipo == "sin_calle":
+        return None if _CASA.search(cita) else "terreno_sin_calle"
+    if _OFICINA.search(direccion):
+        return "oficina"
+    if _TERRENO.search(direccion):
+        return "terreno"
+    if _SITIO.search(direccion):
+        return None if (_CASA.search(cita) or (n_remates == 1 and _CASA.search(texto or ""))) else "sitio"
+    return None
+
+
+def _clase(p: dict):
+    if not p.get("dir_ok"):
+        return None
+    av = p.get("aviso") or {}
+    return clase_inmueble(p.get("direccion"), p.get("tipo"), p.get("cita"), av.get("texto"), av.get("n_remates") or 1)
 
 
 def _cbr(p: dict) -> tuple[str, int | None]:
@@ -531,12 +581,30 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
             u["caratula"] = u.get("caratula") or c.get("caratula")
             u["alertas"] += [a for a in c["alertas"] if a not in u["alertas"]]
     principal, excluidas, descartados, ya_informadas = [], [], [], []
+    terrenos_eliminados, apartadas = [], []         # tanda 6, T1 y T2
     fecha_lote = min((r["fecha"] for r in resultados), default=date.today().isoformat())
     for c in causas.values():
         eds = sorted({av.get("edicion", "") for av in c["avisos"]} - {""})
+        # Ciclo 2, tanda 6, T1. Los terrenos sin calle desaparecen del todo, como los partidores (decisión de Diego del
+        # 13 de Noviembre de 2026). No van a ninguna tabla ni a la memoria.
+        _todas = propiedades(c)
+        _cl = [_clase(p) for p in _todas]
+        if _cl and all(x == "terreno_sin_calle" for x in _cl):
+            terrenos_eliminados.append(c["clave"]); continue
+        # T2. Si todas sus propiedades son oficina, sitio sin casa o terreno (o terreno sin calle), la causa va a la tabla
+        # aparte del final del Excel, solo por si acaso. No pasa por los demás filtros ni se anota en la memoria.
+        if _cl and all(_cl):
+            _ps = [p for p, x in zip(_todas, _cl) if x != "terreno_sin_calle"]
+            _tipos = sorted({_NOMBRE_CLASE[x] for x in _cl if x != "terreno_sin_calle"})
+            apartadas.append({"rol": c["rol"], "año": c["año"], "tribunal": c["tribunal"],
+                              "direccion": _unir(p["direccion"] for p in _ps), "comuna": _unir(p["comuna"] for p in _ps),
+                              "motivo": "Es " + " y ".join(_tipos),
+                              "ediciones": eds})
+            continue
+        _fuera = [p for p, x in zip(_todas, _cl) if x]
         memoria = historico.get(c["clave"]) or []
         if memoria and _ya_informada(memoria, eds[0] if eds else fecha_lote):
-            props = propiedades(c)
+            props = [p for p in _todas if not any(p is q for q in _fuera)] or _todas
             dias = racha(list(memoria) + eds)
             ya_informadas.append({"rol": c["rol"], "año": c["año"], "tribunal": c["tribunal"],
                                   "corte": (corte_de(c["tribunal"]) or "") if c["tribunal"] else "",
@@ -579,7 +647,9 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
             if not corte:
                 obs.append(OBS_CORTE); revisar = True
             elif corte not in _CORTES_RM:
-                descartados.append({**base, "motivo": "Solo RM", "monto": None}); continue
+                if not _alguna_comuna_rm(c):
+                    descartados.append({**base, "motivo": "Solo RM", "monto": None}); continue
+                obs.append(OBS_OTRA_REGION)
         # 2. Banco Estado, sobre la carátula entera
         caratula = c.get("caratula") or ""
         if any(b in caratula.lower() for b in _BANCOS_ESTADO) or (not caratula and _bancoestado_en_aviso(c)):
@@ -591,7 +661,10 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
         except (TypeError, ValueError):
             obs.append("No se pudo leer el año del rol. Revisar."); revisar = True
         # 4. Comuna y dominio por propiedad
-        props = propiedades(c)
+        props = [p for p in _todas if not any(p is q for q in _fuera)]
+        if _fuera:
+            obs.append(f"{len(_fuera)} propiedad{'es' if len(_fuera) > 1 else ''} de este rol no se informa{'n' if len(_fuera) > 1 else ''} "
+                       "por ser terreno, sitio u oficina.")
         n = len(props)
         evaluadas = []
         for p in props:
@@ -638,6 +711,17 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
                 por_huella[h]["_otras"].append(res["fecha"])
                 continue
             d = av.get("direcciones") or []
+            _cs = [clase_inmueble(x.get("direccion"), x.get("tipo"), x.get("cita"), av.get("texto"), av.get("n_remates") or 1)
+                   for x in d] if av.get("dir_color") == "verde" else []
+            if _cs and all(x == "terreno_sin_calle" for x in _cs):
+                terrenos_eliminados.append("sin rol"); continue          # tanda 6, T1
+            if _cs and all(_cs):                                          # tanda 6, T2
+                _ds = [x for x, k in zip(d, _cs) if k != "terreno_sin_calle"]
+                apartadas.append({"rol": "", "año": "", "tribunal": av.get("tribunal") or "",
+                                  "direccion": _unir(x.get("direccion") for x in _ds), "comuna": _unir(x.get("comuna") for x in _ds),
+                                  "motivo": "Es " + " y ".join(sorted({_NOMBRE_CLASE[k] for k in _cs if k != "terreno_sin_calle"}))
+                                            + ". El aviso no trae número de rol", "ediciones": [res["fecha"]]})
+                continue
             sin_rol.append({"tribunal": av.get("tribunal") or "", "caratula": av.get("caratula") or "",
                             "direccion": _unir(x.get("direccion") for x in d), "comuna": _unir(x.get("comuna") for x in d),
                             "pagina": f"{', '.join(av.get('paginas') or [])} ({fecha_palabras(res['fecha'])})",
@@ -648,4 +732,5 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
         if otras:
             s["pagina"] += ". Se repite el " + ", ".join(fecha_palabras(f) for f in otras)
     return {"principal": principal, "excluidas_cbr": excluidas, "descartados": descartados, "sin_rol": sin_rol,
-            "ya_informadas": ya_informadas, "en_historial": len(ya_informadas)}
+            "ya_informadas": ya_informadas, "en_historial": len(ya_informadas),
+            "terrenos_eliminados": terrenos_eliminados, "apartadas": apartadas}
