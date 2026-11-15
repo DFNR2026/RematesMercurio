@@ -150,12 +150,33 @@ Cómo leer cada cambio. El código entre paréntesis es el tipo de fallo del cat
 
 **Resultado medido.** En 13 ediciones, 1.244 avisos a 1.237, cero colores, carátulas o remates cambiados. T1 saca 82 filas (36 causas), T2 aparta 13 (5 causas, todas oficinas), G3 da tribunal a 6458-2022 y coincide en los otros 9 avisos con esa frase. En la edición del 14 de Noviembre la principal pasaría de 40 a 34 filas sin memoria. Las 13 pruebas con TODO OK y test_tanda6 con 54 OK.
 
-**Corrida real.** Pendiente, la primera después de publicar.
+**Corrida real.** 15 de Noviembre, log 118295967283. Primer intento, código 0, correo a las 5:05. Rojos 3 de 99. La línea nueva del log dice "Oficinas, sitios y terrenos aparte 1. Terrenos sin calle eliminados 9". La oficina 12754-2024 salió al final del Excel con su línea en el Resumen. Ninguna parcela, lote ni oficina en la principal. 6458-2022 salió en la principal con el 13° Juzgado Civil de Santiago, como nueva y no en Ya informadas, porque el 13 de Noviembre se anotó en la memoria sin tribunal (estaba advertido). El día rehecho con el código publicado da lo mismo que el servidor. Pasó. La fila 1296-2023 del Juzgado Civil de Valdivia en la principal no viene de esta tanda, es un aviso pegado a otro que por diseño no pasa por los filtros, y salía igual antes.
 
-**Commits.** Pendientes. Carpeta ciclo2_tanda6.
+**Commits.** d3d2c84 (código) y 1759663 (documentos), publicados el 14 de Noviembre. Carpeta ciclo2_tanda6.
 
 ---
 
-## En espera (n=1 cada uno)
+## Ciclo 2, tanda 7. Policía Local y los cuatro casos en espera (14 y 15 de Noviembre de 2026)
+
+**Qué buscaba arreglar.** El 14 de Noviembre entró a la principal un remate de un Juzgado de Policía Local (13136-2022, "causa por daños en choque"). Diego pidió eliminarlos por completo y arreglar los cuatro fallos que estaban en espera por tener un solo caso.
+
+**Cambios.**
+- (PL1) Antes, un remate de Policía Local pasaba como cualquier otro. Ahora se elimina antes de la IA, como los partidores.
+- (G4) Antes, "18° JUZGADO DE CIVIL DE Santiago" no se leía y la causa llegaba sin tribunal (3127-2024). Ahora sí.
+- (G5) Antes, "DÉCIMO SÉPTIMO CIVIL de Santiago" sin la palabra Juzgado no se leía (1455-2023). Ahora se lee si va al comienzo del aviso.
+- (F11) Antes, la inscripción escrita toda en palabras no se leía (7170-2026, dominio 2021). Ahora se lee cuando no hay ninguna en cifras.
+- (M1) Antes, los dos mínimos de 28-2025 no se asignaban porque los lotes iban con "I.-" y "II.-" y el código contaba 1 remate. Ahora cuenta 2.
+
+**Resultado medido.** En 15 ediciones y 1.447 avisos, cada arreglo cambia solo su caso. Cero colores, carátulas o direcciones de otros avisos. Las 14 pruebas con TODO OK y test_tanda7 con 16 OK.
+
+**Corrida real.** Pendiente, la primera después de publicar.
+
+**Commits.** Pendientes. Carpeta ciclo2_tanda7.
+
+---
+
+## En espera
+
+Nada por ahora. F11, M1, G4 y G5 entraron a la tanda 7 por decisión de Diego del 14 de Noviembre. Texto anterior, que queda como registro.
 
 Inscripción toda en palabras (F11, 7170-2026). Dos mínimos de 28-2025, con la causa raíz ya encontrada el 13 de Noviembre (los lotes van con "I.-" y "II.-" y números en palabras, y el código solo asigna un mínimo a un inmueble con número en cifras). Dos formas del tribunal que el código no lee, "JUZGADO DE CIVIL" (3127-2024) y "DÉCIMO SÉPTIMO CIVIL" sin la palabra Juzgado (1455-2023). La tercera, el tribunal nombrado solo al final (6458-2022), salió de la espera y va en la tanda 6.
