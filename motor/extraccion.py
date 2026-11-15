@@ -117,6 +117,19 @@ MONTO = re.compile(
 _ETIQUETA = re.compile(r"\b(oficina|lote|departamento|depto|casa|local|bodega|estacionamiento|parcela|sitio)\s*(?:N[°º]?\s*)?(\d+[A-Za-z]?)\b", re.I)
 
 
+# Ciclo 2, tanda 7, M1. Número romano de lote al comienzo de un bloque ("I.-", "II.-", "III)").
+_ROMANO = re.compile(r"(?<![\w.])(I{1,3}|IV|VI{0,3}|IX|X)\s*(?:\.\s*-|\))\s+")
+
+
+class _Lote:
+    """Hace de etiqueta \"lote I\" para el mínimo, con la misma forma que un match de _ETIQUETA."""
+    def __init__(self, n):
+        self.n = n
+
+    def group(self, i):
+        return "Lote" if i == 1 else self.n
+
+
 def _a_numero(m):
     """(monto, moneda, signo_pesos_en_uf). Grupos. 1 signo $ antes de UF, 2 número UF, 3 número tras 'UF', 4 pesos."""
     if m.group(4):
@@ -191,6 +204,11 @@ def minimo_y_costas(texto: str) -> dict:
         # ("Mínimo posturas a) departamento N° 205C $46.847.342, b) Propiedad ubicada en Pasaje Goya Sur N° 1530 $95.286.918",
         # rol 8467-2025). Cada letra con su monto es un remate. Si la letra no nombra un lote o departamento, la letra es la etiqueta.
         marca = re.search(r"(?<!\w)([a-hA-H])\)\s", texto[a.end():m.start()])
+        # Ciclo 2, tanda 7, M1. Lote con número romano ("I.-", "II.-") cuando no hay etiqueta ni letra (28-2025).
+        if not etiqueta and not marca:
+            romanos = list(_ROMANO.finditer(texto, hallados[-1]["fin"] if hallados else 0, a.start()))
+            if romanos:
+                etiqueta = _Lote(romanos[-1].group(1))
         hallados.append({"monto": monto, "moneda": moneda, "cita": texto[a.start():m.end()], "fin": m.end(),
                          "inmueble": f"{etiqueta.group(1).lower()} {etiqueta.group(2)}" if etiqueta else (f"{marca.group(1).lower()})" if marca else None)})
         if marca:
@@ -352,7 +370,7 @@ _DECENAS = {"decimo": 10, "décimo": 10, "vigesimo": 20, "vigésimo": 20, "trige
 _ESPECIALES = {"undecimo": 11, "undécimo": 11, "duodecimo": 12, "duodécimo": 12, "decimotercer": 13, "decimotercero": 13}
 _PAL_ORD = "|".join(sorted(list(_UNIDADES) + list(_DECENAS) + list(_ESPECIALES), key=len, reverse=True))
 _ORDINAL = rf"(?:(\d{{1,2}})\s*(?:°|º|er|ER|o\b)?|((?:{_PAL_ORD})(?:\s+(?:{_PAL_ORD}))?)(?:\s*\(\s*\d{{1,2}}\s*°?\s*\))?)"
-_TIPO = (r"(civil|(?:de\s+)?letras\s+(?:en\s+lo\s+)?civil|(?:de\s+letras\s+)?(?:de\s+)?cobranza\s+laboral(?:\s+y\s+previsional)?"
+_TIPO = (r"((?:de\s+)?civil|(?:de\s+)?letras\s+(?:en\s+lo\s+)?civil|(?:de\s+letras\s+)?(?:de\s+)?cobranza\s+laboral(?:\s+y\s+previsional)?"
          r"|de\s+letras(?:\s+del\s+trabajo)?|letras|de\s+familia|familia|de\s+polic[ií]a\s+local|polic[ií]a\s+local)")
 # Palabras que no son ciudad ("7° JUZGADO CIVIL, EN calle Huérfanos 1409")
 _NO_CIUDAD = {"en", "ubicado", "ubicada", "con", "causa", "autos", "rol", "huerfanos", "huérfanos", "calle", "avenida", "juicio", "expediente", "domiciliado"}
@@ -399,11 +417,15 @@ def _tribunal_tras_rol(texto: str):
     return hallados[0]
 
 
+_TRIB_SIN_JUZ = re.compile(rf"^\W*(?:extracto\s+(?:de\s+)?)?(?:remate|subasta)\W*(?:ante\s+(?:el\s+)?|en\s+el\s+)?{_ORDINAL}\s*(civil)\s*,?\s*(?:de\s+|del\s+)?"
+                           r"([A-ZÁÉÍÓÚÑ][a-záéíóúñA-ZÁÉÍÓÚÑ]+(?:\s+(?:del?|de\s+la)\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)?)", re.I)
+
+
 def tribunal(texto: str) -> dict:
     """Devuelve {'tribunal': {valor, cita}, 'alertas': [...]}. Forma única. '7° Juzgado Civil de Santiago',
     'Juzgado de Letras de Colina', 'Juzgado de Cobranza Laboral y Previsional de Santiago'."""
     alertas = []
-    m = _TRIBUNAL.search(texto[:400]) or _tribunal_tras_rol(texto)     # tanda 6, G3
+    m = _TRIBUNAL.search(texto[:400]) or _tribunal_tras_rol(texto) or _TRIB_SIN_JUZ.match(texto)     # tanda 6 G3, tanda 7 G5
     if not m:
         alertas.append(("revisar_lectura", "No se encontró el tribunal al comienzo del aviso."))
         return {"tribunal": {"valor": None, "cita": None}, "alertas": alertas}
@@ -473,6 +495,12 @@ def inscripcion(texto: str, fecha_edicion: str | None = None) -> dict:
               "conservador": c.group(1) if c else None, "cita": texto[m.start():fin]}
         if (el["fojas"], el["numero"]) not in [(x["fojas"], x["numero"]) for x in lista]:
             lista.append(el)
+    # Ciclo 2, tanda 7, F11. Inscripción toda en palabras, solo si no se leyó ninguna en cifras (7170-2026).
+    if not lista and texto and re.search(r"(?i)\bfojas?\s+[a-záéíóúñ]", texto):
+        from motor.numeros_texto import palabras_a_cifras
+        cifras = palabras_a_cifras(texto)
+        if cifras != texto:
+            return inscripcion(cifras, fecha_edicion)
     clave = " + ".join(f"fojas {x['fojas']} n {x['numero']}" + (f" {x['anio']}" if x["anio"] else "") for x in sorted(lista, key=lambda x: (x["fojas"], x["numero"]))) or None
     alertas = []
     for x in lista:

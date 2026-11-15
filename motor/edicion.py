@@ -222,7 +222,7 @@ def procesar(rollos: list, fecha: str, cliente=None, usar_ia: bool = True) -> di
 
     ia = {"leidos": 0, "sin_ia": 0, "llamadas": 0, "tokens_entrada": 0, "tokens_salida": 0, "costo_usd": 0.0,
           "colores": {}, "errores": []}
-    partidores, voluntarias, sin_rol, con_rol = [], [], [], []
+    partidores, voluntarias, policia_local, sin_rol, con_rol = [], [], [], [], []
     for a in avisos:
         ex = _extraer(a.texto, fecha)
         tribunal = (ex.get("tribunal") or {}).get("valor")
@@ -231,6 +231,10 @@ def procesar(rollos: list, fecha: str, cliente=None, usar_ia: bool = True) -> di
             continue
         if es_voluntaria(a.rol, a.rol_impreso, a.texto):
             voluntarias.append(a.orden)
+            continue
+        # Ciclo 2, tanda 7, PL1. Juzgado de Policía Local, se elimina del todo (decisión de Diego del 14 de Noviembre de 2026).
+        if tribunal and re.search(r"(?i)polic[ií]a\s+local", tribunal):
+            policia_local.append(a.orden)
             continue
         alertas = [t for _, t in ex.get("alertas") or []]
         alertas += [t for _, t in alertas_union.get(a.orden, [])]
@@ -262,4 +266,4 @@ def procesar(rollos: list, fecha: str, cliente=None, usar_ia: bool = True) -> di
         c["caratula"] = c["caratula"] or av["caratula"]
         c["alertas"] += [x for x in av["alertas"] if x not in c["alertas"]]
     return {"fecha": fecha, "avisos_cortados": len(avisos), "roles_en_texto": len(roles_texto),
-            "partidores": partidores, "voluntarias": voluntarias, "sin_rol": sin_rol, "causas": list(causas.values()), "alarmas": alarmas, "ia": ia}
+            "partidores": partidores, "voluntarias": voluntarias, "policia_local": policia_local, "sin_rol": sin_rol, "causas": list(causas.values()), "alarmas": alarmas, "ia": ia}
