@@ -169,9 +169,9 @@ Cómo leer cada cambio. El código entre paréntesis es el tipo de fallo del cat
 
 **Resultado medido.** En 15 ediciones y 1.447 avisos, cada arreglo cambia solo su caso. Cero colores, carátulas o direcciones de otros avisos. Las 14 pruebas con TODO OK y test_tanda7 con 16 OK.
 
-**Corrida real.** Pendiente, la primera después de publicar.
+**Corrida real.** 16 de Noviembre, log 118648913198. Primer intento, código 0, correo enviado. La línea de la edición dice "0 de Policía Local eliminados" (no hubo ninguno ese día). Rojos 3 de 78. Ningún aviso con las formas G4, G5, F11 ni M1 en esa edición, así que esos arreglos no se pudieron ver en una corrida real todavía. La principal trajo 1 sola causa (6456-2026), y Diego confirmó con los abogados que revisan a mano que es correcto. El día rehecho con el código publicado da lo mismo que el servidor. Pasó.
 
-**Commits.** Pendientes. Carpeta ciclo2_tanda7.
+**Commits.** e6e5b02 (código) y 462637e (documentos), publicados el 15 de Noviembre. Carpeta ciclo2_tanda7.
 
 ---
 
