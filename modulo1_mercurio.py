@@ -224,8 +224,8 @@ def extraer_mercurio(fecha=None, *, dry_run: bool = False, usar_captura: bool = 
             continue
         rollos, _al = paginas_desde_captura(CAPTURAS / f.isoformat())
         res = procesar(rollos, f.isoformat(), cliente=cliente)
-        log.info("Edición %s. %d avisos cortados, %d partidores eliminados, %d voluntarias eliminadas, %d de Policía Local eliminados, %d sin rol, %d causas. IA %s",
-                 f.isoformat(), res["avisos_cortados"], len(res["partidores"]), len(res.get("voluntarias") or []), len(res.get("policia_local") or []), len(res["sin_rol"]), len(res["causas"]),
+        log.info("Edición %s. %d avisos cortados, %d partidores eliminados, %d voluntarias eliminadas, %d de Policía Local eliminados, %d de otros juzgados no civiles eliminados, %d sin rol, %d causas. IA %s",
+                 f.isoformat(), res["avisos_cortados"], len(res["partidores"]), len(res.get("voluntarias") or []), len(res.get("policia_local") or []), len(res.get("no_civiles") or []), len(res["sin_rol"]), len(res["causas"]),
                  {k: res["ia"][k] for k in ("leidos", "sin_ia", "llamadas", "colores")})
         for e in res["ia"]["errores"][:10]:
             log.warning("IA. %s", e)

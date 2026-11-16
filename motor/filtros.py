@@ -627,6 +627,12 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
         if any("roles distintos en un mismo trozo" in a for a in c["alertas"]):
             roles = sorted({f"{r[0]}-{r[1]}" for av in c["avisos"] for r in _roles_impresos(av["texto"])})
             props = propiedades(c)
+            # Ciclo 2, tanda 8, PG1. Pegado con todas sus comunas comprobadas fuera de la RM, a Descartadas.
+            _cs = [(p.get("comuna") or "").strip() for p in props]
+            if _cs and all(_cs) and not any(_normalizar_comuna(x) in _COMUNAS_RM_NORM for x in _cs):
+                descartados.append({**base, "motivo": "Propiedad fuera de RM: " + _unir(_cs)
+                                    + f". Aviso pegado a otro (roles {' y '.join(roles)})", "monto": None})
+                continue
             dem, ddo = partir_caratula(c.get("caratula") or "")
             principal.append({**base, "corte": (corte_de(tribunal) or "") if tribunal else "", "demandante": dem, "demandado": ddo,
                               "direccion": _unir(p["direccion"] for p in props), "comuna": _unir(p["comuna"] for p in props),

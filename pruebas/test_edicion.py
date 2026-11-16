@@ -45,9 +45,9 @@ print("\n=== 2026-10-14 ===")
 revisar("1. avisos cortados 61", r["avisos_cortados"] == 61, r["avisos_cortados"])
 revisar("2. partidores eliminados 4", len(r["partidores"]) == 4, r["partidores"])
 revisar("3. avisos sin rol 0", len(r["sin_rol"]) == 0, [a["texto"][:80] for a in r["sin_rol"]])
-inv = claves_inventario("2026-10-14")
+inv = {k for k in claves_inventario("2026-10-14") if not any(x in k for x in ("cobranza laboral", "juzgado de familia", "letras del trabajo"))}  # tanda 8, NC1
 got = {sin_tildes(c["clave"]) for c in r["causas"]}
-revisar("4. causas 57 y calzan con el inventario", len(r["causas"]) == 57 and got == inv,
+revisar("4. causas 55 y calzan con el inventario (sin las 2 de Cobranza Laboral)", len(r["causas"]) == 55 and got == inv,
         f"causas {len(r['causas'])}, faltan {sorted(inv - got)[:5]}, sobran {sorted(got - inv)[:5]}")
 revisar("5. 0 avisos sin respuesta guardada de dirección", r["ia"]["sin_ia"] == 0, f"{r['ia']['sin_ia']} {r['ia']['errores'][:2]}")
 revisar("6. cuadre sin roles fuera de los avisos", not any(x.startswith("Cuadre.") for x in r["alarmas"]), r["alarmas"])
@@ -65,9 +65,9 @@ revisar("7. avisos cortados 95", r["avisos_cortados"] == 95, r["avisos_cortados"
 revisar("8. partidores eliminados 1", len(r["partidores"]) == 1, r["partidores"])
 revisar("9. avisos sin rol 1 (Iturra Saldías)", len(r["sin_rol"]) == 1 and "Iturra" in r["sin_rol"][0]["texto"],
         [a["texto"][:80] for a in r["sin_rol"]])
-inv = claves_inventario("2026-08-06")
+inv = {k for k in claves_inventario("2026-08-06") if not any(x in k for x in ("cobranza laboral", "juzgado de familia", "letras del trabajo"))}  # tanda 8, NC1
 got = {sin_tildes(c["clave"]) for c in r["causas"]}
-revisar("10. causas 93 y calzan con el inventario", len(r["causas"]) == 93 and got == inv,
+revisar("10. causas 92 y calzan con el inventario (sin la de Cobranza Laboral)", len(r["causas"]) == 92 and got == inv,
         f"causas {len(r['causas'])}, faltan {sorted(inv - got)[:5]}, sobran {sorted(got - inv)[:5]}")
 
 # 1 de Septiembre

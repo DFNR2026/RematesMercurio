@@ -114,7 +114,7 @@ B = RAIZ / "banco_pruebas" / "2026-10-14"
 res = procesar([[("B11", leer_pagina(B / "mercurio_2026-10-14_B11.txt")), ("C8", leer_pagina(B / "mercurio_2026-10-14_C8.txt"))]], "2026-10-14", cliente=None)
 r = F.aplicar([res], {})
 tot = len(r["principal"]) + len(r["excluidas_cbr"]) + len(r["descartados"]) + len(r.get("apartadas") or []) + len(r.get("terrenos_eliminados") or [])
-revisar("18. las 57 causas del 14 de Octubre en exactamente una tabla", tot == 57 and len({x["rol"] + x["año"] + x["tribunal"] for t in ("principal", "excluidas_cbr", "descartados", "apartadas") for x in r.get(t) or []}) + len(set(r.get("terrenos_eliminados") or [])) == 57,
+revisar("18. las 55 causas del 14 de Octubre en exactamente una tabla (sin las 2 de Cobranza Laboral, tanda 8)", tot == 55 and len({x["rol"] + x["año"] + x["tribunal"] for t in ("principal", "excluidas_cbr", "descartados", "apartadas") for x in r.get(t) or []}) + len(set(r.get("terrenos_eliminados") or [])) == 55,
         f"principal {len(r['principal'])}, excluidas {len(r['excluidas_cbr'])}, descartadas {len(r['descartados'])}")
 revisar("19. tabla de sin rol vacía", r["sin_rol"] == [], r["sin_rol"])
 print(f"   14 de Octubre. principal {len(r['principal'])}, excluidas por dominio {len(r['excluidas_cbr'])}, descartadas {len(r['descartados'])}, terrenos sin calle eliminados {len(r.get('terrenos_eliminados') or [])}, para revisar {sum(x['revisar'] for x in r['principal'])}")
