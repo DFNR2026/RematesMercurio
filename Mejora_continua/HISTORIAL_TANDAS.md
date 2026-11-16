@@ -175,6 +175,22 @@ Cómo leer cada cambio. El código entre paréntesis es el tipo de fallo del cat
 
 ---
 
+## Ciclo 2, tanda 8. Juzgados no civiles y avisos pegados fuera de la RM (16 de Noviembre de 2026)
+
+**Qué buscaba arreglar.** Dos decisiones de Diego del 16 de Noviembre. Los remates de juzgados que no son civiles no interesan, y un aviso pegado de fuera de la RM no debe llegar a la principal (1296-2023 de Valdivia, 15 de Noviembre).
+
+**Cambios.**
+- (NC1) Antes, los remates de Cobranza Laboral, Familia y Letras del Trabajo pasaban como cualquier otro. Ahora se eliminan antes de la IA, como Policía Local. Los Juzgados de Letras con competencia civil siguen.
+- (PG1) Antes, un aviso pegado a otro iba siempre a la principal sin filtros. Ahora, si todas sus propiedades traen una comuna comprobada fuera de la RM, va a Descartadas.
+
+**Resultado medido.** En 16 ediciones y 1.521 avisos, salen 19 avisos no civiles y 1296-2023 pasa a Descartadas. Cero colores, carátulas o direcciones en lo demás. Las 15 pruebas con TODO OK y test_tanda8 con 7 OK.
+
+**Corrida real.** Pendiente, la primera después de publicar.
+
+**Commits.** Pendientes. Carpeta ciclo2_tanda8.
+
+---
+
 ## En espera
 
 Nada por ahora. F11, M1, G4 y G5 entraron a la tanda 7 por decisión de Diego del 14 de Noviembre. Texto anterior, que queda como registro.
