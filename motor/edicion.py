@@ -176,7 +176,10 @@ def _direccion(texto: str, n: int, cliente, ia: dict) -> tuple:
     if res["color"] == "verde":
         # Tanda 2 del ciclo 2. Con un remate, si el aviso habla de condominio o edificio, la dirección va en ese formato.
         return [{"direccion": CJ.describir(texto, i["direccion"], i.get("calle")) if n == 1 else i["direccion"],
-                 "comuna": i["comuna"], "tipo": i.get("tipo"), "cita": i.get("cita")} for i in res["inmuebles"]], "verde", []
+                 "comuna": i["comuna"], "tipo": i.get("tipo"), "cita": i.get("cita"),
+                 # Para motor/tasacion.py (24 de Noviembre de 2026). La calle y la dirección comprobada antes del formato
+                 # de condominio ("calle número, unidad"). No van al Excel.
+                 "calle": i.get("calle"), "dir_base": i["direccion"]} for i in res["inmuebles"]], "verde", []
     if res["color"] == "sin_dato":
         return [], "sin_dato", [DR.NO_ENCONTRADA]
     # Ciclo 2, tanda 4, arreglo T4a. El rojo no da dirección, pero conserva la comuna si las dos lecturas coinciden y se

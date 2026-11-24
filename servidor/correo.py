@@ -16,7 +16,8 @@ SERVIDOR = "smtp.gmail.com"
 PUERTO = 465  # SSL directo
 
 
-def enviar(para: list[str], asunto: str, cuerpo: str, adjuntos: list[Path] | None = None) -> None:
+def enviar(para: list[str], asunto: str, cuerpo: str, adjuntos: list[Path] | None = None, html: str | None = None) -> None:
+    """html es opcional (24 de Noviembre de 2026). Si viene, el correo lleva también esa versión, con negritas."""
     usuario = os.environ.get("GMAIL_USER", "").strip()
     clave = os.environ.get("GMAIL_APP_PASSWORD", "").replace(" ", "").strip()
     if not usuario or not clave:
@@ -29,6 +30,8 @@ def enviar(para: list[str], asunto: str, cuerpo: str, adjuntos: list[Path] | Non
     msg["To"] = ", ".join(para)
     msg["Subject"] = asunto
     msg.set_content(cuerpo)
+    if html:
+        msg.add_alternative(html, subtype="html")
     for ruta in adjuntos or []:
         ruta = Path(ruta)
         tipo = mimetypes.guess_type(ruta.name)[0] or "application/octet-stream"

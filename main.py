@@ -202,6 +202,12 @@ def main() -> None:
             return
         _sep("INFORME EXCEL")
         actualizar_historial(causas, metricas.get("ya_informadas"))
+        # Tasación comercial con inciti (24 de Noviembre de 2026). Sin la key no hace nada. Nunca detiene el informe.
+        try:
+            from motor.tasacion import tasar_causas
+            tasar_causas(causas, metricas)
+        except Exception as e:
+            print(f"  Tasación omitida por un error ({type(e).__name__}). El informe sale igual.")
         ruta = generar_reporte(causas, metricas=metricas)
         print(f"  Informe: {ruta}")
         print(f"  Tiempo total: {int(time.time() - t0)} s")

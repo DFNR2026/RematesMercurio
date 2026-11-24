@@ -130,6 +130,22 @@ _COLUMNAS = [
     ("Observaciones",   "observaciones",      45,  None),
 ]
 
+# Columnas de la tasación de inciti (motor/tasacion.py, 24 de Noviembre de 2026). Van entre "Fs." y "Observaciones" solo si
+# la tasación corrió (las causas traen tas_uf). Sin la key de inciti el Excel queda exactamente como antes.
+_COLUMNAS_TASACION = [
+    ("Valor venta UF",  "tas_uf",             15,  '#,##0.00'),
+    ("Valor venta $",   "tas_clp",            15,  '#,##0'),
+    ("Informe",         "tas_link",           12,  None),
+]
+_FILL_AMARILLO = PatternFill("solid", fgColor="FFFF00")
+_FONT_LINK     = Font(size=10, color="0563C1", underline="single")
+
+
+def _columnas_para(causas: list[dict]) -> list:
+    if not any("tas_uf" in c for c in causas):
+        return _COLUMNAS
+    return _COLUMNAS[:-1] + _COLUMNAS_TASACION + _COLUMNAS[-1:]
+
 
 # ─────────────────────────────────────────────────────────────────
 # Escritura de hoja de datos
@@ -142,9 +158,10 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
     ws = wb.create_sheet(nombre)
     excluidos = excluidos or []
     descartados = descartados or []
+    columnas = _columnas_para(causas)
 
     # ── Fila de encabezados ──
-    for col_idx, (header, _, ancho, _fmt) in enumerate(_COLUMNAS, 1):
+    for col_idx, (header, _, ancho, _fmt) in enumerate(columnas, 1):
         cell = ws.cell(row=1, column=col_idx, value=header)
         cell.fill      = _FILL_HEADER
         cell.font      = _FONT_HEADER
@@ -159,7 +176,7 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
     for row_idx, causa in enumerate(causas, 2):
         fill = _FILL_ODD if row_idx % 2 == 1 else _FILL_EVEN
 
-        for col_idx, (_, campo, _, fmt_num) in enumerate(_COLUMNAS, 1):
+        for col_idx, (_, campo, _, fmt_num) in enumerate(columnas, 1):
             valor = causa.get(campo, "")
 
             if valor is None:
@@ -176,6 +193,16 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
 
             if fmt_num and valor != "":
                 cell.number_format = fmt_num
+            # Tasación. Un texto en la celda del valor va a la izquierda. El informe es un enlace. Una tasación de más
+            # de 6 meses va en amarillo (decisiones de Diego del 24 de Noviembre de 2026).
+            if campo in ("tas_uf", "tas_clp") and isinstance(valor, str):
+                cell.alignment = _ALIGN_LEFT
+            if campo in ("tas_uf", "tas_clp") and causa.get("tas_amarilla"):
+                cell.fill = _FILL_AMARILLO
+            if campo == "tas_link" and valor:
+                cell.value = "Ver informe"
+                cell.hyperlink = valor
+                cell.font = _FONT_LINK
 
         ws.row_dimensions[row_idx].height = 16
 
@@ -183,7 +210,7 @@ def _escribir_hoja_datos(wb: openpyxl.Workbook, causas: list[dict], nombre: str,
 
     # ── Auto-filtro ──
     if causas:
-        ws.auto_filter.ref = f"A1:{get_column_letter(len(_COLUMNAS))}{max_row}"
+        ws.auto_filter.ref = f"A1:{get_column_letter(len(columnas))}{max_row}"
 
     # ── Avisos sin número de rol (traspaso del 17 de Octubre de 2026). Van después de la tabla principal y antes de las
     #    excluidas por dominio (decisión de Diego). Antes estos avisos se botaban en silencio.

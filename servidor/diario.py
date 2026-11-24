@@ -12,6 +12,9 @@ Pasos.
    otro caso        no se sube el historial. Si no es el último intento, sale para que el siguiente reintente.
                     Desde las 6:00, una sola vez, avisa que todavía no hay informe y que el último intento es a las 7:05.
                     En el último intento (desde las 7:00) avisa cuántos intentos se hicieron y que no se intenta más.
+5. Tasación con inciti (24 de Noviembre de 2026). Baja estado/tasaciones.csv antes de main.py y la sube después de
+   cualquier intento en que cambió (con respaldo), para no pagar dos veces una tasación. Si no se pudo bajar, ese
+   intento no tasa. Con Excel, manda a Diego (solo a Diego) el correo de las tasaciones del día y su costo.
 
 Variables de entorno.
     MODO            real (por defecto) o ensayo. En ensayo el correo va solo a CORREO_DIEGO,
@@ -19,9 +22,11 @@ Variables de entorno.
     FECHA           AAAA-MM-DD. Por defecto hoy en hora de Chile (TZ=America/Santiago).
     INTENTO_FINAL   1 fuerza el último intento (corridas a mano). Si no viene, es último desde las 7:00 de Chile.
     SUPABASE_URL, SUPABASE_KEY, GMAIL_USER, GMAIL_APP_PASSWORD, CORREO_ABOGADO, CORREO_DIEGO.
+    INCITI_API_KEY  key de inciti. Sin ella no se tasa. TASACION_TOPE tope de tasaciones pagadas por intento
+                    (20 en real, 5 en ensayo si no viene).
 """
 from __future__ import annotations
-import os, re, shutil, subprocess, sys, time, traceback, zipfile
+import html, json, os, re, shutil, subprocess, sys, time, traceback, zipfile
 from datetime import date, datetime
 from pathlib import Path
 
@@ -46,6 +51,9 @@ MARCA_FINAL = f"{P}avisos/{FECHA}_sin_informe.txt"
 CONTADOR = f"{P}intentos/{FECHA}.txt"
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 INFORMES = RAIZ / "Informe final"
+TASACIONES = RAIZ / "tasaciones.csv"            # memoria de tasaciones (motor/tasacion.py)
+TAS_ANTES = RAIZ / "_tasaciones_antes.csv"
+TAS_RESUMEN = RAIZ / "_tasaciones_hoy.json"
 CARPETA_IA = RAIZ / "ia_respuestas"
 PIE = ("Este correo lo envía un programa automático cada mañana. No es necesario responderlo.\n"
        "Ante cualquier duda, hable con Diego.")
@@ -168,6 +176,67 @@ def correo_excel(excel: Path, salida: str, incompleto: bool) -> None:
     log(f"Correo con el Excel enviado a {len(para_todos())} destinatario(s)")
 
 
+def bajar_tasaciones() -> bool:
+    """Baja la memoria de tasaciones. Si falla, ese intento no tasa (para no pagar dos veces). Nunca detiene la corrida."""
+    try:
+        for f in (TASACIONES, TAS_ANTES, TAS_RESUMEN):
+            if f.exists():
+                f.unlink()
+        if E.existe("estado/tasaciones.csv"):
+            E.bajar("estado/tasaciones.csv", TASACIONES)
+            shutil.copy2(TASACIONES, TAS_ANTES)
+            log("Memoria de tasaciones bajada de Supabase")
+        else:
+            log("Todavía no hay memoria de tasaciones en Supabase. Se empieza una nueva")
+        return True
+    except Exception as e:
+        log(f"No se pudo bajar la memoria de tasaciones ({type(e).__name__}). Este intento no tasa")
+        return False
+
+
+def subir_tasaciones() -> None:
+    """Sube la memoria de tasaciones si cambió, con respaldo de la anterior. Si no había memoria al empezar y ahora
+    sí hay una en Supabase, no la pisa y deja la de hoy aparte en respaldos/. Nunca detiene la corrida."""
+    try:
+        if not TASACIONES.exists():
+            return
+        if TAS_ANTES.exists() and TASACIONES.read_bytes() == TAS_ANTES.read_bytes():
+            return
+        destino = f"{P}estado/tasaciones.csv"
+        if TAS_ANTES.exists():
+            E.subir(TAS_ANTES, f"{P}respaldos/tasaciones_antes_{FECHA}_{AHORA:%H%M}.csv", "text/csv; charset=utf-8")
+        elif E.existe(destino):
+            E.subir(TASACIONES, f"{P}respaldos/tasaciones_conflicto_{FECHA}_{AHORA:%H%M}.csv", "text/csv; charset=utf-8")
+            log("La memoria de tasaciones apareció en Supabase durante la corrida. No se pisó. La de hoy quedó en respaldos/")
+            return
+        E.subir(TASACIONES, destino, "text/csv; charset=utf-8")
+        log("Memoria de tasaciones guardada en Supabase")
+    except Exception as e:
+        log(f"No se pudo guardar la memoria de tasaciones ({type(e).__name__}). La corrida sigue")
+
+
+def correo_tasaciones() -> None:
+    """Correo solo a Diego con las tasaciones del día y su costo, en negrita (decisión de Diego del 24 de Noviembre)."""
+    try:
+        if not TAS_RESUMEN.exists():
+            return
+        r = json.loads(TAS_RESUMEN.read_text(encoding="utf-8"))
+        if not (r.get("pagadas_hoy") or r.get("fallas") or r.get("tope_alcanzado")):
+            return
+        from motor.tasacion import texto_correo
+        lineas = texto_correo(r)
+        ft = fecha_texto()
+        pie = "Este correo va solo a Diego. El abogado no lo recibe."
+        plano = f"Tasaciones de inciti del {ft}.\n\n" + "\n".join(lineas) + f"\n\n{pie}"
+        cuerpo_html = (f"<p>Tasaciones de inciti del {html.escape(ft)}.</p><p><b>"
+                       + "<br>".join(html.escape(x) for x in lineas) + f"</b></p><p>{html.escape(pie)}</p>")
+        pref = "ENSAYO. " if MODO != "real" else ""
+        enviar([os.environ["CORREO_DIEGO"]], f"{pref}Tasaciones de inciti, {ft}", plano, html=cuerpo_html)
+        log("Correo de tasaciones enviado a Diego")
+    except Exception as e:
+        log(f"No se pudo mandar el correo de tasaciones ({type(e).__name__}). La corrida sigue")
+
+
 def correo_sin_causas(con_fallos: bool) -> None:
     ft = fecha_texto()
     if con_fallos:
@@ -272,9 +341,14 @@ def main() -> int:
             pass
         log("El archivo de respuestas de Haiku llegó dañado. Se guardó aparte en respaldos/ y la corrida sigue sin él")
     log(f"Memoria bajada de Supabase. Respuestas de Haiku disponibles {contar_ia()}")
+    entorno = dict(os.environ)
+    if not bajar_tasaciones():
+        entorno["TASACION_APAGADA"] = "1"
+    if MODO != "real" and not entorno.get("TASACION_TOPE"):
+        entorno["TASACION_TOPE"] = "5"          # en ensayo se pagan pocas tasaciones
 
     inicio = time.time()
-    proc = subprocess.run([sys.executable, "main.py", "--fecha", FECHA],
+    proc = subprocess.run([sys.executable, "main.py", "--fecha", FECHA], env=entorno,
                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
     salida = proc.stdout or ""
     print(salida, flush=True)
@@ -284,6 +358,7 @@ def main() -> int:
     excel = excels[-1] if excels else None
     log(f"main.py terminó con código {codigo}. Excel {excel.name if excel else 'ninguno'}")
     guardar_captura(salida)
+    subir_tasaciones()
 
     if codigo in (0, 4) and excel:
         guardar_memoria(con_historial=True)
@@ -292,6 +367,7 @@ def main() -> int:
         E.subir_texto(f"pendiente_correo excel={excel.name}", MARCA)
         correo_excel(excel, salida, incompleto=(codigo == 4))
         E.subir_texto(f"enviado excel={excel.name}", MARCA)
+        correo_tasaciones()
         return 0
     if codigo == 0:
         # Regla de los 4 días. Sin causas nuevas, main.py igual anota las causas repetidas del día. Si el historial cambió,

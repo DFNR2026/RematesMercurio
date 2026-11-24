@@ -434,7 +434,8 @@ def propiedades(causa: dict) -> list:
             out.append({"direccion": (d or {}).get("direccion"), "comuna": (d or {}).get("comuna"),
                         "dir_ok": av.get("dir_color") == "verde", "anios": _anios(mia),
                         "fojas": [x["fojas"] for x in mia if x.get("fojas")], "aviso": av,
-                        "tipo": (d or {}).get("tipo"), "cita": (d or {}).get("cita")})
+                        "tipo": (d or {}).get("tipo"), "cita": (d or {}).get("cita"),
+                        "calle": (d or {}).get("calle"), "dir_base": (d or {}).get("dir_base")})   # motor/tasacion.py
     # La misma dirección verificada en dos avisos distintos del mismo rol es la misma propiedad
     unicas, dirs_vistas = [], set()
     for p in out:
@@ -708,7 +709,10 @@ def aplicar(resultados: list, historico: dict, corte_de=None) -> dict:
                           "fojas": _unir(f for e in pasan for f in e[0]["fojas"]),
                           "observaciones": " ".join(obs), "revisar": revisar, "region_rm": True,
                           "n_propiedades": len(pasan), "cbr_anio": min(anios_ok) if anios_ok else None,
-                          "ediciones": sorted({av.get("edicion", "") for av in c["avisos"]} - {""})})
+                          "ediciones": sorted({av.get("edicion", "") for av in c["avisos"]} - {""}),
+                          # Para motor/tasacion.py (24 de Noviembre de 2026). No van al Excel.
+                          "_tasar": [{k: e[0].get(k) for k in ("direccion", "dir_base", "calle", "comuna", "dir_ok", "tipo")} for e in pasan],
+                          "_textos": [av.get("texto") or "" for av in c["avisos"]]})
     sin_rol, por_huella = [], {}
     for res in resultados:
         for av in res["sin_rol"]:

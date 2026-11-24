@@ -16,6 +16,9 @@ CAUSAS_XLSX   = os.path.join(BASE_DIR, "causas_ojv.xlsx")
 # === CLAVES API ===
 ANTHROPIC_API_KEY = "sk-ant-XXXXXXXXXX"  # <-- PEGAR TU API KEY DE ANTHROPIC AQUÍ
 # La IA es Claude Haiku (motor/ia_comun.py). DeepSeek se retiró del programa el 17 de Octubre de 2026.
+# Tasación comercial con inciti (motor/tasacion.py, 24 de Noviembre de 2026). En GitHub viene del secreto INCITI_API_KEY.
+# Vacía, el robot no tasa y el Excel queda como antes. En el PC no se usa (el robot no corre en el PC).
+INCITI_API_KEY = ""
 
 # === EXCEL SHEETS ===
 SHEET_REFERENCIA = "REFERENCIA"

@@ -74,3 +74,8 @@ ESTADO_PROYECTO.md
 
 # Respuestas nuevas de Haiku. Viven en Supabase (estado/ia_respuestas.zip). Las 309 que ya estaban en git se quedan
 ia_respuestas/
+
+# Memoria de tasaciones de inciti y su resumen del día. Viven en Supabase (estado/tasaciones.csv), 24 de Noviembre de 2026
+tasaciones.csv
+_tasaciones_antes.csv
+_tasaciones_hoy.json

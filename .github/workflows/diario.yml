@@ -93,6 +93,7 @@ jobs:
           MERCURIO_USER = os.environ.get("MERCURIO_USER", "")
           MERCURIO_PASS = os.environ.get("MERCURIO_PASS", "")
           ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+          INCITI_API_KEY = os.environ.get("INCITI_API_KEY", "")
           PY
 
       - name: Corrida del día
@@ -101,6 +102,8 @@ jobs:
           MERCURIO_USER: ${{ secrets.MERCURIO_USER }}
           MERCURIO_PASS: ${{ secrets.MERCURIO_PASS }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Tasación comercial (24 de Noviembre de 2026). Sin este secreto el robot no tasa y el Excel queda como antes.
+          INCITI_API_KEY: ${{ secrets.INCITI_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
