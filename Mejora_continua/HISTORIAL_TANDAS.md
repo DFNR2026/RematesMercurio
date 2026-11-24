@@ -187,7 +187,7 @@ Cómo leer cada cambio. El código entre paréntesis es el tipo de fallo del cat
 
 **Corrida real.** Pendiente, la primera después de publicar.
 
-**Commits.** Pendientes. Carpeta ciclo2_tanda8.
+**Commits.** ec94c8c (código) y ea0f43a (documentos), publicados el 16 de Noviembre. Carpeta ciclo2_tanda8.
 
 ---
 
