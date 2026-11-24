@@ -74,14 +74,43 @@ En la hoja Resumen, una línea "Causas nuevas en la tabla principal en lo que va
 
 La lectura, los filtros, la regla de los 4 días, la memoria de causas, el correo y sus horarios. Si se quita la key, el robot funciona exactamente como hoy.
 
-## 7. Lo que falta decidir (Diego)
+## 7. Decisiones de Diego (24 de Noviembre de 2026, 17:22)
 
-1. "Tasación no encontrada" en Observaciones o en la columna del valor.
-2. Vigencia de una tasación guardada (propuesta 6 meses).
-3. Archivo CSV o tabla de base de datos para las tasaciones.
-4. Qué hacer con una causa que remata varias propiedades. Propuesta, tasar cada casa o departamento hasta 3 y mostrar la suma, con la Observación "Suma de N propiedades".
-5. Si el costo de cada día (tasaciones hechas, 0,0371 UF cada una) va solo en el correo a Diego.
-6. Si se publica todo junto o en dos noches (primero la tasación y las columnas, después el conteo del mes).
+Lo de esta sección manda sobre lo escrito arriba en las secciones 2, 3, 4 y 5.
+
+1. Cuando no hay valor, el texto va dentro de la celda del valor ("Valor venta UF") y no en Observaciones. Ejemplo, "Tasación no encontrada". La celda en pesos queda vacía. Decisión de Diego (17:34), todos los casos sin valor van con un texto corto en la misma celda.
+   | Motivo | Texto en la celda del valor |
+   |---|---|
+   | No se encontró la propiedad | Tasación no encontrada |
+   | Las Condes, Vitacura o Lo Barnechea | No se tasa en esta comuna |
+   | Bodega, estacionamiento u oficina | No es casa ni departamento |
+   | Más de una propiedad en la causa | Más de 1 propiedad en la causa, valorizar manualmente |
+   | inciti sin ventas parecidas (404 que no se cobra) | Sin ventas parecidas para tasar |
+   | Falla de inciti o de internet | Sin tasación hoy, falla del servicio |
+   | Dirección del aviso no comprobada | Dirección no comprobada |
+2. Vigencia de 6 meses. Decisión de Diego (17:34), si la tasación guardada tiene más de 6 meses el robot NO vuelve a tasar. Muestra la tasación antigua y dice qué tan antigua es. Muestra los valores de esa tasación con las celdas en amarillo, y en Observaciones dice "Esta propiedad se tasó el 3 de mayo del 2026, hace 7 meses. Se recomienda volver a valorizarla."
+3. Las tasaciones se guardan en un archivo, estado/tasaciones.csv en Supabase, con respaldo diario. Solo agrega filas.
+4. Causa con más de una casa o departamento. No se tasa. La celda del valor dice "Más de 1 propiedad en la causa, valorizar manualmente". Cómo detecta el robot esos casos se revisa en los datos guardados al empezar el paso 3.
+5. El costo del día va solo en el correo de Diego, en negrita. Ojo, el robot no puede saber cuántas de las unas 27 valorizaciones del wallet usó la oficina, y la cuenta ya pasa la UF 1 todos los meses. Por eso el texto cuenta cada tasación del robot como cobro aparte (ver TASACION_VALOR_COMERCIAL.md).
+   Decisión de Diego (17:26). El robot lleva su propio contador del mes y supone que nadie más usa las 27 valorizaciones de la base. Las primeras 27 del mes se informan como incluidas en el plan y desde la 28 como cobro aparte.
+6. El abogado nunca usa la hoja Resumen. El conteo del mes no va en esa hoja. Se propone llevarlo al correo de Diego junto al costo. Si la hoja Resumen se elimina es otro cambio, fuera de este tema.
+
+Publicación en dos noches. Primera, la tasación con sus columnas. Segunda, el conteo del mes en el correo de Diego, después de que la primera pase bien su corrida de la mañana.
+
+## 7b. Regla para elegir la propiedad (fijada el 24 de Noviembre de 2026, 17:45)
+
+Última calibración, por decisión de Diego. Es la regla de Exploracion_tasacion/prueba_inciti_regla_estricta.py (versión 2) y el robot la copia tal cual.
+1. Si el aviso trae el rol de avalúo, se busca por rol. Si no, por dirección, con hasta tres formas de escribirla. Si inciti responde con error o vacío buscando con unidad, espera 3 segundos y reintenta una vez.
+2. Solo cuenta lo HABITACIONAL. Nunca bodegas, estacionamientos, oficinas ni bienes comunes.
+3. El número de la calle calza exacto, con su cero inicial. Solo si el SII no trae ese número exacto se acepta sin el cero.
+4. El nombre de la calle tiene que parecerse, aunque el SII lo abrevie. Entre varias calles con el mismo número gana la que más se parece.
+5. Si el aviso trae unidad, la del SII calza exacta, letras incluidas. Si solo calza el número y no la letra, queda dudosa y no se tasa.
+6. Si el aviso no trae unidad, vale solo la propiedad del SII sin unidad (o con solo lote o sitio). Si hay varias, como en un condominio, no se elige ninguna.
+7. Varias unidades iguales en el mismo edificio (mismo número, mismos metros, misma manzana) se tasan con cualquiera, porque dan el mismo valor.
+8. Lo que no calza o queda dudoso va como "Tasación no encontrada" y no se cobra.
+
+Resultado de la corrida v2 (verificado, INFORMES_REPORTES/inciti_regla_estricta_v2, 230 búsquedas sin cobro). De 184 inmuebles distintos, 6 son de las comunas excluidas. De los 178 restantes se tasarían 145 (81%), 31 quedan como "Tasación no encontrada" y 2 como dudosas. Contra la regla vieja (151), 142 quedan igual, 3 se arreglan (La Capilla 1415 casa 23 en vez de bienes comunes, Lo Errázuriz 1701 departamento 107 en vez de la bodega, El Bosque 091) y 10 salen. De esos 10, 2 eran otra calle (Calle Central por Padre Alberto de Agostini, Pasaje 17 por Pasaje ocho), 6 eran una elección al azar entre varias casas o edificios (Luciérnagas 5677 A a H, El Portal 6450 casas 71 a 80, Independencia 4599 en 5 edificios, Travesía 8721 en 3 edificios, Camino al Volcán 29016 en 3 lotes, Santa María 571 departamento 501 A o B) y 2 quedan dudosas (Julio Arangua Sur 304 A, Blanco Encalada 1823 C-407). La regla vieja cobraba por esos 10 sin saber si era la propiedad correcta.
+Fallas pasajeras de inciti. En 13 búsquedas inciti no respondió (sin código de respuesta). Con el reintento se recuperaron 12 (verificado en el campo estados del .json).
 
 ## 8. Paso 3 (después de aprobar)
 

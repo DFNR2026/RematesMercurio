@@ -86,7 +86,7 @@ def recoger(x, ruta="", out=None):
     if isinstance(x, dict):
         for k, v in x.items():
             r = f"{ruta}.{k}" if ruta else k
-            if k in BUSCAR or "UF" in k and not isinstance(v, (dict, list)):
+            if k in BUSCAR or ("uf" in k.lower() and not isinstance(v, (dict, list))):
                 out.append(f"{r} = {v}")
             recoger(v, r, out)
     elif isinstance(x, list):

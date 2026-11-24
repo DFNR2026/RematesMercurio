@@ -103,3 +103,14 @@ Las rutas A, B y C comparten el primer paso, que no depende de inciti y se puede
 - Portal Innova, HousePricing sobre avalúos, https://portalinnova.cl/?p=261721
 - SII, oficio a la Comisión de Hacienda del Senado (factor 0,6), https://www.sii.cl/destacados/novedades/Oficio_Comision_Hacienda_Senado_300625.pdf
 - Medición propia, script medir_valor.py (copia en esta carpeta)
+
+## 9. Revisión del F2890 del SII (24 de Noviembre de 2026, 17:00)
+
+Se leyó desde el Chrome de Diego, en memoria y sin guardar el archivo en el disco, el zip público F2890_30-10-2026.zip del sitio de Transparencia del SII (84,8 MB comprimido, un solo .txt de 416 MB, publicado el 3 de Noviembre de 2026). Todo lo que sigue está verificado contra ese archivo.
+- Columnas. COMUNA, MANZANA, PREDIO, FECHA_INSCRIPCION, FECHA_ESCRITURA, MONTO_PESOS, MONTO_UF. El rol es MANZANA-PREDIO. No trae dirección, metros, tipo de propiedad ni datos de personas. El monto viene en pesos o en UF, según la venta.
+- Tamaño. 9.219.581 ventas de todo Chile, 347 comunas. Unas 340.000 a 470.000 por año desde 2015, y 201.420 en 2026 hasta octubre. Hay fechas mal escritas (años como 2099 o 9905), pocas.
+- Nombres. Santiago viene partida en SANTIAGO CENTRO, SANTIAGO OESTE y SANTIAGO SUR, más SAN JOSE MAIPO y TIL-TIL. Hay que traducir los nombres.
+- Cruce con las 152 propiedades tasables de la prueba de cobertura. 126 tienen al menos una venta registrada (las 21 de Santiago, San José de Maipo y Til Til no se cruzaron por el nombre). La última venta de esa misma propiedad es antigua en casi todas. Solo 3 de las 126 se vendieron en 2024 o 2025, y la mayoría entre 2010 y 2022. Calza con que se rematan propiedades compradas hace años.
+- Por manzana. De las 130 manzanas de esas propiedades, 114 tienen ventas desde 2024 (la mitad tiene 13 o más). En los edificios la manzana suele ser el mismo edificio.
+
+Conclusión. El último precio de la misma propiedad casi nunca sirve, porque es viejo. Lo que sí sirve es el precio de las ventas recientes de la misma manzana. Sin metros en el F2890, la mediana sería en UF por venta y no en UF/m², salvo que los metros de cada rol se saquen de otra fuente (el Detalle Catastral del SII o la búsqueda gratis de inciti). Queda como posible respaldo o comparación de la tasación de inciti, no como reemplazo.

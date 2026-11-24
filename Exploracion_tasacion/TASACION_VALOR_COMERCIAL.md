@@ -1,4 +1,4 @@
-# Columna "Valor comercial" con inciti. Estado al 24 de Noviembre de 2026, 12:30
+# Columna "Valor comercial" con inciti. Estado al 24 de Noviembre de 2026, 16:45
 
 Documento único de este tema. Reúne lo probado, lo decidido y lo pendiente. Los anteriores (EXPLORACION_INCITI.md del 14 de Noviembre, EXPLORACION_ALTERNATIVAS.md y RESPUESTA_INCITI_24NOV.md del 24 de Noviembre) quedan como registro. Fase de diseño, sin cambios en el robot.
 
@@ -41,11 +41,49 @@ Tasación (n=2)
 
 Los dos PDF oficiales (13 páginas cada uno) no traen RUT, teléfonos, correos ni propietarios. El único nombre de persona es el del tasador, que es el de la cuenta. La página web muestra además un rango conservador y optimista (casa 6.588 a 7.733 UF), que el PDF no trae (supuesto que la API lo trae en algún campo, sin revisar).
 
-## 3. Costo
+## 3. Costo y plan de inciti
 
-Semana del 16 al 22 de Noviembre, 35 causas (contadas por Diego). 35 / 7 = 5 al día. 5 × 30 = 150 tasaciones al mes. 150 × 0,0371 = 5,6 UF al mes, unos $230.000 con la UF a $41.399. Es un techo, porque no se tasan las causas sin dirección comprobada, las que no son casa o departamento ni los 404. Según los abogados, de diciembre a febrero bajan los remates y las publicaciones, porque los jueces suelen tomarse vacaciones (dicho por Diego).
+### Lo que dice el contrato (verificado en los documentos que mandó el abogado el 24 de Noviembre)
 
-La cuenta JFNA la usa también la oficina (búsquedas de personas a 0,0200 UF y valorizaciones a 0,0371 UF). El plan es 1 UF mínima más 1 UF de adicionales, con sobreconsumo permitido.
+Hay dos documentos y no dicen lo mismo. Vale el de Términos y Condiciones, que es el plan aceptado.
+
+| | Propuesta comercial (10 de marzo de 2026) | Términos y Condiciones (12 de marzo de 2026), el que vale |
+|---|---|---|
+| Wallet para búsquedas e informes | UF 2 | **UF 1** |
+| Insights | Insights Lite incluido. PRO+, Mercado Extra y Harry IA marcados "NO" | "Insights" UF 1 al mes (no dice Lite ni PRO+) |
+| Total plan base mensual | UF 2 + IVA | UF 2 + IVA |
+| Duración | 12 meses, después mes a mes | 6 meses desde el 1 de marzo de 2026, después mes a mes |
+
+Precio por consulta en los dos. Búsqueda de Inmuebles UF 0,02, Búsqueda de Personas UF 0,02, Informe de Valorización UF 0,0371 e Informe Comercial UF 0,0371. Los precios no incluyen IVA. La integración API está incluida en todos los planes. Se factura el último día del mes con la UF del primer día del mes siguiente. Un cambio de plan pedido antes del día 26 rige desde el mes siguiente. Para terminar hay que pedir la baja por ticket con 10 días de anticipación.
+
+Facturación de la cuenta (pantallazos de Diego) calza con los Términos y Condiciones. Facturación mínima UF 1 (el wallet), adicionales UF 1 (el módulo Insights) y sobreconsumo igual al consumo menos UF 1.
+
+Las "27 valorizaciones" del plan son UF 1 dividido por UF 0,0371 (26,95). No son 27 valorizaciones gratis aparte. Es el mismo wallet de UF 1 que también gastan las búsquedas de personas y de inmuebles de la oficina. La oficina consumió más de UF 1 en cada uno de los últimos 6 meses (de UF 1,062 a UF 2,622), así que **el wallet ya se agota con el uso de la oficina y cada tasación del robot sería sobreconsumo a UF 0,0371 más IVA**.
+
+Búsqueda de la API. Las 281 búsquedas de la API del 24 de Noviembre (26 de las pruebas y 255 de la cobertura) no movieron el contador, que siguió en 81 (verificado por Diego). No se cobran.
+
+### Costo estimado del robot
+
+Semana del 16 al 22 de Noviembre, 35 causas (contadas por Diego), unas 150 al mes. La cobertura dice que se tasaría un 85% fuera de Las Condes, Vitacura y Lo Barnechea. 150 × 0,85 = 128 tasaciones. 128 × 0,0371 = 4,7 UF al mes, con IVA 5,6 UF, unos $234.000 (UF a $41.399). Es un techo, porque la muestra de la cobertura son avisos de todas las tablas y no solo de la principal. De diciembre a febrero bajan los remates (dicho por los abogados).
+
+### Costo con el wallet (corrección de Diego, 16:38, y ajuste de 16:42)
+
+Diego aclara que las búsquedas de personas son uso propio del abogado y no entran en la cuenta del robot, y que abrir una cuenta aparte solo para propiedades no conviene (sumaría otro plan base). Se acepta. La forma limpia de medir es cuánto agrega el robot a la factura.
+- La cuenta ya pasó la UF 1 del wallet todos los meses de los últimos seis (1.062 a 2.622, pantalla de Facturación). Por eso las unas 27 valorizaciones del wallet ya se gastan hoy y cada tasación del robot se cobra aparte.
+- Costo que agrega el robot = (tasaciones del robot − valorizaciones que la oficina deja de hacer a mano) × 0,0371 UF + IVA. Cada tasación sale a unos $1.830 con IVA.
+- Techo, si la oficina no hacía ninguna a mano, 128 × 0,0371 = 4,7 UF, con IVA 5,6 UF, unos $234.000 al mes. Baja con cada valorización a mano que se deja de hacer y con las tasaciones guardadas que se reutilizan.
+- Diego (16:54) aclara que no hay un número claro de valorizaciones a mano, porque dependen de si la propiedad calza con el mandamiento. Se trabaja con el techo.
+- Pregunta a inciti por el precio de PRO+, pendiente por decisión de Diego.
+
+### Otros módulos
+
+- Insights PRO+, Mercado Extra y Harry IA no están contratados (marcados "NO" en la propuesta, ausentes en los Términos y Condiciones). Su "ilimitado" vale solo si se contratan.
+- Insights (incluido, UF 1 al mes). En la plataforma es ilimitado. En la API solo existe /get_insights_pro, que pide el módulo PRO+. Con el plan actual probablemente responde 403 (supuesto). Según el manual, una respuesta rechazada no se cobra y Insights PRO+ no cobra por consulta.
+- Informe Comercial y Búsqueda de Personas son por RUT y no sirven para este tema (dicho por Diego).
+
+### Confidencialidad (cláusula 7 de los Términos y Condiciones)
+
+La información sobre el funcionamiento de la plataforma que recibe el usuario es confidencial y no se puede divulgar a terceros. Los servicios searchengine los entregó inciti por ticket y no están en su manual público. El repositorio es público y desde el commit dbbe1a9 los trae en los scripts y documentos de esta carpeta. Decisión de Diego (16:38), se deja como está, la cláusula apunta a competidores.
 
 ## 4. Decisiones de Diego (24 de Noviembre)
 
@@ -63,7 +101,8 @@ La cuenta JFNA la usa también la oficina (búsquedas de personas a 0,0200 UF y 
 - **Sin PDF en el correo.** El enlace al informe va en el Excel.
 - **Lo más importante.** Una columna "Resultado Valorización" con el valor de venta en UF y en pesos, por ejemplo "Venta UF 7.160,45 $296.432.383", para no tener que abrir el PDF.
 - Decisión de Diego (12:26). El valor va en **dos columnas separadas**, una en UF y otra en pesos, para poder ordenar por valor. El enlace al PDF va en otra columna.
-- Los edificios inscritos con un rango de números siguen sin respuesta.
+- Edificios con rango de números. Se busca primero por rol cuando el aviso lo trae. Si no se encuentra, el Excel dice "Tasación no encontrada" (decisión de Diego, 15:56).
+- El abogado considera irrelevante el caso de los edificios con rango ("hilar muy fino"). No se trabaja más. El ticket de inciti se cierra solo con un agradecimiento (16:13).
 
 ## 5. Propuestas de Claude que siguen abiertas
 
@@ -73,18 +112,28 @@ La cuenta JFNA la usa también la oficina (búsquedas de personas a 0,0200 UF y 
 - Vigencia de una tasación guardada antes de pagar otra (ejemplo, 6 meses). Sin decidir.
 - La tabla de tasaciones en Supabase, solo agrega filas, con rol, comuna, dirección del SII, coordenadas, fecha, valor UF y pesos, m², destino y pdfUrl. Nunca datos de propietarios.
 
-## 6. Pendientes, en orden
+## 6. Pendientes, en orden (actualizado a las 16:20)
 
-1. Respuesta del abogado sobre los edificios con rango de números (lo del PDF ya está respondido, va el enlace en el Excel).
-2. Medir la búsqueda con más causas. Como es gratis, se puede correr sobre todas las causas de la principal de los Excel recientes para medir cuántas se encuentran y cuántas son habitacionales, sin costo. Diego baja los Excel a INFORMES_REPORTES.
-3. Paso 2, diseño. Columnas (valor en UF y en pesos, enlace al informe), Observaciones para el abogado cuando no hay valor (no encontrada, no habitacional, sin comparables, sin dirección comprobada), conteo mensual, tabla de tasaciones, vigencia y aviso de republicado. Dónde va en la corrida, porque cada tasación tarda unos 30 segundos.
-4. Key de producción como secreto nuevo de GitHub (INCITI_API_KEY) y en config.py. Hoy está en config.py como INCITI_API_KEY_PRODUCCION y INCITI_API_KEY_STAGING.
-5. Paso 3. Escribir en copia, probar, fijar cifras esperadas y publicar con Claude Code, con decisión de Diego.
-6. Commit de Exploracion_tasacion (los .md y los scripts de prueba) con Claude Code.
-7. Borrar INFORMES_REPORTES\inciti_staging, inciti_produccion, inciti_aciertos, inciti_tasacion y _paq_aciertos.tgz cuando ya no se necesiten (lo importante está en este archivo).
+1. Diego corre prueba_inciti_cobertura.py (solo búsquedas, gratis, unas 200 a 400 consultas, de 3 a 5 minutos). Mide con 200 inmuebles de la RM de las ediciones guardadas cuántos se encuentran, cuántos se tasarían y, en los 18 con rol impreso, si la dirección da el mismo rol.
+2. Diego revisa DISENO_VALOR_COMERCIAL.md (paso 2) y decide sus 6 puntos abiertos.
+3. Paso 3. Escribir en copia, probar, fijar cifras esperadas y publicar con Claude Code, con decisión de Diego.
+4. Decidir qué parte de Exploracion_tasacion entra al repositorio público (ver nota en el chat del 24 de Noviembre). Hoy está sin commit.
+
+Hecho el 24 de Noviembre. ESTADO_PROYECTO.md anotado (16:10). Borradas las carpetas de prueba de INFORMES_REPORTES y el paquete temporal (16:20).
 
 ## 7. Archivos de esta fase (D:\Mercurio\Exploracion_tasacion)
 
 - prueba_inciti_staging.py, prueba_inciti_produccion.py, diag_inciti_rol.py, prueba_inciti_aciertos.py y prueba_inciti_tasacion.py. Leen la key de config.py sin imprimirla y borran datos de personas antes de guardar. Su filtro de datos de personas da falsos positivos ("pricePerSquareMeterUtil" y enlaces), sin datos reales borrados.
+- prueba_inciti_cobertura.py, medición de la búsqueda con 200 inmuebles (lista, sin correr).
+- DISENO_VALOR_COMERCIAL.md, diseño del paso 2 para aprobar.
 - medir_valor.py, medición de lo que traen los avisos.
 - EXPLORACION_INCITI.md, EXPLORACION_ALTERNATIVAS.md y RESPUESTA_INCITI_24NOV.md, registro.
+
+## Cierre del diseño (24 de Noviembre de 2026, 17:45)
+
+- Regla para elegir la propiedad fijada con la corrida v2, sin más calibraciones (decisión de Diego). Detalle y cifras en DISENO_VALOR_COMERCIAL.md, sección 7b. Con esa regla se tasarían 145 de 178 inmuebles fuera de las comunas excluidas (81%). La regla vieja daba 151, pero 10 eran otra calle o una elección al azar.
+- Decisiones de Diego del diseño en DISENO_VALOR_COMERCIAL.md, sección 7. Textos cortos en la celda del valor cuando no hay valor, sin volver a tasar pasados 6 meses (se muestra la tasación antigua en amarillo con su antigüedad), archivo estado/tasaciones.csv, sin tasar causas con más de una propiedad, costo del día en negrita en el correo de Diego con contador propio (27 de la base y luego cobro aparte), conteo del mes en el correo de Diego y no en la hoja Resumen, publicación en dos noches.
+- F2890 del SII revisado (EXPLORACION_ALTERNATIVAS.md, sección 9). Sirve solo como respaldo por manzana. En pausa.
+- Pregunta a inciti por el precio de PRO+, pendiente por decisión de Diego.
+- Siguiente paso, el paso 3, solo con la decisión explícita de Diego.
+
