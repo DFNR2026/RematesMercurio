@@ -136,4 +136,5 @@ Hecho el 24 de Noviembre. ESTADO_PROYECTO.md anotado (16:10). Borradas las carpe
 - F2890 del SII revisado (EXPLORACION_ALTERNATIVAS.md, sección 9). Sirve solo como respaldo por manzana. En pausa.
 - Pregunta a inciti por el precio de PRO+, pendiente por decisión de Diego.
 - Siguiente paso, el paso 3, solo con la decisión explícita de Diego.
+- Paso 3 (24 de Noviembre de 2026, 18:12). Código en la rama tasacion de GitHub (commit 16dce6b), no en main. Ensayo del 24 sin tasaciones (todas las causas ya informadas), costo 0. Pausa hasta Diciembre por decisión de Diego, cuando rige el plan nuevo de inciti. En Diciembre se ajustan COSTO_UF y BASE_PLAN de motor/tasacion.py al plan nuevo.
 

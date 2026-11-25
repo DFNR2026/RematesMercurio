@@ -114,4 +114,9 @@ Fallas pasajeras de inciti. En 13 búsquedas inciti no respondió (sin código d
 
 ## 8. Paso 3 (después de aprobar)
 
+Estado al 24 de Noviembre de 2026, 18:20. Escrito y probado en copia, listo en INFORMES_REPORTES/paso3_tasacion (ver su LEEME_PASO3.md). Cambio respecto de lo de arriba, servidor/diario.py no necesitó otro archivo, y motor/edicion.py y motor/filtros.py llevan dos campos internos más (calle y dirección comprobada). Falta el ensayo en GitHub desde la rama tasacion.
+
+Ensayo del 24 de Noviembre de 2026 (rama tasacion, commit 16dce6b). Corrió sin errores, la key no aparece en el log y bajó la memoria de tasaciones, pero no tasó porque todas las causas del día ya estaban informadas (regla de los 4 días). Costo 0. Queda para Diciembre, con el plan nuevo de inciti, un interruptor de ensayo que no baje el historial y un ensayo con tasación real antes de unir la rama a main.
+
+
 Escribir motor/tasacion.py y los cambios de main.py, modulo5_reporte.py y servidor/diario.py en una copia fuera de D:\Mercurio. Pruebas con respuestas de inciti grabadas (sin cobro). Una corrida de ensayo en GitHub (el correo va solo a Diego) con unas pocas tasaciones reales. Cifras esperadas fijadas por escrito antes de publicar. Commit y push con Claude Code, un cambio por noche, después de que la anterior pase su corrida real.
