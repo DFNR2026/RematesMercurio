@@ -1,0 +1,43 @@
+# Prueba exploratoria del PJUD desde GitHub Actions, sin PC (decisión de Diego del 26 de Noviembre de 2026).
+# Corre solo cuando se sube la rama prueba-ojv-nube. No toca el robot, no usa secretos y no cobra.
+name: Prueba OJV en la nube (exploracion)
+
+on:
+  push:
+    branches: [prueba-ojv-nube]
+
+permissions:
+  contents: read
+
+jobs:
+  prueba:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Instalar Playwright y revisar Chrome
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright --version
+          if ! command -v google-chrome >/dev/null; then python -m playwright install --with-deps chrome; fi
+          google-chrome --version
+          if ! command -v xvfb-run >/dev/null; then sudo apt-get update && sudo apt-get install -y xvfb; fi
+      - name: Probar una causa en la OJV
+        env:
+          ROL: "610"
+          ANIO: "2025"
+          CORTE: "90"
+          TRIBUNAL: "288"
+          SALIDA: resultado
+        run: xvfb-run -a python Exploracion_PJUD/prueba_nube/prueba_ojv_nube.py
+      - name: Guardar capturas y resumen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prueba-ojv-nube
+          path: resultado/
+          retention-days: 7
