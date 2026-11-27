@@ -222,6 +222,129 @@ Recomendación de Claude. Primero un piloto con la opción A durante unos 5 día
 
 No dentro de las reglas de esta fase. Todo lo medido funciona porque es un Chrome real, en un PC con IP de casa y con una persona que puede resolver un CAPTCHA. Para hacerlo sin ningún PC encendido habría que usar un navegador en un servidor (GitHub, un VPS o la nube), y eso es un navegador automatizado con IP de centro de datos, justo lo que el WAF bloqueaba en Julio y lo que Diego excluyó. Los servicios de terceros (Bright Data, Zyte) también quedan fuera por sus reglas. Por eso el robot de las 5 vive bien en GitHub, porque El Mercurio no tiene esa protección, y la parte del PJUD necesita un PC encendido (el de Diego o el del abogado). Lo que sí puede cambiar después del piloto es cuánto hay que estar mirando. Si en muchos días no aparece ningún CAPTCHA, Diego puede decidir probar una tarea programada a una hora fija (opción C), que se detiene sola si aparece uno. Igual necesita el PC encendido, con Chrome visible y la app de Claude abierta.
 
+## 9f. Decisiones y preguntas de Diego (26 de Noviembre, 11.04)
+
+1. La columna se llama Deuda (término más amplio, porque en Ley de Bancos no hay mandamiento). Va en UF y al lado en CLP. Corrige el nombre "deuda/mandamiento" anotado en 9d, que queda como registro.
+2. Si el documento trae una sola moneda, la otra celda queda en blanco. No se convierte.
+3. Diego pregunta si existe un Chrome en la nube que una IA maneje sin ningún PC encendido, como GitHub Actions, y propone intentarlo igual porque no está probado.
+
+## 9g. Chrome en la nube, lo que se sabe (26 de Noviembre)
+
+Verificado en la documentación de Anthropic leída el 26 de Noviembre. Las tareas programadas de Claude corren en la nube sin ningún dispositivo encendido, pero cuando una tarea maneja Chrome necesita la app de escritorio abierta y conectada. Los navegadores documentados para Claude son el que trae la app de escritorio y el Chrome del usuario con la extensión, los dos en un PC. No se encontró en la documentación un Chrome de Anthropic en la nube que Claude pueda manejar sin PC. En esta sesión de chat tampoco hay una herramienta de navegador en la nube.
+
+Corrección de lo dicho en 9e. Ahí se escribió que un navegador en un servidor es "justo lo que el WAF bloqueaba en Julio". Es impreciso. Lo verificado en ENTRAMPADOS.md es que el bot con Playwright en el PC de Diego (IP de casa) pasaba la primera búsqueda y caía en la segunda por la cookie, que recargando pasó 3 o 4 búsquedas y que cerca de la tercera causa cayó por el análisis de comportamiento. Bright Data y Zyte, que son navegadores en la nube, sí pasaron el WAF, pero esos servicios lo logran ocultando la automatización y resolviendo el CAPTCHA solos (sección 12.5 de ENTRAMPADOS, "CAPTCHA se resuelve solo"), que es lo que Diego prohibió. Un navegador común en un servidor, sin esos trucos, nunca se probó contra la OJV. Que se bloquee es un supuesto.
+
+Forma honesta de probarlo, sin PC y sin trucos (propuesta de Claude, sin decidir). Un flujo de prueba aparte en GitHub Actions, en una rama propia y a mano, con un Chrome normal manejado por un script, sin opciones para esconder la automatización y sin resolver CAPTCHA. Una sola causa del Excel, recargando la portada, y guardando capturas y el texto de lo que vio en cada paso (formulario, CAPTCHA, página de F5 o resultado). Si aparece cualquier desafío se detiene y lo anota. No toca el robot y no cobra. Requiere que Diego levante para esta prueba su regla de no usar Playwright ni un navegador automatizado propio, porque sin PC no hay otra forma de que alguien haga los clics.
+
+## 9h. Prueba en la nube con GitHub Actions (26 de Noviembre, preparada antes de correr)
+
+Decisión de Diego del 26 de Noviembre, 11.14. Levanta para esta prueba la regla de no usar un navegador automatizado propio. Aclaración de Claude, lo que se prueba sí es Playwright manejando un Chrome común, porque sin PC alguien tiene que dar los clics y ese alguien es un script.
+
+Archivos en Exploracion_PJUD/prueba_nube. prueba_ojv_nube.py (el script) y prueba_ojv_nube.yml (el flujo, que va a .github/workflows solo en la rama prueba-ojv-nube y corre al subir esa rama). No toca el robot (ningún flujo del robot se dispara con un push, verificado en los cinco .yml), no usa secretos, no cobra.
+
+Qué hace. Google Chrome del servidor, ventana visible con xvfb, sin argumentos extra, sin cambiar el agente de usuario ni navigator.webdriver, sin resolver CAPTCHA. Una causa, C-610-2025 del 30° Civil (la del 25 de Noviembre, ya conocida). Portada, Escape para el aviso, Consulta causas, Civil, Corte 90, tribunal 288, C, rol, año, Buscar y detalle, con pausas fijas de 1 a 3 segundos y 10 a 15 segundos de espera tras Buscar y tras el detalle. En cada paso guarda captura, largo del texto, firmas de bloqueo de F5, si hay un reCAPTCHA con desafío visible y los nombres de las cookies (sin valores). No abre Litigantes ni PDF. Tapa cualquier RUT en el resumen. Si ve un bloqueo, se detiene.
+
+Probado en la nube de Claude el 26 de Noviembre sobre páginas falsas (Python 3.12, Playwright 1.63.0, Google Chrome y xvfb). Con una OJV falsa llega al detalle (LLEGA_AL_DETALLE en 46,6 s) y tapa el RUT. Con una página de bloqueo de F5 se detiene en la portada (BLOQUEO_EN_PORTADA). No se pudo probar contra la OJV real desde ahí.
+
+Resultados posibles, fijados antes de correr. LLEGA_AL_DETALLE con "Ley de Bancos" y los cuadernos 1 Principal y 2 Medida precautoria (lo mismo que se vio el 25 de Noviembre en el Chrome de Diego). BLOQUEO_EN_PORTADA, BLOQUEO_EN_FORMULARIO, BLOQUEO_AL_LLENAR, BLOQUEO_AL_BUSCAR o BLOQUEO_EN_DETALLE (página de F5 o CAPTCHA visible). SIN_RESULTADOS (posible rechazo callado del reCAPTCHA v3 del botón Buscar, porque la causa sí existe). NO_LLEGA_AL_FORMULARIO, FALLA_AL_LLENAR o RESULTADO_NO_RECONOCIDO (cambio de la página o falla del script, se revisa con las capturas). Apuesta de Claude, unos 65% de que termine en un BLOQUEO o en SIN_RESULTADOS, basada en Julio (el bot caía incluso desde la IP de casa) y en que aquí la IP es de un centro de datos. Si llega al detalle, es una sola causa (n=1) y no prueba que se sostenga con 10.
+
+## 9i. ¿Existe un reemplazo de Claude que maneje un Chrome en la nube? (26 de Noviembre)
+
+Sí existen, verificado en la web el 26 de Noviembre. ChatGPT Work tiene un navegador en la nube que sigue trabajando con el PC apagado. Browserbase y servicios parecidos venden navegadores en la nube para agentes de IA. Pero los planes que pasan sitios protegidos incluyen modo sigiloso, proxies residenciales y resolución automática de CAPTCHA, que es lo que Diego prohibió (el plan gratis de Browserbase no trae nada de eso). Y la IA no hace falta para navegar, porque los pasos son siempre los mismos, un script basta. Por eso la prueba de GitHub Actions responde también esta pregunta. Si un Chrome común en un servidor pasa, un agente en la nube también podría. Si se bloquea, los únicos que pasarían son los que esconden la automatización.
+
+## 9j. Resultado de la prueba en la nube (26 de Noviembre, corrida 45837987347, verificado por Claude en el disco)
+
+Fuentes. Reportes_Claude_Code/REPORTE_PRUEBA_OJV_NUBE_2026-11-26.md, INFORMES_REPORTES/prueba_ojv_nube (resumen.json, resumen.md, 01_portada.png, 02_formulario.png y log.txt) y git. Rama prueba-ojv-nube en 1f7f084 con solo los dos archivos (281 inserciones). main sigue en 0cf5aa7, igual a origin/main.
+
+| Paso | Segundos | URL | Qué pasó |
+|---|---|---|---|
+| 01_portada | 17,3 | home/index.php | Cargó la portada completa con el sello de reCAPTCHA. No apareció el aviso semanal que sí sale en el Chrome de Diego. Cookies BIGipServer, PHPSESSID, TS01262d1d, TS3ee74f51027 y _GRECAPTCHA |
+| 02_formulario | 44,4 | loginN.php | Tras el clic en Consulta causas la página pasó a loginN.php con el título "La URL solicitada ha sido rechazada", el texto ". (2) ." y "Su numero de soporte es". Aparecieron las cookies de desafío de Shape TSPD_101, TS9fb3b593029 y TS9fb3b593078. El script esperó el formulario 25 s y cortó |
+
+Conclusión (n=1). Desde un servidor de GitHub, con un Chrome común manejado por Playwright y sin trucos, el WAF F5 rechazó la entrada al formulario como Invitado. La portada carga, la consulta no. Cae dentro de la apuesta fijada antes de correr (bloqueo o sin resultados, 65%). Coincide con ENTRAMPADOS.md sección 14.3, donde un navegador sin la sesión de invitado rebota a loginN.php.
+
+Corrección de Claude sobre su propio script. El resultado salió como NO_LLEGA_AL_FORMULARIO y no como BLOQUEO_EN_FORMULARIO porque las firmas de bloqueo del script estaban solo en inglés ("requested url was rejected", "your support id") y la OJV mostró la página en español ("La URL solicitada ha sido rechazada", "Su numero de soporte es"). El bloqueo sí ocurrió, lo prueban el título y la captura. Para una próxima prueba hay que agregar las firmas en español.
+
+Peso de lo que hizo Claude Code. Siguió después de encontrar dos veces "secret" en la búsqueda de claves, aunque el texto decía detenerse. Las dos son la palabra "secretos" en comentarios (línea 8 del .py y línea 2 del .yml, verificado por Claude), sin ningún valor, así que el riesgo fue nulo. La lista de patrones la escribió Claude y estaba mal elegida, porque "secret" calza con "secretos". Agregó la línea Co-Authored-By de su sesión. Dejó el worktree D:\Mercurio_prueba_ojv sin borrar, como se pidió. Avisó que upload-artifact@v4 usa Node 20.
+
+Lo que queda abierto, sin decidir. Repetir la prueba para tener n mayor que 1 (con las firmas en español). Probar un agente de IA con navegador en la nube de otro proveedor (Diego, 26 de Noviembre, "toca testear esto si llega a fallar lo demás"). Borrar o conservar la rama prueba-ojv-nube y el worktree.
+
+## 9k. ¿Sirve el plan gratis de ChatGPT para la prueba? (26 de Noviembre, verificado en help.openai.com)
+
+No. El navegador en la nube de ChatGPT Work está en los planes de pago, excepto Free y Go. En la app de escritorio el plan gratis sí trae ChatGPT Work, pero sin ese navegador en la nube, así que no prueba lo que se quiere (trabajar sin PC). La misma ayuda de OpenAI reconoce que algunos sitios bloquean las tareas del navegador en la nube y que esas restricciones las pone el sitio. Probarlo exige pagar un plan (por ejemplo Plus). Decisión pendiente de Diego.
+
+## 9l. Decisiones de Diego y cuentas de Claude para el abogado (26 de Noviembre, 14.25)
+
+Decisión de Diego. Se descarta probar ChatGPT (la tarjeta fue rechazada al activar el mes gratis de Plus). Se sigue con lo que ya funciona, Claude en un Chrome real.
+
+Pregunta de Diego. Si el abogado usará la app de Claude en su PC, ¿se puede crear un perfil secundario en la misma cuenta de Diego para que el abogado no vea sus chats y proyectos?
+
+Respuesta de Claude (verificado en support.claude.com el 26 de Noviembre). En la documentación no aparece una función de perfiles dentro de una cuenta personal (supuesto que no existe, no se encontró). La ayuda dice que los planes de suscripción solo los pueden usar sus suscriptores, y en el plan Team cada asiento es solo de la persona asignada, sin compartir la clave ni dejar que otro use la cuenta. Por eso no corresponde que el abogado use la cuenta de Diego con otro perfil. Caminos que sí calzan. Que el abogado (o la oficina) tenga su propia cuenta pagada, porque Claude in Chrome pide plan pagado. O un plan Team con dos asientos, uno para Diego y otro para el abogado, cada uno con su cuenta separada. Team pide mínimo dos miembros, y quien ya tiene cuenta personal puede tener las dos y cambiar entre ellas.
+
+## 9m. Ideas de Diego para la versión final y plan de validación (26 de Noviembre, 14.35)
+
+Ideas de Diego. 1) Que Claude tome solo el informe desde Gmail, aunque el PC esté apagado, y que al prender el PC el abogado solo dé la orden. El correo que recibe el informe también lo usa Diego. 2) Usar las tareas programadas de Claude, sabiendo que el abogado deja el PC apagado, y resolver cómo se dispara al prenderlo. 3) Antes de comprar el plan Team (Diego vio USD 20 por puesto al mes con pago anual y USD 25 con pago mensual, mínimo dos puestos), dejar todo funcionando y validado al 100% en el PC de Diego.
+
+Lo verificado en la documentación de Anthropic (26 de Noviembre).
+Gmail. La página actual de conectores de Google dice que Claude puede abrir adjuntos de hasta unos 12 MB (en el chat necesita la ejecución de código activada). Otra versión de la misma página dice que solo ve los datos del adjunto y no su contenido. Hay contradicción, así que se prueba antes de contar con eso. El conector de Gmail lee y busca, y según claude.com no envía correos.
+Tareas programadas. Las de Cowork corren en la nube aunque el PC esté apagado y usan los conectores. Cuando necesitan el navegador o archivos del PC, llegan a él por la app de escritorio, y si la app está desconectada no lo alcanzan. Sobre una tarea que pierde su hora hay versiones distintas. La guía de Claude Academy dice que Cowork la corre apenas se vuelve. La guía vieja de Claude Code Desktop dice que se salta. Se prueba.
+Conector de Gmail. Está instalado en la cuenta de Diego pero no conectado (verificado en el registro de conectores).
+
+Diseño propuesto, sin decidir. Una tarea en la nube lee temprano el correo del día con el Excel (PC apagado). Cuando el PC está prendido con Chrome y la app de Claude abiertos, Claude recorre las causas de la tabla principal en Chrome, lee la deuda con las reglas fijadas y deja una copia del Excel con las columnas Deuda UF, Deuda CLP y una observación. El disparo al prender el PC se resuelve con lo que muestre la prueba (corre sola al volver, o el abogado aprieta "ejecutar" o escribe una frase).
+
+Plan de validación en el PC de Diego, propuesto. V1 armar el flujo completo una vez con el Excel del día. V2 probar el disparo con el PC apagado a la hora de la tarea. V3 piloto de 5 días hábiles. Criterios de aprobado propuestos para fijar antes de V3. Los 5 días terminan. Cada causa de la principal tiene Deuda o una observación que dice por qué no. Diego compara a mano 5 causas por día con el PDF y no aparece ningún monto equivocado. Los CAPTCHA se anotan y no pasan de 1 en los 5 días. El trabajo diario no pasa de 30 minutos. No se guardan RUT, teléfonos ni correos.
+
+## 9n. Puente Gmail probado (26 de Noviembre, 14.50, verificado)
+
+Diego conectó la Gmail del robot (la que recibe el informe junto al abogado) al conector Gmail de Claude. Claude buscó el correo "Remates El Mercurio, jueves 26 de noviembre del 2026" (enviado a las 5.07), leyó su texto ("Trae 13 causa(s) nueva(s)") y bajó el adjunto "Reporte 26 de noviembre del 2026.xlsx" con la herramienta download_gmail_attachment. 10.846 bytes, igual que informes/ en Supabase. Abre bien y trae 13 causas en la tabla principal. Copia en INFORMES_REPORTES ("Reporte 26 de noviembre del 2026 (desde Gmail).xlsx", sha256 703134b8...). No hace falta el puente con Supabase.
+
+Corrección de 9m. Ahí se anotó que el conector de Gmail no envía correos (según claude.com). El conector conectado hoy pidió permisos para leer, redactar y enviar, y trae herramientas para crear borradores y enviar. Nota de Claude, en una tarea programada sin nadie mirando, Claude no envía correos a nombre de nadie sin una aprobación en el momento, así que la salida más segura es un borrador en Gmail o un archivo, y el envío lo hace una persona.
+
+Orden de Diego para la versión final (26 de Noviembre, 14.44). PC apagado, GitHub corre el robot, el informe llega al correo, una tarea de Claude toma el informe y queda en pausa. PC prendido, el abogado entra a la app de Claude, escribe o hace algo y parte todo. Plan de Diego, hoy con su PC prendido y mañana 27 de Noviembre con el PC apagado para ver cómo se procede al prenderlo.
+
 ## 10. Correcciones
 
 (Ninguna todavía.)
+
+Al 26 de Noviembre, 15.40, la línea de arriba quedó vieja (se conserva). Correcciones anotadas en su sección. 9d a 9f, el nombre de la columna pasa de "deuda/mandamiento" a "Deuda". 9e a 9g, era impreciso decir que un navegador en un servidor es lo que el WAF bloqueaba en Julio. 9h a 9j, el script de la prueba en la nube clasificó como NO_LLEGA_AL_FORMULARIO un bloqueo real, porque sus firmas de bloqueo estaban solo en inglés. 9m a 9n, el conector de Gmail conectado sí puede redactar y enviar, no solo leer. Sección 6, la elección de C-610-2025 como ejecutivo resultó falsa (era Ley de Bancos).
+
+## 11. Reglas para llegar a la deuda (lo aprendido al 26 de Noviembre, se corrige abajo si cambia)
+
+Navegación (verificado con 4 causas en el Chrome de Diego, n=4).
+1. Chrome real de Diego con la extensión Claude in Chrome, ventana visible y sin minimizar (minimizada, la extensión no saca capturas).
+2. Antes de cada causa, recargar desde home/index.php. Cerrar el aviso semanal con "Cerrar", entrar a "Consulta causas" como Invitado.
+3. Búsqueda por RIT. Competencia Civil, Corte por su value (C.A. de Santiago 90, C.A. de Valparaíso 30, C.A. de San Miguel 91), tribunal por su texto o value (los textos usan º con o volada, por ejemplo "30º Juzgado Civil de Santiago" value 288, "3º" value 261), libro C, rol y año. Pausas de 1 a 3 segundos entre pasos.
+4. Abrir solo la fila con el rol y el año exactos. No abrir la pestaña Litigantes (trae RUT).
+5. Leer "Proc." en el encabezado del detalle.
+6. Los enlaces a documentos vencen. Una sesión quieta 2 horas devuelve una página en blanco al abrir un PDF. Si pasa, recargar desde la portada.
+7. Ante cualquier CAPTCHA o la página "La URL solicitada ha sido rechazada" / "The requested URL was rejected", detenerse y avisar. No reintentar.
+
+Documento según el procedimiento (regla vieja de 8edd5ee^ más lo aprendido).
+| Procedimiento | Cuaderno | Documento | Qué número va a Deuda |
+|---|---|---|---|
+| Ejecutivo Obligación de Dar | 2 Apremio Ejecutivo Obligación de Dar (Claude lo cambia solo con el selector) | Folio con etapa Mandamiento y trámite Mandamiento, buscando desde los folios bajos (en las 2 causas fue el folio 1) | La suma que manda pagar el mandamiento, en la moneda en que viene |
+| Desposeimiento | Apremio | Mandamiento | Igual que el ejecutivo (sin caso medido todavía) |
+| Ley de Bancos | 1 Principal (no hay Apremio ni mandamiento) | El escrito más reciente que traiga la liquidación del crédito ("Presenta bases corregidas", "Propone nueva liquidación", "Solicita liquidación"). Si no hay, "Propone bases de remate" | La liquidación del crédito (es deuda). El mínimo de las bases no es deuda, se anota solo en la observación si sirve |
+| Otros (ordinarios, liquidación concursal, partición, arbitral, mínima cuantía) | Ninguno | Ninguno | Celda vacía y la observación dice el procedimiento |
+
+Columnas de salida (decisión de Diego). Deuda UF y Deuda CLP. Si el documento trae una sola moneda, la otra queda en blanco y no se convierte. Una columna de observación con el documento usado (folio, fecha, nombre del trámite) o por qué no hay deuda.
+
+Lectura del monto. El lector viejo de modulo3_extractor.py sirve de base, con dos correcciones conocidas. Aceptar "U.F." antes del número (falló en C-8703-2020). Incluir "precio mínimo para comenzar las posturas" y "liquidación... la suma de ... Unidades de Fomento" para Ley de Bancos. Los PDF vistos traen texto, ninguno escaneado (n=6).
+
+No se guarda. RUT, nombres o domicilios de demandados, teléfonos ni correos que salen en los documentos.
+
+## 12. Plan de V1 y V2 (fijado el 26 de Noviembre, 15.40, para el chat siguiente)
+
+V1, flujo completo con el PC de Diego prendido y Diego presente. Entrada, el Excel del día bajado de la Gmail del robot con el conector Gmail (búsqueda subject:"Remates El Mercurio" has:attachment del día, herramienta download_gmail_attachment). Recorrer en Chrome todas las causas de la tabla principal con las reglas de la sección 11 (o primero 5, a decisión de Diego). Salida, una copia del Excel con las columnas Deuda UF, Deuda CLP y Observación deuda, en D:\Mercurio\INFORMES_REPORTES, y además como borrador en la Gmail del robot si Diego lo aprueba (no se envía nada sin su aprobación en el momento). Medir por causa la hora, el tiempo, si apareció CAPTCHA o F5 y el documento usado. Anotar todo aquí. Es la primera vez con más de 4 causas seguidas, que es el dato que falta.
+
+V2, el disparo con el PC apagado (pedido por Diego para el 27 de Noviembre). Una tarea programada de una sola vez, temprano (propuesta 6.30), que solo haga la parte de Gmail (bajar el Excel del día y armar la lista de causas) y termine con un mensaje que diga cuántas causas hay y que, al prender el PC con Chrome y Claude abiertos, se responda "sigue" en esa misma conversación. Diego prende el PC, entra a esa tarea y responde. Se mide si la tarea corrió con el PC apagado, si al responder la sesión alcanza el Chrome de Diego y qué tuvo que hacer Diego. La tarea no se crea sin el visto bueno de Diego.
+
+Criterios de aprobado propuestos para V3 (piloto de 5 días hábiles), a confirmar por Diego antes de partir. Los 5 días terminan. Cada causa de la principal tiene Deuda o una observación que dice por qué no. Diego compara a mano 5 causas por día con el PDF y no aparece ningún monto equivocado. No más de 1 CAPTCHA en los 5 días. No más de 30 minutos de trabajo diario. Nada de RUT, teléfonos ni correos guardados.
+
+Después de V3. Decidir entre A (PC de Diego) y D (PC del abogado con su propia cuenta, plan Team de dos puestos o cuenta pagada de la oficina) y la forma de entrega (Excel completo, borrador o segundo correo).
+
+## 13. Estado al cierre del chat del 25 y 26 de Noviembre (15.40, verificado)
+
+main y origin/main en 0cf5aa7 (bitácora hasta la sección 9e). Esta bitácora tiene sin commit las secciones 9f a 13. Exploracion_PJUD/prueba_nube (script y flujo de la prueba en la nube) sin seguimiento en main. Rama prueba-ojv-nube en GitHub en 1f7f084 con la prueba. Worktree D:\Mercurio_prueba_ojv en esa rama (desde la terminal Linux aparece como prunable porque no ve D:, desde Windows está bien). Resultados de la prueba en la nube en INFORMES_REPORTES\prueba_ojv_nube. Excel del 25 y del 26 de Noviembre en INFORMES_REPORTES. Conector Gmail conectado a la Gmail del robot en la cuenta de Claude de Diego. Supabase con la corrida del 26 de Noviembre a las 5.07 (informe, captura y enviado). El robot no se tocó en toda la fase.
+
+
